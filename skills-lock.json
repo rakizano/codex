@@ -7,6 +7,13 @@
       "sourceType": "github",
       "skillPath": "tools/video/ai-video-generation/SKILL.md",
       "computedHash": "b56dc538acd6d2714f1413784ac302929a042ea3bab494c050b42405a10c86ac"
+    },
+    "codex-pet": {
+      "source": "agentspace-so/runcomfy-agent-skills",
+      "commit": "fca19ae084c2ae4667f5c8affbb99da5103d5832",
+      "sourceType": "github",
+      "skillPath": "codex-pet/SKILL.md",
+      "computedHash": "d3367f19be0dd50d37d7ebf993f7082e7c8b568e72252df19fa80dd443c31e37"
     }
   }
 }
