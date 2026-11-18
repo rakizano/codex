@@ -29,6 +29,13 @@
       "skillPath": "free-llm-apis/SKILL.md",
       "computedHash": "5195a5cb04188bb53becbc281134386ce203cd59fd8ff02a21aca4e904fafa48"
     },
+    "headroom": {
+      "source": "headroomlabs-ai/headroom",
+      "commit": "53a2521637ec6d71a5b53e11f5698ebef96d97b1",
+      "sourceType": "github",
+      "skillPath": "skills/headroom/SKILL.md",
+      "computedHash": "a8eaac845279b8e3c094d2cd905fe39aed92d492db2dd0c0f23528bf733c725f"
+    },
     "lemo-opuscar": {
       "source": "lemomo-ai/lemo-opuscar",
       "commit": "00a7f9ec99c8686265a8ca4ed9a3fdaaf27ea6f4",
