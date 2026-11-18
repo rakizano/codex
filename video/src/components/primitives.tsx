@@ -32,7 +32,7 @@ export const KineticWord: React.FC<{text: string; at?: number; size?: number; co
   const s = usePop(at, 10);
   return (
     <div style={{position: 'absolute', left: x, top: y, transform: `translate(-50%,-50%) scale(${s}) rotate(${(1 - s) * rot * 4 + rot}deg)`, opacity: Math.min(1, s * 1.5),
-      fontFamily: FONT, fontWeight: weight, fontSize: size, color, letterSpacing: -2, whiteSpace: 'nowrap', textTransform: 'uppercase', lineHeight: 1}}>
+      fontFamily: FONT, fontWeight: weight, fontSize: size, color, letterSpacing: -2, whiteSpace: 'nowrap', textTransform: 'uppercase', lineHeight: 1, textShadow: '0 6px 26px #000a'}}>
       {text}
     </div>
   );

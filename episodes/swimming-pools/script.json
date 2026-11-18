@@ -34,7 +34,8 @@
           "text": "ce qu'il raconte ?",
           "at": "raconte"
         }
-      ]
+      ],
+      "music_break": 1.8
     },
     {
       "id": "intro",
@@ -78,7 +79,8 @@
         "choisir"
       ],
       "text": "Dans une interview au magazine Complex en 2012, il explique avoir grandi dans un foyer où il fallait choisir : boire de temps en temps, ou devenir un ivrogne. Et selon lui, c'est ça, le vrai sujet du morceau.",
-      "tts": "Dans une interview au magazine Complèxe en deux mille douze, il explique avoir grandi dans un foyer où il fallait choisir : boire de temps en temps, ou devenir un ivrogne. Et selon lui, c'est ça, le vrai sujet du morceau."
+      "tts": "Dans une interview au magazine Complèxe en deux mille douze, il explique avoir grandi dans un foyer où il fallait choisir : boire de temps en temps, ou devenir un ivrogne. Et selon lui, c'est ça, le vrai sujet du morceau.",
+      "pause_before": 0.3
     },
     {
       "id": "voices",
@@ -96,7 +98,8 @@
         "piscine",
         "noyer"
       ],
-      "text": "D'où l'image de la piscine. Pas une piscine d'eau : une piscine d'alcool, assez grande pour plonger dedans. Et pour s'y noyer."
+      "text": "D'où l'image de la piscine. Pas une piscine d'eau : une piscine d'alcool, assez grande pour plonger dedans. Et pour s'y noyer.",
+      "music_break": 1.4
     },
     {
       "id": "tiktok",
@@ -105,7 +108,8 @@
         "fête",
         "pression"
       ],
-      "text": "Alors oui, le refrain marche en soirée. Mais le morceau ne fait pas la fête : il décrit la pression du groupe, la tentation, et ce qu'on reproduit sans s'en rendre compte."
+      "text": "Alors oui, le refrain marche en soirée. Mais le morceau ne fait pas la fête : il décrit la pression du groupe, la tentation, et ce qu'on reproduit sans s'en rendre compte.",
+      "music_break": 1.6
     },
     {
       "id": "end",
@@ -115,5 +119,11 @@
       ],
       "text": "La prochaine fois que tu l'entends, tu l'écouteras de la même façon ? Dis-moi en commentaire quel morceau tu veux que je décortique."
     }
-  ]
+  ],
+  "music": {
+    "bpm": 86,
+    "swing": 0.56,
+    "root": 48,
+    "_note": "beat original générique (boom bap), pas une imitation du morceau"
+  }
 }

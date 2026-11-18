@@ -1,11 +1,15 @@
 {
- "engine": "piper",
- "voice": "~/voices/voice-fr-siwis-medium/fr-siwis-medium.onnx",
- "speed": 1.0,
+ "engine": "kokoro",
+ "voice": "ff_siwis",
+ "speed": 1.05,
+ "piper_voice": "~/voices/voice-fr-siwis-medium/fr-siwis-medium.onnx",
  "auditions": [
-  "~/voices/voice-fr-siwis-medium/fr-siwis-medium.onnx",
-  "~/voices/voice-fr-gilles-low/fr-gilles-low.onnx",
-  "~/voices/voice-fr-mls_1840-low/fr-mls_1840-low.onnx"
+  "kokoro|ff_siwis",
+  "kokoro|ff_siwis:0.6,im_nicola:0.4",
+  "kokoro|im_nicola:0.5,em_alex:0.3,ff_siwis:0.2",
+  "kokoro|im_nicola",
+  "piper|~/voices/voice-fr-siwis-medium/fr-siwis-medium.onnx",
+  "piper|~/voices/voice-fr-gilles-low/fr-gilles-low.onnx"
  ],
- "_note": "Sur ta machine : engine=piper, voice=~/voices/fr_FR-tom-medium.onnx (auditions: fr_FR-tom-medium.onnx, fr_FR-upmc-medium.onnx, fr_FR-siwis-medium.onnx)"
+ "_note": "Kokoro (Apache-2.0) via pipeline/setup_voices.sh. Mélange 'a:0.6,b:0.4'. Voix masculines Kokoro non françaises : accent possible."
 }

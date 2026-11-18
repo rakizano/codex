@@ -11,7 +11,8 @@ Commentaire épinglé (sources) : Complex, « The Making of good kid, m.A.A.d ci
 
 Hashtags : #kendricklamar #swimmingpools #histoiredunson #rapus #musique
 
-Son : ajouter le son officiel « Swimming Pools (Drank) » depuis la bibliothèque TikTok au moment de la publication, volume bas (~10–15 %) sous la narration. Le MP4 ne contient aucune musique commerciale. Compte personnel/créateur uniquement ; pour un contenu de marque, utiliser la Commercial Music Library.
+Deux fichiers : `swimming-pools_tiktok.mp4` (avec beat original — publiable tel quel) ou `swimming-pools_tiktok_voix-seule.mp4` (sans beat, recommandé si tu ajoutes le son officiel).
+Son : ajouter le son officiel « Swimming Pools (Drank) » depuis la bibliothèque TikTok au moment de la publication, volume ~25–35 % sous la narration ; les 3 moments « ♪ écoute le son ♪ » laissent le morceau s'entendre seul. Le MP4 ne contient aucune musique commerciale. Compte personnel/créateur uniquement ; pour un contenu de marque, utiliser la Commercial Music Library.
 Sous-titres : `swimming-pools.srt` (ou sous-titres auto TikTok — les sous-titres sont déjà incrustés).
 
-Crédit voix (obligatoire, CC-BY 4.0) : voix de synthèse Piper « siwis » — corpus SIWIS (Université d'Édimbourg), CC-BY 4.0.
+Crédit voix : voix de synthèse Kokoro-82M (Apache-2.0), style « siwis » — corpus SIWIS (Université d'Édimbourg, CC-BY 4.0). Musique et bruitages : créations originales.

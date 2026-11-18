@@ -1,6 +1,6 @@
 ---
 name: voice-local
-description: Génère la voix off gratuitement en local (Piper recommandé, espeak-ng/MBROLA en secours), les auditions, la timeline mot à mot et le SRT.
+description: Génère la voix off gratuitement en local (Kokoro par défaut, Piper ou espeak-ng/MBROLA en secours), les auditions, la timeline mot à mot et le SRT.
 ---
 # Voix locale
 
