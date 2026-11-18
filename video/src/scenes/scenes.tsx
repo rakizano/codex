@@ -27,10 +27,10 @@ export const HookTitle: React.FC<SceneProps> = ({seg, p}) => {
       <div style={{position: 'absolute', top: 360, width: '100%', display: 'flex', justifyContent: 'center', opacity: 1 - dim}}>
         <WaveformVisualizer p={p} color={p.accent} />
       </div>
-      <KineticWord text="On le crie" at={0.8} color={p.ink} y={700} size={110} />
-      <KineticWord text="en soirée" at={1.6} color={p.accent} y={830} size={140} rot={3} />
-      {t > q && <KineticWord text="mais tu sais" at={q} color={p.ink} y={1000} size={96} />}
-      {t > q && <KineticWord text="ce qu'il raconte ?" at={q + 0.5} color={p.main} y={1110} size={96} rot={2} />}
+      {(seg.kinetic ?? []).map((k, i) => {
+        const at = k.at ? wordTime(seg, k.at) : 0.8 * i + 0.8;
+        return t > at - 0.05 ? <KineticWord key={i} text={k.text} at={at} color={[p.ink, p.accent, p.ink, p.main][i % 4]} y={700 + i * 130} size={i === 1 ? 140 : 100} rot={i % 2 ? 3 : -3} /> : null;
+      })}
     </AbsoluteFill>
   );
 };
@@ -42,16 +42,16 @@ export const ArtistTitleCard: React.FC<SceneProps> = ({seg, p, ep}) => {
     <AbsoluteFill>
       <Bg p={p} />
       <div style={{position: 'absolute', left: 540, top: 820, transform: `translate(-50%,-50%) scale(${s})`}}>
-        <VinylRecord size={760} p={p} label="SWIMMING POOLS" />
+        <VinylRecord size={760} p={p} label={ep.title.split(' (')[0].toUpperCase()} />
       </div>
       <div style={{position: 'absolute', top: 180, width: '100%', textAlign: 'center', fontFamily: FONT, color: p.ink}}>
         <div style={{fontSize: 64, fontWeight: 600, opacity: usePop(0.3)}}>{ep.artist}</div>
-        <div style={{fontSize: 108, fontWeight: 900, color: p.main, lineHeight: 1, transform: `scale(${usePop(0.6)})`}}>SWIMMING POOLS</div>
-        <div style={{fontSize: 60, fontWeight: 700, opacity: usePop(0.9)}}>(Drank)</div>
+        <div style={{fontSize: 108, fontWeight: 900, color: p.main, lineHeight: 1, transform: `scale(${usePop(0.6)})`}}>{ep.title.split(' (')[0].toUpperCase()}</div>
+        <div style={{fontSize: 60, fontWeight: 700, opacity: usePop(0.9)}}>{ep.title.includes('(') ? '(' + ep.title.split('(')[1] : ''}</div>
       </div>
-      <Chip text="2012" at={wordTime(seg, '2012') || 2} p={p} x={260} y={1220} />
-      <Chip text="good kid, m.A.A.d city" at={wordTime(seg, 'good') || 3.5} p={p} x={540} y={1320} bg={p.ink} />
-      <Chip text="prod. T-Minus" at={wordTime(seg, 'produit')} p={p} x={800} y={1220} bg={p.accent} />
+      {(seg.chips ?? []).map((c, i) => (
+        <Chip key={i} text={c.text} at={wordTime(seg, c.at) || 1 + i} p={p} x={[260, 800, 540][i % 3]} y={[1220, 1220, 1320][i % 3]} bg={[p.main, p.accent, p.ink][i % 3]} />
+      ))}
     </AbsoluteFill>
   );
 };
@@ -91,10 +91,11 @@ export const FactReveal: React.FC<SceneProps> = ({seg, p}) => {
   return (
     <AbsoluteFill>
       <Bg p={p} />
-      <div style={{position: 'absolute', left: 540, top: 470, transform: `translate(-50%,-50%) scale(${card * (1 - 0.35 * k)}) translateY(${-k * 260}px)`,
+      <div style={{position: 'absolute', left: 540, top: 470, transform: `translate(-50%,-50%) scale(${card * (1 - 0.35 * k) * (1 + 0.02 * Math.sin(t * 1.5))}) translateY(${-k * 260 + Math.sin(t) * 10}px) rotate(${Math.sin(t * 0.8) * 1.2}deg)`,
         width: 820, padding: 50, background: p.ink, borderRadius: 28, fontFamily: FONT, color: p.bg, boxShadow: '0 30px 80px #0008'}}>
         <div style={{fontSize: 36, fontWeight: 800, letterSpacing: 6, color: p.main}}>INTERVIEW · COMPLEX</div>
         <div style={{fontSize: 64, fontWeight: 900, lineHeight: 1.05, marginTop: 18}}>« son propre rapport à l'alcool »</div>
+        <div style={{height: 10, marginTop: 14, borderRadius: 5, background: p.accent, width: `${ease(t, 1.5, 4) * 100}%`}} />
         <div style={{fontSize: 30, marginTop: 18, opacity: 0.7}}>paraphrase — voir sources.md</div>
       </div>
       <svg width={1080} height={1920} style={{position: 'absolute', opacity: k}}>
@@ -102,8 +103,8 @@ export const FactReveal: React.FC<SceneProps> = ({seg, p}) => {
         <path d={`M 540 1350 Q 540 1150 ${540 - 280 * k} ${1350 - 330 * k}`} stroke={p.main} strokeWidth={26} fill="none" strokeLinecap="round" />
         <path d={`M 540 1350 Q 540 1150 ${540 + 280 * k} ${1350 - 330 * k}`} stroke={p.accent} strokeWidth={26} fill="none" strokeLinecap="round" />
       </svg>
-      {t > fork && <KineticWord text="de temps en temps" at={fork + 0.8} color={p.main} x={300} y={880} size={46} rot={-4} />}
-      {t > fork && <KineticWord text="se laisser entraîner" at={wordTime(seg, 'entraîner')} color={p.accent} x={770} y={1010} size={46} rot={3} />}
+      {t > fork && <KineticWord text="de temps en temps" at={fork + 0.8} color={p.main} x={250} y={960} size={40} rot={-4} />}
+      {t > fork && <KineticWord text="se laisser entraîner" at={wordTime(seg, 'entraîner')} color={p.accent} x={830} y={960} size={40} rot={3} />}
     </AbsoluteFill>
   );
 };
@@ -157,11 +158,11 @@ export const PoolDive: React.FC<SceneProps> = ({seg, p}) => {
           <path key={i} d={`M 170 ${800 + i * 130} q 95 ${Math.sin(t * 2 + i) * 20} 190 0 t 190 0 t 190 0 t 190 0`} stroke="#fff" strokeOpacity={0.35} strokeWidth={6} fill="none" />
         ))}
         {/* plongeoir */}
-        <rect x={430} y={560} width={220} height={26} rx={10} fill={p.ink} />
+        <rect x={430} y={650} width={220} height={26} rx={10} fill={p.ink} />
         {/* plongeur */}
-        <g transform={`translate(540, ${520 + fall * 520}) rotate(${fall * 180})`} opacity={1 - ease(t, dive + 0.9, dive + 1.2)}>
-          <circle cx={0} cy={-60} r={24} fill="#060d22" />
-          <rect x={-20} y={-36} width={40} height={90} rx={18} fill="#060d22" />
+        <g transform={`translate(540, ${640 + fall * 420}) rotate(${fall * 180})`} opacity={1 - ease(t, dive + 0.9, dive + 1.2)}>
+          <g transform="scale(1.8)"><circle cx={0} cy={-60} r={24} fill="#060d22" />
+          <rect x={-20} y={-36} width={40} height={90} rx={18} fill="#060d22" /></g>
         </g>
         {/* cercles d'impact */}
         {[0, 1, 2].map((i) => {

@@ -11,6 +11,24 @@
     "vraiment"
    ],
    "text": "Tu connais forcément ce refrain. On le crie en soirée, verre levé. Mais est-ce que tu sais vraiment ce que raconte ce morceau ?",
+   "kinetic": [
+    {
+     "text": "On le crie",
+     "at": "crie"
+    },
+    {
+     "text": "en soirée",
+     "at": "soirée"
+    },
+    {
+     "text": "mais tu sais",
+     "at": "mais"
+    },
+    {
+     "text": "ce qu'il raconte ?",
+     "at": "raconte"
+    }
+   ],
    "start": 0.0,
    "end": 6.494,
    "words": [
@@ -145,6 +163,20 @@
    ],
    "text": "Swimming Pools, de Kendrick Lamar. Sorti en 2012, c'est l'un des singles de l'album good kid, m.A.A.d city, produit par T-Minus.",
    "tts": "Souimmingue Poules, de Kène-drik Lamar. Sorti en deux mille douze, c'est l'un des singles de l'album goude kide, mad citi, produit par Ti-Maïneusse.",
+   "chips": [
+    {
+     "text": "2012",
+     "at": "2012"
+    },
+    {
+     "text": "prod. T-Minus",
+     "at": "produit"
+    },
+    {
+     "text": "good kid, m.A.A.d city",
+     "at": "good"
+    }
+   ],
    "start": 6.844,
    "end": 14.509,
    "words": [

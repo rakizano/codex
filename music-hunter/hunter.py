@@ -112,7 +112,10 @@ def cmd_report(a):
         c["sources"].add(f"{r['source']} ({r['date']})")
         c["first_seen"][m] = min(c["first_seen"].get(m, d), d)
         rk = num(r["rank"])
-        if rk and d == day: c["best_rank"][m] = int(min(rk, c["best_rank"].get(m, 1e9)))
+        if rk and (day - d).days <= 21:  # rang le plus récent (<= 3 semaines), daté dans le rapport
+            prev = c.setdefault("rank_date", {}).get(m)
+            if prev is None or d > prev or (d == prev and rk < c["best_rank"][m]):
+                c["best_rank"][m] = int(rk); c["rank_date"][m] = d
         vc = num(r["videos_count"])
         if vc is not None: c["series"][(m, r["sound_id"] or r["variant"])].append((d, vc))
     for c in cands.values():
@@ -131,7 +134,7 @@ def cmd_report(a):
     L = [f"# Music Hunter — {day.isoformat()}", "",
          f"Relevés utilisés : {len(rows)} lignes, {len(cands)} morceaux. Sources : uniquement pages publiques / relevés manuels (voir colonne source).",
          "**Le score n'est pas une prédiction de vues.** Croissance = calculée sur nos propres relevés (nombre de vidéos affiché par TikTok ou rang de classement).", ""]
-    for m, label in (("FR", "France"), ("US", "États-Unis")):
+    for m, label in [(m, l) for m, l in (("FR", "France"), ("US", "États-Unis"), ("GB", "Royaume-Uni"), ("WW", "Monde")) if m in ("FR", "US") or any(m in c["markets"] for c in cands.values())]:
         L += [f"## Top {label}", "", "| # | Morceau | Rang | Vidéos (dernier relevé) | Croiss. 1 j | 7 j | 30 j | Score |", "|---|---|---|---|---|---|---|---|"]
         for i, c in enumerate(top(m), 1):
             last = max((s[-1][1] for (mm, _), s in c["series"].items() if mm == m and s), default=None)

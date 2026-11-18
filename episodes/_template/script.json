@@ -1,0 +1,14 @@
+{
+  "slug": "<slug>",
+  "title": "<Titre>",
+  "artist": "<Artiste>",
+  "palette": { "bg": "#0b1b3a", "main": "#19c3d6", "accent": "#ffc94a", "ink": "#eaf6ff" },
+  "segments": [
+    { "id": "hook", "scene": "HookTitle", "keywords": [], "text": "", "tts": "" },
+    { "id": "intro", "scene": "ArtistTitleCard", "keywords": [], "text": "" },
+    { "id": "story", "scene": "FactReveal", "keywords": [], "text": "" },
+    { "id": "detail", "scene": "<SceneSpecifique>", "keywords": [], "text": "" },
+    { "id": "tiktok", "scene": "TikTokUsageContrast", "keywords": [], "text": "" },
+    { "id": "end", "scene": "EndQuestion", "keywords": [], "text": "" }
+  ]
+}

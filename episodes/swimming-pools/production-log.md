@@ -16,5 +16,5 @@ Durée vidéo : 68,7 s (voix 65,7 s). QC technique : tout OK.
 1. **Voix robotique** (MBROLA) : à remplacer par Piper (`fr_FR-tom-medium`) — Hugging Face était bloqué depuis le conteneur. Relancer `tts.py` après avoir mis `engine: piper` dans `config/voice.json`.
 2. **Recherche non vérifiée** : aucune page n'a pu être ouverte (réseau du conteneur) ; toutes les lignes de research.md sont ☐. Ne pas publier avant vérification.
 3. **Usage TikTok non relevé** : la scène « en soirée » est formulée comme hypothèse.
-4. Visuel : le libellé « se laisser entraîner » touche la branche de la fourche ; la carte Complex reste ~6 s quasi statique ; plongeur petit. À polir.
+4. ~~Visuel~~ corrigé (fourche, carte Complex animée, plongeur agrandi et repositionné).
 5. Timings mot à mot estimés (proportionnels) ; faster-whisper donnera un alignement réel une fois le modèle téléchargeable.
