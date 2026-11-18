@@ -13,7 +13,7 @@
 Durée vidéo : 76,8 s (voix Piper 73,7 s). QC technique : tout OK. Script aligné sur la citation Complex 2012.
 
 ## Défauts connus
-1. ~~Voix robotique~~ → Piper `fr-siwis-medium` (voix féminine) via les publications GitHub. Auditions dans `out/auditions/` (siwis-medium, gilles-low masculine, mls_1840-low) : **choix humain à faire**. Vérifier à l'écoute la prononciation des orthographes phonétiques (« Souimmingue Poules », « Ti-Maïneusse »).
+1. ~~Voix robotique~~ → Piper `fr-siwis-medium` (voix féminine) via les publications GitHub. Auditions dans `out/auditions/` (siwis-medium, gilles-low masculine, mls_1840-low) : **choix humain à faire**. Vérifier à l'écoute la prononciation des orthographes phonétiques (corrigées par contrôle IPA espeak : « Souiminng Poules », « Ti-Maille-neuss », « Kène-drik »).
 2. **Recherche non vérifiée** : aucune page n'a pu être ouverte (réseau du conteneur) ; toutes les lignes de research.md sont ☐. Ne pas publier avant vérification.
 3. **Usage TikTok non relevé** : la scène « en soirée » est formulée comme hypothèse.
 4. ~~Visuel~~ corrigé (fourche, carte Complex animée, plongeur agrandi et repositionné).
