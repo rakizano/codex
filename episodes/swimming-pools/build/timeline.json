@@ -1,0 +1,1207 @@
+{
+ "engine": "espeak",
+ "voice": "mb-fr1",
+ "duration": 65.658,
+ "segments": [
+  {
+   "id": "hook",
+   "scene": "HookTitle",
+   "keywords": [
+    "soirée",
+    "vraiment"
+   ],
+   "text": "Tu connais forcément ce refrain. On le crie en soirée, verre levé. Mais est-ce que tu sais vraiment ce que raconte ce morceau ?",
+   "start": 0.0,
+   "end": 6.494,
+   "words": [
+    {
+     "w": "Tu",
+     "start": 0.0,
+     "end": 0.152
+    },
+    {
+     "w": "connais",
+     "start": 0.152,
+     "end": 0.558
+    },
+    {
+     "w": "forcément",
+     "start": 0.558,
+     "end": 1.065
+    },
+    {
+     "w": "ce",
+     "start": 1.065,
+     "end": 1.218
+    },
+    {
+     "w": "refrain.",
+     "start": 1.218,
+     "end": 1.674
+    },
+    {
+     "w": "On",
+     "start": 1.674,
+     "end": 1.827
+    },
+    {
+     "w": "le",
+     "start": 1.827,
+     "end": 1.979
+    },
+    {
+     "w": "crie",
+     "start": 1.979,
+     "end": 2.232
+    },
+    {
+     "w": "en",
+     "start": 2.232,
+     "end": 2.385
+    },
+    {
+     "w": "soirée,",
+     "start": 2.385,
+     "end": 2.791
+    },
+    {
+     "w": "verre",
+     "start": 2.791,
+     "end": 3.095
+    },
+    {
+     "w": "levé.",
+     "start": 3.095,
+     "end": 3.399
+    },
+    {
+     "w": "Mais",
+     "start": 3.399,
+     "end": 3.653
+    },
+    {
+     "w": "est-ce",
+     "start": 3.653,
+     "end": 4.008
+    },
+    {
+     "w": "que",
+     "start": 4.008,
+     "end": 4.211
+    },
+    {
+     "w": "tu",
+     "start": 4.211,
+     "end": 4.363
+    },
+    {
+     "w": "sais",
+     "start": 4.363,
+     "end": 4.617
+    },
+    {
+     "w": "vraiment",
+     "start": 4.617,
+     "end": 5.074
+    },
+    {
+     "w": "ce",
+     "start": 5.074,
+     "end": 5.226
+    },
+    {
+     "w": "que",
+     "start": 5.226,
+     "end": 5.429
+    },
+    {
+     "w": "raconte",
+     "start": 5.429,
+     "end": 5.835
+    },
+    {
+     "w": "ce",
+     "start": 5.835,
+     "end": 5.987
+    },
+    {
+     "w": "morceau",
+     "start": 5.987,
+     "end": 6.393
+    },
+    {
+     "w": "?",
+     "start": 6.393,
+     "end": 6.494
+    }
+   ]
+  },
+  {
+   "id": "intro",
+   "scene": "ArtistTitleCard",
+   "keywords": [
+    "2012",
+    "T-Minus"
+   ],
+   "text": "Swimming Pools, de Kendrick Lamar. Sorti en 2012, c'est l'un des singles de l'album good kid, m.A.A.d city, produit par T-Minus.",
+   "tts": "Souimmingue Poules, de Kène-drik Lamar. Sorti en deux mille douze, c'est l'un des singles de l'album goude kide, mad citi, produit par Ti-Maïneusse.",
+   "start": 6.844,
+   "end": 14.509,
+   "words": [
+    {
+     "w": "Swimming",
+     "start": 6.844,
+     "end": 7.379
+    },
+    {
+     "w": "Pools,",
+     "start": 7.379,
+     "end": 7.795
+    },
+    {
+     "w": "de",
+     "start": 7.795,
+     "end": 7.973
+    },
+    {
+     "w": "Kendrick",
+     "start": 7.973,
+     "end": 8.508
+    },
+    {
+     "w": "Lamar.",
+     "start": 8.508,
+     "end": 8.924
+    },
+    {
+     "w": "Sorti",
+     "start": 8.924,
+     "end": 9.28
+    },
+    {
+     "w": "en",
+     "start": 9.28,
+     "end": 9.459
+    },
+    {
+     "w": "2012,",
+     "start": 9.459,
+     "end": 9.815
+    },
+    {
+     "w": "c'est",
+     "start": 9.815,
+     "end": 10.172
+    },
+    {
+     "w": "l'un",
+     "start": 10.172,
+     "end": 10.469
+    },
+    {
+     "w": "des",
+     "start": 10.469,
+     "end": 10.706
+    },
+    {
+     "w": "singles",
+     "start": 10.706,
+     "end": 11.182
+    },
+    {
+     "w": "de",
+     "start": 11.182,
+     "end": 11.36
+    },
+    {
+     "w": "l'album",
+     "start": 11.36,
+     "end": 11.835
+    },
+    {
+     "w": "good",
+     "start": 11.835,
+     "end": 12.132
+    },
+    {
+     "w": "kid,",
+     "start": 12.132,
+     "end": 12.429
+    },
+    {
+     "w": "m.A.A.d",
+     "start": 12.429,
+     "end": 12.905
+    },
+    {
+     "w": "city,",
+     "start": 12.905,
+     "end": 13.261
+    },
+    {
+     "w": "produit",
+     "start": 13.261,
+     "end": 13.737
+    },
+    {
+     "w": "par",
+     "start": 13.737,
+     "end": 13.974
+    },
+    {
+     "w": "T-Minus.",
+     "start": 13.974,
+     "end": 14.509
+    }
+   ]
+  },
+  {
+   "id": "family",
+   "scene": "FamilyRoom",
+   "keywords": [
+    "famille",
+    "alcool"
+   ],
+   "text": "Le point de départ, c'est sa famille. Kendrick a raconté qu'en grandissant, l'alcool faisait partie du décor : les fêtes, les adultes autour de lui, les verres qui se remplissent.",
+   "start": 14.859,
+   "end": 23.918,
+   "words": [
+    {
+     "w": "Le",
+     "start": 14.859,
+     "end": 15.01
+    },
+    {
+     "w": "point",
+     "start": 15.01,
+     "end": 15.312
+    },
+    {
+     "w": "de",
+     "start": 15.312,
+     "end": 15.463
+    },
+    {
+     "w": "départ,",
+     "start": 15.463,
+     "end": 15.865
+    },
+    {
+     "w": "c'est",
+     "start": 15.865,
+     "end": 16.167
+    },
+    {
+     "w": "sa",
+     "start": 16.167,
+     "end": 16.318
+    },
+    {
+     "w": "famille.",
+     "start": 16.318,
+     "end": 16.771
+    },
+    {
+     "w": "Kendrick",
+     "start": 16.771,
+     "end": 17.224
+    },
+    {
+     "w": "a",
+     "start": 17.224,
+     "end": 17.325
+    },
+    {
+     "w": "raconté",
+     "start": 17.325,
+     "end": 17.728
+    },
+    {
+     "w": "qu'en",
+     "start": 17.728,
+     "end": 18.03
+    },
+    {
+     "w": "grandissant,",
+     "start": 18.03,
+     "end": 18.684
+    },
+    {
+     "w": "l'alcool",
+     "start": 18.684,
+     "end": 19.137
+    },
+    {
+     "w": "faisait",
+     "start": 19.137,
+     "end": 19.539
+    },
+    {
+     "w": "partie",
+     "start": 19.539,
+     "end": 19.892
+    },
+    {
+     "w": "du",
+     "start": 19.892,
+     "end": 20.043
+    },
+    {
+     "w": "décor",
+     "start": 20.043,
+     "end": 20.345
+    },
+    {
+     "w": ":",
+     "start": 20.345,
+     "end": 20.445
+    },
+    {
+     "w": "les",
+     "start": 20.445,
+     "end": 20.647
+    },
+    {
+     "w": "fêtes,",
+     "start": 20.647,
+     "end": 20.999
+    },
+    {
+     "w": "les",
+     "start": 20.999,
+     "end": 21.2
+    },
+    {
+     "w": "adultes",
+     "start": 21.2,
+     "end": 21.603
+    },
+    {
+     "w": "autour",
+     "start": 21.603,
+     "end": 21.955
+    },
+    {
+     "w": "de",
+     "start": 21.955,
+     "end": 22.106
+    },
+    {
+     "w": "lui,",
+     "start": 22.106,
+     "end": 22.358
+    },
+    {
+     "w": "les",
+     "start": 22.358,
+     "end": 22.559
+    },
+    {
+     "w": "verres",
+     "start": 22.559,
+     "end": 22.911
+    },
+    {
+     "w": "qui",
+     "start": 22.911,
+     "end": 23.113
+    },
+    {
+     "w": "se",
+     "start": 23.113,
+     "end": 23.264
+    },
+    {
+     "w": "remplissent.",
+     "start": 23.264,
+     "end": 23.918
+    }
+   ]
+  },
+  {
+   "id": "struggle",
+   "scene": "FactReveal",
+   "keywords": [
+    "Complex",
+    "choisir"
+   ],
+   "text": "Et dans une interview au magazine Complex, il explique que le morceau parle de son propre rapport à l'alcool. De ce moment où il fallait choisir : boire de temps en temps, ou se laisser entraîner.",
+   "tts": "Et dans une interview au magazine Complèxe, il explique que le morceau parle de son propre rapport à l'alcool. De ce moment où il fallait choisir : boire de temps en temps, ou se laisser entraîner.",
+   "start": 24.268,
+   "end": 33.864,
+   "words": [
+    {
+     "w": "Et",
+     "start": 24.268,
+     "end": 24.414
+    },
+    {
+     "w": "dans",
+     "start": 24.414,
+     "end": 24.658
+    },
+    {
+     "w": "une",
+     "start": 24.658,
+     "end": 24.852
+    },
+    {
+     "w": "interview",
+     "start": 24.852,
+     "end": 25.339
+    },
+    {
+     "w": "au",
+     "start": 25.339,
+     "end": 25.486
+    },
+    {
+     "w": "magazine",
+     "start": 25.486,
+     "end": 25.924
+    },
+    {
+     "w": "Complex,",
+     "start": 25.924,
+     "end": 26.362
+    },
+    {
+     "w": "il",
+     "start": 26.362,
+     "end": 26.509
+    },
+    {
+     "w": "explique",
+     "start": 26.509,
+     "end": 26.947
+    },
+    {
+     "w": "que",
+     "start": 26.947,
+     "end": 27.142
+    },
+    {
+     "w": "le",
+     "start": 27.142,
+     "end": 27.288
+    },
+    {
+     "w": "morceau",
+     "start": 27.288,
+     "end": 27.678
+    },
+    {
+     "w": "parle",
+     "start": 27.678,
+     "end": 27.97
+    },
+    {
+     "w": "de",
+     "start": 27.97,
+     "end": 28.116
+    },
+    {
+     "w": "son",
+     "start": 28.116,
+     "end": 28.311
+    },
+    {
+     "w": "propre",
+     "start": 28.311,
+     "end": 28.652
+    },
+    {
+     "w": "rapport",
+     "start": 28.652,
+     "end": 29.042
+    },
+    {
+     "w": "à",
+     "start": 29.042,
+     "end": 29.139
+    },
+    {
+     "w": "l'alcool.",
+     "start": 29.139,
+     "end": 29.626
+    },
+    {
+     "w": "De",
+     "start": 29.626,
+     "end": 29.772
+    },
+    {
+     "w": "ce",
+     "start": 29.772,
+     "end": 29.918
+    },
+    {
+     "w": "moment",
+     "start": 29.918,
+     "end": 30.259
+    },
+    {
+     "w": "où",
+     "start": 30.259,
+     "end": 30.405
+    },
+    {
+     "w": "il",
+     "start": 30.405,
+     "end": 30.552
+    },
+    {
+     "w": "fallait",
+     "start": 30.552,
+     "end": 30.941
+    },
+    {
+     "w": "choisir",
+     "start": 30.941,
+     "end": 31.331
+    },
+    {
+     "w": ":",
+     "start": 31.331,
+     "end": 31.428
+    },
+    {
+     "w": "boire",
+     "start": 31.428,
+     "end": 31.721
+    },
+    {
+     "w": "de",
+     "start": 31.721,
+     "end": 31.867
+    },
+    {
+     "w": "temps",
+     "start": 31.867,
+     "end": 32.159
+    },
+    {
+     "w": "en",
+     "start": 32.159,
+     "end": 32.305
+    },
+    {
+     "w": "temps,",
+     "start": 32.305,
+     "end": 32.646
+    },
+    {
+     "w": "ou",
+     "start": 32.646,
+     "end": 32.792
+    },
+    {
+     "w": "se",
+     "start": 32.792,
+     "end": 32.938
+    },
+    {
+     "w": "laisser",
+     "start": 32.938,
+     "end": 33.328
+    },
+    {
+     "w": "entraîner.",
+     "start": 33.328,
+     "end": 33.864
+    }
+   ]
+  },
+  {
+   "id": "voices",
+   "scene": "TwoVoices",
+   "keywords": [
+    "deux voix",
+    "conscience"
+   ],
+   "text": "Écoute bien : il y a deux voix. Celle des potes qui insistent, qui remplissent encore le verre. Et une autre, plus grave, comme une conscience, qui le met en garde.",
+   "start": 34.214,
+   "end": 42.645,
+   "words": [
+    {
+     "w": "Écoute",
+     "start": 34.214,
+     "end": 34.572
+    },
+    {
+     "w": "bien",
+     "start": 34.572,
+     "end": 34.827
+    },
+    {
+     "w": ":",
+     "start": 34.827,
+     "end": 34.929
+    },
+    {
+     "w": "il",
+     "start": 34.929,
+     "end": 35.083
+    },
+    {
+     "w": "y",
+     "start": 35.083,
+     "end": 35.185
+    },
+    {
+     "w": "a",
+     "start": 35.185,
+     "end": 35.287
+    },
+    {
+     "w": "deux",
+     "start": 35.287,
+     "end": 35.542
+    },
+    {
+     "w": "voix.",
+     "start": 35.542,
+     "end": 35.849
+    },
+    {
+     "w": "Celle",
+     "start": 35.849,
+     "end": 36.156
+    },
+    {
+     "w": "des",
+     "start": 36.156,
+     "end": 36.36
+    },
+    {
+     "w": "potes",
+     "start": 36.36,
+     "end": 36.667
+    },
+    {
+     "w": "qui",
+     "start": 36.667,
+     "end": 36.871
+    },
+    {
+     "w": "insistent,",
+     "start": 36.871,
+     "end": 37.433
+    },
+    {
+     "w": "qui",
+     "start": 37.433,
+     "end": 37.637
+    },
+    {
+     "w": "remplissent",
+     "start": 37.637,
+     "end": 38.251
+    },
+    {
+     "w": "encore",
+     "start": 38.251,
+     "end": 38.608
+    },
+    {
+     "w": "le",
+     "start": 38.608,
+     "end": 38.762
+    },
+    {
+     "w": "verre.",
+     "start": 38.762,
+     "end": 39.119
+    },
+    {
+     "w": "Et",
+     "start": 39.119,
+     "end": 39.273
+    },
+    {
+     "w": "une",
+     "start": 39.273,
+     "end": 39.477
+    },
+    {
+     "w": "autre,",
+     "start": 39.477,
+     "end": 39.835
+    },
+    {
+     "w": "plus",
+     "start": 39.835,
+     "end": 40.09
+    },
+    {
+     "w": "grave,",
+     "start": 40.09,
+     "end": 40.448
+    },
+    {
+     "w": "comme",
+     "start": 40.448,
+     "end": 40.754
+    },
+    {
+     "w": "une",
+     "start": 40.754,
+     "end": 40.959
+    },
+    {
+     "w": "conscience,",
+     "start": 40.959,
+     "end": 41.572
+    },
+    {
+     "w": "qui",
+     "start": 41.572,
+     "end": 41.776
+    },
+    {
+     "w": "le",
+     "start": 41.776,
+     "end": 41.93
+    },
+    {
+     "w": "met",
+     "start": 41.93,
+     "end": 42.134
+    },
+    {
+     "w": "en",
+     "start": 42.134,
+     "end": 42.287
+    },
+    {
+     "w": "garde.",
+     "start": 42.287,
+     "end": 42.645
+    }
+   ]
+  },
+  {
+   "id": "pool",
+   "scene": "PoolDive",
+   "keywords": [
+    "piscine",
+    "noyer"
+   ],
+   "text": "D'où l'image de la piscine. Pas une piscine d'eau : une piscine d'alcool, assez grande pour plonger dedans. Et pour s'y noyer.",
+   "start": 42.995,
+   "end": 49.836,
+   "words": [
+    {
+     "w": "D'où",
+     "start": 42.995,
+     "end": 43.264
+    },
+    {
+     "w": "l'image",
+     "start": 43.264,
+     "end": 43.695
+    },
+    {
+     "w": "de",
+     "start": 43.695,
+     "end": 43.857
+    },
+    {
+     "w": "la",
+     "start": 43.857,
+     "end": 44.018
+    },
+    {
+     "w": "piscine.",
+     "start": 44.018,
+     "end": 44.503
+    },
+    {
+     "w": "Pas",
+     "start": 44.503,
+     "end": 44.719
+    },
+    {
+     "w": "une",
+     "start": 44.719,
+     "end": 44.934
+    },
+    {
+     "w": "piscine",
+     "start": 44.934,
+     "end": 45.365
+    },
+    {
+     "w": "d'eau",
+     "start": 45.365,
+     "end": 45.688
+    },
+    {
+     "w": ":",
+     "start": 45.688,
+     "end": 45.796
+    },
+    {
+     "w": "une",
+     "start": 45.796,
+     "end": 46.012
+    },
+    {
+     "w": "piscine",
+     "start": 46.012,
+     "end": 46.443
+    },
+    {
+     "w": "d'alcool,",
+     "start": 46.443,
+     "end": 46.981
+    },
+    {
+     "w": "assez",
+     "start": 46.981,
+     "end": 47.305
+    },
+    {
+     "w": "grande",
+     "start": 47.305,
+     "end": 47.682
+    },
+    {
+     "w": "pour",
+     "start": 47.682,
+     "end": 47.951
+    },
+    {
+     "w": "plonger",
+     "start": 47.951,
+     "end": 48.382
+    },
+    {
+     "w": "dedans.",
+     "start": 48.382,
+     "end": 48.813
+    },
+    {
+     "w": "Et",
+     "start": 48.813,
+     "end": 48.974
+    },
+    {
+     "w": "pour",
+     "start": 48.974,
+     "end": 49.244
+    },
+    {
+     "w": "s'y",
+     "start": 49.244,
+     "end": 49.459
+    },
+    {
+     "w": "noyer.",
+     "start": 49.459,
+     "end": 49.836
+    }
+   ]
+  },
+  {
+   "id": "tiktok",
+   "scene": "TikTokUsageContrast",
+   "keywords": [
+    "fête",
+    "pression"
+   ],
+   "text": "Alors oui, le refrain marche en soirée. Mais le morceau ne fait pas la fête : il décrit la pression du groupe, la tentation, et ce qu'on reproduit sans s'en rendre compte.",
+   "start": 50.186,
+   "end": 58.77,
+   "words": [
+    {
+     "w": "Alors",
+     "start": 50.186,
+     "end": 50.486
+    },
+    {
+     "w": "oui,",
+     "start": 50.486,
+     "end": 50.735
+    },
+    {
+     "w": "le",
+     "start": 50.735,
+     "end": 50.885
+    },
+    {
+     "w": "refrain",
+     "start": 50.885,
+     "end": 51.284
+    },
+    {
+     "w": "marche",
+     "start": 51.284,
+     "end": 51.634
+    },
+    {
+     "w": "en",
+     "start": 51.634,
+     "end": 51.783
+    },
+    {
+     "w": "soirée.",
+     "start": 51.783,
+     "end": 52.183
+    },
+    {
+     "w": "Mais",
+     "start": 52.183,
+     "end": 52.432
+    },
+    {
+     "w": "le",
+     "start": 52.432,
+     "end": 52.582
+    },
+    {
+     "w": "morceau",
+     "start": 52.582,
+     "end": 52.981
+    },
+    {
+     "w": "ne",
+     "start": 52.981,
+     "end": 53.131
+    },
+    {
+     "w": "fait",
+     "start": 53.131,
+     "end": 53.38
+    },
+    {
+     "w": "pas",
+     "start": 53.38,
+     "end": 53.58
+    },
+    {
+     "w": "la",
+     "start": 53.58,
+     "end": 53.73
+    },
+    {
+     "w": "fête",
+     "start": 53.73,
+     "end": 53.979
+    },
+    {
+     "w": ":",
+     "start": 53.979,
+     "end": 54.079
+    },
+    {
+     "w": "il",
+     "start": 54.079,
+     "end": 54.229
+    },
+    {
+     "w": "décrit",
+     "start": 54.229,
+     "end": 54.578
+    },
+    {
+     "w": "la",
+     "start": 54.578,
+     "end": 54.728
+    },
+    {
+     "w": "pression",
+     "start": 54.728,
+     "end": 55.177
+    },
+    {
+     "w": "du",
+     "start": 55.177,
+     "end": 55.326
+    },
+    {
+     "w": "groupe,",
+     "start": 55.326,
+     "end": 55.726
+    },
+    {
+     "w": "la",
+     "start": 55.726,
+     "end": 55.875
+    },
+    {
+     "w": "tentation,",
+     "start": 55.875,
+     "end": 56.424
+    },
+    {
+     "w": "et",
+     "start": 56.424,
+     "end": 56.574
+    },
+    {
+     "w": "ce",
+     "start": 56.574,
+     "end": 56.724
+    },
+    {
+     "w": "qu'on",
+     "start": 56.724,
+     "end": 57.023
+    },
+    {
+     "w": "reproduit",
+     "start": 57.023,
+     "end": 57.522
+    },
+    {
+     "w": "sans",
+     "start": 57.522,
+     "end": 57.772
+    },
+    {
+     "w": "s'en",
+     "start": 57.772,
+     "end": 58.021
+    },
+    {
+     "w": "rendre",
+     "start": 58.021,
+     "end": 58.371
+    },
+    {
+     "w": "compte.",
+     "start": 58.371,
+     "end": 58.77
+    }
+   ]
+  },
+  {
+   "id": "end",
+   "scene": "EndQuestion",
+   "keywords": [
+    "écouter"
+   ],
+   "text": "La prochaine fois que tu l'entends, tu l'écouteras de la même façon ? Dis-moi en commentaire quel morceau tu veux que je décortique.",
+   "start": 59.12,
+   "end": 65.308,
+   "words": [
+    {
+     "w": "La",
+     "start": 59.12,
+     "end": 59.259
+    },
+    {
+     "w": "prochaine",
+     "start": 59.259,
+     "end": 59.725
+    },
+    {
+     "w": "fois",
+     "start": 59.725,
+     "end": 59.957
+    },
+    {
+     "w": "que",
+     "start": 59.957,
+     "end": 60.143
+    },
+    {
+     "w": "tu",
+     "start": 60.143,
+     "end": 60.283
+    },
+    {
+     "w": "l'entends,",
+     "start": 60.283,
+     "end": 60.795
+    },
+    {
+     "w": "tu",
+     "start": 60.795,
+     "end": 60.934
+    },
+    {
+     "w": "l'écouteras",
+     "start": 60.934,
+     "end": 61.493
+    },
+    {
+     "w": "de",
+     "start": 61.493,
+     "end": 61.632
+    },
+    {
+     "w": "la",
+     "start": 61.632,
+     "end": 61.772
+    },
+    {
+     "w": "même",
+     "start": 61.772,
+     "end": 62.004
+    },
+    {
+     "w": "façon",
+     "start": 62.004,
+     "end": 62.283
+    },
+    {
+     "w": "?",
+     "start": 62.283,
+     "end": 62.377
+    },
+    {
+     "w": "Dis-moi",
+     "start": 62.377,
+     "end": 62.749
+    },
+    {
+     "w": "en",
+     "start": 62.749,
+     "end": 62.888
+    },
+    {
+     "w": "commentaire",
+     "start": 62.888,
+     "end": 63.447
+    },
+    {
+     "w": "quel",
+     "start": 63.447,
+     "end": 63.679
+    },
+    {
+     "w": "morceau",
+     "start": 63.679,
+     "end": 64.051
+    },
+    {
+     "w": "tu",
+     "start": 64.051,
+     "end": 64.191
+    },
+    {
+     "w": "veux",
+     "start": 64.191,
+     "end": 64.424
+    },
+    {
+     "w": "que",
+     "start": 64.424,
+     "end": 64.61
+    },
+    {
+     "w": "je",
+     "start": 64.61,
+     "end": 64.749
+    },
+    {
+     "w": "décortique.",
+     "start": 64.749,
+     "end": 65.308
+    }
+   ]
+  }
+ ]
+}

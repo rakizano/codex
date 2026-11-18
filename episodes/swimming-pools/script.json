@@ -1,0 +1,26 @@
+{
+  "slug": "swimming-pools",
+  "title": "Swimming Pools (Drank)",
+  "artist": "Kendrick Lamar",
+  "palette": { "bg": "#0b1b3a", "main": "#19c3d6", "accent": "#ffc94a", "ink": "#eaf6ff" },
+  "segments": [
+    { "id": "hook", "scene": "HookTitle", "keywords": ["soirée", "vraiment"],
+      "text": "Tu connais forcément ce refrain. On le crie en soirée, verre levé. Mais est-ce que tu sais vraiment ce que raconte ce morceau ?" },
+    { "id": "intro", "scene": "ArtistTitleCard", "keywords": ["2012", "T-Minus"],
+      "text": "Swimming Pools, de Kendrick Lamar. Sorti en 2012, c'est l'un des singles de l'album good kid, m.A.A.d city, produit par T-Minus.",
+      "tts": "Souimmingue Poules, de Kène-drik Lamar. Sorti en deux mille douze, c'est l'un des singles de l'album goude kide, mad citi, produit par Ti-Maïneusse." },
+    { "id": "family", "scene": "FamilyRoom", "keywords": ["famille", "alcool"],
+      "text": "Le point de départ, c'est sa famille. Kendrick a raconté qu'en grandissant, l'alcool faisait partie du décor : les fêtes, les adultes autour de lui, les verres qui se remplissent." },
+    { "id": "struggle", "scene": "FactReveal", "keywords": ["Complex", "choisir"],
+      "text": "Et dans une interview au magazine Complex, il explique que le morceau parle de son propre rapport à l'alcool. De ce moment où il fallait choisir : boire de temps en temps, ou se laisser entraîner.",
+      "tts": "Et dans une interview au magazine Complèxe, il explique que le morceau parle de son propre rapport à l'alcool. De ce moment où il fallait choisir : boire de temps en temps, ou se laisser entraîner." },
+    { "id": "voices", "scene": "TwoVoices", "keywords": ["deux voix", "conscience"],
+      "text": "Écoute bien : il y a deux voix. Celle des potes qui insistent, qui remplissent encore le verre. Et une autre, plus grave, comme une conscience, qui le met en garde." },
+    { "id": "pool", "scene": "PoolDive", "keywords": ["piscine", "noyer"],
+      "text": "D'où l'image de la piscine. Pas une piscine d'eau : une piscine d'alcool, assez grande pour plonger dedans. Et pour s'y noyer." },
+    { "id": "tiktok", "scene": "TikTokUsageContrast", "keywords": ["fête", "pression"],
+      "text": "Alors oui, le refrain marche en soirée. Mais le morceau ne fait pas la fête : il décrit la pression du groupe, la tentation, et ce qu'on reproduit sans s'en rendre compte." },
+    { "id": "end", "scene": "EndQuestion", "keywords": ["écouter"],
+      "text": "La prochaine fois que tu l'entends, tu l'écouteras de la même façon ? Dis-moi en commentaire quel morceau tu veux que je décortique." }
+  ]
+}

@@ -1,0 +1,7 @@
+date,market,source,source_url,title,artist,variant,sound_id,rank,videos_count
+2026-11-01,US,TEST-FICTIF,,Chanson A,Artiste X,original,111,3,10000
+2026-11-08,US,TEST-FICTIF,,Chanson A,Artiste X,original,111,2,16000
+2026-11-08,FR,TEST-FICTIF,,Chanson A,Artiste X,sped up,222,40,900
+2026-11-01,FR,TEST-FICTIF,,Swimming Pools (Drank),Kendrick Lamar,original,333,,50000
+2026-11-08,FR,TEST-FICTIF,,Swimming Pools (Drank),Kendrick Lamar,original,333,8,52000
+2026-11-08,FR,TEST-FICTIF,,original sound,inconnu,original,444,5,3000

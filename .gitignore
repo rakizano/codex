@@ -1,0 +1,7 @@
+.env
+node_modules/
+episodes/*/build/*.wav
+video/out/
+video/public/*/
+music-hunter/data/snapshots.csv
+__pycache__/

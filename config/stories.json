@@ -1,0 +1,4 @@
+{
+  "_doc": "Évaluation éditoriale (humaine ou skill song-research). narrative 0-25, sources 0-10. Clé = 'titre normalisé|artiste'.",
+  "swimming pools drank|kendrick lamar": {"narrative": 22, "sources": 6, "n_sources": 4, "angle": "hymne de soirée vs récit sur l'alcool dans l'environnement familial et la pression du groupe"}
+}
