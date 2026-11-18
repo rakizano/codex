@@ -1,6 +1,13 @@
 {
   "version": 2,
   "skills": {
+    "agent-reach": {
+      "source": "Panniantong/Agent-Reach",
+      "commit": "c70ae6da5d39bc90e09ad2ae0575ccc89f31e284",
+      "sourceType": "github",
+      "skillPath": "agent_reach/skill/SKILL.md",
+      "computedHash": "05fdf9ff0759d7020c0c153d7a6963787fe93d89d25f016c41065a006340b5b0"
+    },
     "ai-video-generation": {
       "source": "inference-sh/skills",
       "commit": "c895a471c4e7cafd46ed8c0cf76606c5dca80639",
