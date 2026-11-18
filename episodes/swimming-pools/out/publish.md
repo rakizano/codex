@@ -7,7 +7,7 @@ Titre / texte écran : Ce que raconte VRAIMENT « Swimming Pools » 🏊
 Description :
 On le crie en soirée… mais Kendrick Lamar raconte autre chose : l'alcool dans son entourage, la pression du groupe, la tentation. Sources en commentaire 👇 Tu veux que je décortique quel morceau ?
 
-Commentaire épinglé (sources) : Complex (interview), Songfacts, American Songwriter, Exclaim — liens dans sources.md
+Commentaire épinglé (sources) : Complex, « The Making of good kid, m.A.A.d city » (2012, citation de Kendrick) ; American Songwriter ; Songfacts — liens dans sources.md
 
 Hashtags : #kendricklamar #swimmingpools #histoiredunson #rapus #musique
 

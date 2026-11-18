@@ -12,14 +12,14 @@ Statut : **brouillon à vérifier**. Le conteneur de production n'a pas pu ouvri
 ## Déclarations de l'artiste
 | Affirmation | Sources | Statut |
 |---|---|---|
-| Dans une interview à Complex, Kendrick dit que le morceau parle de sa propre lutte pour définir son rapport à l'alcool (choisir entre « boire occasionnellement » et devenir alcoolique) | Résumés American Songwriter, Mic.com citant Complex | ☐ retrouver l'interview Complex originale + date |
+| Complex, « The Making of good kid, m.A.A.d city » (2012) : « I'm coming from a household where you had to make a decision—you were either a casual drinker or you were a drunk. That's what that record is really about, me experiencing that as a kid and making my own decisions. » | Complex (original) ; repris par American Songwriter, chucksconnection | ◐ citation identique dans plusieurs reprises ; ouvrir l'article Complex pour cocher ✅ |
 | L'alcool occupait une place centrale dans l'environnement familial de son enfance | Exclaim (« Coming of Sage ») ; Billboard (période *To Pimp a Butterfly*) | ☐ retrouver citation exacte |
 | A arrêté de boire vers 16–17 ans | Songfacts | ☐ faible (source secondaire) — **non utilisé** |
 
 ## Interprétations critiques
 - Le morceau met en scène deux voix : celle qui pousse à boire (tentation / pression du groupe) et celle de la conscience. (Songfacts ; analyses multiples) ☐
 - Lecture « addiction à l'adolescence » : Hip Hop Psychiatry (A. Sule, chercheur associé honoraire, psychiatrie, Univ. de Cambridge ; Lancet Psychiatry) ☐ confirmer qu'il s'agit bien de l'analyse « Cambridge » évoquée dans le brief.
-- Pitchfork 2012 : critique de l'album — **non consultée** (fetch refusé). ☐
+- Pitchfork 2012 (Jayson Greene) : selon une reprise, lit la famille et la foi comme « the fraying tethers » qui retiennent Lamar face à la violence des gangs. Score et passage sur Swimming Pools non trouvés. ☐
 
 ## Usage TikTok
 Aucune donnée collectée (pas de Virlo, pas d'accès TikTok depuis le conteneur). Voir `tiktok-usage.md` : modèle de relevé manuel à remplir depuis ton compte. Le script ne formule **aucune statistique TikTok** ; il parle d'un usage « de soirée » comme hypothèse à confirmer par le relevé.

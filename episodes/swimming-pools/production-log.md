@@ -10,7 +10,7 @@
 | QC | qc/check.sh + planche-contact | ~15 s | 0 € |
 | **Total** | | **< 5 min machine** | **0 €** |
 
-Durée vidéo : 68,7 s (voix 65,7 s). QC technique : tout OK.
+Durée vidéo : 70,1 s (voix 67,1 s). QC technique : tout OK. Script aligné sur la citation Complex 2012.
 
 ## Défauts connus
 1. **Voix robotique** (MBROLA) : à remplacer par Piper (`fr_FR-tom-medium`) — Hugging Face était bloqué depuis le conteneur. Relancer `tts.py` après avoir mis `engine: piper` dans `config/voice.json`.

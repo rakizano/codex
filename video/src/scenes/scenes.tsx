@@ -93,10 +93,10 @@ export const FactReveal: React.FC<SceneProps> = ({seg, p}) => {
       <Bg p={p} />
       <div style={{position: 'absolute', left: 540, top: 470, transform: `translate(-50%,-50%) scale(${card * (1 - 0.35 * k) * (1 + 0.02 * Math.sin(t * 1.5))}) translateY(${-k * 260 + Math.sin(t) * 10}px) rotate(${Math.sin(t * 0.8) * 1.2}deg)`,
         width: 820, padding: 50, background: p.ink, borderRadius: 28, fontFamily: FONT, color: p.bg, boxShadow: '0 30px 80px #0008'}}>
-        <div style={{fontSize: 36, fontWeight: 800, letterSpacing: 6, color: p.main}}>INTERVIEW · COMPLEX</div>
-        <div style={{fontSize: 64, fontWeight: 900, lineHeight: 1.05, marginTop: 18}}>« son propre rapport à l'alcool »</div>
+        <div style={{fontSize: 36, fontWeight: 800, letterSpacing: 6, color: p.main}}>INTERVIEW · COMPLEX · 2012</div>
+        <div style={{fontSize: 64, fontWeight: 900, lineHeight: 1.05, marginTop: 18}}>« buveur occasionnel… ou ivrogne »</div>
         <div style={{height: 10, marginTop: 14, borderRadius: 5, background: p.accent, width: `${ease(t, 1.5, 4) * 100}%`}} />
-        <div style={{fontSize: 30, marginTop: 18, opacity: 0.7}}>paraphrase — voir sources.md</div>
+        <div style={{fontSize: 30, marginTop: 18, opacity: 0.7}}>traduction — voir sources.md</div>
       </div>
       <svg width={1080} height={1920} style={{position: 'absolute', opacity: k}}>
         <path d={`M 540 1650 L 540 ${1650 - 300 * k}`} stroke={p.ink} strokeWidth={26} strokeLinecap="round" />
@@ -104,7 +104,7 @@ export const FactReveal: React.FC<SceneProps> = ({seg, p}) => {
         <path d={`M 540 1350 Q 540 1150 ${540 + 280 * k} ${1350 - 330 * k}`} stroke={p.accent} strokeWidth={26} fill="none" strokeLinecap="round" />
       </svg>
       {t > fork && <KineticWord text="de temps en temps" at={fork + 0.8} color={p.main} x={250} y={960} size={40} rot={-4} />}
-      {t > fork && <KineticWord text="se laisser entraîner" at={wordTime(seg, 'entraîner')} color={p.accent} x={830} y={960} size={40} rot={3} />}
+      {t > fork && <KineticWord text="devenir un ivrogne" at={wordTime(seg, 'ivrogne')} color={p.accent} x={830} y={960} size={40} rot={3} />}
     </AbsoluteFill>
   );
 };
