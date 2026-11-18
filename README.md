@@ -14,10 +14,10 @@ Chaîne de production de vidéos TikTok « l'histoire cachée d'un morceau », *
 ```bash
 sudo apt install ffmpeg espeak-ng mbrola-fr1     # macOS : brew install ffmpeg espeak-ng
 python3 -m venv ~/venv && ~/venv/bin/pip install piper-tts faster-whisper numpy
-mkdir -p ~/voices   # + télécharger fr_FR-tom-medium.onnx(.json) depuis huggingface.co/rhasspy/piper-voices
+pipeline/setup_voices.sh   # Piper + 3 voix FR depuis GitHub
 cd video && npm install
 ```
-Puis dans `config/voice.json` : `"engine": "piper", "voice": "~/voices/fr_FR-tom-medium.onnx"`.
+`config/voice.json` est déjà réglé sur Piper `fr-siwis-medium`.
 
 ## Utilisation
 Dans Claude Code : `/episode-pipeline Swimming Pools - Kendrick Lamar` ou `/episode-pipeline auto`.

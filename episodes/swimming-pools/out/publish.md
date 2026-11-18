@@ -13,3 +13,5 @@ Hashtags : #kendricklamar #swimmingpools #histoiredunson #rapus #musique
 
 Son : ajouter le son officiel « Swimming Pools (Drank) » depuis la bibliothèque TikTok au moment de la publication, volume bas (~10–15 %) sous la narration. Le MP4 ne contient aucune musique commerciale. Compte personnel/créateur uniquement ; pour un contenu de marque, utiliser la Commercial Music Library.
 Sous-titres : `swimming-pools.srt` (ou sous-titres auto TikTok — les sous-titres sont déjà incrustés).
+
+Crédit voix (obligatoire, CC-BY 4.0) : voix de synthèse Piper « siwis » — corpus SIWIS (Université d'Édimbourg), CC-BY 4.0.

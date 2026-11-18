@@ -75,7 +75,7 @@ def main():
     if a.audition:
         hook = script["segments"][0].get("tts", script["segments"][0]["text"])
         for name in cfg.get("auditions", ["mb-fr1", "mb-fr6", "mb-fr4"]):
-            eng = "piper" if name.endswith(".onnx") else "espeak"
+            eng = "piper" if name.endswith(".onnx") else "espeak"; name = os.path.expanduser(name)
             out = os.path.join(build, f"audition_{os.path.basename(name)}.wav")
             synth(hook, out, eng, name, speed); print(out)
         return

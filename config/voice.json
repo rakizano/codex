@@ -1,7 +1,11 @@
 {
-  "engine": "espeak",
-  "voice": "mb-fr1",
-  "speed": 1.0,
-  "auditions": ["mb-fr1", "mb-fr6", "mb-fr4"],
-  "_note": "Sur ta machine : engine=piper, voice=~/voices/fr_FR-tom-medium.onnx (auditions: fr_FR-tom-medium.onnx, fr_FR-upmc-medium.onnx, fr_FR-siwis-medium.onnx)"
+ "engine": "piper",
+ "voice": "~/voices/voice-fr-siwis-medium/fr-siwis-medium.onnx",
+ "speed": 1.0,
+ "auditions": [
+  "~/voices/voice-fr-siwis-medium/fr-siwis-medium.onnx",
+  "~/voices/voice-fr-gilles-low/fr-gilles-low.onnx",
+  "~/voices/voice-fr-mls_1840-low/fr-mls_1840-low.onnx"
+ ],
+ "_note": "Sur ta machine : engine=piper, voice=~/voices/fr_FR-tom-medium.onnx (auditions: fr_FR-tom-medium.onnx, fr_FR-upmc-medium.onnx, fr_FR-siwis-medium.onnx)"
 }
