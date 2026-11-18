@@ -14,6 +14,13 @@
       "sourceType": "github",
       "skillPath": "codex-pet/SKILL.md",
       "computedHash": "d3367f19be0dd50d37d7ebf993f7082e7c8b568e72252df19fa80dd443c31e37"
+    },
+    "free-llm-apis": {
+      "source": "mnfst/awesome-free-llm-apis",
+      "commit": "70f9e3d228021b50c2c1a98aad5285ebf52dcf22",
+      "sourceType": "github",
+      "skillPath": "free-llm-apis/SKILL.md",
+      "computedHash": "5195a5cb04188bb53becbc281134386ce203cd59fd8ff02a21aca4e904fafa48"
     }
   }
 }
