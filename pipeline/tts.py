@@ -24,13 +24,11 @@ import numpy as np
 SR = 44100
 GAP = {",": 0.12, ";": 0.2, ":": 0.28, "…": 0.4, ".": 0.32, "!": 0.32, "?": 0.42}
 SEG_PAUSE = 0.45
-POLISH = ("highpass=f=75,"
-          "equalizer=f=180:t=q:w=1:g=2,"        # chaleur
-          "equalizer=f=350:t=q:w=1.2:g=-2.5,"   # désempâte
-          "equalizer=f=3200:t=q:w=1.5:g=2.5,"   # présence / intelligibilité
-          "deesser=i=0.35:m=0.5:f=0.5,"
-          "acompressor=threshold=-20dB:ratio=2.5:attack=8:release=120:makeup=2,"
-          "aecho=0.85:0.6:22|37:0.05|0.03")      # petite pièce, très discrète
+# Chaîne validée par DNSMOS (score qualité prédit) : seule variante qui AMÉLIORE la note
+# (EQ/compression/réverbe la faisaient baisser). Voir docs/ameliorations.md.
+POLISH = "highpass=f=75,deesser=i=0.3:m=0.5:f=0.5"
+# Modèles 16 kHz (Piper « low ») : génère des harmoniques aiguës pour éviter l'effet téléphone
+EXCITER = ",aexciter=level_in=1:level_out=1:amount=8:drive=8.5:freq=3500:ceil=16000:blend=0"
 HERE = os.path.dirname(os.path.abspath(__file__))
 _kokoro = None
 
@@ -78,11 +76,11 @@ def synth_raw(text, out, engine, voice, speed):
         run(["espeak-ng", "-v", voice, "-s", str(int(150 * speed)), "-p", "45", "-w", out, text])
 
 
-def to_pcm(src, dst, polish=True):
+def to_pcm(src, dst, polish=True, exciter=False):
     """Convertit en 44.1 kHz mono, retire les silences de bord, applique la chaîne studio."""
     af = "silenceremove=start_periods=1:start_threshold=-45dB,areverse,silenceremove=start_periods=1:start_threshold=-45dB,areverse"
     if polish:
-        af += "," + POLISH
+        af += "," + POLISH + (EXCITER if exciter else "")
     run(["ffmpeg", "-y", "-i", src, "-ar", str(SR), "-ac", "1", "-af", af, dst])
 
 
@@ -165,7 +163,7 @@ def main():
                 run(["ffmpeg", "-y", "-i", rec, "-af", "afftdn=nf=-25", tmp])  # débruitage léger
             else:
                 synth_raw(sp, tmp, engine, voice, speed)
-            to_pcm(tmp, out, not a.raw)
+            to_pcm(tmp, out, not a.raw, exciter=engine == "piper" and "-low" in voice)
             d = duration(out); ws = re.findall(r"\S+", sh)
             tot = sum(len(w) + 2 for w in ws); cur = t
             for w in ws:

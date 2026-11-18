@@ -4,7 +4,7 @@
 set -euo pipefail
 V="${VOICES_DIR:-$HOME/voices}"; mkdir -p "$V"
 [[ -x "$HOME/venv/bin/python" ]] || python3 -m venv "$HOME/venv"
-"$HOME/venv/bin/pip" install -q piper-tts kokoro-onnx soundfile faster-whisper numpy
+"$HOME/venv/bin/pip" install -q piper-tts kokoro-onnx soundfile faster-whisper numpy speechmos librosa
 for v in voice-fr-siwis-medium voice-fr-gilles-low voice-fr-mls_1840-low; do
   [[ -d "$V/$v" ]] || { mkdir -p "$V/$v"; curl -sSL "https://github.com/rhasspy/piper/releases/download/v0.0.2/$v.tar.gz" | tar -xz -C "$V/$v"; }
 done

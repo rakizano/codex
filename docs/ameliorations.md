@@ -7,10 +7,12 @@
 | Solution | Coût | Statut | Notes |
 |---|---|---|---|
 | **Kokoro-82M** (`ff_siwis`), synthèse phrase par phrase | 0 € (Apache-2.0) | ✅ par défaut | plus naturel que Piper ; modèles via `pipeline/setup_voices.sh` (GitHub) |
-| Chaîne « studio » : passe-haut, chaleur 180 Hz, -350 Hz, présence 3,2 kHz, dé-esseur, compression douce, petite pièce | 0 € | ✅ | les anciennes voix Piper saturaient (pics à 1,00) : corrigé |
+| Traitement **validé par mesure** : passe-haut + dé-esseur uniquement | 0 € | ✅ | DNSMOS : EQ, compression et réverbe faisaient BAISSER la note ; seule cette variante l'améliore. Les anciennes voix Piper saturaient (pics à 1,00) : corrigé |
+| **Mesure objective de qualité vocale** (DNSMOS, `pipeline/voice_mos.py`) | 0 € | ✅ | note 1–5 prédite ; aveugle au-dessus de 8 kHz → compléter par l'écoute |
 | Pauses selon ponctuation + `pause_before` (respiration avant une révélation) | 0 € | ✅ | réglable par segment dans `script.json` |
 | Vitesse 1,05 (énergie TikTok) | 0 € | ✅ | `config/voice.json` → `speed` |
-| Voix masculine Kokoro par **mélange de styles** (`im_nicola:0.5,em_alex:0.3,ff_siwis:0.2`) | 0 € | ☐ à écouter | timbre grave (≈120 Hz) ; risque de léger accent → écoute obligatoire (`out/auditions/`) |
+| Voix masculine Kokoro par **mélange de styles** | 0 € | ✗ écarté | DNSMOS 3,25 (< Kokoro siwis 3,43, < Gilles 3,57) + risque d'accent |
+| **Voix masculine Piper « gilles »** + exciter (recrée les aigus d'un modèle 16 kHz) | 0 € | ✅ version alternative | meilleure note DNSMOS sur la narration complète (3,40 vs 3,24 Kokoro), plus expressive (±3,1 vs ±2,2 demi-tons) ; `out/swimming-pools_gilles_tiktok.mp4` |
 | **Ta propre voix** (micro de téléphone) + débruitage + chaîne studio | 0 € | ✅ prêt (moteur `record`) | la solution la plus humaine ; texte à lire dans `episodes/<slug>/record/LIRE.md` |
 | F5-TTS / XTTS-v2 (clonage d'une voix **à toi ou consentie**) | 0 € (GPU conseillé) | ☐ sur ta machine | modèles hébergés sur Hugging Face (bloqué ici) ; XTTS = licence non commerciale (CPML), F5-TTS : poids CC-BY-NC → inadaptés à une chaîne monétisée. Le moteur `record` est meilleur et sans risque |
 | Voix Azure/Edge « neural » via outils non officiels | 0 € | ✗ écarté | conditions d'utilisation floues pour un usage public |
@@ -50,3 +52,13 @@
 | Animations Lottie gratuites (LottieFiles) via `@remotion/lottie` | ☐ option — non nécessaire : toutes les animations sont déjà codées en SVG original (pas de dépendance de licence) ; LottieFiles inaccessible depuis ce conteneur |
 | Illustrations vectorielles libres (unDraw, Open Peeps — CC0/MIT) | ☐ option, vérifier licence |
 | Images d'archives réelles (Wikimedia Commons, licence libre) | ☐ seulement si licence compatible, créditer |
+
+## Mesures (DNSMOS, note globale prédite 1–5, extrait du hook)
+
+| Voix | Brut | Traitement minimal |
+|---|---|---|
+| Piper gilles-low (masc.) | 3,55 | 3,57 (3,46 avec exciter) |
+| Kokoro ff_siwis (fém.) | 3,43 | 3,44 |
+| Kokoro mélanges masculins | 3,38–3,43 | 3,15–3,25 avec l'ancienne chaîne |
+| Piper siwis-medium (ancienne voix) | 3,32 | 3,14 avec l'ancienne chaîne |
+| espeak/MBROLA (première voix) | — | 2,80–3,01 |

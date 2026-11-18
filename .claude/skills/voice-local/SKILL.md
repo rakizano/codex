@@ -9,3 +9,6 @@ description: Génère la voix off gratuitement en local (Kokoro par défaut, Pip
 - Production : `~/venv/bin/python pipeline/tts.py episodes/<slug>` → `build/voice.wav`, `timeline.json`, `captions.srt`.
 - Vérifier : durée affichée > 60 s ; `python3 pipeline/check_pron.py episodes/<slug>` (IPA des noms propres) puis écoute ; corriger le champ `tts`.
 - Interdit : cloner la voix d'une personne réelle.
+
+- Comparer objectivement : `~/venv/bin/python pipeline/voice_mos.py build/audition_*.wav` (DNSMOS). Version alternative : `TTS_ARGS="--engine piper --voice ~/voices/voice-fr-gilles-low/fr-gilles-low.onnx" SUFFIX=_gilles pipeline/run_episode.sh <slug>`.
+- Ta propre voix : moteur `record` (fichiers dans `episodes/<slug>/record/`, texte dans `LIRE.md`).

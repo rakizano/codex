@@ -87,8 +87,8 @@ export const WipeTransition: React.FC<{p: Palette; color?: string; dir?: 1 | -1}
     <AbsoluteFill style={{pointerEvents: 'none', overflow: 'hidden'}}>
       <div style={{position: 'absolute', left: -600, top: -600, width: 2400, height: 3200, background: color ?? p.main,
         transform: `translateX(${pos * 2300 * dir}px) skewX(-18deg)`}} />
-      <div style={{position: 'absolute', left: -600, top: -600, width: 2400, height: 3200, background: p.accent,
-        transform: `translateX(${(pos - 0.18) * 2300 * dir}px) skewX(-18deg)`, opacity: 0.9, mixBlendMode: 'screen'}} />
+      <div style={{position: 'absolute', left: -600, top: -600, width: 2400, height: 3200, background: p.bg,
+        transform: `translateX(${(pos - 0.18) * 2300 * dir}px) skewX(-18deg)`, borderLeft: `40px solid ${p.accent}`}} />
     </AbsoluteFill>
   );
 };
