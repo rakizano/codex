@@ -4,6 +4,7 @@
 Usage: tts.py <episode_dir> [--engine kokoro|piper|espeak] [--voice NAME] [--speed X] [--audition]
 
 Moteurs (du meilleur au plus simple) :
+- record : TA voix, un fichier par segment dans episodes/<slug>/record/<id>.wav|m4a|mp3 (débruitage + chaîne studio)
 - kokoro : Kokoro-82M (ONNX, Apache-2.0), voix FR `ff_siwis`. Mélange possible :
            "ff_siwis:0.8,im_nicola:0.2". Modèles : pipeline/setup_voices.sh (GitHub).
 - piper  : modèle .onnx local (voix Piper)
@@ -110,6 +111,8 @@ def resolve(a, cfg):
     voice = a.voice or cfg.get("voice", "mb-fr1")
     speed = a.speed or cfg.get("speed", 1.0)
     d = os.path.expanduser(os.environ.get("VOICES_DIR", "~/voices"))
+    if engine == "record":
+        return engine, "ma-voix", 1.0
     if engine == "kokoro" and not os.path.exists(f"{d}/kokoro-v1.0.onnx"):
         print("[tts] Kokoro absent -> repli piper", file=sys.stderr); engine, voice = "piper", cfg.get("piper_voice", "")
     if engine == "piper" and not os.path.exists(os.path.expanduser(voice)):
@@ -148,12 +151,21 @@ def main():
             p = os.path.join(build, f"_pb{i}.wav"); silence(p, pb); parts.append(p); t += pb
         seg_start = t
         spoken = sentences(seg.get("tts", seg["text"])); shown = sentences(seg["text"])
-        if len(spoken) != len(shown):  # sécurité : minutage au niveau segment
+        if len(spoken) != len(shown) or engine == "record":  # minutage au niveau segment
             spoken, shown = [seg.get("tts", seg["text"])], [seg["text"]]
         words = []
         for sp, sh in zip(spoken, shown):
             out = os.path.join(build, f"s_{k:03}.wav"); k += 1
-            synth_raw(sp, tmp, engine, voice, speed); to_pcm(tmp, out, not a.raw)
+            if engine == "record":
+                # TA voix : episodes/<slug>/record/<id segment>.(wav|m4a|mp3) enregistrée au téléphone
+                rec = next((os.path.join(a.episode, "record", f"{seg['id']}.{e}") for e in ("wav", "m4a", "mp3", "ogg")
+                            if os.path.exists(os.path.join(a.episode, "record", f"{seg['id']}.{e}"))), None)
+                if not rec:
+                    sys.exit(f"[tts] enregistrement manquant : {a.episode}/record/{seg['id']}.wav")
+                run(["ffmpeg", "-y", "-i", rec, "-af", "afftdn=nf=-25", tmp])  # débruitage léger
+            else:
+                synth_raw(sp, tmp, engine, voice, speed)
+            to_pcm(tmp, out, not a.raw)
             d = duration(out); ws = re.findall(r"\S+", sh)
             tot = sum(len(w) + 2 for w in ws); cur = t
             for w in ws:
