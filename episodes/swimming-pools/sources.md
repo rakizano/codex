@@ -10,7 +10,7 @@
 | 6 | https://www.complex.com/music/a/insanulahmed/the-making-of-kendrick-lamars-good-kid-maad-city | Complex (Insanul Ahmed) | 10/2012 | Oral history, citation directe | « casual drinker or a drunk » = sujet du morceau | non (citation via extraits concordants) |
 | 7 | https://mail.hiphoppsych.co.uk/pdf/kendrick_lamar_hhp_lancet_psychiatry.pdf | Hip Hop Psych (A. Sule et al.) | — | Académique | lecture addiction | non |
 | 8 | https://factmag.com/2012/07/13/kendrick-lamar-turns-it-up-a-notch-on-swimming-pools-drank | Fact | 13/07/2012 | Presse | sortie du single | non |
-| 9 | Pitchfork, critique *good kid, m.A.A.d city* (2012) | Pitchfork | 2012 | Critique | — | refusée |
+| 9 | Pitchfork, critique *good kid, m.A.A.d city* (2012) — confirmée par https://idolator.com/7214622/kendrick-lamar-good-kid-maad-city-review-revue | Pitchfork (Jayson Greene) | 10/2012 | Critique | 9.5, Best New Music ; « grounding power of family » | non (page refusée) |
 | 10 | Complex, rétrospective 2025 (brief) | Complex | 2025 | Interview | — | **introuvable** pour l'instant |
 
 À faire sur ta machine : ouvrir chaque lien, cocher, ajouter la citation exacte.

@@ -19,7 +19,7 @@ Statut : **brouillon à vérifier**. Le conteneur de production n'a pas pu ouvri
 ## Interprétations critiques
 - Le morceau met en scène deux voix : celle qui pousse à boire (tentation / pression du groupe) et celle de la conscience. (Songfacts ; analyses multiples) ☐
 - Lecture « addiction à l'adolescence » : Hip Hop Psychiatry (A. Sule, chercheur associé honoraire, psychiatrie, Univ. de Cambridge ; Lancet Psychiatry) ☐ confirmer qu'il s'agit bien de l'analyse « Cambridge » évoquée dans le brief.
-- Pitchfork 2012 (Jayson Greene) : selon une reprise, lit la famille et la foi comme « the fraying tethers » qui retiennent Lamar face à la violence des gangs. Score et passage sur Swimming Pools non trouvés. ☐
+- Pitchfork 2012 (Jayson Greene) : selon une reprise, lit la famille et la foi comme « the fraying tethers » qui retiennent Lamar face à la violence des gangs. Note 9.5/10, « Best New Music » (Idolator, Music Critic) ; Greene y voit « the grounding power of family » (miroir Wikipedia). Passage précis sur Swimming Pools non trouvé. ◐ — non utilisé dans le script.
 
 ## Usage TikTok
 Aucune donnée collectée (pas de Virlo, pas d'accès TikTok depuis le conteneur). Voir `tiktok-usage.md` : modèle de relevé manuel à remplir depuis ton compte. Le script ne formule **aucune statistique TikTok** ; il parle d'un usage « de soirée » comme hypothèse à confirmer par le relevé.
