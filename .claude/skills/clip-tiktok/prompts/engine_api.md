@@ -66,6 +66,14 @@ CLIP.scene('s03', S => {
 | `E.raw(svgString)` → `{el, q(sel), qa(sel)}` | n'importe quel SVG écrit à la main |
 | `E.figure({...})` | personnage riggé (voir ci-dessous) · `E.crowd({n,y,s,color,action})` foule |
 
+### Personnage `E.flat` — illustration plate de face / de dos, visage vierge (style préféré de l'utilisateur)
+`{who: 'him'|'her'|'bro', view: 'front'|'back', x, y (= pieds), s (1 ≈ 900 px), arms: pockets|down|up|reach|wave|wide,
+action: breathe|idle|sway|walk|run|shrug|none, speed, seed, headTilt, rim, path, anim(a, t), look:{...}, key, keyAllow}`
+- Presets : him = bonnet noir + locks + sweat noir oversize + cargo + baskets crème ; her = chignon bouclé + mèches + créoles
+  dorées + sweat crème ; bro = casquette + locks + sweat anthracite. Visage = ovale de peau SANS traits.
+- `anim(a, t)` modifie {armL, armR (degrés, 0 = bras le long du corps, 180 = levé), rot, bob, liftL, liftR, headTilt, headX, breath, swing}.
+- Mèches, cordons et créoles balancent tout seuls (inertie). Sur fond sombre, toujours un `rim` pour détacher le sweat noir.
+
 ### Personnage `E.person` (recommandé) — profils anatomiques
 Même squelette que `E.figure` (pose, action, anim, path, facing, speed, key, keyAllow) mais rendu soigné : membres effilés,
 torse de profil, tête de profil (nez, menton, oreille, sourcil, œil qui cligne), mains, chaussures.

@@ -747,6 +747,127 @@
     }
     return item(root, draw);
   };
+
+  // Personnage « flat » de face / de dos, visage vierge (aucun trait) — style illustration éditoriale :
+  // sweat oversize, cargo large, baskets épaisses. Identité = coiffure + vêtements. s = 1 ≈ 900 px (pieds en y).
+  const FLAT_PRESETS = {
+    him: { hair: 'locs', hat: 'beanie', look: { skin: '#6b3a22', top: '#1d1922', rib: '#141117', strings: '#4c4450', bottom: '#1b1720', shoe: '#ece2cf', hair: '#120e10', hat: '#141116', hatRib: '#1c181e' } },
+    her: { hair: 'bun', hoops: true, width: .94, look: { skin: '#80492b', top: '#e2d2b6', rib: '#d3c09f', strings: '#c2ad8c', bottom: '#1b1720', shoe: '#ece2cf', hair: '#151012', gold: '#e2ad3a' } },
+    bro: { hair: 'locs', hat: 'cap', look: { skin: '#5a3220', top: '#2a2d36', rib: '#202229', strings: '#5a5e6a', bottom: '#14141a', shoe: '#e8e4dc', hair: '#100c0c', hat: '#0e0e12', hatRib: '#0e0e12' } },
+  };
+  E.flat = function (o = {}) {
+    const pre = FLAT_PRESETS[o.who || 'him'] || {};
+    o = Object.assign({ x: 540, y: 1500, s: 1, facing: 1, view: 'front', arms: 'pockets', action: 'breathe', speed: 1, seed: 1, shadow: true }, pre, o);
+    const lk = Object.assign({}, pre.look || {}, o.look || {});
+    const dk = (c, k = .22) => mixColor(c, '#000000', k), lt = (c, k = .12) => mixColor(c, '#ffffff', k);
+    const back = o.view === 'back', bw = o.width || 1;
+    const root = h('g', o.key === false ? {} : { 'data-key': o.key || 'personnage', 'data-key-allow': o.keyAllow || null });
+    const shadow = o.shadow ? h('ellipse', { cx: 0, cy: 0, rx: 170, ry: 20, fill: '#000', opacity: .3 }) : null; if (shadow) root.appendChild(shadow);
+    const fig = h('g'); root.appendChild(fig); if (o.rim) fig.setAttribute('filter', `url(#${rimFilter(o.rim)})`);
+    const P = (d, fill, extra) => h('path', Object.assign({ d, fill }, extra || {}));
+    const st = (d, stroke, w, extra) => h('path', Object.assign({ d, fill: 'none', stroke, 'stroke-width': w, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, extra || {}));
+    // ---- jambes ----
+    const leg = side => {
+      const g = h('g'), inner = h('g', side > 0 ? { transform: 'scale(-1,1)' } : {}); g.appendChild(inner);
+      inner.append(P('M -118 -312 L -4 -312 L -10 -60 Q -70 -46 -134 -60 Q -127 -200 -118 -312 Z', lk.bottom),
+        P('M -60 -312 L -4 -312 L -10 -60 Q -36 -54 -60 -54 Z', dk(lk.bottom, .12)),
+        st('M -128 -112 Q -70 -88 -14 -110', dk(lk.bottom, .35), 6, { opacity: .7 }), st('M -126 -150 Q -90 -136 -60 -146', dk(lk.bottom, .35), 4, { opacity: .5 }));
+      if (!back) inner.append(P('M -140 -346 L -84 -346 L -86 -238 Q -112 -230 -138 -238 Z', lk.bottom, { stroke: dk(lk.bottom, .4), 'stroke-width': 3 }), P('M -143 -352 L -82 -352 L -83 -322 L -142 -322 Z', dk(lk.bottom, .18)));
+      else inner.append(P('M -140 -346 L -84 -346 L -86 -238 Q -112 -230 -138 -238 Z', lk.bottom, { stroke: dk(lk.bottom, .4), 'stroke-width': 3 }));
+      inner.append(P(back ? 'M -134 -66 L -24 -66 Q -14 -40 -18 -10 Q -20 0 -34 0 L -132 0 Q -146 0 -144 -16 Q -144 -46 -134 -66 Z' : 'M -134 -66 Q -150 -50 -150 -22 Q -150 0 -128 0 L -32 0 Q -10 0 -10 -22 Q -10 -50 -26 -66 Z', lk.shoe),
+        P('M -148 -16 L -14 -16 L -16 0 L -146 0 Z', dk(lk.shoe, .14)), st(back ? 'M -100 -60 L -98 -26' : 'M -110 -50 Q -80 -60 -50 -50', dk(lk.shoe, .18), 4));
+      return g;
+    };
+    const legL = leg(-1), legR = leg(1);
+    const lower = h('g', { transform: `scale(${bw},1)` }); lower.append(legL, legR, P('M -112 -448 L 112 -448 L 120 -300 L -120 -300 Z', lk.bottom), st('M 0 -330 L 0 -250', dk(lk.bottom, .4), 4));
+    fig.appendChild(lower);
+    // ---- haut du corps ----
+    const upper = h('g'); fig.appendChild(upper);
+    const torsoG = h('g', { transform: `scale(${bw},1)` }); upper.appendChild(torsoG);
+    const arm = side => {
+      const g = h('g'), a = h('g', { transform: side > 0 ? 'scale(-.8,1)' : 'scale(.8,1)' }); g.appendChild(a);
+      const hand = h('ellipse', { cx: 0, cy: 278, rx: 21, ry: 26, fill: dk(lk.skin, .08) });
+      a.append(hand, P('M -40 -10 Q -40 -46 0 -48 Q 40 -46 40 -10 C 72 60 72 170 40 238 L -40 238 C -72 170 -72 60 -40 -10 Z', lk.top), P('M 18 -40 Q 40 -40 40 -10 C 72 60 72 170 40 238 L 22 238 C 50 170 50 60 18 -40 Z', dk(lk.top, .08)),
+        st('M -30 40 Q -50 120 -34 196', dk(lk.top, .28), 6, { opacity: .45 }), st('M -36 200 Q 0 214 36 200', dk(lk.top, .2), 4, { opacity: .5 }), P('M -38 230 Q 0 238 38 230 L 32 262 Q 0 268 -32 262 Z', lk.rib));
+      g.hand = hand;
+      return g;
+    };
+    const armL = arm(-1), armR = arm(1);
+    const torso = [P('M -60 -742 C -100 -736 -132 -722 -140 -690 Q -144 -640 -124 -600 L -114 -455 L 114 -455 L 124 -600 Q 144 -640 140 -690 C 132 -722 100 -736 60 -742 Z', lk.top),
+      P('M 70 -738 C 110 -730 136 -716 140 -690 Q 144 -640 124 -600 L 114 -455 L 96 -455 Q 120 -600 70 -738 Z', dk(lk.top, .06)), h('rect', { x: -112, y: -460, width: 224, height: 38, rx: 14, fill: lk.rib })];
+    torsoG.append(...torso);
+    let strings = null;
+    if (!back) { torsoG.append(P('M -80 -548 Q 0 -560 80 -548 L 98 -472 L -98 -472 Z', lk.top, { stroke: dk(lk.top, .25), 'stroke-width': 4 }), st('M -86 -500 Q 0 -488 86 -500', dk(lk.top, .2), 3, { opacity: .5 }));
+      strings = h('g'); strings.append(st('M -24 -712 L -26 -612', lk.strings, 6), st('M 22 -712 L 24 -612', lk.strings, 6)); torsoG.appendChild(strings); }
+    else torsoG.append(P('M -96 -742 Q -110 -650 -40 -608 Q 0 -592 40 -608 Q 110 -650 96 -742 Z', dk(lk.top, .12)), st('M -74 -700 Q 0 -630 74 -700', dk(lk.top, .3), 4, { opacity: .6 }));
+    const armsG = h('g', { transform: `scale(${bw},1)` }); armsG.append(armL, armR); upper.appendChild(armsG);
+    // col (capuche) + cou
+    const neckG = h('g'); upper.appendChild(neckG);
+    if (!back) neckG.append(P('M -96 -730 Q -100 -772 -58 -770 Q 0 -748 58 -770 Q 100 -772 96 -730 Q 64 -690 0 -688 Q -64 -690 -96 -730 Z', lk.top, { stroke: dk(lk.top, .2), 'stroke-width': 3 }),
+      P('M -50 -752 Q 0 -690 50 -752 Q 0 -734 -50 -752 Z', dk(lk.top, .45)), P('M -20 -770 L 20 -770 L 19 -728 Q 0 -718 -19 -728 Z', dk(lk.skin, .15)));
+    else neckG.append(P('M -22 -775 L 22 -775 L 22 -735 L -22 -735 Z', dk(lk.skin, .1)), P('M -98 -744 Q -60 -760 0 -756 Q 60 -760 98 -744 Q 70 -730 0 -730 Q -70 -730 -98 -744 Z', lk.top));
+    // ---- tête ----
+    const head = h('g'); upper.appendChild(head);
+    const swingers = [];   // éléments qui balancent (mèches, créoles) : [el, pivotX, pivotY, gain]
+    const face = 'M -46 -798 Q -48 -742 -14 -722 Q 0 -716 14 -722 Q 48 -742 46 -798 Q 44 -846 0 -848 Q -44 -846 -46 -798 Z';
+    const hc = lk.hair;
+    if (o.hair === 'bun') { // chignon bouclé
+      const bun = h('g'); [[-30, -856, 26], [0, -878, 30], [30, -856, 26], [-16, -838, 24], [18, -838, 24], [0, -858, 28], [-38, -834, 18], [38, -834, 18]].forEach(([x, y, r]) => bun.appendChild(h('circle', { cx: x, cy: y, r, fill: hc })));
+      [[-20, -878], [16, -880], [-36, -852], [34, -852]].forEach(([x, y]) => bun.appendChild(st(`M ${x - 8} ${y} q 8 -8 16 0`, lt(hc, .12), 3)));
+      head.appendChild(bun);
+    }
+    if (back) {
+      if (o.hair === 'bun') head.append(P('M -50 -790 Q -56 -858 0 -860 Q 56 -858 50 -790 Q 46 -744 0 -734 Q -46 -744 -50 -790 Z', hc), st('M -40 -820 Q -20 -800 -14 -760 M 40 -820 Q 20 -800 14 -760 M 0 -840 L 0 -800', lt(hc, .08), 3, { opacity: .6 }));
+      else head.append(P(face, dk(lk.skin, .1)));
+    } else {
+      head.append(h('ellipse', { cx: -46, cy: -790, rx: 8, ry: 13, fill: dk(lk.skin, .12) }), h('ellipse', { cx: 46, cy: -790, rx: 8, ry: 13, fill: dk(lk.skin, .12) }), P(face, lk.skin),
+        P('M 20 -846 Q 46 -840 46 -798 Q 48 -742 14 -722 Q 34 -760 20 -846 Z', dk(lk.skin, .08)));
+      if (o.hair === 'bun') head.append(P('M -52 -786 Q -58 -858 0 -860 Q 58 -858 52 -786 Q 44 -812 22 -820 Q 6 -826 0 -836 Q -6 -826 -22 -820 Q -44 -812 -52 -786 Z', hc));
+    }
+    if (o.hair === 'bun') [-1, 1].forEach(sd => { const c = st(`M ${sd * 46} -808 q ${-sd * 10} 12 0 24 q ${sd * 10} 12 0 24 q ${-sd * 10} 12 0 24 q ${sd * 10} 12 0 22`, hc, 7); head.appendChild(c); swingers.push([c, sd * 46, -808, .8]); });
+    if (o.hair === 'locs') {
+      const strands = back ? [-64, -52, -40, -28, -16, -4, 8, 20, 32, 44, 56, 66].map((x, i) => [x, 70 + (i * 37 % 5) * 6]) : [[-66, 70], [-58, 60], [-48, 48], [66, 70], [58, 60], [48, 50]];
+      const fr = back ? [] : [[-28, 22], [-4, 28], [24, 20]];
+      if (back) head.appendChild(P('M -52 -800 Q -56 -746 0 -738 Q 56 -746 52 -800 Z', dk(lk.skin, .12)));
+      const y0 = o.hat === 'beanie' ? -828 : -818;
+      const mkL = ([x, len]) => { const g = h('g'); g.append(st(`M ${x} ${y0} L ${x} ${y0 + len}`, hc, 12), st(`M ${x - 3} ${y0 + 12 + len * .3} l 6 0 M ${x - 3} ${y0 + 12 + len * .7} l 6 0`, lt(hc, .1), 2)); head.appendChild(g); swingers.push([g, x, y0, 1]); };
+      strands.forEach(mkL);
+      if (o.hat === 'cap') head.append(P('M -64 -812 Q -68 -900 0 -902 Q 68 -900 64 -812 Z', lk.hat), back ? P('M -30 -830 Q 0 -820 30 -830 L 26 -812 L -26 -812 Z', lt(lk.hat, .15)) : P('M -70 -820 Q 0 -846 70 -820 Q 76 -800 0 -808 Q -76 -800 -70 -820 Z', dk(lk.hat, .3)));
+      else head.append(P('M -62 -830 Q -68 -916 0 -918 Q 68 -916 62 -830 Z', lk.hat), P('M -66 -856 Q 0 -872 66 -856 L 64 -822 Q 0 -836 -64 -822 Z', lk.hatRib), st('M -40 -860 L -40 -826 M -20 -864 L -20 -830 M 0 -866 L 0 -832 M 20 -864 L 20 -830 M 40 -860 L 40 -826', dk(lk.hatRib, .3), 2, { opacity: .6 }));
+      fr.forEach(mkL);
+    }
+    if (o.hoops) [-1, 1].forEach(sd => { const c = h('circle', { cx: sd * (back ? 52 : 48), cy: -762, r: 14, fill: 'none', stroke: lk.gold, 'stroke-width': 5 }); head.appendChild(c); swingers.push([c, sd * (back ? 52 : 48), -776, 1.4]); });
+    // ---- animation ----
+    const ARMS = { pockets: [-5, -5], down: [5, 5], up: [160, 160], reach: [6, 150], wave: [6, 120], wide: [40, 40] };
+    function draw(t) {
+      let x = o.x, y = o.y; if (o.path) { const pp = kf(t, o.path, o.pathEase || 'linear'); x = pp[0]; y = pp[1]; }
+      const ar = ARMS[o.arms] || ARMS.pockets;
+      const a = { armL: ar[0], armR: ar[1], rot: 0, bob: 0, liftL: 0, liftR: 0, headTilt: o.headTilt || 0, headX: 0, breath: 0, swing: 0 };
+      const sp = o.speed, act = o.action;
+      if (act === 'breathe' || act === 'idle') { a.breath = Math.sin(t * 2.1 + o.seed) * 3; a.headTilt += Math.sin(t * .7 + o.seed) * 1.5; }
+      if (act === 'sway') { a.rot = Math.sin(t * 1.5 * sp + o.seed) * 2.5; a.breath = Math.sin(t * 2) * 2; }
+      if (act === 'walk' || act === 'run') {
+        const run = act === 'run', ph = t * sp * Math.PI * 2 * (run ? 1.5 : .95) + o.seed, sn = Math.sin(ph);
+        a.bob = Math.abs(sn) * (run ? 20 : 9); a.liftL = Math.max(0, sn) * (run ? 60 : 26); a.liftR = Math.max(0, -sn) * (run ? 60 : 26);
+        a.rot = sn * (run ? 2.5 : 1.4); a.swing = Math.sin(ph * 2) * (run ? 8 : 4);
+        if (o.arms !== 'pockets') { a.armL += sn * (run ? 38 : 12); a.armR -= sn * (run ? 38 : 12); }
+      }
+      if (act === 'shrug') { const k = Math.max(0, Math.sin(t * 2.4 * sp)); a.breath = k * 14; }
+      if (o.anim) o.anim(a, t);
+      legL.setAttribute('transform', `translate(0,${-a.liftL})`); legR.setAttribute('transform', `translate(0,${-a.liftR})`);
+      upper.setAttribute('transform', `translate(0,${-a.bob - a.breath})`);
+      armL.setAttribute('transform', `translate(-114,-690) rotate(${a.armL})`); armR.setAttribute('transform', `translate(114,-690) rotate(${-a.armR})`);
+      head.setAttribute('transform', `translate(${a.headX},${-a.breath * .3}) rotate(${a.headTilt} 0 -740) translate(0,-740) scale(1.14) translate(0,740)`);
+      armL.hand.setAttribute('opacity', o.arms === 'pockets' && a.armL < 0 ? 0 : 1); armR.hand.setAttribute('opacity', o.arms === 'pockets' && a.armR < 0 ? 0 : 1);
+      if (strings) strings.setAttribute('transform', `rotate(${-a.rot * 2 + a.swing * .3} 0 -712)`);
+      const sw = -a.rot * 2.5 - a.headTilt * .6 + a.swing + Math.sin(t * 1.3 + o.seed) * 1.5;
+      swingers.forEach(([el, px, py, g]) => el.setAttribute('transform', `rotate(${sw * g} ${px} ${py})`));
+      fig.setAttribute('transform', `translate(0,${-a.bob * .4}) rotate(${a.rot})`);
+      if (shadow) set(shadow, { rx: 170 - a.bob, opacity: .3 - a.bob / 200 });
+      root.setAttribute('transform', `translate(${x},${y}) scale(${o.s * o.facing},${o.s})`);
+    }
+    return item(root, draw);
+  };
   const rimCache = {};
   function rimFilter(color) { // liseré lumineux côté face (contre-jour)
     const id = 'rim' + color.replace('#', '');
