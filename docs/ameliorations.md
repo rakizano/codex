@@ -81,3 +81,4 @@
 - Mots-clés géants en contour qui traversent le fond (typographie cinétique d'arrière-plan).
 - Anneaux qui s'ouvrent à chaque coupe, calés sur la cymbale.
 - Tous les titres animés flottent et oscillent en permanence après leur apparition (plus aucun texte figé).
+- Testé aussi : Coqui VITS « CSS10 » (fém., GitHub sherpa-onnx) → DNSMOS 3,01–3,19 sur 4 essais, inférieur à Pierre/Gilles : écarté. Toutes les voix françaises téléchargeables depuis ce conteneur ont été évaluées.
