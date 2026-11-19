@@ -15,3 +15,6 @@ clips/*/hyperframes/assets/*.m4a
 clips/*/hyperframes/node_modules/
 clips/*/hyperframes/renders/
 clips/*/hyperframes/.hyperframes/
+clips/_reference/*/timeline/
+clips/_reference/*/shot*.jpg
+clips/_reference/b7396d40-05904A7E-76A5-44A3-83C0-1CBFDC22DD67/
