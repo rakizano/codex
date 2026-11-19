@@ -1,0 +1,1114 @@
+{
+ "engine": "piper",
+ "voice": "~/voices/sherpa/vits-piper-fr_FR-upmc-medium/fr_FR-upmc-medium.onnx#1",
+ "duration": 74.115,
+ "music_breaks": [
+  {
+   "at": 19.444000000000003,
+   "dur": 1.6
+  },
+  {
+   "at": 59.725,
+   "dur": 1.8
+  }
+ ],
+ "segments": [
+  {
+   "id": "hook",
+   "scene": "photos",
+   "text": "Tu as sûrement vu passer ces vidéos : une vieille photo, puis la même personne aujourd'hui, avec Pink Floyd en fond.",
+   "tts": "Tu as sûrement vu passer ces vidéos : une vieille photo, puis la même personne aujourd'hui, avec Pinnque Floïde en fond.",
+   "start": 0.0,
+   "end": 6.585,
+   "words": [
+    {
+     "w": "Tu",
+     "start": 0.0,
+     "end": 0.15
+    },
+    {
+     "w": "as",
+     "start": 0.15,
+     "end": 0.299
+    },
+    {
+     "w": "sûrement",
+     "start": 0.299,
+     "end": 0.673
+    },
+    {
+     "w": "vu",
+     "start": 0.673,
+     "end": 0.823
+    },
+    {
+     "w": "passer",
+     "start": 0.823,
+     "end": 1.122
+    },
+    {
+     "w": "ces",
+     "start": 1.122,
+     "end": 1.309
+    },
+    {
+     "w": "vidéos",
+     "start": 1.309,
+     "end": 1.608
+    },
+    {
+     "w": ":",
+     "start": 1.608,
+     "end": 1.721
+    },
+    {
+     "w": "une",
+     "start": 2.001,
+     "end": 2.232
+    },
+    {
+     "w": "vieille",
+     "start": 2.232,
+     "end": 2.65
+    },
+    {
+     "w": "photo,",
+     "start": 2.65,
+     "end": 3.02
+    },
+    {
+     "w": "puis",
+     "start": 3.02,
+     "end": 3.299
+    },
+    {
+     "w": "la",
+     "start": 3.299,
+     "end": 3.484
+    },
+    {
+     "w": "même",
+     "start": 3.484,
+     "end": 3.762
+    },
+    {
+     "w": "personne",
+     "start": 3.762,
+     "end": 4.226
+    },
+    {
+     "w": "aujourd'hui,",
+     "start": 4.226,
+     "end": 4.874
+    },
+    {
+     "w": "avec",
+     "start": 4.874,
+     "end": 5.153
+    },
+    {
+     "w": "Pink",
+     "start": 5.153,
+     "end": 5.431
+    },
+    {
+     "w": "Floyd",
+     "start": 5.431,
+     "end": 5.755
+    },
+    {
+     "w": "en",
+     "start": 5.755,
+     "end": 5.941
+    },
+    {
+     "w": "fond.",
+     "start": 5.941,
+     "end": 6.265
+    }
+   ]
+  },
+  {
+   "id": "decor",
+   "scene": "decor",
+   "text": "Le montage tombe pile au moment où la chanson rappelle que le décor peut rester le même, alors que nous, on vieillit.",
+   "start": 7.035,
+   "end": 13.821,
+   "words": [
+    {
+     "w": "Le",
+     "start": 7.035,
+     "end": 7.22
+    },
+    {
+     "w": "montage",
+     "start": 7.22,
+     "end": 7.635
+    },
+    {
+     "w": "tombe",
+     "start": 7.635,
+     "end": 7.959
+    },
+    {
+     "w": "pile",
+     "start": 7.959,
+     "end": 8.236
+    },
+    {
+     "w": "au",
+     "start": 8.236,
+     "end": 8.421
+    },
+    {
+     "w": "moment",
+     "start": 8.421,
+     "end": 8.79
+    },
+    {
+     "w": "où",
+     "start": 8.79,
+     "end": 8.975
+    },
+    {
+     "w": "la",
+     "start": 8.975,
+     "end": 9.159
+    },
+    {
+     "w": "chanson",
+     "start": 9.159,
+     "end": 9.575
+    },
+    {
+     "w": "rappelle",
+     "start": 9.575,
+     "end": 10.037
+    },
+    {
+     "w": "que",
+     "start": 10.037,
+     "end": 10.268
+    },
+    {
+     "w": "le",
+     "start": 10.268,
+     "end": 10.453
+    },
+    {
+     "w": "décor",
+     "start": 10.453,
+     "end": 10.776
+    },
+    {
+     "w": "peut",
+     "start": 10.776,
+     "end": 11.053
+    },
+    {
+     "w": "rester",
+     "start": 11.053,
+     "end": 11.422
+    },
+    {
+     "w": "le",
+     "start": 11.422,
+     "end": 11.607
+    },
+    {
+     "w": "même,",
+     "start": 11.607,
+     "end": 11.93
+    },
+    {
+     "w": "alors",
+     "start": 11.93,
+     "end": 12.254
+    },
+    {
+     "w": "que",
+     "start": 12.254,
+     "end": 12.485
+    },
+    {
+     "w": "nous,",
+     "start": 12.485,
+     "end": 12.808
+    },
+    {
+     "w": "on",
+     "start": 12.808,
+     "end": 12.993
+    },
+    {
+     "w": "vieillit.",
+     "start": 12.993,
+     "end": 13.501
+    }
+   ]
+  },
+  {
+   "id": "turn",
+   "scene": "title",
+   "text": "C'est beau, c'est nostalgique… mais « Time » ne parle pas seulement de souvenirs.",
+   "tts": "C'est beau, c'est nostalgique… mais Taillme ne parle pas seulement de souvenirs.",
+   "pause_before": 0.2,
+   "music_break": 1.6,
+   "start": 14.471,
+   "end": 19.219,
+   "words": [
+    {
+     "w": "C'est",
+     "start": 14.471,
+     "end": 14.786
+    },
+    {
+     "w": "beau,",
+     "start": 14.786,
+     "end": 15.101
+    },
+    {
+     "w": "c'est",
+     "start": 15.101,
+     "end": 15.416
+    },
+    {
+     "w": "nostalgique…",
+     "start": 15.416,
+     "end": 16.047
+    },
+    {
+     "w": "mais",
+     "start": 16.447,
+     "end": 16.688
+    },
+    {
+     "w": "«",
+     "start": 16.688,
+     "end": 16.809
+    },
+    {
+     "w": "Time",
+     "start": 16.809,
+     "end": 17.05
+    },
+    {
+     "w": "»",
+     "start": 17.05,
+     "end": 17.17
+    },
+    {
+     "w": "ne",
+     "start": 17.17,
+     "end": 17.331
+    },
+    {
+     "w": "parle",
+     "start": 17.331,
+     "end": 17.613
+    },
+    {
+     "w": "pas",
+     "start": 17.613,
+     "end": 17.813
+    },
+    {
+     "w": "seulement",
+     "start": 17.813,
+     "end": 18.256
+    },
+    {
+     "w": "de",
+     "start": 18.256,
+     "end": 18.416
+    },
+    {
+     "w": "souvenirs.",
+     "start": 18.416,
+     "end": 18.899
+    }
+   ]
+  },
+  {
+   "id": "waters",
+   "scene": "waters",
+   "text": "Roger Waters a expliqué que l'idée lui était venue vers 29 ans. Il avait passé des années à croire qu'il était en train de se préparer à vivre… plus tard.",
+   "tts": "Rodjeur Ouôteurse a expliqué que l'idée lui était venue vers vingt-neuf ans. Il avait passé des années à croire qu'il était en train de se préparer à vivre… plus tard.",
+   "start": 21.269,
+   "end": 30.361,
+   "words": [
+    {
+     "w": "Roger",
+     "start": 21.269,
+     "end": 21.646
+    },
+    {
+     "w": "Waters",
+     "start": 21.646,
+     "end": 22.078
+    },
+    {
+     "w": "a",
+     "start": 22.078,
+     "end": 22.239
+    },
+    {
+     "w": "expliqué",
+     "start": 22.239,
+     "end": 22.779
+    },
+    {
+     "w": "que",
+     "start": 22.779,
+     "end": 23.048
+    },
+    {
+     "w": "l'idée",
+     "start": 23.048,
+     "end": 23.48
+    },
+    {
+     "w": "lui",
+     "start": 23.48,
+     "end": 23.749
+    },
+    {
+     "w": "était",
+     "start": 23.749,
+     "end": 24.127
+    },
+    {
+     "w": "venue",
+     "start": 24.127,
+     "end": 24.504
+    },
+    {
+     "w": "vers",
+     "start": 24.504,
+     "end": 24.828
+    },
+    {
+     "w": "29",
+     "start": 24.828,
+     "end": 25.044
+    },
+    {
+     "w": "ans.",
+     "start": 25.044,
+     "end": 25.367
+    },
+    {
+     "w": "Il",
+     "start": 25.687,
+     "end": 25.834
+    },
+    {
+     "w": "avait",
+     "start": 25.834,
+     "end": 26.092
+    },
+    {
+     "w": "passé",
+     "start": 26.092,
+     "end": 26.349
+    },
+    {
+     "w": "des",
+     "start": 26.349,
+     "end": 26.533
+    },
+    {
+     "w": "années",
+     "start": 26.533,
+     "end": 26.827
+    },
+    {
+     "w": "à",
+     "start": 26.827,
+     "end": 26.938
+    },
+    {
+     "w": "croire",
+     "start": 26.938,
+     "end": 27.232
+    },
+    {
+     "w": "qu'il",
+     "start": 27.232,
+     "end": 27.489
+    },
+    {
+     "w": "était",
+     "start": 27.489,
+     "end": 27.747
+    },
+    {
+     "w": "en",
+     "start": 27.747,
+     "end": 27.894
+    },
+    {
+     "w": "train",
+     "start": 27.894,
+     "end": 28.151
+    },
+    {
+     "w": "de",
+     "start": 28.151,
+     "end": 28.299
+    },
+    {
+     "w": "se",
+     "start": 28.299,
+     "end": 28.446
+    },
+    {
+     "w": "préparer",
+     "start": 28.446,
+     "end": 28.814
+    },
+    {
+     "w": "à",
+     "start": 28.814,
+     "end": 28.924
+    },
+    {
+     "w": "vivre…",
+     "start": 28.924,
+     "end": 29.218
+    },
+    {
+     "w": "plus",
+     "start": 29.618,
+     "end": 29.813
+    },
+    {
+     "w": "tard.",
+     "start": 29.813,
+     "end": 30.041
+    }
+   ]
+  },
+  {
+   "id": "realize",
+   "scene": "clock",
+   "text": "Puis il a compris qu'il était déjà en train de vivre sa vie, minute après minute.",
+   "pause_before": 0.3,
+   "start": 31.111,
+   "end": 36.464,
+   "words": [
+    {
+     "w": "Puis",
+     "start": 31.111,
+     "end": 31.419
+    },
+    {
+     "w": "il",
+     "start": 31.419,
+     "end": 31.625
+    },
+    {
+     "w": "a",
+     "start": 31.625,
+     "end": 31.779
+    },
+    {
+     "w": "compris",
+     "start": 31.779,
+     "end": 32.241
+    },
+    {
+     "w": "qu'il",
+     "start": 32.241,
+     "end": 32.601
+    },
+    {
+     "w": "était",
+     "start": 32.601,
+     "end": 32.96
+    },
+    {
+     "w": "déjà",
+     "start": 32.96,
+     "end": 33.268
+    },
+    {
+     "w": "en",
+     "start": 33.268,
+     "end": 33.474
+    },
+    {
+     "w": "train",
+     "start": 33.474,
+     "end": 33.833
+    },
+    {
+     "w": "de",
+     "start": 33.833,
+     "end": 34.039
+    },
+    {
+     "w": "vivre",
+     "start": 34.039,
+     "end": 34.398
+    },
+    {
+     "w": "sa",
+     "start": 34.398,
+     "end": 34.604
+    },
+    {
+     "w": "vie,",
+     "start": 34.604,
+     "end": 34.912
+    },
+    {
+     "w": "minute",
+     "start": 34.912,
+     "end": 35.323
+    },
+    {
+     "w": "après",
+     "start": 35.323,
+     "end": 35.682
+    },
+    {
+     "w": "minute.",
+     "start": 35.682,
+     "end": 36.144
+    }
+   ]
+  },
+  {
+   "id": "days",
+   "scene": "days",
+   "text": "C'est ça, le vrai sujet du morceau : les journées qui se ressemblent, les projets qu'on remet à demain, le moment où tu te retournes et tu réalises que des années sont passées.",
+   "start": 36.914,
+   "end": 47.181,
+   "words": [
+    {
+     "w": "C'est",
+     "start": 36.914,
+     "end": 37.251
+    },
+    {
+     "w": "ça,",
+     "start": 37.251,
+     "end": 37.492
+    },
+    {
+     "w": "le",
+     "start": 37.492,
+     "end": 37.684
+    },
+    {
+     "w": "vrai",
+     "start": 37.684,
+     "end": 37.973
+    },
+    {
+     "w": "sujet",
+     "start": 37.973,
+     "end": 38.31
+    },
+    {
+     "w": "du",
+     "start": 38.31,
+     "end": 38.503
+    },
+    {
+     "w": "morceau",
+     "start": 38.503,
+     "end": 38.936
+    },
+    {
+     "w": ":",
+     "start": 38.936,
+     "end": 39.08
+    },
+    {
+     "w": "les",
+     "start": 39.36,
+     "end": 39.587
+    },
+    {
+     "w": "journées",
+     "start": 39.587,
+     "end": 40.042
+    },
+    {
+     "w": "qui",
+     "start": 40.042,
+     "end": 40.269
+    },
+    {
+     "w": "se",
+     "start": 40.269,
+     "end": 40.451
+    },
+    {
+     "w": "ressemblent,",
+     "start": 40.451,
+     "end": 41.088
+    },
+    {
+     "w": "les",
+     "start": 41.088,
+     "end": 41.315
+    },
+    {
+     "w": "projets",
+     "start": 41.315,
+     "end": 41.724
+    },
+    {
+     "w": "qu'on",
+     "start": 41.724,
+     "end": 42.042
+    },
+    {
+     "w": "remet",
+     "start": 42.042,
+     "end": 42.36
+    },
+    {
+     "w": "à",
+     "start": 42.36,
+     "end": 42.497
+    },
+    {
+     "w": "demain,",
+     "start": 42.497,
+     "end": 42.906
+    },
+    {
+     "w": "le",
+     "start": 42.906,
+     "end": 43.088
+    },
+    {
+     "w": "moment",
+     "start": 43.088,
+     "end": 43.451
+    },
+    {
+     "w": "où",
+     "start": 43.451,
+     "end": 43.633
+    },
+    {
+     "w": "tu",
+     "start": 43.633,
+     "end": 43.815
+    },
+    {
+     "w": "te",
+     "start": 43.815,
+     "end": 43.997
+    },
+    {
+     "w": "retournes",
+     "start": 43.997,
+     "end": 44.497
+    },
+    {
+     "w": "et",
+     "start": 44.497,
+     "end": 44.679
+    },
+    {
+     "w": "tu",
+     "start": 44.679,
+     "end": 44.861
+    },
+    {
+     "w": "réalises",
+     "start": 44.861,
+     "end": 45.315
+    },
+    {
+     "w": "que",
+     "start": 45.315,
+     "end": 45.542
+    },
+    {
+     "w": "des",
+     "start": 45.542,
+     "end": 45.77
+    },
+    {
+     "w": "années",
+     "start": 45.77,
+     "end": 46.133
+    },
+    {
+     "w": "sont",
+     "start": 46.133,
+     "end": 46.406
+    },
+    {
+     "w": "passées.",
+     "start": 46.406,
+     "end": 46.861
+    }
+   ]
+  },
+  {
+   "id": "clocks",
+   "scene": "shop",
+   "text": "Et le détail est fou : au début, on entend des dizaines d'horloges et de réveils. L'ingénieur Alan Parsons les avait enregistrés séparément dans un magasin d'antiquités, avant de proposer ces sons au groupe.",
+   "tts": "Et le détail est fou : au début, on entend des dizaines d'horloges et de réveils. L'ingénieur Alanne Parsonnse les avait enregistrés séparément dans un magasin d'antiquités, avant de proposer ces sons au groupe.",
+   "music_break": 1.8,
+   "start": 47.631,
+   "end": 59.5,
+   "words": [
+    {
+     "w": "Et",
+     "start": 47.631,
+     "end": 47.783
+    },
+    {
+     "w": "le",
+     "start": 47.783,
+     "end": 47.935
+    },
+    {
+     "w": "détail",
+     "start": 47.935,
+     "end": 48.239
+    },
+    {
+     "w": "est",
+     "start": 48.239,
+     "end": 48.429
+    },
+    {
+     "w": "fou",
+     "start": 48.429,
+     "end": 48.619
+    },
+    {
+     "w": ":",
+     "start": 48.619,
+     "end": 48.733
+    },
+    {
+     "w": "au",
+     "start": 49.013,
+     "end": 49.204
+    },
+    {
+     "w": "début,",
+     "start": 49.204,
+     "end": 49.587
+    },
+    {
+     "w": "on",
+     "start": 49.587,
+     "end": 49.779
+    },
+    {
+     "w": "entend",
+     "start": 49.779,
+     "end": 50.162
+    },
+    {
+     "w": "des",
+     "start": 50.162,
+     "end": 50.402
+    },
+    {
+     "w": "dizaines",
+     "start": 50.402,
+     "end": 50.881
+    },
+    {
+     "w": "d'horloges",
+     "start": 50.881,
+     "end": 51.456
+    },
+    {
+     "w": "et",
+     "start": 51.456,
+     "end": 51.647
+    },
+    {
+     "w": "de",
+     "start": 51.647,
+     "end": 51.839
+    },
+    {
+     "w": "réveils.",
+     "start": 51.839,
+     "end": 52.318
+    },
+    {
+     "w": "L'ingénieur",
+     "start": 52.638,
+     "end": 53.229
+    },
+    {
+     "w": "Alan",
+     "start": 53.229,
+     "end": 53.501
+    },
+    {
+     "w": "Parsons",
+     "start": 53.501,
+     "end": 53.91
+    },
+    {
+     "w": "les",
+     "start": 53.91,
+     "end": 54.137
+    },
+    {
+     "w": "avait",
+     "start": 54.137,
+     "end": 54.455
+    },
+    {
+     "w": "enregistrés",
+     "start": 54.455,
+     "end": 55.046
+    },
+    {
+     "w": "séparément",
+     "start": 55.046,
+     "end": 55.591
+    },
+    {
+     "w": "dans",
+     "start": 55.591,
+     "end": 55.863
+    },
+    {
+     "w": "un",
+     "start": 55.863,
+     "end": 56.045
+    },
+    {
+     "w": "magasin",
+     "start": 56.045,
+     "end": 56.454
+    },
+    {
+     "w": "d'antiquités,",
+     "start": 56.454,
+     "end": 57.135
+    },
+    {
+     "w": "avant",
+     "start": 57.135,
+     "end": 57.453
+    },
+    {
+     "w": "de",
+     "start": 57.453,
+     "end": 57.635
+    },
+    {
+     "w": "proposer",
+     "start": 57.635,
+     "end": 58.089
+    },
+    {
+     "w": "ces",
+     "start": 58.089,
+     "end": 58.316
+    },
+    {
+     "w": "sons",
+     "start": 58.316,
+     "end": 58.589
+    },
+    {
+     "w": "au",
+     "start": 58.589,
+     "end": 58.771
+    },
+    {
+     "w": "groupe.",
+     "start": 58.771,
+     "end": 59.18
+    }
+   ]
+  },
+  {
+   "id": "tiktok",
+   "scene": "compare",
+   "text": "Donc oui, TikTok nous fait comparer notre ancienne photo à celle d'aujourd'hui.",
+   "tts": "Donc oui, Tik Tok nous fait comparer notre ancienne photo à celle d'aujourd'hui.",
+   "start": 61.75,
+   "end": 66.301,
+   "words": [
+    {
+     "w": "Donc",
+     "start": 61.75,
+     "end": 62.026
+    },
+    {
+     "w": "oui,",
+     "start": 62.026,
+     "end": 62.301
+    },
+    {
+     "w": "TikTok",
+     "start": 62.301,
+     "end": 62.669
+    },
+    {
+     "w": "nous",
+     "start": 62.669,
+     "end": 62.945
+    },
+    {
+     "w": "fait",
+     "start": 62.945,
+     "end": 63.221
+    },
+    {
+     "w": "comparer",
+     "start": 63.221,
+     "end": 63.681
+    },
+    {
+     "w": "notre",
+     "start": 63.681,
+     "end": 64.003
+    },
+    {
+     "w": "ancienne",
+     "start": 64.003,
+     "end": 64.463
+    },
+    {
+     "w": "photo",
+     "start": 64.463,
+     "end": 64.785
+    },
+    {
+     "w": "à",
+     "start": 64.785,
+     "end": 64.923
+    },
+    {
+     "w": "celle",
+     "start": 64.923,
+     "end": 65.245
+    },
+    {
+     "w": "d'aujourd'hui.",
+     "start": 65.245,
+     "end": 65.981
+    }
+   ]
+  },
+  {
+   "id": "end",
+   "scene": "question",
+   "text": "Mais Roger Waters posait une question plus dérangeante : est-ce qu'on attend encore que notre vraie vie commence ?",
+   "tts": "Mais Rodjeur Ouôteurse posait une question plus dérangeante : est-ce qu'on attend encore que notre vraie vie commence ?",
+   "pause_before": 0.4,
+   "start": 67.151,
+   "end": 73.665,
+   "words": [
+    {
+     "w": "Mais",
+     "start": 67.151,
+     "end": 67.456
+    },
+    {
+     "w": "Roger",
+     "start": 67.456,
+     "end": 67.811
+    },
+    {
+     "w": "Waters",
+     "start": 67.811,
+     "end": 68.217
+    },
+    {
+     "w": "posait",
+     "start": 68.217,
+     "end": 68.624
+    },
+    {
+     "w": "une",
+     "start": 68.624,
+     "end": 68.877
+    },
+    {
+     "w": "question",
+     "start": 68.877,
+     "end": 69.385
+    },
+    {
+     "w": "plus",
+     "start": 69.385,
+     "end": 69.69
+    },
+    {
+     "w": "dérangeante",
+     "start": 69.69,
+     "end": 70.35
+    },
+    {
+     "w": ":",
+     "start": 70.35,
+     "end": 70.502
+    },
+    {
+     "w": "est-ce",
+     "start": 70.782,
+     "end": 71.072
+    },
+    {
+     "w": "qu'on",
+     "start": 71.072,
+     "end": 71.326
+    },
+    {
+     "w": "attend",
+     "start": 71.326,
+     "end": 71.615
+    },
+    {
+     "w": "encore",
+     "start": 71.615,
+     "end": 71.905
+    },
+    {
+     "w": "que",
+     "start": 71.905,
+     "end": 72.086
+    },
+    {
+     "w": "notre",
+     "start": 72.086,
+     "end": 72.34
+    },
+    {
+     "w": "vraie",
+     "start": 72.34,
+     "end": 72.593
+    },
+    {
+     "w": "vie",
+     "start": 72.593,
+     "end": 72.774
+    },
+    {
+     "w": "commence",
+     "start": 72.774,
+     "end": 73.137
+    },
+    {
+     "w": "?",
+     "start": 73.137,
+     "end": 73.245
+    }
+   ]
+  }
+ ]
+}

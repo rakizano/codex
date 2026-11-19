@@ -15,3 +15,11 @@ Coût cible : 0 € (aucun appel payant ; `ALLOW_PAID=false`).
 7. Package `episodes/<slug>/out/` : MP4 sans musique commerciale, SRT, `publish.md` (titre, description avec sources, 3–5 hashtags, rappel : ajouter le son officiel dans l'appli TikTok).
 8. `production-log.md` : temps par étape, défauts, coût (0 €).
 Jamais de publication automatique.
+
+## Styles d'animation disponibles (choisir selon le sujet, ne pas répéter le même style d'un épisode à l'autre)
+- **Remotion « Vinyl Motion »** (`pipeline/run_episode.sh`) : scènes flat colorées, transitions Bang Motion en profondeur — sujets pop/rap/fête.
+- **Bang Motion « carnet de croquis vintage »** (`pipeline/run_episode_html.sh`, `pipeline/bang_sketch.py`) : papier sépia, gravures SVG, caméra kolase, push-through — histoire, biographie, morceaux anciens (pilote : « Time », Pink Floyd).
+- Autres styles Bang Motion à adapter : jurnalisme (fond noir, photos libres de droits), katalog (fond blanc, découpes), kartun panggung, aksi kontinu — voir `.claude/skills/bang-motion/references/explainer.md`.
+
+## Le vrai morceau derrière la vidéo
+Jamais extrait de YouTube/Spotify. Deux voies légales : (1) publier `*_voix-seule.mp4` et ajouter le son officiel dans l'appli TikTok ; (2) fichier sous licence dans `episodes/<slug>/music/licence.*` → calage automatique des coupes sur ses temps (`pipeline/licensed_beats.py`, analyse locale video-gif-studio) + ducking.

@@ -1,0 +1,73 @@
+{
+  "slug": "time-pink-floyd",
+  "title": "Time",
+  "artist": "Pink Floyd",
+  "year": 1973,
+  "album": "The Dark Side of the Moon",
+  "style": "bang-motion:sketsa-vintage",
+  "music": {
+    "bpm": 66,
+    "swing": 0.5,
+    "root": 45,
+    "clock": true,
+    "_note": "nappe originale + tic-tac générique ; aucune imitation du morceau"
+  },
+  "segments": [
+    {
+      "id": "hook",
+      "scene": "photos",
+      "text": "Tu as sûrement vu passer ces vidéos : une vieille photo, puis la même personne aujourd'hui, avec Pink Floyd en fond.",
+      "tts": "Tu as sûrement vu passer ces vidéos : une vieille photo, puis la même personne aujourd'hui, avec Pinnque Floïde en fond."
+    },
+    {
+      "id": "decor",
+      "scene": "decor",
+      "text": "Le montage tombe pile au moment où la chanson rappelle que le décor peut rester le même, alors que nous, on vieillit."
+    },
+    {
+      "id": "turn",
+      "scene": "title",
+      "text": "C'est beau, c'est nostalgique… mais « Time » ne parle pas seulement de souvenirs.",
+      "tts": "C'est beau, c'est nostalgique… mais Taillme ne parle pas seulement de souvenirs.",
+      "pause_before": 0.2,
+      "music_break": 1.6
+    },
+    {
+      "id": "waters",
+      "scene": "waters",
+      "text": "Roger Waters a expliqué que l'idée lui était venue vers 29 ans. Il avait passé des années à croire qu'il était en train de se préparer à vivre… plus tard.",
+      "tts": "Rodjeur Ouôteurse a expliqué que l'idée lui était venue vers vingt-neuf ans. Il avait passé des années à croire qu'il était en train de se préparer à vivre… plus tard."
+    },
+    {
+      "id": "realize",
+      "scene": "clock",
+      "text": "Puis il a compris qu'il était déjà en train de vivre sa vie, minute après minute.",
+      "pause_before": 0.3
+    },
+    {
+      "id": "days",
+      "scene": "days",
+      "text": "C'est ça, le vrai sujet du morceau : les journées qui se ressemblent, les projets qu'on remet à demain, le moment où tu te retournes et tu réalises que des années sont passées."
+    },
+    {
+      "id": "clocks",
+      "scene": "shop",
+      "text": "Et le détail est fou : au début, on entend des dizaines d'horloges et de réveils. L'ingénieur Alan Parsons les avait enregistrés séparément dans un magasin d'antiquités, avant de proposer ces sons au groupe.",
+      "tts": "Et le détail est fou : au début, on entend des dizaines d'horloges et de réveils. L'ingénieur Alanne Parsonnse les avait enregistrés séparément dans un magasin d'antiquités, avant de proposer ces sons au groupe.",
+      "music_break": 1.8
+    },
+    {
+      "id": "tiktok",
+      "scene": "compare",
+      "text": "Donc oui, TikTok nous fait comparer notre ancienne photo à celle d'aujourd'hui.",
+      "tts": "Donc oui, Tik Tok nous fait comparer notre ancienne photo à celle d'aujourd'hui."
+    },
+    {
+      "id": "end",
+      "scene": "question",
+      "text": "Mais Roger Waters posait une question plus dérangeante : est-ce qu'on attend encore que notre vraie vie commence ?",
+      "tts": "Mais Rodjeur Ouôteurse posait une question plus dérangeante : est-ce qu'on attend encore que notre vraie vie commence ?",
+      "pause_before": 0.4
+    }
+  ]
+}

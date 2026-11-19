@@ -113,6 +113,19 @@ def snare_roll(beat_len, steps=6):
     return out
 
 
+def tick(tock=False, bright=1.0):
+    n = int(0.06 * SR); t = np.arange(n) / SR
+    f = 2600 if not tock else 1900
+    return (np.sin(2 * np.pi * f * t) * np.exp(-t * 160) + hp(rng.normal(0, 1, n), 3000) * np.exp(-t * 300) * 0.5) * 0.35 * bright
+
+
+def alarm_bell(len_s=1.6):
+    n = int(len_s * SR); t = np.arange(n) / SR
+    strike = (np.sin(2 * np.pi * 22 * t) > 0).astype(float)          # marteau qui frappe ~22 fois/s
+    bell = sum(np.sin(2 * np.pi * f * t) for f in (1870, 2990, 4120))
+    return bell * (0.4 + 0.6 * strike) * np.exp(-t * 1.2) * np.minimum(1, (len_s - t) * 4) * 0.12
+
+
 # ---------- bruitages ----------
 def whoosh(len_s=0.7, up=True):
     n = int(len_s * SR); t = np.arange(n) / SR; x = rng.normal(0, 1, n)
@@ -244,10 +257,11 @@ def build_music(tl, music_cfg, voice_offset):
     clean = [(bt, en) for bt, en in zip(beats, energy_per_beat) if bt is not None]
     beats = [b for b, _ in clean]; energy_per_beat = [e for _, e in clean]
     cuts = []
-    for s_ in segs[1:]:
+    for k_, s_ in enumerate(segs[1:]):
         want = voice_offset + s_["start"] - 0.25
-        bt = min(beats, key=lambda x: abs(x - want))
-        if abs(bt - want) > beat * 0.6: bt = want
+        prev_end = voice_offset + segs[k_]["end"] + 0.08          # jamais avant la fin de la phrase précédente
+        cand = [x for x in beats if prev_end <= x <= voice_offset + s_["start"] + 0.35]
+        bt = min(cand, key=lambda x: abs(x - want)) if cand else max(want, prev_end)
         cuts.append(round(bt, 3))
         if drums_in <= bt < end_t + bar:
             if s_["scene"] != "FactReveal":
@@ -265,6 +279,20 @@ def build_music(tl, music_cfg, voice_offset):
     for a, z in breaks:
         s, e = int(a * SR), int(z * SR); r = int(0.25 * SR)
         lift[s:e] = 2.4; lift[max(0, s - r):s] = np.linspace(1, 2.4, s - max(0, s - r)); lift[e:e + r] = np.linspace(2.4, 1, len(lift[e:e + r]))
+    # HORLOGES (option music.clock) : tic-tac générique calé sur le tempo ; dans la scène « shop »,
+    # une dizaine d'horloges à vitesses différentes se superposent (évocation, pas une copie du morceau)
+    if music_cfg.get("clock"):
+        clk = np.zeros(n)
+        for k_, bt in enumerate(beats):
+            add(clk, tick(tock=k_ % 2 == 1), bt, 0.8)
+        shop = [s_ for s_ in segs if s_["scene"] == "shop"]
+        if shop:
+            a_ = voice_offset + shop[0]["start"]; z_ = voice_offset + shop[0]["end"] + 1.5
+            for j in range(10):
+                per = 0.42 + 0.11 * j; ph = rng.uniform(0, per); tt_ = a_ + ph; br = 0.5 + 0.5 * rng.random()
+                while tt_ < z_:
+                    add(clk, tick(tock=j % 2 == 0, bright=br), tt_, 0.55); tt_ += per
+        drums = drums + clk
     v = vinyl(dur)
     L = (keys[0] * 0.8 + drums + bass + v) * lift
     R = (keys[1] * 0.8 + drums + bass + np.roll(v, 777)) * lift
@@ -273,6 +301,13 @@ def build_music(tl, music_cfg, voice_offset):
 
 
 SFX_BY_SCENE = {
+    # épisode « Time »
+    "photos": [("photo", "page_flip", 0.8), ("aujourd", "page_flip", 0.6)],
+    "title": [(0.0, "needle_drop", 0.8)],
+    "waters": [("tard", "impact", 0.5)],
+    "clock": [("minute", "riser", 0.5)],
+    "shop": [("réveils", "alarm", 0.9), ("magasin", "page_flip", 0.6)],
+    "question": [("dérangeante", "impact", 0.7)],
     "ArtistTitleCard": [(0.0, "needle_drop", 0.9)],
     "FamilyRoom": [("verres", "pour", 0.7), ("fêtes", "clink", 0.8)],
     "FactReveal": [(0.0, "page_flip", 1.0), ("choisir", "riser", 0.8), ("ivrogne", "impact", 0.9)],
@@ -281,7 +316,7 @@ SFX_BY_SCENE = {
     "TikTokUsageContrast": [("Mais", "scratch", 0.9)],
     "EndQuestion": [(0.0, "needle_drop", 0.6)],
 }
-SFX = {"needle_drop": needle_drop, "pour": pour, "clink": clink, "page_flip": page_flip, "riser": riser,
+SFX = {"alarm": alarm_bell, "needle_drop": needle_drop, "pour": pour, "clink": clink, "page_flip": page_flip, "riser": riser,
        "impact": impact, "pop": pop, "whoosh_down": lambda: whoosh(0.6, False), "splash": splash, "scratch": scratch}
 
 
