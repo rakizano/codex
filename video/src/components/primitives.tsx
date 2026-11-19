@@ -30,8 +30,11 @@ export const ease = (t: number, a: number, b: number) =>
 /** KineticWord : mot qui arrive avec rebond, échelle et légère rotation. */
 export const KineticWord: React.FC<{text: string; at?: number; size?: number; color: string; x?: number; y?: number; rot?: number; weight?: number}> = ({text, at = 0, size = 120, color, x = 540, y = 600, rot = -3, weight = 900}) => {
   const s = usePop(at, 10);
+  const fr = useCurrentFrame();
+  // mouvement permanent après l'apparition : flottement + légère oscillation (jamais figé)
+  const bob = Math.sin(fr / 14 + x / 97) * 7 * s, sway = Math.sin(fr / 23 + y / 83) * 1.4 * s;
   return (
-    <div style={{position: 'absolute', left: x, top: y, transform: `translate(-50%,-50%) scale(${s}) rotate(${(1 - s) * rot * 4 + rot}deg)`, opacity: Math.min(1, s * 1.5),
+    <div style={{position: 'absolute', left: x, top: y, transform: `translate(-50%,calc(-50% + ${bob}px)) scale(${s * (1 + Math.sin(fr / 19) * 0.012)}) rotate(${(1 - s) * rot * 4 + rot + sway}deg)`, opacity: Math.min(1, s * 1.5),
       fontFamily: FONT, fontWeight: weight, fontSize: size, color, letterSpacing: -2, whiteSpace: 'nowrap', textTransform: 'uppercase', lineHeight: 1, textShadow: '0 6px 26px #000a'}}>
       {text}
     </div>

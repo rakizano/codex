@@ -148,3 +148,49 @@ export const Burst: React.FC<{at: number; x: number; y: number; color: string; n
 };
 
 export const beatsFromProps = (ep: EpisodeProps) => ({beats: ep.beats ?? [], energy: ep.energy ?? [], offset: 0});
+
+/** Zoom léger sur chaque premier temps de mesure (le cadre « respire » avec la musique). */
+export const BeatZoom: React.FC<{children: React.ReactNode}> = ({children}) => {
+  const {pulse, downbeat} = useBeat(0);
+  const s = 1 + (downbeat ? 0.022 : 0.008) * pulse;
+  return <AbsoluteFill style={{transform: `scale(${s})`}}>{children}</AbsoluteFill>;
+};
+
+/** Mots-clés géants en contour qui traversent le fond (typographie cinétique d'arrière-plan). */
+export const BackgroundWords: React.FC<{ep: EpisodeProps}> = ({ep}) => {
+  const f = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  const t = f / fps - ep.voiceOffset;
+  const seg = [...ep.segments].reverse().find((s) => t >= s.start - 0.3) ?? ep.segments[0];
+  const words = (seg.keywords ?? []).slice(0, 2);
+  const local = t - seg.start;
+  return (
+    <AbsoluteFill style={{pointerEvents: 'none', overflow: 'hidden'}}>
+      {words.map((w, i) => {
+        const x = (i % 2 ? -1 : 1) * (local * 140) + (i % 2 ? 1400 : -900);
+        return (
+          <div key={`${seg.id}${i}`} style={{position: 'absolute', top: 520 + i * 620, left: 0, whiteSpace: 'nowrap', transform: `translateX(${x}px) rotate(-6deg)`,
+            fontFamily: "'Inter', Arial, sans-serif", fontWeight: 900, fontSize: 300, textTransform: 'uppercase', color: 'transparent',
+            WebkitTextStroke: `3px ${i % 2 ? ep.palette.accent : ep.palette.main}`, opacity: 0.16}}>{w} · {w} · {w}</div>
+        );
+      })}
+    </AbsoluteFill>
+  );
+};
+
+/** Anneaux qui s'ouvrent depuis le centre à chaque coupe (calés sur la cymbale). */
+export const CutRings: React.FC<{p: Palette}> = ({p}) => {
+  const f = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  const t = f / fps;
+  return (
+    <AbsoluteFill style={{pointerEvents: 'none'}}>
+      <svg width={1080} height={1920}>
+        {[0, 1, 2].map((i) => {
+          const k = Math.max(0, Math.min(1, (t - i * 0.08) / 0.7));
+          return <circle key={i} cx={540} cy={900} r={60 + k * 900} fill="none" stroke={i === 1 ? p.accent : p.main} strokeWidth={14 * (1 - k)} opacity={(1 - k) * (k > 0 ? 0.8 : 0)} />;
+        })}
+      </svg>
+    </AbsoluteFill>
+  );
+};

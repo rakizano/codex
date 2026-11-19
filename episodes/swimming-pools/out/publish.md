@@ -15,4 +15,4 @@ Deux fichiers : `swimming-pools_tiktok.mp4` (avec beat original — publiable te
 Son : ajouter le son officiel « Swimming Pools (Drank) » depuis la bibliothèque TikTok au moment de la publication, volume ~25–35 % sous la narration ; les 3 moments « ♪ écoute le son ♪ » laissent le morceau s'entendre seul. Le MP4 ne contient aucune musique commerciale. Compte personnel/créateur uniquement ; pour un contenu de marque, utiliser la Commercial Music Library.
 Sous-titres : `swimming-pools.srt` (ou sous-titres auto TikTok — les sous-titres sont déjà incrustés).
 
-Crédit voix : voix de synthèse Kokoro-82M (Apache-2.0), style « siwis » — corpus SIWIS (Université d'Édimbourg, CC-BY 4.0). Musique et bruitages : créations originales.
+Crédit voix : voix de synthèse Piper « UPMC – Pierre » (corpus UPMC, CC BY-SA 4.0). Musique et bruitages : créations originales (beat calé sur le montage).

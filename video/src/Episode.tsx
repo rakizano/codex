@@ -3,7 +3,7 @@ import {AbsoluteFill, Audio, Sequence, staticFile, useCurrentFrame, useVideoConf
 import {EpisodeProps} from './types';
 import {SCENES} from './scenes/scenes';
 import {FONT} from './components/primitives';
-import {BeatBars, BeatContext, Grain, LiveBackground, Particles, useBeat, WipeTransition} from './components/fx';
+import {BackgroundWords, BeatBars, BeatContext, BeatZoom, CutRings, Grain, LiveBackground, Particles, useBeat, WipeTransition} from './components/fx';
 
 const TAIL = 2.4; // secondes après la dernière phrase
 const norm = (w: string) => w.toLowerCase().replace(/[^\p{L}\d]/gu, '');
@@ -71,12 +71,15 @@ const MusicMoment: React.FC<{ep: EpisodeProps}> = ({ep}) => {
 
 export const Episode: React.FC<EpisodeProps> = (ep) => {
   const {fps, durationInFrames} = useVideoConfig();
-  const bounds = ep.segments.slice(1).map((s) => Math.round((s.start + ep.voiceOffset - 0.25) * fps));
+  // RACCORD : coupes calées sur le beat (beats.json/cuts) ; à défaut, 0,25 s avant la phrase
+  const bounds = ep.segments.slice(1).map((s, i) => Math.round(((ep.cuts?.[i]) ?? (s.start + ep.voiceOffset - 0.25)) * fps));
   return (
     <BeatContext.Provider value={{beats: ep.beats ?? [], energy: ep.energy ?? [], offset: 0}}>
       <AbsoluteFill style={{background: ep.palette.bg, overflow: 'hidden'}}>
         <LiveBackground p={ep.palette} />
         <Particles color={ep.palette.ink} />
+        <BackgroundWords ep={ep} />
+        <BeatZoom>
         {ep.segments.map((seg, i) => {
           const from = i === 0 ? 0 : bounds[i - 1];
           const to = i < bounds.length ? bounds[i] : durationInFrames;
@@ -89,6 +92,12 @@ export const Episode: React.FC<EpisodeProps> = (ep) => {
             </Sequence>
           );
         })}
+        </BeatZoom>
+        {bounds.map((b, i) => (
+          <Sequence key={`r${i}`} from={b} durationInFrames={Math.round(0.9 * fps)} name="rings">
+            <CutRings p={ep.palette} />
+          </Sequence>
+        ))}
         {bounds.map((b, i) => (
           <Sequence key={`w${i}`} from={b - Math.round(0.25 * fps)} durationInFrames={Math.round(0.5 * fps)} name="wipe">
             <WipeTransition p={ep.palette} dir={i % 2 ? -1 : 1} color={i % 2 ? ep.palette.main : '#2b3f8f'} />
@@ -108,9 +117,9 @@ export const Episode: React.FC<EpisodeProps> = (ep) => {
 export const calcEpisode: CalculateMetadataFunction<EpisodeProps> = async ({props}) => {
   const tl = await fetch(staticFile(`${props.slug}/timeline.json`)).then((r) => r.json());
   const script = await fetch(staticFile(`${props.slug}/script.json`)).then((r) => r.json());
-  let beats: {beats?: number[]; energy?: number[]; breaks?: [number, number][]} = {};
+  let beats: {beats?: number[]; energy?: number[]; breaks?: [number, number][]; cuts?: number[]} = {};
   try { beats = await fetch(staticFile(`${props.slug}/beats.json`)).then((r) => r.json()); } catch { /* pas de beat : animations sans pulsation */ }
   const merged: EpisodeProps = {...props, title: script.title, artist: script.artist, palette: script.palette, segments: tl.segments, duration: tl.duration,
-    beats: beats.beats ?? [], energy: beats.energy ?? [], breaks: beats.breaks ?? []};
+    beats: beats.beats ?? [], energy: beats.energy ?? [], breaks: beats.breaks ?? [], cuts: beats.cuts ?? []};
   return {props: merged, durationInFrames: Math.ceil((props.voiceOffset + tl.duration + TAIL) * 30)};
 };

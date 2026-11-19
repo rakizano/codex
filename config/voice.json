@@ -1,15 +1,17 @@
 {
- "engine": "kokoro",
- "voice": "ff_siwis",
- "speed": 1.05,
+ "engine": "piper",
+ "voice": "~/voices/sherpa/vits-piper-fr_FR-upmc-medium/fr_FR-upmc-medium.onnx#1",
+ "speed": 1.08,
  "piper_voice": "~/voices/voice-fr-siwis-medium/fr-siwis-medium.onnx",
  "auditions": [
-  "kokoro|ff_siwis",
-  "kokoro|ff_siwis:0.6,im_nicola:0.4",
-  "kokoro|im_nicola:0.5,em_alex:0.3,ff_siwis:0.2",
-  "kokoro|im_nicola",
-  "piper|~/voices/voice-fr-siwis-medium/fr-siwis-medium.onnx",
-  "piper|~/voices/voice-fr-gilles-low/fr-gilles-low.onnx"
+  "piper|~/voices/sherpa/vits-piper-fr_FR-upmc-medium/fr_FR-upmc-medium.onnx#1",
+  "piper|~/voices/voice-fr-gilles-low/fr-gilles-low.onnx",
+  "piper|~/voices/sherpa/vits-piper-fr_FR-tom-medium/fr_FR-tom-medium.onnx",
+  "kokoro|ff_siwis"
  ],
- "_note": "Kokoro (Apache-2.0) via pipeline/setup_voices.sh. Mélange 'a:0.6,b:0.4'. Voix masculines Kokoro non françaises : accent possible."
+ "_note": "Voix par défaut : Pierre (Piper UPMC medium, locuteur 1, 22 kHz, masculine). Alternatives : Gilles (16 kHz), Tom, Kokoro ff_siwis. Mesures : docs/ameliorations.md",
+ "piper_noise": [
+  0.5,
+  1.2
+ ]
 }

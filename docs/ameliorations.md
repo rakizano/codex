@@ -62,3 +62,22 @@
 | Kokoro mélanges masculins | 3,38–3,43 | 3,15–3,25 avec l'ancienne chaîne |
 | Piper siwis-medium (ancienne voix) | 3,32 | 3,14 avec l'ancienne chaîne |
 | espeak/MBROLA (première voix) | — | 2,80–3,01 |
+
+## Passe 3 — voix plus naturelle, plus de mouvement, musique raccordée
+
+### Voix
+- Aucun skill de voix disponible sur le compte (recherche faite). Modèles plus naturels (Chatterbox, F5-TTS, XTTS, OuteTTS, CosyVoice) : uniquement sur Hugging Face/ModelScope, **bloqués** depuis ce conteneur (testé) — à essayer sur ta machine si besoin, attention aux licences non commerciales.
+- Nouvelles voix FR via les publications GitHub de sherpa-onnx : **Pierre** (UPMC medium, masc., 22 kHz, CC BY-SA 4.0), Jessica, Tom.
+- Prosodie Piper réglée (noise 0,5 / largeur 1,2) et comparée sur 4 essais (DNSMOS moyen) : Gilles 3,51 · Pierre 3,39 · (Jessica 3,08, Tom 3,20).
+- **Choix : Pierre par défaut** — note proche de Gilles mais bande audio complète (Gilles = 16 kHz, son étouffé que DNSMOS ne voit pas). Gilles reste en version alternative (`_gilles`).
+
+### Musique « bien raccordée »
+- Grille du beat décalée pour que la batterie entre **pile sur la question du hook** (1er temps de mesure).
+- Chaque coupe de scène est **calée sur un temps du beat** (écart mesuré : 0,000 s), précédée d'un roulement de caisse claire qui monte, et marquée d'une cymbale + basse.
+- Les transitions visuelles utilisent ces mêmes temps (`beats.json` → `cuts`).
+
+### Plus de mouvement
+- Zoom de tout le cadre sur chaque temps (plus fort sur le 1er temps de mesure).
+- Mots-clés géants en contour qui traversent le fond (typographie cinétique d'arrière-plan).
+- Anneaux qui s'ouvrent à chaque coupe, calés sur la cymbale.
+- Tous les titres animés flottent et oscillent en permanence après leur apparition (plus aucun texte figé).

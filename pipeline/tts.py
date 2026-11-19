@@ -29,6 +29,8 @@ SEG_PAUSE = 0.45
 POLISH = "highpass=f=75,deesser=i=0.3:m=0.5:f=0.5"
 # Modèles 16 kHz (Piper « low ») : génère des harmoniques aiguës pour éviter l'effet téléphone
 EXCITER = ",aexciter=level_in=1:level_out=1:amount=8:drive=8.5:freq=3500:ceil=16000:blend=0"
+# Prosodie Piper (bruit générateur, bruit de durée) — choisie par mesure DNSMOS sur 4 essais
+PIPER_NOISE = (0.5, 1.2)
 HERE = os.path.dirname(os.path.abspath(__file__))
 _kokoro = None
 
@@ -67,8 +69,13 @@ def synth_raw(text, out, engine, voice, speed):
         s, sr = kokoro().create(text, voice=kokoro_style(voice), speed=speed, lang="fr-fr")
         write_wav(out, s, sr)
     elif engine == "piper":
-        p = subprocess.run([sys.executable, "-m", "piper", "-m", os.path.expanduser(voice), "-f", out,
-                            "--length-scale", str(1 / speed)], input=text.encode(),
+        # voice = "modele.onnx" ou "modele.onnx#locuteur" (ex. upmc-medium#1 = Pierre)
+        model, _, spk = voice.partition("#")
+        cmd = [sys.executable, "-m", "piper", "-m", os.path.expanduser(model), "-f", out, "--length-scale", str(1 / speed),
+               "--noise-scale", str(PIPER_NOISE[0]), "--noise-w-scale", str(PIPER_NOISE[1])]
+        if spk:
+            cmd += ["-s", spk]
+        p = subprocess.run(cmd, input=text.encode(),
                            stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
         if p.returncode:
             sys.exit(p.stderr.decode())
@@ -113,7 +120,7 @@ def resolve(a, cfg):
         return engine, "ma-voix", 1.0
     if engine == "kokoro" and not os.path.exists(f"{d}/kokoro-v1.0.onnx"):
         print("[tts] Kokoro absent -> repli piper", file=sys.stderr); engine, voice = "piper", cfg.get("piper_voice", "")
-    if engine == "piper" and not os.path.exists(os.path.expanduser(voice)):
+    if engine == "piper" and not os.path.exists(os.path.expanduser(voice.partition("#")[0])):
         print(f"[tts] modèle Piper absent ({voice}) -> repli espeak", file=sys.stderr); engine, voice = "espeak", "mb-fr1"
     return engine, voice, speed
 
@@ -129,6 +136,8 @@ def main():
     cfg_path = os.path.join(HERE, "..", "config", "voice.json")
     cfg = json.load(open(cfg_path)) if os.path.exists(cfg_path) else {}
     engine, voice, speed = resolve(a, cfg)
+    global PIPER_NOISE
+    PIPER_NOISE = tuple(cfg.get("piper_noise", PIPER_NOISE))
     script = json.load(open(os.path.join(a.episode, "script.json")))
     build = os.path.join(a.episode, "build"); os.makedirs(build, exist_ok=True)
     tmp = os.path.join(build, "_tmp.wav")
@@ -137,7 +146,7 @@ def main():
         hook = script["segments"][0].get("tts", script["segments"][0]["text"])
         for spec in cfg.get("auditions", []):
             eng, name = spec.split("|", 1) if "|" in spec else ("piper" if spec.endswith(".onnx") else "espeak", spec)
-            safe = re.sub(r"[^\w.-]+", "_", os.path.basename(name))
+            safe = re.sub(r"[^\w.-]+", "_", os.path.basename(name).replace("#", "_spk"))
             out = os.path.join(build, f"audition_{eng}_{safe}.wav")
             synth_raw(hook, tmp, eng, name, speed); to_pcm(tmp, out, not a.raw); print(out)
         return
@@ -163,7 +172,7 @@ def main():
                 run(["ffmpeg", "-y", "-i", rec, "-af", "afftdn=nf=-25", tmp])  # débruitage léger
             else:
                 synth_raw(sp, tmp, engine, voice, speed)
-            to_pcm(tmp, out, not a.raw, exciter=engine == "piper" and "-low" in voice)
+            to_pcm(tmp, out, not a.raw, exciter=engine == "piper" and "-low" in voice.partition("#")[0])
             d = duration(out); ws = re.findall(r"\S+", sh)
             tot = sum(len(w) + 2 for w in ws); cur = t
             for w in ws:

@@ -98,6 +98,21 @@ def sub(m, dur):
     return np.tanh(1.4 * np.sin(2 * np.pi * note(m) * t)) * env(n, 0.01, 0.9, 0.55, 0.08) * 0.8
 
 
+def crash():
+    n = int(1.8 * SR); t = np.arange(n) / SR
+    x = hp(rng.normal(0, 1, n), 5000) * np.exp(-t * 2.2) + bp(rng.normal(0, 1, n), 3000, 8000) * np.exp(-t * 6) * 0.5
+    return x * 0.35
+
+
+def snare_roll(beat_len, steps=6):
+    """Roulement qui accélère et monte sur le dernier temps avant un changement de scène."""
+    out = np.zeros(int(beat_len * 1.2 * SR))
+    for i in range(steps):
+        at = beat_len * (1 - (1 - i / steps) ** 1.4)
+        add(out, snare(), at, 0.25 + 0.5 * i / steps)
+    return out
+
+
 # ---------- bruitages ----------
 def whoosh(len_s=0.7, up=True):
     n = int(len_s * SR); t = np.arange(n) / SR; x = rng.normal(0, 1, n)
@@ -193,9 +208,12 @@ def build_music(tl, music_cfg, voice_offset):
     breaks = [(voice_offset + b["at"], voice_offset + b["at"] + b["dur"]) for b in tl.get("music_breaks", [])]
 
     beats = []; energy_per_beat = []
-    nbars = int(dur / bar) + 1
+    # RACCORD : la grille est décalée pour que la 1re mesure de batterie tombe pile sur la question du hook
+    phase = drums_in % bar
+    nbars = int(dur / bar) + 2
     for b in range(nbars):
-        t0 = b * bar; ch = prog[b % len(prog)]
+        t0 = phase + (b - 1) * bar; ch = prog[b % len(prog)]
+        if t0 + bar < 0: continue
         sc = scene_at(t0 + 0.01)["scene"]
         tense = sc in ("FactReveal",)
         # accords : attaque sur le 1, rappel syncopé sur le « et » du 3
@@ -217,8 +235,25 @@ def build_music(tl, music_cfg, voice_offset):
                     tt =t0 + (h // 2) * beat + (beat * swing if h % 2 else 0)
                     add(drums, hat(open_=(h == 7 and b % 4 == 3)), tt, 0.35 + 0.15 * rng.random() - (0.12 if h % 2 else 0))
         for k in range(4):
+            if t0 < 0: beats.append(None); energy_per_beat.append(0); continue  # mesure entière retirée → 1er temps = index multiple de 4
             beats.append(round(t0 + k * beat, 3))
             energy_per_beat.append(1.0 if (t0 >= drums_in and t0 < end_t and not tense) else 0.35)
+
+    # RACCORD des scènes : chaque coupe est calée sur le temps le plus proche ;
+    # roulement de caisse claire avant la coupe + cymbale dessus (sauf entrée en tension)
+    clean = [(bt, en) for bt, en in zip(beats, energy_per_beat) if bt is not None]
+    beats = [b for b, _ in clean]; energy_per_beat = [e for _, e in clean]
+    cuts = []
+    for s_ in segs[1:]:
+        want = voice_offset + s_["start"] - 0.25
+        bt = min(beats, key=lambda x: abs(x - want))
+        if abs(bt - want) > beat * 0.6: bt = want
+        cuts.append(round(bt, 3))
+        if drums_in <= bt < end_t + bar:
+            if s_["scene"] != "FactReveal":
+                add(drums, snare_roll(beat), bt - beat, 0.8)
+            add(drums, crash(), bt, 0.9 if s_["scene"] != "FactReveal" else 0.5)
+            add(bass, sub(root - 12 + prog[0][0], beat * 2), bt, 0.9)
 
     # intro filtrée : le piano « s'ouvre » quand le beat arrive
     keys = np.stack([keysL, keysR])
@@ -234,7 +269,7 @@ def build_music(tl, music_cfg, voice_offset):
     L = (keys[0] * 0.8 + drums + bass + v) * lift
     R = (keys[1] * 0.8 + drums + bass + np.roll(v, 777)) * lift
     fade = np.minimum(1, np.arange(n) / SR / 1.0) * np.minimum(1, (dur - np.arange(n) / SR) / 3.0)
-    return np.stack([L * fade, R * fade]), {"bpm": bpm, "beats": beats, "energy": energy_per_beat, "drums_in": drums_in, "breaks": breaks}
+    return np.stack([L * fade, R * fade]), {"bpm": bpm, "beats": beats, "energy": energy_per_beat, "drums_in": drums_in, "breaks": breaks, "cuts": cuts}
 
 
 SFX_BY_SCENE = {

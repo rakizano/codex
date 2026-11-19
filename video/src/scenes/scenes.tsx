@@ -147,13 +147,13 @@ export const FamilyRoom: React.FC<SceneProps> = ({seg, p}) => {
 export const FactReveal: React.FC<SceneProps> = ({seg, p}) => {
   const t = useT();
   const fork = wordTime(seg, 'choisir');
-  const open = ease(t, 0.1, 0.7);
+  const open = ease(t, 0, 0.45);
   const k = ease(t, fork, fork + 1.0);
   const walker = ease(t, fork + 0.3, fork + 2.6);
   const ivrogne = wordTime(seg, 'ivrogne');
   return (
     <Camera punches={[ivrogne]}>
-      <div style={{position: 'absolute', left: 540, top: 470, width: 840, transform: `translate(-50%,-50%) perspective(1600px) rotateY(${(1 - open) * -80}deg) scale(${1 - 0.35 * k}) translateY(${-k * 260}px) rotate(${Math.sin(t * 0.8) * 1.2}deg)`,
+      <div style={{position: 'absolute', left: 540, top: 470, width: 840, transform: `translate(-50%,-50%) perspective(1600px) rotateY(${(1 - open) * -45}deg) scale(${(0.6 + 0.4 * open) * (1 - 0.35 * k)}) translateY(${-k * 260}px) rotate(${Math.sin(t * 0.8) * 1.2}deg)`,
         transformOrigin: '0% 50%', padding: 50, background: p.ink, borderRadius: 28, fontFamily: FONT, color: p.bg, boxShadow: '0 30px 80px #0009'}}>
         <div style={{fontSize: 34, fontWeight: 800, letterSpacing: 6, color: p.main}}>INTERVIEW · COMPLEX · 2012</div>
         <div style={{fontSize: 62, fontWeight: 900, lineHeight: 1.08, marginTop: 18, minHeight: 140}}>
