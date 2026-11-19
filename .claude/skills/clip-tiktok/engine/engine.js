@@ -598,14 +598,16 @@
   function prepTransition(tr) {
     const type = tr.type || 'fade';
     const st = { type, dur: tr.dur ?? .5, opts: tr };
-    if (['wipe', 'iris', 'ink', 'shape', 'blinds', 'diagonal', 'bar'].includes(type)) {
+    if (['wipe', 'iris', 'ink', 'shape', 'blinds', 'diagonal', 'bar', 'radial'].includes(type)) {
       st.mask = makeMask(type, tr);
       const s = st.mask.shapes;
       if (type === 'wipe' || type === 'diagonal' || type === 'bar') { st.el = h('rect', { x: -W, y: -H, width: 3 * W, height: 3 * H }); s.appendChild(st.el); }
       if (type === 'iris' || type === 'ink') { st.el = h('circle', { cx: tr.x ?? W / 2, cy: tr.y ?? H / 2, r: 0 }); s.appendChild(st.el); }
       if (type === 'shape') { st.el = h('path', { d: SHAPES[tr.shape || 'diamond'] || tr.shape }); s.appendChild(st.el); }
+      if (type === 'radial') { st.el = h('path'); s.appendChild(st.el); }
       if (type === 'blinds') { st.els = []; const n = tr.n || 8; for (let i = 0; i < n; i++) { const r = h('rect'); s.appendChild(r); st.els.push(r); } }
     }
+    if (type === 'radial' && tr.color) { st.hand = h('rect', { x: -6, y: -2 * Math.hypot(W, H), width: 12, height: 2 * Math.hypot(W, H), fill: tr.color, opacity: 0 }); overlay.insertBefore(st.hand, dipRect); }
     if (type === 'bar' || type === 'shape') { st.bar = h('path', { fill: tr.color || '#e10600', opacity: 0 }); overlay.insertBefore(st.bar, dipRect); }
     return st;
   }
@@ -640,6 +642,16 @@
         // contour coloré qui précède la révélation
         st.bar.setAttribute('d', SHAPES[o.shape || 'diamond'] || o.shape); st.bar.setAttribute('transform', `translate(${o.x ?? W / 2},${o.y ?? H / 2}) rotate(${rot}) scale(${sc * 1.08 + 30})`);
         st.bar.setAttribute('opacity', o.color ? (k < 1 ? 1 : 0) : 0);
+        I.setAttribute('mask', `url(#${st.mask.id})`); break;
+      }
+      case 'radial': {
+        // balayage angulaire façon aiguille d'horloge, depuis midi, sens horaire (o.ccw pour l'inverse)
+        const cx = o.x ?? W / 2, cy = o.y ?? H / 2, R = 2 * Math.hypot(W, H), ang = e * 360 * (o.ccw ? -1 : 1);
+        let d = `M ${cx} ${cy} L ${cx} ${cy - R}`;
+        const steps = Math.max(2, Math.ceil(Math.abs(ang) / 10));
+        for (let i = 1; i <= steps; i++) { const a2 = rad(ang * i / steps); d += ` L ${cx + Math.sin(a2) * R} ${cy - Math.cos(a2) * R}`; }
+        st.el.setAttribute('d', d + ' Z');
+        if (st.hand) { st.hand.setAttribute('opacity', k > 0 && k < 1 ? 1 : 0); st.hand.setAttribute('transform', `translate(${cx},${cy}) rotate(${ang})`); }
         I.setAttribute('mask', `url(#${st.mask.id})`); break;
       }
       case 'blinds': {
@@ -761,7 +773,10 @@
     const pos = ch.pos || ty.pos || 'center';
     if (Array.isArray(pos)) { x = pos[0]; y = pos[1]; } else y = POS[pos] ?? 860;
     const bh = box.offsetHeight;
-    div.style.left = x + 'px'; div.style.top = (y - bh / 2) + 'px';
+    // recalage automatique dans la zone de sécurité TikTok (marge pour l'agrandissement du mot rouge)
+    let top = y - bh / 2; const m = size * .18;
+    if (!ch.free) top = Math.min(Math.max(top, SAFE.top + m), SAFE.bottom - bh - m);
+    div.style.left = x + 'px'; div.style.top = top + 'px';
     div.style.width = maxW + 'px';
     div.dataset.align = align;
     // Timing des mots : proportionnel aux syllabes, sur la fenêtre de chant
@@ -837,6 +852,7 @@
             break;
           }
           case 'breathe': st.s *= 1 + Math.sin(u * 3) * .04; break;
+          case 'shrink': st.s *= 1 - Ease.inOutSine(clamp((u - .3) / Math.max(.8, ch.end - w.t - .4))) * .35; break;
           case 'none': break;
         }
         if (C.ty.redTilt) st.r += C.ty.redTilt;
@@ -896,7 +912,7 @@
     currentT = T;
     updateGrain(T);
     dipRect.setAttribute('opacity', 0);
-    for (const S of built) { if (S.trans.bar) S.trans.bar.setAttribute('opacity', 0); }
+    for (const S of built) { if (S.trans.bar) S.trans.bar.setAttribute('opacity', 0); if (S.trans.hand) S.trans.hand.setAttribute('opacity', 0); }
     document.getElementById('stage').style.filter = CFG.fx.grade || '';
     document.getElementById('whipdev').setAttribute('stdDeviation', '0 0');
     const N = built.length;
@@ -931,6 +947,12 @@
     }
     // texte
     for (const C of chunks) renderChunk(C, T, built[C.sceneIdx]);
+    // fondu de sortie global (optionnel)
+    if (SB.outro && SB.outro.dur) {
+      const D = SB.passage.duration, k = clamp((T - (D - SB.outro.dur)) / SB.outro.dur);
+      if (k > 0) { dipRect.setAttribute('fill', SB.outro.color || '#000'); dipRect.setAttribute('opacity', Math.max(+dipRect.getAttribute('opacity'), Ease.inOutSine(k) * (SB.outro.max ?? 1))); lyricsDiv.style.opacity = 1 - (SB.outro.text ? Ease.inOutSine(k) : 0); }
+      else lyricsDiv.style.opacity = 1;
+    }
   }
 
   function textRects() {

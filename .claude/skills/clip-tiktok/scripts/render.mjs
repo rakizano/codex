@@ -82,7 +82,7 @@ async function openPage(browser, htmlFile) {
 
 function ffmpegSeg(out) {
   const p = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-c:v', 'png', '-i', '-',
-    '-c:v', 'libx264', '-preset', A.preview ? 'veryfast' : 'medium', '-crf', A.preview ? '26' : '16', '-pix_fmt', 'yuv420p',
+    '-c:v', 'libx264', '-preset', A.preview ? 'veryfast' : 'medium', '-crf', A.preview ? '26' : String(A.crf || 20), '-maxrate', A.preview ? '3M' : (A.maxrate || '8M'), '-bufsize', A.preview ? '6M' : '16M', '-pix_fmt', 'yuv420p',
     '-profile:v', 'high', '-r', String(FPS), '-an', out], { stdio: ['pipe', 'inherit', 'inherit'] });
   return p;
 }

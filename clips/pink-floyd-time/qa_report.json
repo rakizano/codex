@@ -1,0 +1,61 @@
+{
+ "pass": true,
+ "failures": [],
+ "warnings": [],
+ "info": {
+  "format": "h264 1080x1920 30.00fps yuv420p profil=High",
+  "duration": 38.8,
+  "size_mb": 29.94,
+  "scenes": [
+   {
+    "id": "s00",
+    "motion": 5.77
+   },
+   {
+    "id": "s01",
+    "motion": 21.36,
+    "change_vs_prev": 68.73
+   },
+   {
+    "id": "s02",
+    "motion": 20.17,
+    "change_vs_prev": 54.8
+   },
+   {
+    "id": "s03",
+    "motion": 17.93,
+    "change_vs_prev": 62.1
+   },
+   {
+    "id": "s04",
+    "motion": 8.75,
+    "change_vs_prev": 50.25
+   },
+   {
+    "id": "s05",
+    "motion": 17.14,
+    "change_vs_prev": 75.04
+   },
+   {
+    "id": "s06",
+    "motion": 29.84,
+    "change_vs_prev": 68.04
+   },
+   {
+    "id": "s07",
+    "motion": 15.75,
+    "change_vs_prev": 75.17
+   },
+   {
+    "id": "s08",
+    "motion": 10.78,
+    "change_vs_prev": 64.15
+   },
+   {
+    "id": "s09",
+    "motion": 18.38,
+    "change_vs_prev": 29.81
+   }
+  ]
+ }
+}
