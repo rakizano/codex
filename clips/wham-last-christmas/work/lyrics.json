@@ -1,0 +1,646 @@
+{
+ "artist": "Wham!",
+ "title": "Last Christmas",
+ "album": "German Top 100 Single Charts",
+ "duration": 263.0,
+ "lrclib_ref_id": 7518169,
+ "version_cluster_ids": [
+  25497699,
+  7518169,
+  7967784,
+  7967785,
+  7967776,
+  7069608,
+  4698186,
+  5086149,
+  169867
+ ],
+ "version_cluster_albums": [
+  "Die Hit Giganten: Weihnachten 2006",
+  "German Top 100 Single Charts",
+  "LAST CHRISTMAS",
+  "Nochevieja Música de Fiesta",
+  "Super Christmas Hits",
+  "Ultimate Christmas",
+  "Ultimate...Christmas Hits",
+  "VOX Christmas Classics 2006",
+  "Wham!"
+ ],
+ "other_versions": [
+  {
+   "duration": 263.0,
+   "n": 11,
+   "albums": [
+    "Die Hit Giganten: Weihnachten 2006",
+    "Essentials",
+    "German Top 100 Single Charts",
+    "LAST CHRISTMAS"
+   ]
+  },
+  {
+   "duration": 267.0,
+   "n": 7,
+   "albums": [
+    "Christmas Hits",
+    "Last Christmas",
+    "Last Christmas = ラスト・クリスマス",
+    "Now That's What I Call Christmas"
+   ]
+  },
+  {
+   "duration": 271.0,
+   "n": 1,
+   "albums": [
+    "Last Christmas"
+   ]
+  },
+  {
+   "duration": 278.0,
+   "n": 3,
+   "albums": [
+    "LAST CHRISTMAS",
+    "WHAM!",
+    "WhamVEVO"
+   ]
+  },
+  {
+   "duration": 409.0,
+   "n": 6,
+   "albums": [
+    "Christmas Music Compilation",
+    "Last Christmas",
+    "The Best Of Wham!",
+    "The Best of Wham! If You Were There…"
+   ]
+  }
+ ],
+ "n_sources": 9,
+ "text_agreement": [
+  0.874,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  0.991,
+  1.0,
+  0.874
+ ],
+ "sources_disagreeing": [
+  {
+   "id": 35884283,
+   "album": "Last christmas",
+   "offset_vs_consensus_s": -1.15
+  },
+  {
+   "id": 4652625,
+   "album": "Essentials",
+   "offset_vs_consensus_s": -1.13
+  }
+ ],
+ "sync_spread_median_s": 0.77,
+ "sync_spread_p90_s": 1.4,
+ "sync_confidence": "moyenne",
+ "sync_method": "LRCLIB (paroles synchronisées ligne par ligne par la communauté), médiane multi-sources",
+ "lines": [
+  {
+   "i": 0,
+   "t": 6.15,
+   "t_ref": 6.15,
+   "text": "Ah, ah-ah, ooh-whoa",
+   "n_src": 7,
+   "spread": 1.14,
+   "end": 12.85,
+   "gap_after": 6.7
+  },
+  {
+   "i": 1,
+   "t": 12.85,
+   "t_ref": 12.85,
+   "text": "Ah-ah",
+   "n_src": 9,
+   "spread": 0.3,
+   "end": 17.95,
+   "gap_after": 5.1
+  },
+  {
+   "i": 2,
+   "t": 17.95,
+   "t_ref": 17.95,
+   "text": "Last Christmas, I gave you my heart",
+   "n_src": 9,
+   "spread": 0.86,
+   "end": 21.95,
+   "gap_after": 4.0
+  },
+  {
+   "i": 3,
+   "t": 21.95,
+   "t_ref": 21.95,
+   "text": "But the very next day, you gave it away",
+   "n_src": 9,
+   "spread": 0.34,
+   "end": 27.08,
+   "gap_after": 5.13
+  },
+  {
+   "i": 4,
+   "t": 27.08,
+   "t_ref": 27.08,
+   "text": "This year, to save me from tears",
+   "n_src": 9,
+   "spread": 0.62,
+   "end": 31.22,
+   "gap_after": 4.14
+  },
+  {
+   "i": 5,
+   "t": 31.22,
+   "t_ref": 31.22,
+   "text": "I'll give it to someone special",
+   "n_src": 9,
+   "spread": 0.1,
+   "end": 35.92,
+   "gap_after": 4.7
+  },
+  {
+   "i": 6,
+   "t": 35.92,
+   "t_ref": 35.92,
+   "text": "Last Christmas, I gave you my heart",
+   "n_src": 9,
+   "spread": 0.81,
+   "end": 40.14,
+   "gap_after": 4.22
+  },
+  {
+   "i": 7,
+   "t": 40.14,
+   "t_ref": 39.93,
+   "text": "But the very next day, you gave it away (you gave it away)",
+   "n_src": 9,
+   "spread": 0.24,
+   "end": 45.3,
+   "gap_after": 5.16
+  },
+  {
+   "i": 8,
+   "t": 45.3,
+   "t_ref": 45.68,
+   "text": "This year, to save me from tears",
+   "n_src": 9,
+   "spread": 0.87,
+   "end": 49.33,
+   "gap_after": 4.03
+  },
+  {
+   "i": 9,
+   "t": 49.33,
+   "t_ref": 49.23,
+   "text": "I'll give it to someone special (special)",
+   "n_src": 9,
+   "spread": 0.24,
+   "end": 54.33,
+   "gap_after": 5.0
+  },
+  {
+   "i": 10,
+   "t": 54.33,
+   "t_ref": 54.33,
+   "text": "",
+   "n_src": 1,
+   "spread": null,
+   "end": 72.5,
+   "gap_after": 18.17
+  },
+  {
+   "i": 11,
+   "t": 72.5,
+   "t_ref": 72.5,
+   "text": "Once bitten and twice shy",
+   "n_src": 9,
+   "spread": 1.02,
+   "end": 76.62,
+   "gap_after": 4.12
+  },
+  {
+   "i": 12,
+   "t": 76.62,
+   "t_ref": 76.62,
+   "text": "I keep my distance, but you still catch my eye",
+   "n_src": 9,
+   "spread": 1.3,
+   "end": 81.46,
+   "gap_after": 4.84
+  },
+  {
+   "i": 13,
+   "t": 81.46,
+   "t_ref": 81.53,
+   "text": "Tell me, baby, do you recognize me?",
+   "n_src": 9,
+   "spread": 0.31,
+   "end": 85.88,
+   "gap_after": 4.42
+  },
+  {
+   "i": 14,
+   "t": 85.88,
+   "t_ref": 85.88,
+   "text": "Well, it's been a year, it doesn't surprise me",
+   "n_src": 9,
+   "spread": 1.07,
+   "end": 89.97,
+   "gap_after": 4.09
+  },
+  {
+   "i": 15,
+   "t": 89.97,
+   "t_ref": 89.97,
+   "text": "\"Happy Christmas,\" I wrapped it up and sent it",
+   "n_src": 7,
+   "spread": 0.15,
+   "end": 94.75,
+   "gap_after": 4.78
+  },
+  {
+   "i": 16,
+   "t": 94.75,
+   "t_ref": 94.75,
+   "text": "With a note saying, \"I love you,\" I meant it",
+   "n_src": 9,
+   "spread": 0.62,
+   "end": 98.99,
+   "gap_after": 4.24
+  },
+  {
+   "i": 17,
+   "t": 98.99,
+   "t_ref": 98.99,
+   "text": "Now I know what a fool I've been",
+   "n_src": 9,
+   "spread": 0.41,
+   "end": 102.73,
+   "gap_after": 3.74
+  },
+  {
+   "i": 18,
+   "t": 102.73,
+   "t_ref": 102.73,
+   "text": "But if you kissed me now, I know you'd fool me again",
+   "n_src": 9,
+   "spread": 0.73,
+   "end": 107.87,
+   "gap_after": 5.14
+  },
+  {
+   "i": 19,
+   "t": 107.87,
+   "t_ref": 107.87,
+   "text": "Last Christmas, I gave you my heart",
+   "n_src": 9,
+   "spread": 0.56,
+   "end": 111.84,
+   "gap_after": 3.97
+  },
+  {
+   "i": 20,
+   "t": 111.84,
+   "t_ref": 112.16,
+   "text": "But the very next day, you gave it away (you gave it away)",
+   "n_src": 9,
+   "spread": 0.56,
+   "end": 117.15,
+   "gap_after": 5.31
+  },
+  {
+   "i": 21,
+   "t": 117.15,
+   "t_ref": 117.15,
+   "text": "This year, to save me from tears",
+   "n_src": 9,
+   "spread": 0.62,
+   "end": 121.13,
+   "gap_after": 3.98
+  },
+  {
+   "i": 22,
+   "t": 121.13,
+   "t_ref": 121.13,
+   "text": "I'll give it to someone special (special)",
+   "n_src": 9,
+   "spread": 0.39,
+   "end": 125.85,
+   "gap_after": 4.72
+  },
+  {
+   "i": 23,
+   "t": 125.85,
+   "t_ref": 125.85,
+   "text": "Last Christmas, I gave you my heart",
+   "n_src": 9,
+   "spread": 0.78,
+   "end": 129.74,
+   "gap_after": 3.89
+  },
+  {
+   "i": 24,
+   "t": 129.74,
+   "t_ref": 129.74,
+   "text": "But the very next day, you gave it away",
+   "n_src": 9,
+   "spread": 0.76,
+   "end": 134.7,
+   "gap_after": 4.96
+  },
+  {
+   "i": 25,
+   "t": 134.7,
+   "t_ref": 134.7,
+   "text": "This year, to save me from tears",
+   "n_src": 9,
+   "spread": 0.78,
+   "end": 138.88,
+   "gap_after": 4.18
+  },
+  {
+   "i": 26,
+   "t": 138.88,
+   "t_ref": 139.06,
+   "text": "I'll give it to someone special (special)",
+   "n_src": 9,
+   "spread": 0.25,
+   "end": 143.97,
+   "gap_after": 5.09
+  },
+  {
+   "i": 27,
+   "t": 143.97,
+   "t_ref": 143.97,
+   "text": "Oh-oh",
+   "n_src": 7,
+   "spread": 0.66,
+   "end": 147.82,
+   "gap_after": 3.85
+  },
+  {
+   "i": 28,
+   "t": 147.82,
+   "t_ref": 147.82,
+   "text": "Oh, my baby",
+   "n_src": 7,
+   "spread": 1.02,
+   "end": 150.93,
+   "gap_after": 3.11
+  },
+  {
+   "i": 29,
+   "t": 150.93,
+   "t_ref": 150.93,
+   "text": "",
+   "n_src": 1,
+   "spread": null,
+   "end": 162.34,
+   "gap_after": 11.41
+  },
+  {
+   "i": 30,
+   "t": 162.34,
+   "t_ref": 162.48,
+   "text": "A crowded room, friends with tired eyes",
+   "n_src": 9,
+   "spread": 0.94,
+   "end": 166.75,
+   "gap_after": 4.41
+  },
+  {
+   "i": 31,
+   "t": 166.75,
+   "t_ref": 166.75,
+   "text": "I'm hiding from you, and your soul of ice",
+   "n_src": 9,
+   "spread": 0.62,
+   "end": 171.31,
+   "gap_after": 4.56
+  },
+  {
+   "i": 32,
+   "t": 171.31,
+   "t_ref": 171.31,
+   "text": "My God, I thought you were someone to rely on",
+   "n_src": 9,
+   "spread": 0.84,
+   "end": 175.03,
+   "gap_after": 3.72
+  },
+  {
+   "i": 33,
+   "t": 175.03,
+   "t_ref": 175.43,
+   "text": "Me? I guess I was a shoulder to cry on",
+   "n_src": 9,
+   "spread": 0.89,
+   "end": 179.51,
+   "gap_after": 4.48
+  },
+  {
+   "i": 34,
+   "t": 179.51,
+   "t_ref": 179.51,
+   "text": "A face on a lover with a fire in his heart",
+   "n_src": 9,
+   "spread": 1.16,
+   "end": 184.07,
+   "gap_after": 4.56
+  },
+  {
+   "i": 35,
+   "t": 184.07,
+   "t_ref": 184.07,
+   "text": "A man undercover, but you tore me apart",
+   "n_src": 9,
+   "spread": 1.35,
+   "end": 190.99,
+   "gap_after": 6.92
+  },
+  {
+   "i": 36,
+   "t": 190.99,
+   "t_ref": 191.39,
+   "text": "Ooh-hoo",
+   "n_src": 9,
+   "spread": 2.58,
+   "end": 193.34,
+   "gap_after": 2.35
+  },
+  {
+   "i": 37,
+   "t": 193.34,
+   "t_ref": 193.69,
+   "text": "Now I've found a real love, you'll never fool me again",
+   "n_src": 9,
+   "spread": 0.94,
+   "end": 197.79,
+   "gap_after": 4.45
+  },
+  {
+   "i": 38,
+   "t": 197.79,
+   "t_ref": 197.79,
+   "text": "Last Christmas, I gave you my heart",
+   "n_src": 9,
+   "spread": 0.48,
+   "end": 201.72,
+   "gap_after": 3.93
+  },
+  {
+   "i": 39,
+   "t": 201.72,
+   "t_ref": 201.72,
+   "text": "But the very next day, you gave it away (you gave it away)",
+   "n_src": 9,
+   "spread": 0.45,
+   "end": 206.8,
+   "gap_after": 5.08
+  },
+  {
+   "i": 40,
+   "t": 206.8,
+   "t_ref": 206.83,
+   "text": "This year, to save me from tears",
+   "n_src": 9,
+   "spread": 0.16,
+   "end": 210.98,
+   "gap_after": 4.18
+  },
+  {
+   "i": 41,
+   "t": 210.98,
+   "t_ref": 210.98,
+   "text": "I'll give it to someone special (special)",
+   "n_src": 9,
+   "spread": 0.04,
+   "end": 215.85,
+   "gap_after": 4.87
+  },
+  {
+   "i": 42,
+   "t": 215.85,
+   "t_ref": 215.85,
+   "text": "Last Christmas, I gave you my heart (I gave you my heart)",
+   "n_src": 9,
+   "spread": 0.27,
+   "end": 220.23,
+   "gap_after": 4.38
+  },
+  {
+   "i": 43,
+   "t": 220.23,
+   "t_ref": 220.94,
+   "text": "But the very next day, you gave it away (you gave it away)",
+   "n_src": 9,
+   "spread": 1.22,
+   "end": 225.0,
+   "gap_after": 4.77
+  },
+  {
+   "i": 44,
+   "t": 225.0,
+   "t_ref": 225.4,
+   "text": "This year, to save me from tears",
+   "n_src": 9,
+   "spread": 0.87,
+   "end": 228.89,
+   "gap_after": 3.89
+  },
+  {
+   "i": 45,
+   "t": 228.89,
+   "t_ref": 228.89,
+   "text": "I'll give it to someone special (special)",
+   "n_src": 9,
+   "spread": 0.51,
+   "end": 233.5,
+   "gap_after": 4.61
+  },
+  {
+   "i": 46,
+   "t": 233.5,
+   "t_ref": 233.92,
+   "text": "A face on a lover with a fire in his heart (I gave you my heart)",
+   "n_src": 9,
+   "spread": 0.86,
+   "end": 238.32,
+   "gap_after": 4.82
+  },
+  {
+   "i": 47,
+   "t": 238.32,
+   "t_ref": 239.78,
+   "text": "A man undercover, but you tore him apart",
+   "n_src": 9,
+   "spread": 2.58,
+   "end": 242.28,
+   "gap_after": 3.96
+  },
+  {
+   "i": 48,
+   "t": 242.28,
+   "t_ref": 245.45,
+   "text": "Maybe next year, I'll give it to someone",
+   "n_src": 9,
+   "spread": 3.42,
+   "end": 247.55,
+   "gap_after": 5.27
+  },
+  {
+   "i": 49,
+   "t": 247.55,
+   "t_ref": 249.62,
+   "text": "I'll give it to someone special (special)",
+   "n_src": 9,
+   "spread": 2.99,
+   "end": 253.93,
+   "gap_after": 6.38
+  },
+  {
+   "i": 50,
+   "t": 253.93,
+   "t_ref": 253.93,
+   "text": "",
+   "n_src": 1,
+   "spread": null,
+   "end": 256.61,
+   "gap_after": 2.68
+  },
+  {
+   "i": 51,
+   "t": 256.61,
+   "t_ref": 256.61,
+   "text": "Someone",
+   "n_src": 7,
+   "spread": 1.4,
+   "end": 258.82,
+   "gap_after": 2.21
+  },
+  {
+   "i": 52,
+   "t": 258.82,
+   "t_ref": 258.82,
+   "text": "Someone",
+   "n_src": 7,
+   "spread": 1.48,
+   "end": 259.07,
+   "gap_after": 0.25
+  },
+  {
+   "i": 53,
+   "t": 259.07,
+   "t_ref": 259.07,
+   "text": "",
+   "n_src": 1,
+   "spread": null,
+   "end": 263.0,
+   "gap_after": 3.93
+  }
+ ]
+}

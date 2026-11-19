@@ -1,0 +1,567 @@
+{
+ "song": {
+  "artist": "Wham!",
+  "title": "Last Christmas",
+  "album": "Last Christmas (single, 1984)",
+  "version_duration": 263.0,
+  "lrclib_ref_id": 7518169,
+  "sync_confidence": "moyenne",
+  "sync_spread_median_s": 0.77,
+  "n_sources": 9,
+  "notes": [
+   "Clip calé sur le son TikTok fourni (vidéo de 60,02 s) : passage de la chanson ≈ 2:51 → 3:49, joué à ×0,96 selon l'analyse.",
+   "Débuts de phrases pris sur les mots réellement entendus dans ce son (reconnaissance vocale Whisper, 100/110 mots appariés aux paroles LRCLIB).",
+   "Ad-libs entre parenthèses (you gave it away / special / I gave you my heart) non affichés."
+  ]
+ },
+ "passage": {
+  "start": 0.0,
+  "end": 60.022,
+  "duration": 60.022,
+  "start_fmt": "0:00.000",
+  "end_fmt": "1:00.022"
+ },
+ "fps": 30,
+ "width": 1080,
+ "height": 1920,
+ "direction": {
+  "concept": "Une carte de Noël en papier découpé qui raconte l'histoire du cœur : offert l'an dernier, donné à quelqu'un d'autre dès le lendemain, puis repris et confié cette année à « quelqu'un de spécial ». Le cœur rose est l'objet qui passe de scène en scène.",
+  "universe": "Papier découpé façon carte pop-up et synth-pop des années 80 : village enneigé, patinoire, sapin, boule de Noël géante, aurore boréale, feux d'artifice du Nouvel An.",
+  "palette": {
+   "nuit bleue": "#10324a",
+   "neige": "#f6f2ea",
+   "givre": "#a9d3e6",
+   "menthe": "#8fd3c1",
+   "rose poudré": "#f2a7b8",
+   "or": "#e9c46a",
+   "vert sapin": "#1f5e4a",
+   "rouge signature": "#e10600"
+  },
+  "typography": "Righteous (ronde, années 80), capitales, blanc neige avec ombre portée bleu nuit ; mot rouge plus grand, en retard, qui pulse ou qui brille selon la phrase ; entrées douces (rise, pop, drop, blur).",
+  "graphic_style": "Couches de papier aplaties avec ombres portées douces (effet pop-up), texture papier, grain léger ; personnages en silhouettes colorées : lui en vert sapin, elle en rose poudré ; aucune couleur rouge dans les décors.",
+  "animation_principles": "Tempo pop régulier et tendre : neige qui tombe en continu, couches qui glissent en parallaxe, balancements, objets qui tournent lentement ; plus de mouvement sur le refrain.",
+  "transitions": "Étoile dorée et cœur rose (formes), stores façon rubans de paquet cadeau, poussées latérales comme des pages de carte, flash blanc de neige, fondu final.",
+  "references": "Cartes de vœux pop-up et illustrations papier découpé ; aucune reprise du clip original."
+ },
+ "style": {
+  "fonts": [
+   "Righteous"
+  ],
+  "typo": {
+   "font": "Righteous",
+   "color": "#f6f2ea",
+   "red": "#e10600",
+   "size": 130,
+   "redScale": 1.25,
+   "lineHeight": 1.02,
+   "enter": "rise",
+   "emphasis": "pulse",
+   "exit": "blur",
+   "exitDur": 0.25,
+   "shadow": "0 5px 0 #10324a, 0 10px 24px rgba(10,30,50,.45)",
+   "redShadow": "0 5px 0 #f6f2ea, 0 10px 24px rgba(10,30,50,.45)",
+   "wordIn": 0.32,
+   "sylDur": 0.2
+  },
+  "fx": {
+   "grain": 0.05,
+   "vignette": 0.35,
+   "paper": 0.18,
+   "grade": "contrast(1.04) saturate(1.05)"
+  },
+  "palette": {}
+ },
+ "beats": [],
+ "scenes": [
+  {
+   "id": "s00",
+   "start": 0.0,
+   "lyrics": [
+    {
+     "text": "My God, I / thought you / were someone / to rely on",
+     "red": "rely",
+     "start": 0.0,
+     "end": 3.84,
+     "song_t": 0.0,
+     "timing": "LRC",
+     "src_line": 0,
+     "enter": "rise",
+     "emphasis": "late",
+     "pos": "upper",
+     "align": "center"
+    }
+   ],
+   "end": 3.86,
+   "transition": {
+    "type": "cut",
+    "dur": 0
+   },
+   "visual": "Pont enneigé en papier découpé la nuit : elle et lui marchent main dans la main sous un réverbère.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s01",
+   "start": 3.86,
+   "lyrics": [
+    {
+     "text": "Me? I guess I / was a / shoulder to / cry on",
+     "red": "shoulder",
+     "start": 3.98,
+     "end": 8.18,
+     "song_t": 3.98,
+     "timing": "LRC",
+     "src_line": 1,
+     "enter": "rise",
+     "emphasis": "pulse",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "end": 8.2,
+   "transition": {
+    "type": "push",
+    "dur": 0.45,
+    "dir": "left"
+   },
+   "visual": "Banc sous la neige : elle pose la tête sur son épaule, les flocons tombent comme des larmes.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s02",
+   "start": 8.2,
+   "lyrics": [
+    {
+     "text": "A face on a / lover with a / fire in his / heart",
+     "red": "fire",
+     "start": 8.32,
+     "end": 12.64,
+     "song_t": 8.32,
+     "timing": "LRC",
+     "src_line": 2,
+     "enter": "blur",
+     "emphasis": "glow",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 12.66,
+   "transition": {
+    "type": "shape",
+    "dur": 0.6,
+    "shape": "star",
+    "color": "#e9c46a"
+   },
+   "visual": "Intérieur chaleureux : silhouette devant une cheminée, un cœur lumineux qui brûle dans sa poitrine.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s03",
+   "start": 12.66,
+   "lyrics": [
+    {
+     "text": "A man / undercover,",
+     "red": "undercover",
+     "start": 12.78,
+     "end": 15.24,
+     "song_t": 12.78,
+     "timing": "LRC",
+     "src_line": 3,
+     "enter": "drop",
+     "emphasis": "shake",
+     "pos": "upper",
+     "align": "left"
+    }
+   ],
+   "end": 15.26,
+   "transition": {
+    "type": "blinds",
+    "dur": 0.5,
+    "n": 8
+   },
+   "visual": "Rue enneigée : un homme col relevé et chapeau, caché derrière un journal sous un réverbère.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s04",
+   "start": 15.26,
+   "lyrics": [
+    {
+     "text": "but you tore / me apart",
+     "red": "apart",
+     "start": 15.38,
+     "end": 19.94,
+     "song_t": 15.38,
+     "timing": "LRC",
+     "src_line": 4,
+     "enter": "drift",
+     "emphasis": "late",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 19.96,
+   "transition": {
+    "type": "dip",
+    "dur": 0.5,
+    "color": "#10324a"
+   },
+   "visual": "Gros plan : un cœur de papier rose qui se déchire en deux moitiés qui s'éloignent.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s05",
+   "start": 19.96,
+   "lyrics": [
+    {
+     "text": "Ooh-hoo",
+     "red": "ooh-hoo",
+     "start": 20.08,
+     "end": 22.26,
+     "song_t": 20.08,
+     "timing": "LRC",
+     "src_line": 5,
+     "enter": "pop",
+     "emphasis": "glow",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 22.28,
+   "transition": {
+    "type": "iris",
+    "dur": 0.6
+   },
+   "visual": "Aurore boréale menthe et rose au-dessus des collines enneigées, étoile filante.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s06",
+   "start": 22.28,
+   "lyrics": [
+    {
+     "text": "Now I've / found a real / love,",
+     "red": "love",
+     "start": 22.4,
+     "end": 24.48,
+     "song_t": 22.4,
+     "timing": "LRC",
+     "src_line": 6,
+     "enter": "rise",
+     "emphasis": "pulse",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "end": 24.5,
+   "transition": {
+    "type": "flash",
+    "dur": 0.3,
+    "color": "#ffffff"
+   },
+   "visual": "Patinoire gelée sous des guirlandes : un nouveau couple patine en glissant.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s07",
+   "start": 24.5,
+   "lyrics": [
+    {
+     "text": "you'll never / fool me again",
+     "red": "fool",
+     "start": 24.62,
+     "end": 27.4,
+     "song_t": 24.62,
+     "timing": "LRC",
+     "src_line": 7,
+     "enter": "pop",
+     "emphasis": "shake",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 27.42,
+   "transition": {
+    "type": "push",
+    "dur": 0.45,
+    "dir": "up"
+   },
+   "visual": "Boule à neige secouée : une petite silhouette à l'intérieur, la neige tourbillonne.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s08",
+   "start": 27.42,
+   "lyrics": [
+    {
+     "text": "Last / Christmas, I / gave you my / heart",
+     "red": "heart",
+     "start": 27.54,
+     "end": 31.4,
+     "song_t": 27.54,
+     "timing": "LRC",
+     "src_line": 8,
+     "enter": "stamp",
+     "emphasis": "pulse",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 31.42,
+   "transition": {
+    "type": "shape",
+    "dur": 0.6,
+    "shape": "star",
+    "color": "#e9c46a"
+   },
+   "visual": "Sapin en papier découpé avec étoile d'or : un paquet cadeau s'ouvre et un cœur rose s'envole.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s09",
+   "start": 31.42,
+   "lyrics": [
+    {
+     "text": "But the very / next day,",
+     "red": "day",
+     "start": 31.54,
+     "end": 34.16,
+     "song_t": 31.54,
+     "timing": "LRC",
+     "src_line": 9,
+     "enter": "rise",
+     "emphasis": "late",
+     "pos": "upper",
+     "align": "left"
+    }
+   ],
+   "end": 34.18,
+   "transition": {
+    "type": "wipe",
+    "dur": 0.45,
+    "dir": "right"
+   },
+   "visual": "Matin : une page de calendrier « 24 DÉC » qui s'arrache et laisse place au « 25 », soleil levant sur la neige.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s10",
+   "start": 34.18,
+   "lyrics": [
+    {
+     "text": "you gave it / away",
+     "red": "away",
+     "start": 34.3,
+     "end": 36.8,
+     "song_t": 34.3,
+     "timing": "LRC",
+     "src_line": 10,
+     "enter": "slide",
+     "emphasis": "slidein",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 36.82,
+   "transition": {
+    "type": "push",
+    "dur": 0.4,
+    "dir": "left"
+   },
+   "visual": "Le paquet au cœur glisse sur une luge et dévale la colline enneigée, au loin.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s11",
+   "start": 36.82,
+   "lyrics": [
+    {
+     "text": "This year, to / save me from / tears",
+     "red": "tears",
+     "start": 36.94,
+     "end": 40.92,
+     "song_t": 36.94,
+     "timing": "LRC",
+     "src_line": 11,
+     "enter": "blur",
+     "emphasis": "late",
+     "pos": "upper",
+     "align": "center"
+    }
+   ],
+   "end": 40.94,
+   "transition": {
+    "type": "fade",
+    "dur": 0.5
+   },
+   "visual": "Profil en papier découpé : une larme coule et se transforme en flocon.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s12",
+   "start": 40.94,
+   "lyrics": [
+    {
+     "text": "I'll give it / to someone / special",
+     "red": "special",
+     "start": 41.06,
+     "end": 45.9,
+     "song_t": 41.06,
+     "timing": "LRC",
+     "src_line": 12,
+     "enter": "rise",
+     "emphasis": "glow",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "end": 45.92,
+   "transition": {
+    "type": "blinds",
+    "dur": 0.5,
+    "n": 8,
+    "dir": "horizontal"
+   },
+   "visual": "Pas de porte d'une maison illuminée, couronne de sapin : il tient un cadeau et frappe.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s13",
+   "start": 45.92,
+   "lyrics": [
+    {
+     "text": "Last / Christmas, I / gave you my / heart",
+     "red": "christmas",
+     "start": 46.04,
+     "end": 50.7,
+     "song_t": 46.04,
+     "timing": "LRC",
+     "src_line": 13,
+     "enter": "stamp",
+     "emphasis": "pulse",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 50.72,
+   "transition": {
+    "type": "shape",
+    "dur": 0.6,
+    "shape": "heart",
+    "color": "#f2a7b8"
+   },
+   "visual": "Boule de Noël dorée géante qui tourne, un cœur rose en reflet, autres boules autour.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s14",
+   "start": 50.72,
+   "lyrics": [
+    {
+     "text": "But the very / next day,",
+     "red": "next",
+     "start": 50.84,
+     "end": 52.58,
+     "song_t": 50.84,
+     "timing": "LRC",
+     "src_line": 14,
+     "enter": "pop",
+     "emphasis": "shake",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "end": 52.6,
+   "transition": {
+    "type": "flash",
+    "dur": 0.3,
+    "color": "#ffffff"
+   },
+   "visual": "Réveil-matin à cloches qui sonne et tremble près d'une fenêtre enneigée.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s15",
+   "start": 52.6,
+   "lyrics": [
+    {
+     "text": "you gave it / away",
+     "red": "gave",
+     "start": 52.72,
+     "end": 55.6,
+     "song_t": 52.72,
+     "timing": "LRC",
+     "src_line": 15,
+     "enter": "slide",
+     "emphasis": "slidein",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 55.62,
+   "transition": {
+    "type": "slide",
+    "dur": 0.45,
+    "dir": "left"
+   },
+   "visual": "Un ballon en forme de cœur s'envole au-dessus des toits, une silhouette tend le bras.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s16",
+   "start": 55.62,
+   "lyrics": [
+    {
+     "text": "This year, to / save me from / tears",
+     "red": "year",
+     "start": 55.74,
+     "end": 60.002,
+     "song_t": 55.74,
+     "timing": "LRC",
+     "src_line": 16,
+     "enter": "rise",
+     "emphasis": "glow",
+     "pos": "upper",
+     "align": "center"
+    }
+   ],
+   "end": 60.022,
+   "transition": {
+    "type": "iris",
+    "dur": 0.6
+   },
+   "visual": "Feux d'artifice du Nouvel An dorés et roses au-dessus du village, elle lève les yeux, sourire.",
+   "camera": "",
+   "animation": ""
+  }
+ ],
+ "tiktok_sound": {
+  "source": "vidéo TikTok fournie par l'utilisateur",
+  "duration_s": 60.022,
+  "song_start_s": 171.486,
+  "song_end_s": 229.163,
+  "speed": 0.9609,
+  "instruction": "Dans le brouillon TikTok : « Ajouter un son » → choisir CE son (celui de la vidéo fournie) → ne pas couper : il démarre à 0:00 avec la vidéo → Publier."
+ },
+ "outro": {
+  "dur": 0.9,
+  "color": "#10324a",
+  "text": true
+ },
+ "lyrics_file": "work/lyrics_sound_scenes.json"
+}

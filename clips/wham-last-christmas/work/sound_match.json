@@ -1,0 +1,21 @@
+{
+ "file": "tiktok_sound_source.mp4",
+ "language": "en",
+ "sound_duration_s": 60.022,
+ "song_start_s": 171.486,
+ "song_end_s": 229.163,
+ "speed": 0.9609,
+ "speed_note": "ralenti",
+ "recognized_words": 110,
+ "matched_words": 100,
+ "anchors_used": 13,
+ "anchor_type": "débuts de lignes",
+ "fit_rms_s": 0.186,
+ "confidence": "élevée",
+ "first_lines_in_sound": [
+  "  0.00s  My God, I thought you were someone to rely on",
+  "  3.69s  Me? I guess I was a shoulder to cry on",
+  "  8.35s  A face on a lover with a fire in his heart",
+  " 13.10s  A man undercover, but you tore me apart"
+ ]
+}

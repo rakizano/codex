@@ -79,12 +79,12 @@ def cmd_init(a):
         st = 0.0 if (k == 0 and not scenes) else max(0.0, p['start'] - lead)
         scenes.append({'id': f's{len(scenes):02d}', 'start': round(st, 3), 'lyrics': [{
             'text': p['text'], 'red': '', 'start': round(max(p['start'], st), 3), 'end': None,
-            'song_t': round(p['start'] + start, 3), 'timing': p['timing'], 'src_line': p['src_line']}]})
+            'song_t': round(p['start'] + start, 3), 'timing': p['timing'], 'src_line': p['src_line'], '_pend': p['end']}]})
     for k, s in enumerate(scenes):
         s['end'] = round(scenes[k + 1]['start'] if k + 1 < len(scenes) else dur, 3)
         for ly in s['lyrics']:
-            nxt_piece_end = next(p['end'] for p in pieces if round(max(p['start'], 0), 3) <= ly['start'] + 1e-6 and p['text'] == ly['text'])
-            ly['end'] = round(min(s['end'] - 0.02, max(nxt_piece_end + 0.35, ly['start'] + 1.0)), 3)
+            # fin du morceau de phrase associé à CETTE scène (les phrases répétées ont chacune la leur)
+            ly['end'] = round(min(s['end'] - 0.02, max(ly.pop('_pend') + 0.35, ly['start'] + 1.0)), 3)
         s.update({'transition': {'type': 'fade', 'dur': 0.5} if k else {'type': 'cut', 'dur': 0},
                   'visual': '', 'camera': '', 'animation': ''})
     sb = {

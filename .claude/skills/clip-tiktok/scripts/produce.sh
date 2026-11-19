@@ -13,7 +13,8 @@ mapfile -t FARR <<< "$FONTS"
 python3 "$S/fonts.py" --project "$P" "${FARR[@]}"
 
 echo "== 2/6 Validation du storyboard"
-LYR=(); [ -f "$WORK/lyrics.json" ] && LYR=(--lyrics "$WORK/lyrics.json")
+LF=$(python3 -c "import json;print(json.load(open('$P/storyboard.json')).get('lyrics_file','work/lyrics.json'))")
+LYR=(); [ -f "$P/$LF" ] && LYR=(--lyrics "$P/$LF")
 python3 "$S/storyboard.py" check "$P/storyboard.json" "${LYR[@]}" --scenes "$P/scenes.js"
 
 echo "== 3/6 Rendu vidéo (Chromium -> H.264, sans audio)"

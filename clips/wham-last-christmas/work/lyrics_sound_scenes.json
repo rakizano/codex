@@ -1,0 +1,484 @@
+{
+ "artist": "Wham!",
+ "title": "Last Christmas",
+ "album": "German Top 100 Single Charts",
+ "duration": 60.022,
+ "lrclib_ref_id": 7518169,
+ "version_cluster_ids": [
+  25497699,
+  7518169,
+  7967784,
+  7967785,
+  7967776,
+  7069608,
+  4698186,
+  5086149,
+  169867
+ ],
+ "version_cluster_albums": [
+  "Die Hit Giganten: Weihnachten 2006",
+  "German Top 100 Single Charts",
+  "LAST CHRISTMAS",
+  "Nochevieja Música de Fiesta",
+  "Super Christmas Hits",
+  "Ultimate Christmas",
+  "Ultimate...Christmas Hits",
+  "VOX Christmas Classics 2006",
+  "Wham!"
+ ],
+ "other_versions": [
+  {
+   "duration": 263.0,
+   "n": 11,
+   "albums": [
+    "Die Hit Giganten: Weihnachten 2006",
+    "Essentials",
+    "German Top 100 Single Charts",
+    "LAST CHRISTMAS"
+   ]
+  },
+  {
+   "duration": 267.0,
+   "n": 7,
+   "albums": [
+    "Christmas Hits",
+    "Last Christmas",
+    "Last Christmas = ラスト・クリスマス",
+    "Now That's What I Call Christmas"
+   ]
+  },
+  {
+   "duration": 271.0,
+   "n": 1,
+   "albums": [
+    "Last Christmas"
+   ]
+  },
+  {
+   "duration": 278.0,
+   "n": 3,
+   "albums": [
+    "LAST CHRISTMAS",
+    "WHAM!",
+    "WhamVEVO"
+   ]
+  },
+  {
+   "duration": 409.0,
+   "n": 6,
+   "albums": [
+    "Christmas Music Compilation",
+    "Last Christmas",
+    "The Best Of Wham!",
+    "The Best of Wham! If You Were There…"
+   ]
+  }
+ ],
+ "n_sources": 9,
+ "text_agreement": [
+  0.874,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  0.991,
+  1.0,
+  0.874
+ ],
+ "sources_disagreeing": [
+  {
+   "id": 35884283,
+   "album": "Last christmas",
+   "offset_vs_consensus_s": -1.15
+  },
+  {
+   "id": 4652625,
+   "album": "Essentials",
+   "offset_vs_consensus_s": -1.13
+  }
+ ],
+ "sync_spread_median_s": 0.77,
+ "sync_spread_p90_s": 1.4,
+ "sync_confidence": "moyenne",
+ "sync_method": "LRCLIB (paroles synchronisées ligne par ligne par la communauté), médiane multi-sources",
+ "lines": [
+  {
+   "i": 0,
+   "t": 0.0,
+   "t_ref": 171.31,
+   "text": "My God, I thought you were someone to rely on",
+   "n_src": 9,
+   "spread": 0.84,
+   "end": 3.98,
+   "gap_after": 3.98,
+   "song_t": 171.31,
+   "words_sound_t": {
+    "0": 0.0,
+    "1": 0.32,
+    "2": 1.02,
+    "3": 1.02,
+    "4": 1.2,
+    "5": 1.5,
+    "6": 1.9,
+    "7": 2.54,
+    "8": 2.94,
+    "9": 3.44
+   },
+   "timing_source": "mot entendu dans le son (Whisper)"
+  },
+  {
+   "i": 1,
+   "t": 3.98,
+   "t_ref": 175.43,
+   "text": "Me? I guess I was a shoulder to cry on",
+   "n_src": 9,
+   "spread": 0.89,
+   "end": 8.32,
+   "gap_after": 4.34,
+   "song_t": 175.03,
+   "words_sound_t": {
+    "0": 3.98,
+    "1": 4.72,
+    "2": 5.5,
+    "3": 5.8,
+    "4": 6.22,
+    "5": 6.54,
+    "6": 6.78,
+    "7": 7.16,
+    "8": 7.54,
+    "9": 7.9
+   },
+   "timing_source": "mot entendu dans le son (Whisper)"
+  },
+  {
+   "i": 2,
+   "t": 8.32,
+   "t_ref": 179.51,
+   "text": "A face on a lover with a fire in his heart",
+   "n_src": 9,
+   "spread": 1.16,
+   "end": 12.78,
+   "gap_after": 4.46,
+   "song_t": 179.51,
+   "words_sound_t": {
+    "0": 8.32,
+    "2": 9.42,
+    "3": 10.06,
+    "4": 10.32,
+    "5": 10.72,
+    "6": 11.22,
+    "7": 11.4,
+    "8": 11.8,
+    "9": 12.1,
+    "10": 12.28
+   },
+   "timing_source": "mot entendu dans le son (Whisper)"
+  },
+  {
+   "i": 3,
+   "t": 12.78,
+   "t_ref": 184.07,
+   "text": "A man undercover,",
+   "n_src": 9,
+   "spread": 1.35,
+   "end": 15.38,
+   "gap_after": 2.6,
+   "song_t": 184.07,
+   "words_sound_t": {
+    "0": 12.78,
+    "1": 13.68,
+    "3": 15.38,
+    "4": 15.78,
+    "6": 16.46
+   },
+   "timing_source": "mot entendu dans le son (Whisper)"
+  },
+  {
+   "i": 4,
+   "t": 15.38,
+   "t_ref": 184.07,
+   "text": "but you tore me apart",
+   "n_src": 9,
+   "spread": 1.35,
+   "end": 20.08,
+   "gap_after": 4.7,
+   "song_t": 184.07,
+   "words_sound_t": {
+    "0": 12.78,
+    "1": 13.68,
+    "3": 15.38,
+    "4": 15.78,
+    "6": 16.46
+   },
+   "timing_source": "mot entendu dans le son (Whisper)"
+  },
+  {
+   "i": 5,
+   "t": 20.08,
+   "t_ref": 191.39,
+   "text": "Ooh-hoo",
+   "n_src": 9,
+   "spread": 2.58,
+   "end": 22.4,
+   "gap_after": 2.32,
+   "song_t": 190.99,
+   "words_sound_t": {
+    "0": 20.08
+   },
+   "timing_source": "mot entendu dans le son (Whisper)"
+  },
+  {
+   "i": 6,
+   "t": 22.4,
+   "t_ref": 193.69,
+   "text": "Now I've found a real love,",
+   "n_src": 9,
+   "spread": 0.94,
+   "end": 24.62,
+   "gap_after": 2.22,
+   "song_t": 193.34,
+   "words_sound_t": {
+    "0": 22.4,
+    "1": 22.78,
+    "3": 23.0,
+    "5": 23.7,
+    "6": 24.06,
+    "7": 24.62,
+    "8": 24.62,
+    "9": 24.96,
+    "10": 25.24,
+    "11": 25.68,
+    "12": 26.04
+   },
+   "timing_source": "mot entendu dans le son (Whisper)"
+  },
+  {
+   "i": 7,
+   "t": 24.62,
+   "t_ref": 193.69,
+   "text": "you'll never fool me again",
+   "n_src": 9,
+   "spread": 0.94,
+   "end": 27.54,
+   "gap_after": 2.92,
+   "song_t": 193.34,
+   "words_sound_t": {
+    "0": 22.4,
+    "1": 22.78,
+    "3": 23.0,
+    "5": 23.7,
+    "6": 24.06,
+    "7": 24.62,
+    "8": 24.62,
+    "9": 24.96,
+    "10": 25.24,
+    "11": 25.68,
+    "12": 26.04
+   },
+   "timing_source": "mot entendu dans le son (Whisper)"
+  },
+  {
+   "i": 8,
+   "t": 27.54,
+   "t_ref": 197.79,
+   "text": "Last Christmas, I gave you my heart",
+   "n_src": 9,
+   "spread": 0.48,
+   "end": 31.54,
+   "gap_after": 4.0,
+   "song_t": 197.79,
+   "words_sound_t": {
+    "0": 27.54,
+    "1": 28.3,
+    "2": 29.82,
+    "3": 29.96,
+    "4": 30.32,
+    "5": 30.64,
+    "6": 30.96
+   },
+   "timing_source": "mot entendu dans le son (Whisper)"
+  },
+  {
+   "i": 9,
+   "t": 31.54,
+   "t_ref": 201.72,
+   "text": "But the very next day,",
+   "n_src": 9,
+   "spread": 0.45,
+   "end": 34.3,
+   "gap_after": 2.76,
+   "song_t": 201.72,
+   "words_sound_t": {
+    "0": 31.54,
+    "1": 32.08,
+    "2": 32.36,
+    "3": 32.88,
+    "4": 33.44,
+    "5": 34.3,
+    "6": 34.7,
+    "7": 35.02,
+    "8": 36.62
+   },
+   "timing_source": "mot entendu dans le son (Whisper)"
+  },
+  {
+   "i": 10,
+   "t": 34.3,
+   "t_ref": 201.72,
+   "text": "you gave it away (you gave it away)",
+   "n_src": 9,
+   "spread": 0.45,
+   "end": 36.94,
+   "gap_after": 2.64,
+   "song_t": 201.72,
+   "words_sound_t": {
+    "0": 31.54,
+    "1": 32.08,
+    "2": 32.36,
+    "3": 32.88,
+    "4": 33.44,
+    "5": 34.3,
+    "6": 34.7,
+    "7": 35.02,
+    "8": 36.62
+   },
+   "timing_source": "mot entendu dans le son (Whisper)"
+  },
+  {
+   "i": 11,
+   "t": 36.94,
+   "t_ref": 206.83,
+   "text": "This year, to save me from tears",
+   "n_src": 9,
+   "spread": 0.16,
+   "end": 41.06,
+   "gap_after": 4.12,
+   "song_t": 206.8,
+   "words_sound_t": {
+    "0": 36.94,
+    "1": 37.68,
+    "2": 39.0,
+    "3": 39.3,
+    "4": 39.66,
+    "5": 39.98,
+    "6": 40.2
+   },
+   "timing_source": "mot entendu dans le son (Whisper)"
+  },
+  {
+   "i": 12,
+   "t": 41.06,
+   "t_ref": 210.98,
+   "text": "I'll give it to someone special (special)",
+   "n_src": 9,
+   "spread": 0.04,
+   "end": 46.04,
+   "gap_after": 4.98,
+   "song_t": 210.98,
+   "words_sound_t": {
+    "0": 41.06,
+    "1": 41.06,
+    "2": 41.78,
+    "3": 42.0,
+    "4": 42.26,
+    "5": 42.54,
+    "6": 43.24
+   },
+   "timing_source": "mot entendu dans le son (Whisper)"
+  },
+  {
+   "i": 13,
+   "t": 46.04,
+   "t_ref": 215.85,
+   "text": "Last Christmas, I gave you my heart (I gave you my heart)",
+   "n_src": 9,
+   "spread": 0.27,
+   "end": 50.84,
+   "gap_after": 4.8,
+   "song_t": 215.85,
+   "words_sound_t": {
+    "0": 46.04,
+    "1": 47.0,
+    "2": 48.44,
+    "3": 48.8,
+    "4": 49.04,
+    "5": 49.58,
+    "6": 49.9
+   },
+   "timing_source": "mot entendu dans le son (Whisper)"
+  },
+  {
+   "i": 14,
+   "t": 50.84,
+   "t_ref": 220.94,
+   "text": "But the very next day,",
+   "n_src": 9,
+   "spread": 1.22,
+   "end": 52.72,
+   "gap_after": 1.88,
+   "song_t": 220.23,
+   "words_sound_t": {
+    "0": 50.84,
+    "1": 50.86,
+    "2": 51.58,
+    "3": 51.58,
+    "4": 52.1,
+    "5": 52.72,
+    "6": 53.14,
+    "7": 53.7,
+    "8": 55.16
+   },
+   "timing_source": "mot entendu dans le son (Whisper)"
+  },
+  {
+   "i": 15,
+   "t": 52.72,
+   "t_ref": 220.94,
+   "text": "you gave it away (you gave it away)",
+   "n_src": 9,
+   "spread": 1.22,
+   "end": 55.74,
+   "gap_after": 3.02,
+   "song_t": 220.23,
+   "words_sound_t": {
+    "0": 50.84,
+    "1": 50.86,
+    "2": 51.58,
+    "3": 51.58,
+    "4": 52.1,
+    "5": 52.72,
+    "6": 53.14,
+    "7": 53.7,
+    "8": 55.16
+   },
+   "timing_source": "mot entendu dans le son (Whisper)"
+  },
+  {
+   "i": 16,
+   "t": 55.74,
+   "t_ref": 225.4,
+   "text": "This year, to save me from tears",
+   "n_src": 9,
+   "spread": 0.87,
+   "end": 60.022,
+   "gap_after": 4.282,
+   "song_t": 225.0,
+   "words_sound_t": {
+    "0": 55.74,
+    "1": 56.62,
+    "2": 57.06,
+    "3": 58.04,
+    "4": 58.26,
+    "5": 58.72,
+    "6": 59.1
+   },
+   "timing_source": "mot entendu dans le son (Whisper)"
+  }
+ ],
+ "sound_clock": true,
+ "sound_mapping": {
+  "song_start_s": 171.486,
+  "speed": 0.9609,
+  "sound_duration_s": 60.022
+ }
+}

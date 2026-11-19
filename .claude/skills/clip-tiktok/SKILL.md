@@ -62,6 +62,22 @@ adaptés, ou composer soi-même un passage cohérent de cette durée.
 Ne prends pas le refrain par défaut. Tu peux ajuster début/fin (début ≈ 0,2-0,5 s avant la 1re syllabe,
 fin ≈ 0,5 s après la dernière note tenue). Écris en 2 phrases pourquoi ce passage.
 
+### 4b. Mode « son TikTok » (prioritaire si l'utilisateur fournit un son)
+Si l'utilisateur joint une vidéo/un audio contenant le son TikTok qu'il utilisera (souvent un extrait ~1 min,
+parfois accéléré), le clip doit couvrir CE son de 0:00 à sa fin, sans aucune coupe côté utilisateur :
+```bash
+cp "<fichier joint>" clips/<slug>/work/tiktok_sound_source.mp4      # jamais commité (.gitignore)
+python3 $SK/scripts/tiktok_sound_match.py clips/<slug>/work/tiktok_sound_source.mp4 \
+        --lyrics clips/<slug>/work/lyrics.json --out clips/<slug>/work [--language en|fr]
+```
+Reconnaissance vocale locale (faster-whisper « small », gratuit) → position dans la chanson + vitesse +
+instant réel de chaque mot. Utiliser les instants entendus (`words_sound_t`) comme débuts de phrases,
+couper les lignes longues à la virgule sur l'instant du mot qui suit, écrire `work/lyrics_sound_scenes.json`,
+puis `storyboard.py init --lyrics …lyrics_sound_scenes.json --start 0 --end <durée du son>`.
+Dans storyboard.json : `lyrics_file: "work/lyrics_sound_scenes.json"`, `song.version_duration` = durée de la
+chanson, et un bloc `tiktok_sound` {source, duration_s, song_start_s, song_end_s, speed, instruction}.
+Livrer aussi `apercu_avec_son_tiktok.mp4` (vidéo + son fourni, pour vérification ; non commité).
+
 ### 5. Synchronisation
 ```bash
 python3 $SK/scripts/storyboard.py init --lyrics clips/<slug>/work/lyrics.json --start <s> --end <s> \
