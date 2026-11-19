@@ -128,7 +128,10 @@ mots rouges, zone de sécurité, taille du texte, bandes noires) → `synchronis
   fiabilité de la synchro, et ce qui reste estimé.
 - Commit + push du dossier `clips/<slug>/` (sans `build/` ni `stills/`) sur la branche de travail.
 
-### 14. Musique + brouillon TikTok (si l'utilisateur fournit l'audio)
+### 14. Brouillon TikTok (+ musique si l'utilisateur fournit l'audio)
+- Par défaut (gratuit) : le push de `video_finale.mp4` déclenche `.github/workflows/tiktok-draft.yml`, qui envoie
+  le clip muet dans la boîte de réception TikTok ; l'utilisateur ajoute le son officiel depuis la bibliothèque
+  TikTok au timestamp de `synchronisation.txt`, puis publie. Rappeler ce timestamp dans la réponse finale.
 - Chercher le fichier audio joint (`/mnt/user-data/uploads/`, ou un chemin donné). Ne jamais télécharger
   la musique depuis YouTube ou un site non autorisé ; si aucun fichier n'est fourni, livrer la version muette
   et demander le fichier (version album, sans DRM).

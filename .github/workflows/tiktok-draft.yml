@@ -1,6 +1,7 @@
 # Envoi automatique des clips dans les brouillons (boîte de réception) TikTok.
 # Déclenché à chaque push qui ajoute/modifie clips/<slug>/video_avec_musique.mp4
-# (ou video_finale.mp4 si la variable de dépôt TIKTOK_UPLOAD_SILENT vaut "true"),
+# ou, s'il n'y a pas de version avec musique, la version muette video_finale.mp4
+# (le son officiel s'ajoute gratuitement dans TikTok ; désactivable avec la variable TIKTOK_UPLOAD_SILENT=false),
 # ou manuellement avec le nom du dossier du clip.
 name: TikTok — envoi en brouillon
 
@@ -46,7 +47,7 @@ jobs:
           list=""
           for slug in $(echo "$files" | tr ' ' '\n' | grep -E '^clips/[^/]+/video_(avec_musique|finale)\.mp4$' | cut -d/ -f2 | sort -u); do
             if [ -f "clips/$slug/video_avec_musique.mp4" ]; then list="$list clips/$slug/video_avec_musique.mp4"
-            elif [ "$SILENT" = "true" ] || [ -n "$SLUG" ]; then [ -f "clips/$slug/video_finale.mp4" ] && list="$list clips/$slug/video_finale.mp4"
+            elif [ "$SILENT" != "false" ] || [ -n "$SLUG" ]; then [ -f "clips/$slug/video_finale.mp4" ] && list="$list clips/$slug/video_finale.mp4"
             else echo "::notice::$slug : pas encore de version avec musique, rien envoyé"; fi
           done
           echo "videos=$list" >> "$GITHUB_OUTPUT"

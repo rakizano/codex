@@ -1,13 +1,13 @@
-# Clips → brouillons TikTok, avec la musique (configuration depuis un iPad)
+# Clips → brouillons TikTok (configuration depuis un iPad)
 
 Une fois configuré, le circuit est entièrement automatique :
 
 ```
-/clip-tiktok Artiste – Titre   +  le fichier audio du morceau joint dans la conversation
+/clip-tiktok Artiste – Titre
         │
-        ▼  Claude : clip animé → ajout de la musique au bon timestamp → push GitHub
+        ▼  Claude : clip animé → push GitHub
         ▼  GitHub Actions : envoi dans votre boîte de réception TikTok (API officielle)
-        ▼  TikTok : notification « Votre vidéo est prête » → vous ouvrez → « Publier »
+        ▼  TikTok : notification → vous ouvrez → « Ajouter un son » (gratuit) → « Publier »
 ```
 
 Rien n'est publié sans vous : la vidéo arrive comme brouillon à finaliser (API TikTok
@@ -64,31 +64,34 @@ Dans Safari : **github.com** (connecté).
 3. GitHub → onglet **Actions** → **TikTok — connexion du compte** → *Run workflow* →
    collez le code → *Run workflow*. Résultat attendu : « ✅ Compte TikTok connecté ».
 
-## 4. À chaque clip
+## 4. À chaque clip (circuit gratuit, par défaut)
 
-1. Dans une session Claude (environnement **codex**) :
-   `/clip-tiktok Artiste – Titre` **et joignez le fichier audio du morceau** (bouton trombone).
-   - Il faut un fichier **sans DRM** de la **version album** : achat iTunes Store (m4a), Bandcamp,
-     Qobuz, Amazon MP3… Les titres en streaming (Apple Music, Spotify, Deezer) ne sont pas exportables.
-   - Pour un clip déjà fait : « ajoute la musique à clips/sdm-cartier-santos » + le fichier.
-2. Claude ajoute la musique au timestamp exact (et recale automatiquement si l'audio est décalé),
-   puis pousse `video_avec_musique.mp4` sur GitHub.
-3. GitHub Actions l'envoie à TikTok (2-3 min). Sur l'iPad/iPhone : **notification TikTok** →
-   ouvrir → (légende, hashtags) → **Publier**.
+1. Dans une session Claude (environnement **codex**) : `/clip-tiktok Artiste – Titre`.
+2. Claude produit le clip et le pousse sur GitHub ; GitHub Actions l'envoie **en brouillon muet**
+   dans votre TikTok (2-3 min).
+3. Sur le téléphone/iPad : **notification TikTok** → ouvrir le brouillon →
+   **« Ajouter un son »** → chercher le titre (version album) → **« Couper »** (ciseaux) →
+   faire démarrer le morceau au timestamp de `synchronisation.txt` → **« Publier »**.
+
+Le son vient de la bibliothèque TikTok : **gratuit, sous licence, crédité et cliquable**, sans
+risque de coupure pour droits d'auteur. C'est la seule solution à la fois gratuite et légale :
+l'API TikTok ne permet pas d'attacher un son de sa bibliothèque à votre place.
+
+Timestamps des clips déjà faits :
+| Clip | Démarrer le son à |
+|---|---|
+| Pink Floyd – Time (version album 7:05) | **5:17.2** |
+| SDM – Cartier Santos (version 3:04) | **1:33.5** |
 
 Suivi : GitHub → Actions → **TikTok — envoi en brouillon** (résumé ✅/❌ par vidéo).
-Renvoyer un clip à la main : *Run workflow* avec le nom du dossier (ex. `sdm-cartier-santos`).
+Envoyer (ou renvoyer) un clip existant : *Run workflow* avec le nom du dossier
+(`pink-floyd-time`, `sdm-cartier-santos`) — ou demandez-le à Claude.
 
----
-
-## ⚠️ Droits musicaux — à lire
-
-Une musique **intégrée au fichier** est vue par TikTok comme un « son original » contenant une
-œuvre protégée : TikTok peut **couper le son**, limiter la diffusion ou bloquer la vidéo, et le
-morceau ne sera pas crédité ni cliquable. La solution la plus sûre reste d'envoyer la version
-muette (`TIKTOK_UPLOAD_SILENT=true` dans *Settings → Secrets and variables → Actions → Variables*)
-et d'ajouter le son officiel depuis la bibliothèque TikTok dans le brouillon (timestamp indiqué
-dans `synchronisation.txt`). Les deux circuits sont disponibles ; le choix vous appartient.
+### Option : musique déjà intégrée (fichier audio fourni)
+Si vous possédez un fichier audio sans DRM de la version album, joignez-le à la conversation :
+Claude l'ajoute au timestamp exact (`video_avec_musique.mp4`), qui est alors envoyé à la place.
+⚠️ TikTok traite une musique intégrée comme un « son original » contenant une œuvre protégée :
+il peut couper le son ou limiter la vidéo, et le morceau n'est pas crédité.
 
 ## Ce qui a été testé
 
