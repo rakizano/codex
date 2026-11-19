@@ -1,0 +1,921 @@
+{
+ "song": {
+  "artist": "Josman",
+  "title": "Peace, Haine, Love",
+  "album": "M.A.N (2022)",
+  "version_duration": 241.0,
+  "lrclib_ref_id": 5316943,
+  "sync_confidence": "élevée",
+  "sync_spread_median_s": 0.03,
+  "n_sources": 11,
+  "notes": [
+   "Clip calé sur le son TikTok fourni (60.05 s) : passage de la chanson 48.1 s → 108.1 s, vitesse normale.",
+   "Débuts de phrases pris sur les mots entendus (Whisper : 177 mots appariés, erreur d'ajustement 0.132 s).",
+   "Écartés : « J'fais face à tous mes démons… » (commencée avant le son) et « J'me sens pas trop peace, haine, love » (coupée par la fin du son) ; ad-libs non affichés."
+  ]
+ },
+ "passage": {
+  "start": 0.0,
+  "end": 60.045,
+  "duration": 60.045,
+  "start_fmt": "0:00.000",
+  "end_fmt": "1:00.045"
+ },
+ "fps": 30,
+ "width": 1080,
+ "height": 1920,
+ "tiktok_sound": {
+  "source": "vidéo TikTok fournie par l'utilisateur",
+  "duration_s": 60.045,
+  "song_start_s": 48.07,
+  "song_end_s": 108.115,
+  "speed": 1.0,
+  "instruction": "Dans le brouillon TikTok : « Ajouter un son » → choisir CE son (celui de la vidéo fournie) → ne pas couper : il démarre à 0:00 avec la vidéo → Publier."
+ },
+ "lyrics_file": "work/lyrics_sound_scenes.json",
+ "scenes": [
+  {
+   "id": "s00",
+   "start": 0.0,
+   "end": 2.45,
+   "lyrics": [],
+   "marks": [
+    0
+   ],
+   "visual": "Gros plan de dos : ses petites tresses et le col de son blouson bordeaux, à contre-jour d'une enseigne néon qui grésille ; un balayage de lumière ouvre le clip.",
+   "transition": {
+    "type": "cut",
+    "dur": 0
+   }
+  },
+  {
+   "id": "s01",
+   "start": 2.45,
+   "end": 4.83,
+   "lyrics": [
+    {
+     "text": "Putain encore / un soir où je / sais / qu'j'dormirai / pas",
+     "words": [
+      2.57,
+      2.84,
+      3.244,
+      3.379,
+      3.514,
+      3.649,
+      3.784,
+      3.919,
+      4.458
+     ],
+     "start": 2.57,
+     "end": 4.81,
+     "song_t": 50.64,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "soir",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12
+   ],
+   "visual": "Chambre de nuit, il est assis au bord du lit de dos, la lueur du téléphone ; les bandes de lumière des stores défilent sur le mur au passage des voitures.",
+   "transition": {
+    "type": "bar",
+    "dur": 0.5,
+    "dir": "right",
+    "color": "#fff2d0",
+    "glow": true,
+    "width": 0.4
+   }
+  },
+  {
+   "id": "s02",
+   "start": 4.83,
+   "end": 7.48,
+   "lyrics": [
+    {
+     "text": "Où / j'm'endormirai / à l'aube, / relation tombée / à l'eau",
+     "words": [
+      4.95,
+      5.1,
+      5.701,
+      5.851,
+      6.151,
+      6.602,
+      6.902,
+      7.052
+     ],
+     "start": 4.95,
+     "end": 7.46,
+     "song_t": 53.02,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "relation",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12
+   ],
+   "visual": "Un polaroid d'elle de dos (longues tresses, veste satin émeraude) tombe dans l'eau sombre ; ondes, reflets de lumière ondulants.",
+   "transition": {
+    "type": "dots",
+    "dur": 0.55,
+    "x": 540,
+    "y": 900
+   }
+  },
+  {
+   "id": "s03",
+   "start": 7.48,
+   "end": 9.92,
+   "lyrics": [
+    {
+     "text": "J'réponds plus / trop aux / appels, quand / c'est l'argent / j'réponds / \"allô\"",
+     "words": [
+      7.6,
+      7.877,
+      8.015,
+      8.153,
+      8.291,
+      8.568,
+      8.706,
+      8.844,
+      9.121,
+      9.397
+     ],
+     "start": 7.6,
+     "end": 9.9,
+     "song_t": 55.67,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "appels",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12
+   ],
+   "visual": "Le téléphone vibre sur la table et inonde le plafond de lumière à chaque appel ; une liasse dorée brille ; sa main (manche crème) décroche.",
+   "transition": {
+    "type": "slices",
+    "dur": 0.45,
+    "n": 10
+   }
+  },
+  {
+   "id": "s04",
+   "start": 9.92,
+   "end": 12.44,
+   "lyrics": [
+    {
+     "text": "Loyauté qui / s'fait la belle / et l'honneur / qui s'fait la / malle",
+     "words": [
+      10.04,
+      10.37,
+      10.535,
+      10.701,
+      10.866,
+      11.4,
+      11.523,
+      11.77,
+      11.893,
+      12.016,
+      12.139
+     ],
+     "start": 10.04,
+     "end": 12.42,
+     "song_t": 58.11,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "loyauté",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12,
+    1.48
+   ],
+   "visual": "Couloir : deux frères en sweat noir et casquette s'en vont vers une porte éblouissante, une valise traînée ; la porte se referme, la lumière se coupe.",
+   "transition": {
+    "type": "tear",
+    "dur": 0.65
+   }
+  },
+  {
+   "id": "s05",
+   "start": 12.44,
+   "end": 15.12,
+   "lyrics": [
+    {
+     "text": "C'soir j'ai le / blues qui fait / mal,",
+     "words": [
+      12.56,
+      12.723,
+      12.885,
+      13.048,
+      13.211,
+      13.374,
+      13.536
+     ],
+     "start": 12.56,
+     "end": 13.86,
+     "song_t": 60.63,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "blues",
+     "pos": "top",
+     "align": "left"
+    },
+    {
+     "text": "on dirait / qu'j'ai perdu / le goût",
+     "words": [
+      13.9,
+      14.027,
+      14.28,
+      14.533,
+      14.786,
+      14.912
+     ],
+     "start": 13.9,
+     "end": 15.1,
+     "song_t": 61.97,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "goût",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12,
+    1.46
+   ],
+   "visual": "Comptoir d'un bar bleu néon : lui de dos ; le néon grésille puis s'éteint, les couleurs se vident.",
+   "transition": {
+    "type": "dip",
+    "dur": 0.35,
+    "color": "#0a1430"
+   }
+  },
+  {
+   "id": "s06",
+   "start": 15.12,
+   "end": 17.54,
+   "lyrics": [
+    {
+     "text": "J'sens plus les / saveurs et / arômes, j'fais / ma route à / contre sens",
+     "words": [
+      15.24,
+      15.367,
+      15.493,
+      15.62,
+      15.873,
+      15.999,
+      16.58,
+      16.695,
+      16.809,
+      17.039,
+      17.154,
+      17.383
+     ],
+     "start": 15.24,
+     "end": 17.52,
+     "song_t": 63.31,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "saveurs",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12,
+    1.46
+   ],
+   "visual": "Route de nuit : il marche à contre-sens, les phares arrivent en traînées et dessinent sa silhouette (tresses, blouson).",
+   "transition": {
+    "type": "whip",
+    "dur": 0.3,
+    "dir": "left"
+   }
+  },
+  {
+   "id": "s07",
+   "start": 17.54,
+   "end": 20.22,
+   "lyrics": [
+    {
+     "text": "T'façon tous / les chemins / mènent à Rome,",
+     "words": [
+      17.66,
+      17.867,
+      17.971,
+      18.074,
+      18.281,
+      18.488,
+      18.592
+     ],
+     "start": 17.66,
+     "end": 18.96,
+     "song_t": 65.73,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "Rome",
+     "pos": "top",
+     "align": "left"
+    },
+    {
+     "text": "t'façon ils / mènent tous à / la mort",
+     "words": [
+      19.0,
+      19.253,
+      19.38,
+      19.633,
+      19.759,
+      19.886,
+      20.012
+     ],
+     "start": 19.0,
+     "end": 20.2,
+     "song_t": 67.07,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "mort",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12,
+    1.46
+   ],
+   "visual": "Plusieurs routes convergent vers des arches romaines au soleil couchant ; le soleil devient rouge sang et les routes s'éteignent.",
+   "transition": {
+    "type": "zoom",
+    "dur": 0.45,
+    "x": 540,
+    "y": 1100,
+    "scale": 3
+   }
+  },
+  {
+   "id": "s08",
+   "start": 20.22,
+   "end": 23.0,
+   "lyrics": [
+    {
+     "text": "T'façon ce / monde est / hardcore, que / le ciel me / laisse une / chance",
+     "words": [
+      20.34,
+      20.589,
+      20.713,
+      20.962,
+      21.086,
+      21.459,
+      21.584,
+      21.708,
+      21.832,
+      21.957,
+      22.206,
+      22.454
+     ],
+     "start": 20.34,
+     "end": 22.98,
+     "song_t": 68.41,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "chance",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12
+   ],
+   "visual": "Toit sous la pluie : les nuages s'ouvrent et un rayon de lumière unique tombe sur lui.",
+   "transition": {
+    "type": "flash",
+    "dur": 0.25,
+    "color": "#ffffff"
+   }
+  },
+  {
+   "id": "s09",
+   "start": 23.0,
+   "end": 25.48,
+   "lyrics": [
+    {
+     "text": "J'la saisirai à / bras l'corps, / il faut encore / que j'explore",
+     "words": [
+      23.12,
+      23.252,
+      23.647,
+      23.779,
+      23.911,
+      24.042,
+      24.174,
+      24.306,
+      24.701,
+      24.833
+     ],
+     "start": 23.12,
+     "end": 25.46,
+     "song_t": 71.19,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "explore",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12
+   ],
+   "visual": "Il tend le bras vers une boule de lumière qu'il saisit ; la caméra s'élève et révèle l'horizon immense.",
+   "transition": {
+    "type": "radial",
+    "dur": 0.5,
+    "color": "#fff2d0"
+   }
+  },
+  {
+   "id": "s10",
+   "start": 25.48,
+   "end": 27.96,
+   "lyrics": [
+    {
+     "text": "J'ai encore / rien vu de la / flore, j'ai / encore rien vu / de la faune",
+     "words": [
+      25.6,
+      25.705,
+      26.022,
+      26.127,
+      26.232,
+      26.338,
+      26.443,
+      26.654,
+      26.759,
+      27.076,
+      27.181,
+      27.286,
+      27.392,
+      27.497
+     ],
+     "start": 25.6,
+     "end": 27.94,
+     "song_t": 73.67,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "flore",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12
+   ],
+   "visual": "Jungle de grandes feuilles en parallaxe, rayons à travers la canopée, lucioles ; un cerf et des oiseaux ; lui tout petit de dos.",
+   "transition": {
+    "type": "dots",
+    "dur": 0.55,
+    "x": 300,
+    "y": 1400,
+    "cols": 10
+   }
+  },
+  {
+   "id": "s11",
+   "start": 27.96,
+   "end": 30.6,
+   "lyrics": [
+    {
+     "text": "J'ai longtemps / crié ma haine, / jusqu'à en / devenir aphone",
+     "words": [
+      28.08,
+      28.212,
+      28.476,
+      28.608,
+      28.74,
+      29.004,
+      29.4,
+      29.532,
+      29.928
+     ],
+     "start": 28.08,
+     "end": 30.58,
+     "song_t": 76.15,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "haine",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12
+   ],
+   "visual": "Sur le toit il hurle vers le ciel (de dos, bras en arrière) : ondes de choc, vitres qui vibrent, puis silence.",
+   "transition": {
+    "type": "flash",
+    "dur": 0.22,
+    "color": "#ffffff"
+   }
+  },
+  {
+   "id": "s12",
+   "start": 30.6,
+   "end": 33.18,
+   "lyrics": [
+    {
+     "text": "J'ai gardé le / cœur dans la / paume, donc il / est rempli / d'hématomes",
+     "words": [
+      30.72,
+      30.842,
+      31.085,
+      31.207,
+      31.329,
+      31.451,
+      31.573,
+      31.816,
+      31.938,
+      32.06,
+      32.182,
+      32.426
+     ],
+     "start": 30.72,
+     "end": 33.16,
+     "song_t": 78.79,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "cœur",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12
+   ],
+   "visual": "Gros plan de sa paume (manche crème) qui tient un cœur lumineux couvert d'hématomes violets, qui bat.",
+   "transition": {
+    "type": "iris",
+    "dur": 0.45,
+    "x": 540,
+    "y": 1150
+   }
+  },
+  {
+   "id": "s13",
+   "start": 33.18,
+   "end": 35.36,
+   "lyrics": [
+    {
+     "text": "J'le ressens / dans tous mes / atomes",
+     "words": [
+      33.3,
+      33.477,
+      33.83,
+      34.007,
+      34.183,
+      34.36
+     ],
+     "start": 33.3,
+     "end": 35.34,
+     "song_t": 81.37,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "atomes",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12
+   ],
+   "visual": "Sa silhouette se dissout en particules lumineuses qui gravitent comme des atomes.",
+   "transition": {
+    "type": "dots",
+    "dur": 0.5,
+    "x": 540,
+    "y": 1100,
+    "cols": 16
+   }
+  },
+  {
+   "id": "s14",
+   "start": 35.36,
+   "end": 37.58,
+   "lyrics": [
+    {
+     "text": "Personne / viendra avec / moi dans ma / tombe",
+     "words": [
+      35.48,
+      35.952,
+      36.266,
+      36.581,
+      36.738,
+      36.895,
+      37.053
+     ],
+     "start": 35.48,
+     "end": 37.56,
+     "song_t": 83.55,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "tombe",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12
+   ],
+   "visual": "Seul dans un cercle de lumière, la foule autour s'efface dans le noir ; brume au sol.",
+   "transition": {
+    "type": "dip",
+    "dur": 0.35,
+    "color": "#000000"
+   }
+  },
+  {
+   "id": "s15",
+   "start": 37.58,
+   "end": 40.2,
+   "lyrics": [
+    {
+     "text": "J'ai croqué / mais j'ai pas / avalé la pomme",
+     "words": [
+      37.7,
+      37.873,
+      38.218,
+      38.39,
+      38.562,
+      38.735,
+      39.253,
+      39.425
+     ],
+     "start": 37.7,
+     "end": 40.18,
+     "song_t": 85.77,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "pomme",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12
+   ],
+   "visual": "Gros plan : sa main tient une pomme verte croquée sous une douche de lumière.",
+   "transition": {
+    "type": "slices",
+    "dur": 0.45,
+    "n": 8
+   }
+  },
+  {
+   "id": "s16",
+   "start": 40.2,
+   "end": 43.34,
+   "lyrics": [
+    {
+     "text": "Cercle fermé, / je n'vais pas / rentrer dans la / ronde",
+     "words": [
+      40.32,
+      40.663,
+      41.006,
+      41.178,
+      41.349,
+      41.521,
+      41.864,
+      42.035,
+      42.207
+     ],
+     "start": 40.32,
+     "end": 43.32,
+     "song_t": 88.39,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "ronde",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12
+   ],
+   "visual": "Vue du dessus : une ronde de silhouettes qui tournent sous un projecteur ; lui, reconnaissable à ses tresses et son blouson, reste dehors.",
+   "transition": {
+    "type": "radial",
+    "dur": 0.5,
+    "color": "#e3b955"
+   }
+  },
+  {
+   "id": "s17",
+   "start": 43.34,
+   "end": 48.52,
+   "lyrics": [
+    {
+     "text": "Dans la vie / comme sur le / ring,",
+     "words": [
+      43.46,
+      43.639,
+      43.818,
+      43.996,
+      44.354,
+      44.532,
+      44.711
+     ],
+     "start": 43.46,
+     "end": 45.84,
+     "song_t": 91.53,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "ring",
+     "pos": "top",
+     "align": "left"
+    },
+    {
+     "text": "j'suis tout / seul, j'ai ma / paire de gants",
+     "words": [
+      45.88,
+      46.057,
+      46.233,
+      46.41,
+      46.587,
+      46.763,
+      47.117,
+      47.293
+     ],
+     "start": 45.88,
+     "end": 48.5,
+     "song_t": 93.95,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "gants",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12,
+    2.54
+   ],
+   "visual": "Ring de boxe sous les projecteurs, fumée dans la lumière ; lui de dos dans son coin avec ses gants ; puis tous les projecteurs se resserrent sur lui.",
+   "transition": {
+    "type": "bar",
+    "dur": 0.45,
+    "dir": "down",
+    "color": "#fff6d8",
+    "glow": true,
+    "width": 0.35
+   }
+  },
+  {
+   "id": "s18",
+   "start": 48.52,
+   "end": 51.0,
+   "lyrics": [
+    {
+     "text": "J'me bats pour / mes frères de / sang",
+     "words": [
+      48.64,
+      48.819,
+      48.998,
+      49.176,
+      49.355,
+      49.712,
+      49.891
+     ],
+     "start": 48.64,
+     "end": 50.98,
+     "song_t": 96.71,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "sang",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12
+   ],
+   "visual": "Lui et trois frères de dos face à la ville, liseré de lumière sur les épaules ; un reflet d'objectif traverse.",
+   "transition": {
+    "type": "tear",
+    "dur": 0.6,
+    "seed": 5
+   }
+  },
+  {
+   "id": "s19",
+   "start": 51.0,
+   "end": 53.3,
+   "lyrics": [
+    {
+     "text": "J'suis baisé, / j'peux pas / perdre de temps",
+     "words": [
+      51.12,
+      51.297,
+      51.65,
+      51.827,
+      52.003,
+      52.357,
+      52.533
+     ],
+     "start": 51.12,
+     "end": 53.28,
+     "song_t": 99.19,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "temps",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12
+   ],
+   "visual": "Il court dans un tunnel de lumières qui défilent, ombre géante d'une aiguille d'horloge.",
+   "transition": {
+    "type": "whip",
+    "dur": 0.28,
+    "dir": "right"
+   }
+  },
+  {
+   "id": "s20",
+   "start": 53.3,
+   "end": 60.045,
+   "lyrics": [
+    {
+     "text": "Les sentiments / qui s'envolent, / les sentiments / qui s'envolent",
+     "words": [
+      53.42,
+      53.589,
+      54.098,
+      54.267,
+      54.775,
+      54.944,
+      55.453,
+      55.622
+     ],
+     "start": 53.42,
+     "end": 60.025,
+     "song_t": 101.49,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "sentiments",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12
+   ],
+   "visual": "Elle, de dos sur un pont au coucher du soleil (tresses au vent, veste émeraude) ; des cœurs de papier et des oiseaux s'envolent ; voile lumineux.",
+   "transition": {
+    "type": "fade",
+    "dur": 0.4
+   }
+  }
+ ],
+ "direction": {
+  "concept": "Le monologue d'un homme seul qui se bat (insomnie, argent, loyauté perdue, rage, frères de sang) raconté en 21 affiches de nuit où la LUMIÈRE est le personnage principal : néons, projecteurs, phares, éclairs, rayons. Aucun visage : on reconnaît chacun à sa coiffure et ses vêtements.",
+  "universe": "Nuit urbaine et lieux intérieurs (chambre, bar, couloir, ring), échappées symboliques (arches de Rome, jungle, atomes), en affiches à palettes réduites et lumière très contrastée.",
+  "palette": {
+   "nuit": "#0a0c18",
+   "bordeaux blouson": "#6e1a2a",
+   "crème manches": "#efe2c8",
+   "émeraude": "#0f6b4a",
+   "néon bleu": "#3a7bff",
+   "sodium": "#ffb35c",
+   "or": "#e3b955",
+   "rouge signature": "#e10600"
+  },
+  "typography": "Anton, capitales, blanc, en haut à gauche ; le texte s'accumule mot à mot au rythme exact du rap ; un mot rouge par bloc.",
+  "graphic_style": "Personnages de dos (identité : LUI = petites tresses + blouson bordeaux à manches crème + baskets blanches ; ELLE = longues tresses à perles dorées + veste satin émeraude ; LES FRÈRES = sweats noirs + casquettes), grain et trame d'impression, projecteurs volumétriques, liserés de lumière.",
+  "animation_principles": "La lumière bouge sans arrêt : balayages, vacillements, bandes de stores, phares, éclairs, rayons, reflets d'objectif ; personnages en mouvement continu (marche, course, cheveux et tresses qui suivent) ; caméra lente qui pousse, s'élève, tourne.",
+  "transitions": "Balayage de lumière, trame de points, tranches, déchirure, plongée dans le point de fuite, flash blanc, balayage d'aiguille, iris, coup de fouet.",
+  "references": "Edit de référence apprécié (Josman – Goal) pour la typographie ; personnages fictifs, aucun visage."
+ },
+ "style": {
+  "fonts": [
+   "Anton"
+  ],
+  "typo": {
+   "font": "Anton",
+   "color": "#f6f2ea",
+   "red": "#e10600",
+   "size": 124,
+   "redScale": 1.08,
+   "lineHeight": 0.98,
+   "spacing": 0.005,
+   "enter": "line",
+   "emphasis": "none",
+   "exit": "none",
+   "wordIn": 0.1,
+   "shadow": "0 3px 0 rgba(0,0,0,.4)",
+   "redShadow": "0 3px 0 rgba(0,0,0,.4)",
+   "preroll": 0.02,
+   "maxHeight": 600,
+   "width": 820
+  },
+  "fx": {
+   "grain": 0.09,
+   "vignette": 0.5,
+   "halftone": 0.08,
+   "scrimTop": 0.35,
+   "grade": "contrast(1.08) saturate(1.05)"
+  },
+  "palette": {}
+ },
+ "outro": {
+  "dur": 0.6,
+  "color": "#000000",
+  "text": true
+ }
+}

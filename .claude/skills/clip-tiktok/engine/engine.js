@@ -344,6 +344,32 @@
     const r_ = h('rect', { y: -400, width: 700, height: H + 800, fill, opacity, transform: 'rotate(18)' });
     return item(h('g', { style: 'mix-blend-mode:screen' }, [r_]), t => r_.setAttribute('x', mod(t * speed, W + 1400) - 900));
   };
+  // Projecteur volumétrique (cône dégradé + poussière dans la lumière), balayage et vacillement optionnels
+  E.spotlight = function ({ x = 540, y = 0, angle = 0, len = 1700, width = 520, color = '#fff2d0', opacity = .35, sweep = 0, sweepSpeed = .8, flicker = 0, dust = 30, seed = 31 } = {}) {
+    const id = nid('spot'); const grad = h('linearGradient', { id, x1: 0, y1: 0, x2: 0, y2: 1 }, [h('stop', { offset: 0, 'stop-color': color, 'stop-opacity': 1 }), h('stop', { offset: 1, 'stop-color': color, 'stop-opacity': 0 })]); defs.appendChild(grad);
+    const cone = h('path', { d: `M -18 0 L 18 0 L ${width / 2} ${len} L ${-width / 2} ${len} Z`, fill: `url(#${id})`, opacity, filter: 'url(#softblur)' });
+    const cid = nid('spc'); defs.appendChild(h('clipPath', { id: cid }, [h('path', { d: `M -18 0 L 18 0 L ${width / 2} ${len} L ${-width / 2} ${len} Z` })]));
+    const r = rng(seed), dg = h('g', { 'clip-path': `url(#${cid})` }), ds = [];
+    for (let i = 0; i < dust; i++) { const c = h('circle', { r: r.range(1.5, 3.5), fill: color }); dg.appendChild(c); ds.push([c, r(), r(), r() * 10]); }
+    const g = h('g', {}, [cone, dg]), w = h('g', { style: 'mix-blend-mode:screen' }, [g]);
+    return item(w, t => { const a = angle + Math.sin(t * sweepSpeed) * sweep; g.setAttribute('transform', `translate(${x},${y}) rotate(${a})`);
+      const f = flicker ? (noise(t * 9, seed) > .6 ? .25 : 1) : 1; cone.setAttribute('opacity', opacity * f);
+      ds.forEach(([c, u, v, ph]) => { const yy = mod(v * len + t * 18, len), xx = (u - .5) * width * yy / len + noise(t * .4 + ph, 2) * 20; set(c, { cx: xx, cy: yy, opacity: .5 + .5 * Math.sin(t * 2 + ph) }); }); });
+  };
+  // Bandes de lumière (stores vénitiens) qui glissent sur un mur, comme des phares qui passent
+  E.blindsLight = function ({ x = 0, y = 600, w = W, hgt = 900, n = 7, color = '#ffe2a8', opacity = .22, skew = -30, speed = 260, gap = 70 } = {}) {
+    const cid = nid('bl'); defs.appendChild(h('clipPath', { id: cid }, [h('rect', { x, y, width: w, height: hgt })]));
+    const g = h('g', { 'clip-path': `url(#${cid})`, style: 'mix-blend-mode:screen' }), bars = [];
+    for (let i = 0; i < n; i++) { const b = h('path', { fill: color, opacity, filter: 'url(#softblur)' }); g.appendChild(b); bars.push(b); }
+    return item(g, t => { const sx = mod(t * speed, w + 900) - 600; bars.forEach((b, i) => { const yy = y + 60 + i * gap; b.setAttribute('d', `M ${sx} ${yy} L ${sx + 520} ${yy} L ${sx + 520 + skew} ${yy + gap * .45} L ${sx + skew} ${yy + gap * .45} Z`); }); });
+  };
+  // Reflet d'objectif : halo + fantômes alignés vers le centre
+  E.flare = function ({ x = 800, y = 500, color = '#ffd28a', opacity = .5, drift = 20 } = {}) {
+    const g = h('g', { style: 'mix-blend-mode:screen', opacity }), parts = [];
+    const add = (r, o2, c) => { const e = h('circle', { r, fill: c || color, opacity: o2, filter: 'url(#softblur)' }); g.appendChild(e); parts.push([e, r]); };
+    add(140, .5); add(40, .9, '#ffffff'); [[.4, 30, .25], [.7, 60, .15], [1.2, 22, .3], [1.5, 90, .1]].forEach(([k, r, o2]) => { const e = h('circle', { r, fill: color, opacity: o2 }); g.appendChild(e); parts.push([e, r, k]); });
+    return item(g, t => { const cx = x + Math.sin(t * .5) * drift, cy = y + Math.cos(t * .4) * drift * .5; parts.forEach(([e, r, k]) => { const kk = k || 0; set(e, { cx: cx + (W / 2 - cx) * kk, cy: cy + (H / 2 - cy) * kk }); }); });
+  };
   E.snow = (o = {}) => E.particles(Object.assign({ n: 120, drift: [15, 90], wobble: 40, size: [2, 7] }, o));
   E.dust = (o = {}) => E.particles(Object.assign({ n: 50, drift: [6, -12], size: [1.5, 4], opacity: .5 }, o));
   E.fireflies = (o = {}) => E.particles(Object.assign({ n: 40, color: '#ffe68a', drift: [8, -10], size: [3, 6], glow: true, twinkle: 3 }, o));
@@ -485,7 +511,7 @@
   /* --- Personnage riggé ---------------------------------------------- */
   // Angles en degrés : 0 = membre vers le bas ; positif = vers l'avant (sens du regard).
   const POSES = {
-    stand: { lean: 0, head: 0, ua1: 6, la1: -4, ua2: -6, la2: -4, th1: 3, sh1: 0, th2: -3, sh2: 0 },
+    stand: { lean: 0, head: 0, ua1: 14, la1: 6, ua2: -10, la2: -6, th1: 3, sh1: 0, th2: -3, sh2: 0 },
     sad: { lean: 10, head: 28, ua1: 4, la1: 0, ua2: -2, la2: 0, th1: 2, sh1: 0, th2: -2, sh2: 0 },
     sit: { lean: -4, head: 6, ua1: 25, la1: 55, ua2: 18, la2: 50, th1: 88, sh1: -88, th2: 80, sh2: -84 },
     hug: { lean: 18, head: 30, ua1: 40, la1: 95, ua2: 35, la2: 100, th1: 95, sh1: -150, th2: 100, sh2: -150 },
@@ -625,7 +651,7 @@
     };
     const mk = (fill, extra) => { const e = h('path', Object.assign({ fill }, extra || {})); return e; };
     const isSkirt = o.outfit === 'dress';
-    const sleeve = o.outfit === 'tee' ? null : lk.top;
+    const sleeve = o.outfit === 'tee' ? null : (o.outfit === 'bomber' && lk.sleeve ? lk.sleeve : lk.top);
     // éléments (ordre de profondeur : membres arrière → torse → membres avant → tête)
     const backArmU = mk(darker(sleeve || lk.skin)), backArmL = mk(darker(o.outfit === 'tee' ? lk.skin : (sleeve || lk.skin))), backHand = mk(darker(lk.skin));
     const backThigh = mk(darker(isSkirt ? lk.skin : lk.bottom)), backShin = mk(darker(isSkirt ? lk.skin : lk.bottom)), backShoe = mk(darker(lk.shoe));
@@ -636,27 +662,41 @@
     const coatFront = (o.outfit === 'trench') ? mk(lk.coat) : null;
     const belt = (o.outfit === 'trench') ? h('path', { fill: 'none', stroke: S1 || darker(lk.coat), 'stroke-width': 7 }) : null;
     const pocket = (o.outfit === 'hoodie') ? h('path', { fill: 'none', stroke: S1 || darker(lk.top), 'stroke-width': 4, opacity: .8 }) : null;
+    const rib = (o.outfit === 'bomber' || o.outfit === 'satin') ? h('path', { fill: 'none', stroke: S1 || (lk.rib || darker(lk.top)), 'stroke-width': 9 }) : null;
+    const sheen = (o.outfit === 'satin' && !S1) ? h('path', { fill: '#ffffff', opacity: .16 }) : null;
     const neckEl = mk(lk.skin);
     const headG = h('g');
     const hoodBack = o.hat === 'hood' ? mk(darker(lk.top)) : null;
     const hairBack = (o.hair === 'long' || o.hair === 'bun' || o.hair === 'curly') ? mk(lk.hair) : null;
-    const headP = mk(lk.skin, { d: `M -31 -14 A 33 33 0 0 1 22 -26 Q 31 -16 31 -7 L 40 5 Q 41 8 36 9 L 33 10 Q 35 14 33 16 Q 35 19 33 21 Q 34 26 28 31 Q 16 38 2 35 Q -20 33 -30 12 Z` });
-    const ear = S1 ? null : h('ellipse', { cx: -4, cy: 2, rx: 6, ry: 9, fill: darker(lk.skin) });
-    const eye = S1 ? null : h('ellipse', { cx: 20, cy: -7, rx: 3.6, ry: 4.2, fill: '#141012' });
-    const brow = S1 ? null : h('path', { d: 'M 13 -15 Q 21 -19 28 -15', stroke: lk.hair, 'stroke-width': 3.5, fill: 'none', 'stroke-linecap': 'round' });
-    const lips = S1 ? null : h('path', { d: 'M 33 16 L 29 16', stroke: darker(lk.skin), 'stroke-width': 3, 'stroke-linecap': 'round' });
+    const back = !!o.back; // vue de dos / sans visage : crâne rond, pas de traits du visage
+    const headP = mk(lk.skin, { d: back ? 'M -33 0 A 33 34 0 1 1 33 0 Q 30 26 14 32 Q 0 38 -14 32 Q -30 26 -33 0 Z' : `M -31 -14 A 33 33 0 0 1 22 -26 Q 31 -16 31 -7 L 40 5 Q 41 8 36 9 L 33 10 Q 35 14 33 16 Q 35 19 33 21 Q 34 26 28 31 Q 16 38 2 35 Q -20 33 -30 12 Z` });
+    const ear = S1 ? null : h('ellipse', { cx: back ? 22 : -4, cy: 2, rx: 6, ry: 9, fill: darker(lk.skin) });
+    const eye = S1 || back ? null : h('ellipse', { cx: 20, cy: -7, rx: 3.6, ry: 4.2, fill: '#141012' });
+    const brow = S1 || back ? null : h('path', { d: 'M 13 -15 Q 21 -19 28 -15', stroke: lk.hair, 'stroke-width': 3.5, fill: 'none', 'stroke-linecap': 'round' });
+    const lips = S1 || back ? null : h('path', { d: 'M 33 16 L 29 16', stroke: darker(lk.skin), 'stroke-width': 3, 'stroke-linecap': 'round' });
     let hairTop = null;
     if (o.hair === 'short') hairTop = mk(lk.hair, { d: 'M -33 4 Q -38 -30 -6 -36 Q 22 -38 30 -16 Q 14 -24 -2 -18 Q -12 -14 -14 -2 Q -22 -6 -26 8 Z' });
     if (o.hair === 'buzz') hairTop = mk(lk.hair, { d: 'M -32 0 Q -34 -32 -2 -35 Q 24 -36 28 -20 Q 6 -26 -12 -18 Q -22 -12 -24 4 Z', opacity: .9 });
     if (o.hair === 'long' || o.hair === 'bun' || o.hair === 'curly') hairTop = mk(lk.hair, { d: 'M -34 10 Q -40 -34 -4 -38 Q 26 -40 32 -14 Q 18 -26 0 -22 Q -10 -18 -14 0 Z' });
+    if (o.hair === 'twists') { // petites tresses torsadées (vanilles) : touffes rondes sur le crâne
+      const g = h('g'); const pts = [[-30, -6], [-28, -20], [-20, -31], [-8, -37], [6, -38], [18, -33], [27, -22], [-24, 6], [30, -8]];
+      pts.forEach(([x, y], i) => { const a2 = Math.atan2(y + 2, x), L2 = 13 + (i % 3) * 3; g.appendChild(h('path', { d: `M ${x} ${y} q ${Math.cos(a2) * L2 * .5 + 3} ${Math.sin(a2) * L2 * .5 - 2} ${Math.cos(a2) * L2} ${Math.sin(a2) * L2}`, stroke: lk.hair, 'stroke-width': 11, 'stroke-linecap': 'round', fill: 'none' })); });
+      g.appendChild(h('path', { d: back ? 'M -36 8 A 36 44 0 1 1 36 8 Q 24 22 0 20 Q -24 22 -36 8 Z' : 'M -33 6 Q -38 -32 -4 -37 Q 24 -38 30 -16 Q 12 -24 -4 -20 Q -16 -14 -18 2 Z', fill: lk.hair })); hairTop = g;
+      if (back) hairTop.appendChild(h('path', { d: 'M -33 4 Q -34 22 -16 30 Q 0 22 16 30 Q 32 22 31 4 Z', fill: lk.hair, opacity: .95 }));
+    }
+    if (back && (o.hair === 'short' || o.hair === 'buzz')) hairTop = mk(lk.hair, { d: 'M -36 6 A 36 42 0 1 1 36 6 Q 26 22 0 20 Q -26 22 -36 6 Z' });
+    if (back && (o.hair === 'long' || o.hair === 'curly' || o.hair === 'bun')) hairTop = mk(lk.hair, { d: 'M -37 10 A 37 46 0 1 1 37 10 Q 30 32 0 32 Q -30 32 -37 10 Z' });
+    const braids = o.hair === 'braids' ? [...Array(7)].map(() => { const g = h('g'); g.appendChild(h('path', { fill: 'none', stroke: lk.hair, 'stroke-width': 9, 'stroke-linecap': 'round' })); g.appendChild(h('circle', { r: 6, fill: lk.accent2 || '#e3b955' })); return g; }) : [];
+    if (o.hair === 'braids') hairTop = mk(lk.hair, { d: back ? 'M -37 8 A 37 46 0 1 1 37 8 Q 30 28 0 26 Q -30 28 -37 8 Z' : 'M -34 10 Q -40 -34 -4 -38 Q 26 -40 32 -14 Q 18 -26 0 -22 Q -10 -18 -14 0 Z' });
     let hatEl = null;
     if (o.hat === 'cap') hatEl = mk(lk.hat, { d: 'M -32 -6 Q -34 -38 0 -40 Q 28 -40 31 -16 L 58 -12 Q 58 -6 30 -8 Z' });
     if (o.hat === 'beanie') hatEl = mk(lk.hat, { d: 'M -34 -2 Q -36 -46 0 -46 Q 34 -44 32 -6 Z' });
     if (o.hat === 'fedora') hatEl = mk(lk.hat, { d: 'M -56 -16 Q 0 -26 58 -16 Q 60 -10 30 -14 Q 30 -50 0 -52 Q -28 -50 -28 -14 Q -58 -10 -56 -16 Z' });
     if (o.hat === 'hood') hatEl = mk(lk.top, { d: 'M -40 26 Q -50 -40 0 -46 Q 34 -46 38 -12 Q 30 -30 4 -30 Q -18 -28 -20 6 Q -22 26 -14 40 Z' });
+    braids.forEach(e => headG.appendChild(e));
     [hoodBack, hairBack, headP, ear, hairTop, hatEl, eye, brow, lips].forEach(e => e && headG.appendChild(e));
     const frontArmU = mk(sleeve || lk.skin), frontArmL = mk(o.outfit === 'tee' ? lk.skin : (sleeve || lk.skin)), frontHand = mk(lk.skin);
-    const parts = [backArmU, backArmL, backHand, backThigh, backShin, backShoe, coatBack, frontThigh, frontShin, frontShoe, torso, skirt, coatFront, belt, pocket, neckEl, headG, frontArmU, frontArmL, frontHand];
+    const parts = [backArmU, backArmL, backHand, backThigh, backShin, backShoe, coatBack, frontThigh, frontShin, frontShoe, torso, skirt, coatFront, belt, pocket, rib, sheen, neckEl, headG, frontArmU, frontArmL, frontHand];
     parts.forEach(e => e && body.appendChild(e));
     if (o.rim && !S1) {} // liseré : géré par filtre global si besoin
     if (o.rim) body.setAttribute('filter', `url(#${rimFilter(o.rim)})`);
@@ -687,6 +727,10 @@
       frontThigh.setAttribute('d', capsule(hipF, k1, 22, 15)); frontShin.setAttribute('d', capsule(k1, f1, 15, 10)); frontShoe.setAttribute('d', shoeD(f1, (a.th1 + a.sh1) * .25));
       backThigh.setAttribute('d', capsule(hipB, k2, 21, 14)); backShin.setAttribute('d', capsule(k2, f2, 14, 9.5)); backShoe.setAttribute('d', shoeD(f2, (a.th2 + a.sh2) * .25));
       if (pocket) { const p0 = T_(18, -26), p1 = T_(24, -50), p2 = T_(-6, -50); pocket.setAttribute('d', `M ${p0[0]} ${p0[1]} L ${p1[0]} ${p1[1]} L ${p2[0]} ${p2[1]}`); }
+      if (rib) { const a0 = T_(-23, -6), a1 = T_(21, -6), c0 = T_(-10, -L.torso + 4), c1 = T_(12, -L.torso + 6); rib.setAttribute('d', `M ${a0[0]} ${a0[1]} L ${a1[0]} ${a1[1]} M ${c0[0]} ${c0[1]} L ${c1[0]} ${c1[1]} M ${w1[0]} ${w1[1]} m ${-(w1[0] - e1[0]) * .12} ${-(w1[1] - e1[1]) * .12} l ${(w1[0] - e1[0]) * .1} ${(w1[1] - e1[1]) * .1}`); }
+      if (sheen) { const q0 = T_(8, -100), q1 = T_(18, -60), q2 = T_(10, -20), q3 = T_(2, -60); sheen.setAttribute('d', `M ${q0[0]} ${q0[1]} Q ${q1[0]} ${q1[1]} ${q2[0]} ${q2[1]} Q ${q3[0]} ${q3[1]} ${q0[0]} ${q0[1]} Z`); sheen.setAttribute('opacity', .12 + .08 * Math.sin(t * 2 + ph0)); }
+      braids.forEach((g, i) => { const sw = noise(t * 1.3 + i * .7, ph0 + i) * 12 - ((o.action === 'walk' || o.action === 'run') ? 12 : 0); const x0 = -32 + i * (back ? 6 : 4) - (back ? 0 : 6), len = 120 + (i % 3) * 14;
+        g.firstChild.setAttribute('d', `M ${x0} 0 Q ${x0 - 6 + sw * .4} ${len * .5} ${x0 - 4 + sw} ${len}`); set(g.lastChild, { cx: x0 - 4 + sw, cy: len }); });
       if (o.outfit === 'trench') {
         const mv = (o.action === 'walk' || o.action === 'run') ? 1 : .35, fl = noise(t * 2.2, ph0) * 12 * mv;
         const s0 = T_(-24, -112), s1 = T_(26, -100), kF = [k1[0] + 18, Math.max(k1[1], k2[1]) + 18], kB = [Math.min(k1[0], k2[0]) - 26 - fl - mv * 10, Math.max(k1[1], k2[1]) + 22];
@@ -952,7 +996,7 @@
           st.mask.shapes.innerHTML = `<path d="${d}" fill="#fff"/>`;
           st.bar.setAttribute('d', `M -100 ${pos - band / 2 + slant / 2} L ${W + 100} ${pos - band / 2 - slant / 2} L ${W + 100} ${pos + band / 2 - slant / 2} L -100 ${pos + band / 2 + slant / 2} Z`);
         }
-        st.bar.setAttribute('opacity', 1); I.setAttribute('mask', `url(#${st.mask.id})`); break;
+        st.bar.setAttribute('opacity', 1); if (o.glow) { st.bar.setAttribute('filter', 'url(#bigblur)'); st.bar.style.mixBlendMode = 'screen'; } I.setAttribute('mask', `url(#${st.mask.id})`); break;
       }
       default: I.setAttribute('opacity', e);
     }

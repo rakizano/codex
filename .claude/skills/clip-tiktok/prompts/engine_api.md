@@ -53,6 +53,7 @@ CLIP.scene('s03', S => {
 | `E.road({horizon,color,line,width,speed})` · `E.grid({horizon,color,bg,speed})` | route / grille rétro en perspective qui défile |
 | `E.rain`, `E.snow`, `E.dust`, `E.fireflies`, `E.particles({n,color,size,area,drift,wobble,glow,twinkle})` | atmosphère |
 | `E.rays({x,y,n,color,opacity,speed})` · `E.fog({y,height,color,opacity,speed})` | lumière, brume |
+| `E.spotlight({x,y,angle,len,width,color,opacity,sweep,flicker,dust})` · `E.blindsLight({y,hgt,color,opacity,speed})` · `E.flare({x,y,color,opacity,drift})` | projecteur volumétrique avec poussière, bandes de stores qui glissent, reflet d'objectif (pour piloter un projecteur, l'envelopper dans un `<g>` et animer ce groupe) |
 | `E.bokeh({n,colors,area,size,opacity})` · `E.splashes({y0,y1,n,color})` · `E.lightLeak({color,opacity,speed})` | profondeur, pluie au sol, voile lumineux |
 | `E.tree({x,y,height,color,seed,depth,sway,leaves})` | arbre procédural qui ondule |
 | `E.birds({n,x,y,speed,color,size})` | vol d'oiseaux qui battent des ailes |
@@ -69,7 +70,10 @@ CLIP.scene('s03', S => {
 Même squelette que `E.figure` (pose, action, anim, path, facing, speed, key, keyAllow) mais rendu soigné : membres effilés,
 torse de profil, tête de profil (nez, menton, oreille, sourcil, œil qui cligne), mains, chaussures.
 `outfit`: hoodie|tee|jacket|trench|dress · `hair`: short|buzz|long|bun|curly · `hat`: hood|cap|beanie|fedora ·
-`look`: {skin, top, bottom, shoe, hair, hat, coat} · `silhouette`: couleur unique (style affiche) · `rim`: liseré lumineux.
+`outfit`: aussi bomber (manches/bords `sleeve`, `rib`) · satin · `hair`: aussi twists (petites tresses) · braids (longues tresses, perles `accent2`).
+`look`: {skin, top, sleeve, rib, bottom, shoe, hair, hat, coat, accent2} · `silhouette`: couleur unique (style affiche) · `rim`: liseré lumineux.
+`back: true` : vue de dos, **aucun visage** — l'identité passe par la coiffure, la couleur/forme des vêtements et les chaussures.
+Garder la même combinaison coiffure + tenue pour un personnage dans tout le clip (ex. tresses + blouson bordeaux à manches crème).
 Échelle : s = 1 ≈ 400 px de haut (pieds en y).
 
 ### Personnage `E.figure`
@@ -101,7 +105,7 @@ hair ('long'|'bun'), hairColor, hat ('bowler'|'cap'|'hood'), hatColor, coat (tru
 `{type, dur, align ('center'|'before'|'after'), ease, ...}`
 cut · fade · dip {color} · flash · wipe {dir} · diagonal {angle} · iris {x,y} · ink {seed} · radial {x,y,ccw,color: aiguille visible} ·
 shape {shape: diamond|star|hex|heart|triangle|square, rotate, color} · blinds {n, dir: vertical|horizontal} ·
-push {dir} · slide {dir} · zoom {x, y, scale : plongée dans un point} · spin · whip {dir} · glitch · bar {dir, color, width, slant} ·
+push {dir} · slide {dir} · zoom {x, y, scale : plongée dans un point} · spin · whip {dir} · glitch · bar {dir, color, width, slant, glow} ·
 tear {seed, slant, paper : déchirure de papier} · slices {n} · dots {x, y, cols : révélation en trame de points}.
 
 ## Effets globaux (style.fx) et fin

@@ -1,0 +1,21 @@
+{
+ "file": "tiktok_sound_source.mp4",
+ "language": "fr",
+ "sound_duration_s": 60.045,
+ "song_start_s": 48.07,
+ "song_end_s": 108.115,
+ "speed": 1.0,
+ "speed_note": "vitesse normale",
+ "recognized_words": 253,
+ "matched_words": 177,
+ "anchors_used": 11,
+ "anchor_type": "débuts de lignes",
+ "fit_rms_s": 0.132,
+ "confidence": "élevée",
+ "first_lines_in_sound": [
+  "  0.00s  J'fais face à tous mes démons, moi j'ai pas les petites ailes d'anges",
+  "  2.57s  Putain encore un soir où je sais qu'j'dormirai pas",
+  "  4.95s  Où j'm'endormirai à l'aube, relation tombée à l'eau",
+  "  7.60s  J'réponds plus trop aux appels, quand c'est l'argent j'réponds \"allô\""
+ ]
+}

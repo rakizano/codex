@@ -1,0 +1,751 @@
+{
+ "artist": "Josman",
+ "title": "Peace, Haine, Love",
+ "album": "M.A.N",
+ "duration": 241.0,
+ "lrclib_ref_id": 5316943,
+ "version_cluster_ids": [
+  5316943,
+  5316942,
+  8792053,
+  31156778,
+  16451994,
+  33382558,
+  24879634,
+  31266490,
+  17193326,
+  35984814,
+  34147054
+ ],
+ "version_cluster_albums": [
+  "Fav to fav",
+  "Josman Songs",
+  "M.A.N",
+  "M.A.N (Black Roses",
+  "M.A.N (Black Roses & Lost Feelings)",
+  "M.A.N (Black Roses & Lost Feelings) [Bonus]",
+  "MAN (Black Roses & Lost Feelings)",
+  "MAN (Black Roses & Lost Feelings) (Bonus)",
+  "Paroles Françaises",
+  "man"
+ ],
+ "other_versions": [
+  {
+   "duration": 226.0,
+   "n": 1,
+   "albums": [
+    "MAN (Black Roses & Lost Feelings)"
+   ]
+  },
+  {
+   "duration": 241.0,
+   "n": 11,
+   "albums": [
+    "Fav to fav",
+    "Josman Songs",
+    "M.A.N",
+    "M.A.N (Black Roses"
+   ]
+  }
+ ],
+ "n_sources": 11,
+ "text_agreement": [
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  0.993,
+  1.0,
+  1.0,
+  1.0,
+  1.0
+ ],
+ "sources_disagreeing": [],
+ "sync_spread_median_s": 0.03,
+ "sync_spread_p90_s": 0.07,
+ "sync_confidence": "élevée",
+ "sync_method": "LRCLIB (paroles synchronisées ligne par ligne par la communauté), médiane multi-sources",
+ "lines": [
+  {
+   "i": 0,
+   "t": 8.01,
+   "t_ref": 8.01,
+   "text": "Yeah",
+   "n_src": 11,
+   "spread": 0.07,
+   "end": 18.12,
+   "gap_after": 10.11
+  },
+  {
+   "i": 1,
+   "t": 18.12,
+   "t_ref": 18.12,
+   "text": "Yeah",
+   "n_src": 11,
+   "spread": 0.01,
+   "end": 19.8,
+   "gap_after": 1.68
+  },
+  {
+   "i": 2,
+   "t": 19.8,
+   "t_ref": 19.8,
+   "text": "J'ai des cicatrices pleines d'encre, seul sous la pluie d'septembre",
+   "n_src": 11,
+   "spread": 0.09,
+   "end": 24.76,
+   "gap_after": 4.96
+  },
+  {
+   "i": 3,
+   "t": 24.76,
+   "t_ref": 24.76,
+   "text": "J'me sens pas trop peace, haine, love",
+   "n_src": 11,
+   "spread": 0.01,
+   "end": 27.42,
+   "gap_after": 2.66
+  },
+  {
+   "i": 4,
+   "t": 27.42,
+   "t_ref": 27.42,
+   "text": "J'replonge dans une tristesse grande",
+   "n_src": 11,
+   "spread": 0.03,
+   "end": 29.93,
+   "gap_after": 2.51
+  },
+  {
+   "i": 5,
+   "t": 29.93,
+   "t_ref": 29.93,
+   "text": "J'ai des cicatrices pleines d'encre",
+   "n_src": 11,
+   "spread": 0.01,
+   "end": 32.15,
+   "gap_after": 2.22
+  },
+  {
+   "i": 6,
+   "t": 32.15,
+   "t_ref": 32.15,
+   "text": "Ciel pleure sur la ville, ciel tremble",
+   "n_src": 11,
+   "spread": 0.05,
+   "end": 35.0,
+   "gap_after": 2.85
+  },
+  {
+   "i": 7,
+   "t": 35.0,
+   "t_ref": 35.0,
+   "text": "J'me sens pas trop peace, haine, love",
+   "n_src": 11,
+   "spread": 0.05,
+   "end": 37.71,
+   "gap_after": 2.71
+  },
+  {
+   "i": 8,
+   "t": 37.71,
+   "t_ref": 37.71,
+   "text": "J'attends que mon business flambe",
+   "n_src": 11,
+   "spread": 0.0,
+   "end": 40.25,
+   "gap_after": 2.54
+  },
+  {
+   "i": 9,
+   "t": 40.25,
+   "t_ref": 40.25,
+   "text": "Mon cerebral system flanche, j'ai la tension qui té-mon",
+   "n_src": 11,
+   "spread": 0.03,
+   "end": 45.5,
+   "gap_after": 5.25
+  },
+  {
+   "i": 10,
+   "t": 45.5,
+   "t_ref": 45.5,
+   "text": "J'fais face à tous mes démons, moi j'ai pas les petites ailes d'anges",
+   "n_src": 11,
+   "spread": 0.01,
+   "end": 50.64,
+   "gap_after": 5.14
+  },
+  {
+   "i": 11,
+   "t": 50.64,
+   "t_ref": 50.64,
+   "text": "Putain encore un soir où je sais qu'j'dormirai pas",
+   "n_src": 11,
+   "spread": 0.02,
+   "end": 53.02,
+   "gap_after": 2.38
+  },
+  {
+   "i": 12,
+   "t": 53.02,
+   "t_ref": 53.02,
+   "text": "Où j'm'endormirai à l'aube, relation tombée à l'eau",
+   "n_src": 11,
+   "spread": 0.06,
+   "end": 55.67,
+   "gap_after": 2.65
+  },
+  {
+   "i": 13,
+   "t": 55.67,
+   "t_ref": 55.67,
+   "text": "J'réponds plus trop aux appels, quand c'est l'argent j'réponds \"allô\"",
+   "n_src": 11,
+   "spread": 0.02,
+   "end": 58.11,
+   "gap_after": 2.44
+  },
+  {
+   "i": 14,
+   "t": 58.11,
+   "t_ref": 58.11,
+   "text": "Loyauté qui s'fait la belle et l'honneur qui s'fait la malle",
+   "n_src": 11,
+   "spread": 0.06,
+   "end": 60.63,
+   "gap_after": 2.52
+  },
+  {
+   "i": 15,
+   "t": 60.63,
+   "t_ref": 60.63,
+   "text": "C'soir j'ai le blues qui fait mal, on dirait qu'j'ai perdu le goût",
+   "n_src": 11,
+   "spread": 0.03,
+   "end": 63.22,
+   "gap_after": 2.59
+  },
+  {
+   "i": 16,
+   "t": 63.22,
+   "t_ref": 63.22,
+   "text": "J'sens plus les saveurs et arômes, j'fais ma route à contre sens",
+   "n_src": 11,
+   "spread": 0.01,
+   "end": 65.73,
+   "gap_after": 2.51
+  },
+  {
+   "i": 17,
+   "t": 65.73,
+   "t_ref": 65.73,
+   "text": "T'façon tous les chemins mènent à Rome, t'façon ils mènent tous à la mort",
+   "n_src": 11,
+   "spread": 0.02,
+   "end": 68.41,
+   "gap_after": 2.68
+  },
+  {
+   "i": 18,
+   "t": 68.41,
+   "t_ref": 68.41,
+   "text": "T'façon ce monde est hardcore, que le ciel me laisse une chance",
+   "n_src": 11,
+   "spread": 0.0,
+   "end": 71.04,
+   "gap_after": 2.63
+  },
+  {
+   "i": 19,
+   "t": 71.04,
+   "t_ref": 71.04,
+   "text": "J'la saisirai à bras l'corps, il faut encore que j'explore",
+   "n_src": 11,
+   "spread": 0.04,
+   "end": 73.58,
+   "gap_after": 2.54
+  },
+  {
+   "i": 20,
+   "t": 73.58,
+   "t_ref": 73.58,
+   "text": "J'ai encore rien vu de la flore, j'ai encore rien vu de la faune",
+   "n_src": 11,
+   "spread": 0.08,
+   "end": 76.2,
+   "gap_after": 2.62
+  },
+  {
+   "i": 21,
+   "t": 76.2,
+   "t_ref": 76.2,
+   "text": "J'ai longtemps crié ma haine, jusqu'à en devenir aphone",
+   "n_src": 11,
+   "spread": 0.05,
+   "end": 78.58,
+   "gap_after": 2.38
+  },
+  {
+   "i": 22,
+   "t": 78.58,
+   "t_ref": 78.58,
+   "text": "J'ai gardé le cœur dans la paume, donc il est rempli d'hématomes",
+   "n_src": 11,
+   "spread": 0.03,
+   "end": 81.48,
+   "gap_after": 2.9
+  },
+  {
+   "i": 23,
+   "t": 81.48,
+   "t_ref": 81.48,
+   "text": "J'le ressens dans tous mes atomes",
+   "n_src": 11,
+   "spread": 0.03,
+   "end": 83.55,
+   "gap_after": 2.07
+  },
+  {
+   "i": 24,
+   "t": 83.55,
+   "t_ref": 83.55,
+   "text": "Personne viendra avec moi dans ma tombe",
+   "n_src": 11,
+   "spread": 0.0,
+   "end": 85.94,
+   "gap_after": 2.39
+  },
+  {
+   "i": 25,
+   "t": 85.94,
+   "t_ref": 85.94,
+   "text": "J'ai croqué mais j'ai pas avalé la pomme",
+   "n_src": 11,
+   "spread": 0.04,
+   "end": 88.39,
+   "gap_after": 2.45
+  },
+  {
+   "i": 26,
+   "t": 88.39,
+   "t_ref": 88.39,
+   "text": "Cercle fermé, je n'vais pas rentrer dans la ronde",
+   "n_src": 11,
+   "spread": 0.07,
+   "end": 91.74,
+   "gap_after": 3.35
+  },
+  {
+   "i": 27,
+   "t": 91.74,
+   "t_ref": 91.74,
+   "text": "Dans la vie comme sur le ring, j'suis tout seul, j'ai ma paire de gants",
+   "n_src": 11,
+   "spread": 0.02,
+   "end": 96.81,
+   "gap_after": 5.07
+  },
+  {
+   "i": 28,
+   "t": 96.81,
+   "t_ref": 96.81,
+   "text": "J'me bats pour mes frères de sang",
+   "n_src": 11,
+   "spread": 0.02,
+   "end": 99.19,
+   "gap_after": 2.38
+  },
+  {
+   "i": 29,
+   "t": 99.19,
+   "t_ref": 99.19,
+   "text": "J'suis baisé, j'peux pas perdre de temps",
+   "n_src": 11,
+   "spread": 0.01,
+   "end": 102.05,
+   "gap_after": 2.86
+  },
+  {
+   "i": 30,
+   "t": 102.05,
+   "t_ref": 102.05,
+   "text": "Les sentiments qui s'envolent, les sentiments qui s'envolent",
+   "n_src": 11,
+   "spread": 0.02,
+   "end": 107.02,
+   "gap_after": 4.97
+  },
+  {
+   "i": 31,
+   "t": 107.02,
+   "t_ref": 107.02,
+   "text": "J'me sens pas trop peace, haine, love",
+   "n_src": 11,
+   "spread": 0.02,
+   "end": 109.42,
+   "gap_after": 2.4
+  },
+  {
+   "i": 32,
+   "t": 109.42,
+   "t_ref": 109.42,
+   "text": "J'me sens pas trop peace, haine, love",
+   "n_src": 11,
+   "spread": 0.0,
+   "end": 112.24,
+   "gap_after": 2.82
+  },
+  {
+   "i": 33,
+   "t": 112.24,
+   "t_ref": 112.24,
+   "text": "Les sentiments qui s'envolent, les sentiments qui s'envolent",
+   "n_src": 11,
+   "spread": 0.01,
+   "end": 117.48,
+   "gap_after": 5.24
+  },
+  {
+   "i": 34,
+   "t": 117.48,
+   "t_ref": 117.48,
+   "text": "J'me sens pas trop peace, haine, love",
+   "n_src": 11,
+   "spread": 0.0,
+   "end": 120.04,
+   "gap_after": 2.56
+  },
+  {
+   "i": 35,
+   "t": 120.04,
+   "t_ref": 120.04,
+   "text": "J'me sens pas trop peace, haine, love",
+   "n_src": 11,
+   "spread": 0.03,
+   "end": 122.48,
+   "gap_after": 2.44
+  },
+  {
+   "i": 36,
+   "t": 122.48,
+   "t_ref": 122.48,
+   "text": "J'ai des cicatrices pleines d'encre, seul sous la pluie d'septembre",
+   "n_src": 11,
+   "spread": 0.03,
+   "end": 127.74,
+   "gap_after": 5.26
+  },
+  {
+   "i": 37,
+   "t": 127.74,
+   "t_ref": 127.74,
+   "text": "J'me sens pas trop peace, haine, love",
+   "n_src": 11,
+   "spread": 0.05,
+   "end": 130.14,
+   "gap_after": 2.4
+  },
+  {
+   "i": 38,
+   "t": 130.14,
+   "t_ref": 130.14,
+   "text": "J'replonge dans une tristesse grande",
+   "n_src": 11,
+   "spread": 0.01,
+   "end": 132.89,
+   "gap_after": 2.75
+  },
+  {
+   "i": 39,
+   "t": 132.89,
+   "t_ref": 132.89,
+   "text": "J'ai des cicatrices pleines d'encre",
+   "n_src": 11,
+   "spread": 0.02,
+   "end": 135.09,
+   "gap_after": 2.2
+  },
+  {
+   "i": 40,
+   "t": 135.09,
+   "t_ref": 135.09,
+   "text": "Ciel pleure sur la ville, ciel tremble",
+   "n_src": 11,
+   "spread": 0.03,
+   "end": 137.85,
+   "gap_after": 2.76
+  },
+  {
+   "i": 41,
+   "t": 137.85,
+   "t_ref": 137.85,
+   "text": "J'me sens pas trop peace, haine, love, ils ont tous des vices étranges",
+   "n_src": 11,
+   "spread": 0.0,
+   "end": 143.04,
+   "gap_after": 5.19
+  },
+  {
+   "i": 42,
+   "t": 143.04,
+   "t_ref": 143.04,
+   "text": "J'aimerais que leur système flanche, j'ai la tension qui té-mon",
+   "n_src": 11,
+   "spread": 0.01,
+   "end": 148.21,
+   "gap_after": 5.17
+  },
+  {
+   "i": 43,
+   "t": 148.21,
+   "t_ref": 148.21,
+   "text": "J'fais face à tous mes démons, moi j'ai pas les p'tites ailes blanches",
+   "n_src": 11,
+   "spread": 0.04,
+   "end": 153.53,
+   "gap_after": 5.32
+  },
+  {
+   "i": 44,
+   "t": 153.53,
+   "t_ref": 153.53,
+   "text": "Putain encore un soir où je sais qu'j'dormirai pas",
+   "n_src": 11,
+   "spread": 0.01,
+   "end": 156.06,
+   "gap_after": 2.53
+  },
+  {
+   "i": 45,
+   "t": 156.06,
+   "t_ref": 156.06,
+   "text": "Où je sais qu'j'rentrerai tard, encore de petits écarts",
+   "n_src": 11,
+   "spread": 0.06,
+   "end": 158.45,
+   "gap_after": 2.39
+  },
+  {
+   "i": 46,
+   "t": 158.45,
+   "t_ref": 158.45,
+   "text": "J'en oublie c'que je ressens, emporté par le gré du vent",
+   "n_src": 11,
+   "spread": 0.01,
+   "end": 160.95,
+   "gap_after": 2.5
+  },
+  {
+   "i": 47,
+   "t": 160.95,
+   "t_ref": 160.95,
+   "text": "J'me ressaisis sur le fil, j'apprends au fil du temps",
+   "n_src": 11,
+   "spread": 0.02,
+   "end": 163.5,
+   "gap_after": 2.55
+  },
+  {
+   "i": 48,
+   "t": 163.5,
+   "t_ref": 163.5,
+   "text": "Le temps qui vient et qui part, qui voyage et qui s'égard",
+   "n_src": 11,
+   "spread": 0.01,
+   "end": 166.16,
+   "gap_after": 2.66
+  },
+  {
+   "i": 49,
+   "t": 166.16,
+   "t_ref": 166.16,
+   "text": "Le temps qui cassait ses barres, le temps qui passe et répare",
+   "n_src": 11,
+   "spread": 0.02,
+   "end": 168.6,
+   "gap_after": 2.44
+  },
+  {
+   "i": 50,
+   "t": 168.6,
+   "t_ref": 168.6,
+   "text": "Le temps qui passe et qui blesse, le temps qui passe et progresse",
+   "n_src": 11,
+   "spread": 0.05,
+   "end": 171.39,
+   "gap_after": 2.79
+  },
+  {
+   "i": 51,
+   "t": 171.39,
+   "t_ref": 171.39,
+   "text": "Le temps qui passe et m'oppresse, le temps qui passe et me stresse",
+   "n_src": 11,
+   "spread": 0.08,
+   "end": 174.06,
+   "gap_after": 2.67
+  },
+  {
+   "i": 52,
+   "t": 174.06,
+   "t_ref": 174.06,
+   "text": "Le temps qui passe et m'agresse, des erreurs et maladresses",
+   "n_src": 11,
+   "spread": 0.03,
+   "end": 176.48,
+   "gap_after": 2.42
+  },
+  {
+   "i": 53,
+   "t": 176.48,
+   "t_ref": 176.48,
+   "text": "Chercher le bonheur comme Will, j'attends qu'on m'envoie l'adresse",
+   "n_src": 11,
+   "spread": 0.07,
+   "end": 178.97,
+   "gap_after": 2.49
+  },
+  {
+   "i": 54,
+   "t": 178.97,
+   "t_ref": 178.97,
+   "text": "J'attends qu'on m'envoie un signe, plus rien ne me fascine",
+   "n_src": 11,
+   "spread": 0.0,
+   "end": 181.72,
+   "gap_after": 2.75
+  },
+  {
+   "i": 55,
+   "t": 181.72,
+   "t_ref": 181.72,
+   "text": "J'ai l'amertume assassine, j'ai l'air fleuri à la cime",
+   "n_src": 11,
+   "spread": 0.07,
+   "end": 183.92,
+   "gap_after": 2.2
+  },
+  {
+   "i": 56,
+   "t": 183.92,
+   "t_ref": 183.92,
+   "text": "J'suis gangréné à la racine, j'noie ma peine et mes hantises",
+   "n_src": 11,
+   "spread": 0.07,
+   "end": 186.87,
+   "gap_after": 2.95
+  },
+  {
+   "i": 57,
+   "t": 186.87,
+   "t_ref": 186.87,
+   "text": "J'noie mes souvenirs dans la tise, j'ai vu des trucs hallucinants",
+   "n_src": 11,
+   "spread": 0.02,
+   "end": 189.36,
+   "gap_after": 2.49
+  },
+  {
+   "i": 58,
+   "t": 189.36,
+   "t_ref": 189.36,
+   "text": "J'entends qu'la terre agonise, des sanglots, les balbutiements",
+   "n_src": 11,
+   "spread": 0.04,
+   "end": 191.84,
+   "gap_after": 2.48
+  },
+  {
+   "i": 59,
+   "t": 191.84,
+   "t_ref": 191.84,
+   "text": "Sentiments qui s'amenuisent, j'les vois s'envoler gentiment",
+   "n_src": 11,
+   "spread": 0.01,
+   "end": 194.56,
+   "gap_after": 2.72
+  },
+  {
+   "i": 60,
+   "t": 194.56,
+   "t_ref": 194.56,
+   "text": "Le morale au ras du ciment, peace, haine, love qui me détruisent",
+   "n_src": 11,
+   "spread": 0.02,
+   "end": 197.11,
+   "gap_after": 2.55
+  },
+  {
+   "i": 61,
+   "t": 197.11,
+   "t_ref": 197.11,
+   "text": "Les sentiments qui s'envolent, les sentiments qui s'envolent",
+   "n_src": 11,
+   "spread": 0.04,
+   "end": 202.16,
+   "gap_after": 5.05
+  },
+  {
+   "i": 62,
+   "t": 202.16,
+   "t_ref": 202.16,
+   "text": "J'me sens pas trop peace, haine, love",
+   "n_src": 11,
+   "spread": 0.02,
+   "end": 204.88,
+   "gap_after": 2.72
+  },
+  {
+   "i": 63,
+   "t": 204.88,
+   "t_ref": 204.88,
+   "text": "J'me sens pas trop peace, haine, love",
+   "n_src": 11,
+   "spread": 0.08,
+   "end": 207.46,
+   "gap_after": 2.58
+  },
+  {
+   "i": 64,
+   "t": 207.46,
+   "t_ref": 207.46,
+   "text": "Les sentiments qui s'envolent, les sentiments qui s'envolent",
+   "n_src": 11,
+   "spread": 0.03,
+   "end": 212.35,
+   "gap_after": 4.89
+  },
+  {
+   "i": 65,
+   "t": 212.35,
+   "t_ref": 212.35,
+   "text": "J'me sens pas trop peace, haine, love",
+   "n_src": 11,
+   "spread": 0.03,
+   "end": 215.03,
+   "gap_after": 2.68
+  },
+  {
+   "i": 66,
+   "t": 215.03,
+   "t_ref": 215.03,
+   "text": "J'me sens pas trop peace, haine, love",
+   "n_src": 11,
+   "spread": 0.05,
+   "end": 217.4,
+   "gap_after": 2.37
+  },
+  {
+   "i": 67,
+   "t": 217.4,
+   "t_ref": 217.4,
+   "text": "",
+   "n_src": 1,
+   "spread": null,
+   "end": 241.0,
+   "gap_after": 23.6
+  }
+ ]
+}
