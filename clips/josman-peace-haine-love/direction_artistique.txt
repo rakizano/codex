@@ -1,0 +1,97 @@
+DIRECTION ARTISTIQUE — Josman « Peace, Haine, Love »
+
+CONCEPT / NARRATION
+  Le monologue d'un homme seul qui se bat (insomnie, argent, loyauté perdue, rage, frères de sang) raconté en 21 affiches de nuit où la LUMIÈRE est le personnage principal : néons, projecteurs, phares, éclairs, rayons. Aucun visage : on reconnaît chacun à sa coiffure et ses vêtements.
+
+UNIVERS VISUEL
+  Nuit urbaine et lieux intérieurs (chambre, bar, couloir, ring), échappées symboliques (arches de Rome, jungle, atomes), en affiches à palettes réduites et lumière très contrastée.
+
+PALETTE
+  nuit           #0a0c18
+  bordeaux blouson #6e1a2a
+  crème manches  #efe2c8
+  émeraude       #0f6b4a
+  néon bleu      #3a7bff
+  sodium         #ffb35c
+  or             #e3b955
+  rouge signature #e10600
+
+TYPOGRAPHIE
+  Anton, capitales, blanc, en haut à gauche ; le texte s'accumule mot à mot au rythme exact du rap ; un mot rouge par bloc.
+
+STYLE GRAPHIQUE
+  Personnages de dos (identité : LUI = petites tresses + blouson bordeaux à manches crème + baskets blanches ; ELLE = longues tresses à perles dorées + veste satin émeraude ; LES FRÈRES = sweats noirs + casquettes), grain et trame d'impression, projecteurs volumétriques, liserés de lumière.
+
+PRINCIPES D'ANIMATION
+  La lumière bouge sans arrêt : balayages, vacillements, bandes de stores, phares, éclairs, rayons, reflets d'objectif ; personnages en mouvement continu (marche, course, cheveux et tresses qui suivent) ; caméra lente qui pousse, s'élève, tourne.
+
+TRANSITIONS & MONTAGE
+  Balayage de lumière, trame de points, tranches, déchirure, plongée dans le point de fuite, flash blanc, balayage d'aiguille, iris, coup de fouet.
+
+INFLUENCES
+  Edit de référence apprécié (Josman – Goal) pour la typographie ; personnages fictifs, aucun visage.
+
+DÉCOUPAGE (scène → image)
+  s00  0.00- 2.45s  (instrumental)
+       image : Gros plan de dos : ses petites tresses et le col de son blouson bordeaux, à contre-jour d'une enseigne néon qui grésille ; un balayage de lumière ouvre le clip.
+       transition d'entrée : cut
+  s01  2.45- 4.83s  Putain encore un soir où je sais qu'j'dormirai pas
+       image : Chambre de nuit, il est assis au bord du lit de dos, la lueur du téléphone ; les bandes de lumière des stores défilent sur le mur au passage des voitures.
+       transition d'entrée : bar
+  s02  4.83- 7.48s  Où j'm'endormirai à l'aube, relation tombée à l'eau
+       image : Un polaroid d'elle de dos (longues tresses, veste satin émeraude) tombe dans l'eau sombre ; ondes, reflets de lumière ondulants.
+       transition d'entrée : dots
+  s03  7.48- 9.92s  J'réponds plus trop aux appels, quand c'est l'argent j'réponds "allô"
+       image : Le téléphone vibre sur la table et inonde le plafond de lumière à chaque appel ; une liasse dorée brille ; sa main (manche crème) décroche.
+       transition d'entrée : slices
+  s04  9.92-12.44s  Loyauté qui s'fait la belle et l'honneur qui s'fait la malle
+       image : Couloir : deux frères en sweat noir et casquette s'en vont vers une porte éblouissante, une valise traînée ; la porte se referme, la lumière se coupe.
+       transition d'entrée : tear
+  s05 12.44-15.12s  C'soir j'ai le blues qui fait mal, / on dirait qu'j'ai perdu le goût
+       image : Comptoir d'un bar bleu néon : lui de dos ; le néon grésille puis s'éteint, les couleurs se vident.
+       transition d'entrée : dip
+  s06 15.12-17.54s  J'sens plus les saveurs et arômes, j'fais ma route à contre sens
+       image : Route de nuit : il marche à contre-sens, les phares arrivent en traînées et dessinent sa silhouette (tresses, blouson).
+       transition d'entrée : whip
+  s07 17.54-20.22s  T'façon tous les chemins mènent à Rome, / t'façon ils mènent tous à la mort
+       image : Plusieurs routes convergent vers des arches romaines au soleil couchant ; le soleil devient rouge sang et les routes s'éteignent.
+       transition d'entrée : zoom
+  s08 20.22-23.00s  T'façon ce monde est hardcore, que le ciel me laisse une chance
+       image : Toit sous la pluie : les nuages s'ouvrent et un rayon de lumière unique tombe sur lui.
+       transition d'entrée : flash
+  s09 23.00-25.48s  J'la saisirai à bras l'corps, il faut encore que j'explore
+       image : Il tend le bras vers une boule de lumière qu'il saisit ; la caméra s'élève et révèle l'horizon immense.
+       transition d'entrée : radial
+  s10 25.48-27.96s  J'ai encore rien vu de la flore, j'ai encore rien vu de la faune
+       image : Jungle de grandes feuilles en parallaxe, rayons à travers la canopée, lucioles ; un cerf et des oiseaux ; lui tout petit de dos.
+       transition d'entrée : dots
+  s11 27.96-30.60s  J'ai longtemps crié ma haine, jusqu'à en devenir aphone
+       image : Sur le toit il hurle vers le ciel (de dos, bras en arrière) : ondes de choc, vitres qui vibrent, puis silence.
+       transition d'entrée : flash
+  s12 30.60-33.18s  J'ai gardé le cœur dans la paume, donc il est rempli d'hématomes
+       image : Gros plan de sa paume (manche crème) qui tient un cœur lumineux couvert d'hématomes violets, qui bat.
+       transition d'entrée : iris
+  s13 33.18-35.36s  J'le ressens dans tous mes atomes
+       image : Sa silhouette se dissout en particules lumineuses qui gravitent comme des atomes.
+       transition d'entrée : dots
+  s14 35.36-37.58s  Personne viendra avec moi dans ma tombe
+       image : Seul dans un cercle de lumière, la foule autour s'efface dans le noir ; brume au sol.
+       transition d'entrée : dip
+  s15 37.58-40.20s  J'ai croqué mais j'ai pas avalé la pomme
+       image : Gros plan : sa main tient une pomme verte croquée sous une douche de lumière.
+       transition d'entrée : slices
+  s16 40.20-43.34s  Cercle fermé, je n'vais pas rentrer dans la ronde
+       image : Vue du dessus : une ronde de silhouettes qui tournent sous un projecteur ; lui, reconnaissable à ses tresses et son blouson, reste dehors.
+       transition d'entrée : radial
+  s17 43.34-48.52s  Dans la vie comme sur le ring, / j'suis tout seul, j'ai ma paire de gants
+       image : Ring de boxe sous les projecteurs, fumée dans la lumière ; lui de dos dans son coin avec ses gants ; puis tous les projecteurs se resserrent sur lui.
+       transition d'entrée : bar
+  s18 48.52-51.00s  J'me bats pour mes frères de sang
+       image : Lui et trois frères de dos face à la ville, liseré de lumière sur les épaules ; un reflet d'objectif traverse.
+       transition d'entrée : tear
+  s19 51.00-53.30s  J'suis baisé, j'peux pas perdre de temps
+       image : Il court dans un tunnel de lumières qui défilent, ombre géante d'une aiguille d'horloge.
+       transition d'entrée : whip
+  s20 53.30-60.05s  Les sentiments qui s'envolent, les sentiments qui s'envolent
+       image : Elle, de dos sur un pont au coucher du soleil (tresses au vent, veste émeraude) ; des cœurs de papier et des oiseaux s'envolent ; voile lumineux.
+       transition d'entrée : fade

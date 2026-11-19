@@ -1,0 +1,121 @@
+{
+ "pass": true,
+ "failures": [],
+ "warnings": [
+  "bord haut entièrement noir sur une image (bande noire ?)",
+  "bord gauche entièrement noir sur une image (bande noire ?)",
+  "bord droite entièrement noir sur une image (bande noire ?)",
+  "bord haut entièrement noir sur une image (bande noire ?)"
+ ],
+ "info": {
+  "format": "h264 1080x1920 30.00fps yuv420p profil=High",
+  "duration": 60.033333,
+  "size_mb": 31.93,
+  "scenes": [
+   {
+    "id": "s00",
+    "motion": 4.65
+   },
+   {
+    "id": "s01",
+    "motion": 14.41,
+    "change_vs_prev": 22.79
+   },
+   {
+    "id": "s02",
+    "motion": 21.47,
+    "change_vs_prev": 29.7
+   },
+   {
+    "id": "s03",
+    "motion": 21.9,
+    "change_vs_prev": 42.53
+   },
+   {
+    "id": "s04",
+    "motion": 22.62,
+    "change_vs_prev": 47.69
+   },
+   {
+    "id": "s05",
+    "motion": 22.0,
+    "change_vs_prev": 40.97
+   },
+   {
+    "id": "s06",
+    "motion": 15.6,
+    "change_vs_prev": 28.3
+   },
+   {
+    "id": "s07",
+    "motion": 58.32,
+    "change_vs_prev": 71.13
+   },
+   {
+    "id": "s08",
+    "motion": 20.53,
+    "change_vs_prev": 63.69
+   },
+   {
+    "id": "s09",
+    "motion": 20.99,
+    "change_vs_prev": 35.75
+   },
+   {
+    "id": "s10",
+    "motion": 20.04,
+    "change_vs_prev": 40.1
+   },
+   {
+    "id": "s11",
+    "motion": 17.39,
+    "change_vs_prev": 40.23
+   },
+   {
+    "id": "s12",
+    "motion": 17.62,
+    "change_vs_prev": 30.27
+   },
+   {
+    "id": "s13",
+    "motion": 9.46,
+    "change_vs_prev": 32.04
+   },
+   {
+    "id": "s14",
+    "motion": 14.27,
+    "change_vs_prev": 25.05
+   },
+   {
+    "id": "s15",
+    "motion": 9.41,
+    "change_vs_prev": 18.6
+   },
+   {
+    "id": "s16",
+    "motion": 15.96,
+    "change_vs_prev": 26.46
+   },
+   {
+    "id": "s17",
+    "motion": 24.63,
+    "change_vs_prev": 33.27
+   },
+   {
+    "id": "s18",
+    "motion": 19.93,
+    "change_vs_prev": 36.29
+   },
+   {
+    "id": "s19",
+    "motion": 12.13,
+    "change_vs_prev": 28.55
+   },
+   {
+    "id": "s20",
+    "motion": 27.47,
+    "change_vs_prev": 88.44
+   }
+  ]
+ }
+}
