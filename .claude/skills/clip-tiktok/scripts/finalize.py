@@ -58,6 +58,8 @@ def main():
     L.append('FIABILITÉ DES TIMESTAMPS')
     L.append(f"  Méthode  : paroles synchronisées LRCLIB, médiane de {so['n_sources']} source(s) concordante(s)")
     L.append(f"  Écart médian entre sources : {so.get('sync_spread_median_s')} s — confiance : {so['sync_confidence']}")
+    for n in so.get('notes', []):
+        L.append(f'  Note : {n}')
     if audio:
         L.append(f"  Audio analysé : {audio['file']} (durée {audio['duration']:.2f} s, écart vs version {audio.get('lyrics_duration_diff_s')} s)")
         lo = audio.get('lyrics_offset')

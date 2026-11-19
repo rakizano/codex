@@ -743,16 +743,23 @@
     let redFound = false;
     lines.forEach((ln, li) => {
       const L = document.createElement('div'); L.className = 'line'; box.appendChild(L);
-      ln.split(/\s+/).forEach((wtxt, wi) => {
+      const toks = [];
+      ln.split(/\s+/).forEach(tok => {
+        // élision (l'sommeil, qu'l'argent) : seul le mot plein peut passer en rouge
+        const m = tok.match(/^(.*['’])([^'’]+)$/);
+        if (m && !redFound && redTargets.includes(norm(m[2])) && !redTargets.includes(norm(tok))) toks.push([m[1], true], [m[2], false]);
+        else toks.push([tok, false]);
+      });
+      toks.forEach(([wtxt, glued], wi) => {
         const w = document.createElement('span'); w.className = 'word';
-        const isRed = !redFound && redTargets.length && redTargets.includes(norm(wtxt));
+        const isRed = !glued && !redFound && redTargets.length && redTargets.includes(norm(wtxt));
         if (isRed) { w.classList.add('red'); w.style.color = ty.red || '#e10600'; w.style.fontSize = (ty.redScale || 1.25) + 'em'; if (ty.redFont) w.style.fontFamily = `'${ty.redFont}'`; if (ty.redShadow) w.style.textShadow = ty.redShadow; if (ty.redStroke) w.style.webkitTextStroke = ty.redStroke; }
         if (ty.box) { w.style.background = ty.box; w.style.padding = '0.02em 0.18em'; w.style.margin = '0.04em'; if (isRed && ty.redBox) { w.style.background = ty.redBox; w.style.color = ty.redOnBox || '#fff'; } }
         const chars = [];
         if ((ch.enter || ty.enter) === 'type' || (ch.enter || ty.enter) === 'split' || (isRed && (ch.emphasis || ty.emphasis) === 'scramble')) {
           for (const c of wtxt) { const s = document.createElement('span'); s.className = 'ch'; s.textContent = c; w.appendChild(s); chars.push(s); }
         } else w.textContent = wtxt;
-        L.appendChild(w); L.appendChild(document.createTextNode(' '));
+        L.appendChild(w); if (!glued) L.appendChild(document.createTextNode(' '));
         words.push({ el: w, txt: wtxt, red: isRed, line: li, chars, syl: vowelsCount(wtxt) });
         if (isRed) redFound = true;
       });

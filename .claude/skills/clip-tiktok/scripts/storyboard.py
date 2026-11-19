@@ -21,6 +21,7 @@ EMPHASES = {'grow', 'late', 'shake', 'pulse', 'slidein', 'drop', 'reveal', 'glow
 
 
 def norm_words(s):
+    s = re.sub(r'\([^)]*\)', ' ', s)  # ad-libs entre parenthèses : facultatifs à l'affichage
     s = unicodedata.normalize('NFD', s).encode('ascii', 'ignore').decode().lower().replace('/', ' ')
     s = s.replace('’', "'")
     return [w for w in re.sub(r"[^a-z0-9' ]+", ' ', s).split() if w.strip("'")]
@@ -49,14 +50,25 @@ def cmd_init(a):
         words = l['text'].split()
         t0, t1 = l['t'] - start, min(l['sung_end'], end) - start
         if a.split_long and len(words) > a.split_long:
-            # coupe à la virgule la plus proche du milieu, sinon au milieu ; timing proportionnel aux syllabes (ESTIMÉ)
-            mid = len(words) // 2
-            commas = [i + 1 for i, w in enumerate(words[:-1]) if w.endswith(',')]
-            cut = min(commas, key=lambda c: abs(c - mid)) if commas else mid
-            s1 = sum(syl(w) for w in words[:cut]); s2 = sum(syl(w) for w in words[cut:])
-            tm = t0 + (t1 - t0) * s1 / (s1 + s2)
-            pieces.append({'text': ' '.join(words[:cut]), 'start': t0, 'end': tm, 'src_line': l['i'], 'timing': 'estimé (découpe intra-ligne)'})
-            pieces.append({'text': ' '.join(words[cut:]), 'start': tm, 'end': t1, 'src_line': l['i'], 'timing': 'estimé (découpe intra-ligne)'})
+            # découpe en k morceaux (k = ceil(mots / N)), coupes de préférence après une virgule ;
+            # timing proportionnel aux syllabes (ESTIMÉ)
+            k = -(-len(words) // a.split_long)
+            commas = {i + 1 for i, w in enumerate(words[:-1]) if w.endswith(',')}
+            cuts = []
+            for c in range(1, k):
+                ideal = round(len(words) * c / k)
+                near = [x for x in commas if abs(x - ideal) <= max(2, len(words) // (2 * k)) and x not in cuts]
+                cut = min(near, key=lambda x: abs(x - ideal)) if near else ideal
+                if cuts and cut <= cuts[-1]:
+                    cut = cuts[-1] + 1
+                cuts.append(cut)
+            bounds = [0] + cuts + [len(words)]
+            sy = [sum(syl(w) for w in words[bounds[q]:bounds[q + 1]]) for q in range(k)]
+            tt = t0
+            for q in range(k):
+                te = tt + (t1 - t0) * sy[q] / sum(sy)
+                pieces.append({'text': ' '.join(words[bounds[q]:bounds[q + 1]]), 'start': tt, 'end': te, 'src_line': l['i'], 'timing': 'estimé (découpe intra-ligne)'})
+                tt = te
         else:
             pieces.append({'text': l['text'], 'start': t0, 'end': t1, 'src_line': l['i'], 'timing': 'LRC'})
     scenes = []
@@ -128,6 +140,7 @@ def cmd_check(a):
             else:
                 reds = red if isinstance(red, list) else [red]
                 tw = norm_words(ly['text'])
+                tw = tw + [w.split("'")[-1] for w in tw]  # élisions : l'sommeil -> sommeil
                 for r in reds:
                     if not norm_words(r) or norm_words(r)[0] not in tw:
                         errs.append(f"{s['id']}: mot rouge « {r} » absent du texte")
@@ -175,7 +188,7 @@ def main():
     i.add_argument('--start', type=float, required=True)
     i.add_argument('--end', type=float, required=True)
     i.add_argument('--out', required=True)
-    i.add_argument('--split-long', type=int, default=0, help='découper en 2 scènes les lignes de plus de N mots')
+    i.add_argument('--split-long', type=int, default=0, help='découper en plusieurs scènes (≤ N mots chacune) les lignes trop longues')
     c = sub.add_parser('check')
     c.add_argument('storyboard')
     c.add_argument('--lyrics')

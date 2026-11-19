@@ -56,6 +56,8 @@ dans le LRC), métaphores, références, histoire racontée. Utilise ta connaiss
 python3 $SK/scripts/passage_candidates.py clips/<slug>/work/lyrics.json [--audio clips/<slug>/work/audio.json]
 ```
 Le script classe des fenêtres 15-45 s (entrées/sorties propres, densité, répétitions, énergie si audio).
+**Si l'utilisateur impose une durée (« 61 s ou plus »), elle prime** : relancer avec `--min/--max/--target`
+adaptés, ou composer soi-même un passage cohérent de cette durée.
 **Tu décides** selon le sens : accroche forte dès la 1re seconde, mini-histoire cohérente, fin qui résonne.
 Ne prends pas le refrain par défaut. Tu peux ajuster début/fin (début ≈ 0,2-0,5 s avant la 1re syllabe,
 fin ≈ 0,5 s après la dernière note tenue). Écris en 2 phrases pourquoi ce passage.
@@ -66,7 +68,12 @@ python3 $SK/scripts/storyboard.py init --lyrics clips/<slug>/work/lyrics.json --
         --out clips/<slug>/storyboard.json [--split-long 8]
 ```
 Crée une scène par phrase (temps en secondes depuis le début du passage, `song_t` = temps dans la chanson).
-`--split-long N` scinde les lignes de plus de N mots en deux scènes (timing intra-ligne marqué « estimé »).
+`--split-long N` scinde les lignes de plus de N mots en plusieurs scènes de ≤ N mots (coupes aux virgules,
+timing intra-ligne marqué « estimé ») — indispensable pour le rap (≈ 9). Si une ligne précède un break
+instrumental, recaler sa fin sur le marqueur de fin de voix (ligne vide du LRC) et créer une scène
+instrumentale. Les ad-libs entre parenthèses peuvent être omis à l'affichage ; couper le texte affiché en
+lignes de ≤ 15 caractères avec `/` pour garder une typographie grande.
+Les mots élidés (« l'sommeil ») peuvent porter le rouge : seul le mot plein est coloré.
 Ajuste `end` d'une phrase si la note est tenue (ex. « death… ») — le texte doit rester tant que la voix chante.
 
 #### 5b. (Optionnel) Audio fourni par l'utilisateur
