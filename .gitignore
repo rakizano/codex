@@ -9,3 +9,4 @@ episodes/*/out/*_voix-seule.mp4
 episodes/*/out/*_gilles_*
 episodes/*/web/mix.wav
 episodes/*/web/gsap.min.js
+episodes/*/out/score.wav

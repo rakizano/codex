@@ -1,5 +1,9 @@
 # Ajouter « Swimming Pools » au clip — 100 % sur iPad, gratuit, légal
 
+**Deux fichiers :**
+- `swimming-pools_clip_musique-originale.mp4` — **avec musique déjà intégrée** : instrumentale originale composée pour le clip (74 BPM, arrangée scène par scène, roulements + cymbales sur chaque coupe). Publiable tel quel.
+- `swimming-pools_clip_ipad.mp4` — **muet**, pour poser la vraie chanson « Swimming Pools » depuis TikTok ou CapCut (étapes ci-dessous).
+
 Le clip `swimming-pools_clip_ipad.mp4` est **muet** et calé sur le tempo du morceau (**74 BPM**) : chaque scène change sur une mesure. Tu ajoutes la vraie chanson depuis la bibliothèque musicale sous licence de TikTok ou de CapCut — pas de fichier MP3 à trouver, pas de risque de suppression pour droits d'auteur.
 
 ## 1. Récupérer le clip sur l'iPad
