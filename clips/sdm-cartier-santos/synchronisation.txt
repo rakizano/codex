@@ -1,0 +1,59 @@
+TITRE      : Cartier Santos
+ARTISTE    : Sdm
+VERSION    : Hits Hits Hits 2026 Vol.2 — durée de la version : 3:03 (183 s)
+
+PASSAGE UTILISÉ DANS LA CHANSON ORIGINALE
+  Début    : 1:33.540   (93.54 s)
+  Fin      : 2:45.800   (165.80 s)
+  Durée    : 72.26 s  (= durée exacte de video_finale.mp4)
+
+PLACER LA MUSIQUE
+  TikTok : importer video_finale.mp4 > « Ajouter un son » > chercher « Cartier Santos Sdm »
+           (version album, durée 3:03) > icône ciseaux « Couper »
+           > faire glisser l'onde pour que le son démarre à 1:33.54 (93.54 s).
+  CapCut : piste audio sous la vidéo à 0:00, puis couper le début du morceau à 1:33.540 ;
+           la vidéo et la musique se terminent ensemble à 2:45.800.
+  Repère d'écoute : la 1re phrase chantée « J'prends plus sur moi, c'est fini, »
+           commence à 1:33.840 dans la chanson = 0.30 s dans la vidéo.
+  Attention : TikTok propose parfois des versions raccourcies/accélérées ; choisir la version album.
+
+FIABILITÉ DES TIMESTAMPS
+  Méthode  : paroles synchronisées LRCLIB, médiane de 16 source(s) concordante(s)
+  Écart médian entre sources : 0.08 s — confiance : élevée
+  Note : Texte vérifié par concordance de 16 transcriptions LRCLIB indépendantes (95-100 %) ; aucune page de paroles tierce n'était accessible pour une vérification supplémentaire (Genius bloque les accès automatisés).
+  Note : Ligne « Pour elle, j'étais pas l'homme capable… en Féfé' » : fin recalée sur le marqueur de fin de voix commun aux sources (2:15) ; le break instrumental 2:15-2:23 est illustré sans paroles.
+  Note : Ad-libs entre parenthèses (eh, eh / Oocho, ocho / la vie de rêve / mmh, mmh) non affichés.
+  Aucun fichier audio fourni : les timestamps n'ont PAS été vérifiés sur le signal audio.
+  Si la synchro semble décalée dans TikTok, décaler le son de ±0,2 s suffit en général.
+  Le timing mot par mot à l'intérieur d'une phrase est ESTIMÉ (répartition syllabique).
+
+PAROLES ET TIMESTAMPS (chanson | vidéo)
+  1:33.840 |   0.30s  [s00]  J'prends plus sur moi, c'est fini,   (mot rouge : fini)
+  1:35.949 |   2.41s  [s01]  j'y ai réfléchi toute la semaine   (mot rouge : semaine)
+  1:38.660 |   5.12s  [s02]  Elle me répond "est-ce que t'es sûr?",   (mot rouge : sûr)
+  1:40.280 |   6.74s  [s03]  me dit "dommage,   (mot rouge : dommage)
+  1:41.180 |   7.64s  [s04]  j'avais bloqué ma soirée pour qu'tu montes sur moi"   (mot rouge : soirée)
+  1:43.700 |  10.16s  [s05]  D'un coup, mon cœur est navré,   (mot rouge : cœur)
+  1:44.919 |  11.38s  [s06]  elle sait pile-poil où toucher pour que j'retourne ma veste   (mot rouge : veste)
+  1:48.780 |  15.24s  [s07]  C'est ma bouche qui a dit non,   (mot rouge : non)
+  1:50.154 |  16.61s  [s08]  alors qu'mon cœur voulait dire oui   (mot rouge : oui)
+  1:51.872 |  18.33s  [s09]  et mon cerveau qui s'demande c'que j'fais   (mot rouge : cerveau)
+  1:53.590 |  20.05s  [s10]  Faudra d'la foi et du courage, une relation remplie de rage,   (mot rouge : rage)
+  1:57.481 |  23.94s  [s11]  à la fin, j'm'en suis pas remis   (mot rouge : remis)
+  1:59.120 |  25.58s  [s12]  Vivre sans elle, j'y arrive pas, j'trouve plus l'sommeil quand j'suis seul,   (mot rouge : sommeil)
+  2:01.944 |  28.40s  [s13]  j'm'endors après plusieurs res-ve   (mot rouge : res-ve)
+  2:03.670 |  30.13s  [s14]  Elle, elle fait genre tout va bien,   (mot rouge : bien)
+  2:05.508 |  31.97s  [s15]  nouvelle relation, elle vit la vie   (mot rouge : relation)
+  2:07.530 |  33.99s  [s16]  qu'elle rêvait   (mot rouge : rêvait)
+  2:09.000 |  35.46s  [s17]  Pour elle, j'étais pas l'homme capable,   (mot rouge : capable)
+  2:10.890 |  37.35s  [s18]  un homme capable, c'est celui qui déboule   (mot rouge : déboule)
+  2:13.170 |  39.63s  [s19]  en bas d'chez elle en Féfé'   (mot rouge : Féfé')
+  2:23.460 |  49.92s  [s20]  J'lui dis "j'peux pas vivre sans toi",   (mot rouge : vivre)
+  2:25.223 |  51.68s  [s21]  elle m'a dit "que si tu   (mot rouge : si)
+  2:26.766 |  53.23s  [s22]  m'payes une Cartier Santos"   (mot rouge : santos)
+  2:28.750 |  55.21s  [s23]  Même avec tout le temps qu'on passe,   (mot rouge : temps)
+  2:31.098 |  57.56s  [s24]  tu veux pas mettre un peu plus de sérieux sur l'dossier   (mot rouge : sérieux)
+  2:34.150 |  60.61s  [s25]  Tu sais qu'l'argent ça compte pas,   (mot rouge : argent)
+  2:36.153 |  62.61s  [s26]  tu t'en rendras compte un jour à quel point j't'ai aimée   (mot rouge : aimée)
+  2:39.270 |  65.73s  [s27]  J'lui dis que j'lui souhaite le meilleur,   (mot rouge : meilleur)
+  2:41.655 |  68.11s  [s28]  elle m'a dit "souhaite-moi la richesse, moi, fuck la santé"   (mot rouge : richesse)
