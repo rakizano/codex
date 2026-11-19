@@ -12,8 +12,17 @@ SUF="${SUFFIX:-}"; T0=$(date +%s)
 $PY pipeline/tts.py "$E" ${TTS_ARGS:-}
 export VOICE_OFFSET="${VOICE_OFFSET:-0.6}"
 $PY pipeline/sound.py "$E" "$VOICE_OFFSET"
-pipeline/mix.sh "$E"
-mkdir -p "video/public/$S" "$E/out"; cp "$E/script.json" "$E/build/timeline.json" "$E/build/beats.json" "$E/build/mix.wav" "video/public/$S/"
+# Morceau officiel SOUS LICENCE (optionnel) : episodes/<slug>/music/licence.(wav|mp3|m4a)
+LIC=$(ls "$E"/music/licence.* 2>/dev/null | head -1 || true)
+if [[ -n "$LIC" ]]; then
+  $PY pipeline/licensed_beats.py "$E" "$LIC" ${LIC_ARGS:-}      # coupes calées sur les vrais temps du morceau
+  pipeline/mix.sh "$E" "$LIC"
+  MIXFILE="$E/build/mix_licensed.wav"
+else
+  pipeline/mix.sh "$E"
+  MIXFILE="$E/build/mix.wav"
+fi
+mkdir -p "video/public/$S" "$E/out"; cp "$E/script.json" "$E/build/timeline.json" "$E/build/beats.json" "video/public/$S/"; cp "$MIXFILE" "video/public/$S/mix.wav"
 cp "$E/build/captions.srt" "$E/out/$S$SUF.srt"
 P="{\"slug\":\"$S\",\"audio\":\"$S/mix.wav\"}"
 OUT="$E/out/${S}${SUF}_tiktok.mp4"

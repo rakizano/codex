@@ -3,7 +3,10 @@ import {AbsoluteFill, Audio, Sequence, staticFile, useCurrentFrame, useVideoConf
 import {EpisodeProps} from './types';
 import {SCENES} from './scenes/scenes';
 import {FONT} from './components/primitives';
-import {BackgroundWords, BeatBars, BeatContext, BeatZoom, CutRings, Grain, LiveBackground, Particles, useBeat, WipeTransition} from './components/fx';
+import {BackgroundWords, BeatBars, BeatContext, BeatZoom, CutRings, Grain, LightLeak, LiveBackground, Particles, SceneShell, TransitionKind, useBeat, VinylThroughLens} from './components/fx';
+
+/** Menu Bang Motion §4c : types variés, ≥ 1 avec profondeur, objet-wipe (vinyle) ≤ 2, jamais deux fois de suite. */
+const TRANSITIONS: TransitionKind[] = ['vinyl', 'rotY', 'rack', 'push', 'whip', 'leak', 'rotY', 'vinyl', 'rack', 'push'];
 
 const TAIL = 2.4; // secondes après la dernière phrase
 const norm = (w: string) => w.toLowerCase().replace(/[^\p{L}\d]/gu, '');
@@ -79,30 +82,37 @@ export const Episode: React.FC<EpisodeProps> = (ep) => {
         <LiveBackground p={ep.palette} />
         <Particles color={ep.palette.ink} />
         <BackgroundWords ep={ep} />
-        <BeatZoom>
         {ep.segments.map((seg, i) => {
           const from = i === 0 ? 0 : bounds[i - 1];
           const to = i < bounds.length ? bounds[i] : durationInFrames;
           const Scene = SCENES[seg.scene];
           // start = début de la Sequence (en temps voix) pour que wordTime() soit relatif à la scène
           const local = {...seg, start: from / fps - ep.voiceOffset};
+          const exitFrames = i < bounds.length ? Math.round(0.45 * fps) : 0;   // la sortie chevauche l'entrée suivante
           return (
-            <Sequence key={seg.id} from={from} durationInFrames={to - from} name={seg.scene}>
-              {Scene ? <Scene seg={local} p={ep.palette} ep={ep} /> : null}
+            <Sequence key={seg.id} from={from} durationInFrames={to - from + exitFrames} name={`${seg.scene} (${TRANSITIONS[i - 1] ?? '—'} → ${TRANSITIONS[i] ?? '—'})`}
+              style={{zIndex: ['push', 'rack', 'whip'].includes(TRANSITIONS[i] ?? '') ? 2 : 1}}>
+              <SceneShell enter={i ? TRANSITIONS[i - 1] : undefined} exit={i < bounds.length ? TRANSITIONS[i] : undefined}
+                exitAt={(to - from) / fps} dir={i % 2 ? -1 : 1}>
+                <BeatZoom>{Scene ? <Scene seg={local} p={ep.palette} ep={ep} /> : null}</BeatZoom>
+              </SceneShell>
             </Sequence>
           );
         })}
-        </BeatZoom>
         {bounds.map((b, i) => (
-          <Sequence key={`r${i}`} from={b} durationInFrames={Math.round(0.9 * fps)} name="rings">
+          <Sequence key={`r${i}`} from={b} durationInFrames={Math.round(0.9 * fps)} name="rings" style={{zIndex: 3}}>
             <CutRings p={ep.palette} />
           </Sequence>
         ))}
-        {bounds.map((b, i) => (
-          <Sequence key={`w${i}`} from={b - Math.round(0.25 * fps)} durationInFrames={Math.round(0.5 * fps)} name="wipe">
-            <WipeTransition p={ep.palette} dir={i % 2 ? -1 : 1} color={i % 2 ? ep.palette.main : '#2b3f8f'} />
+        {bounds.map((b, i) => TRANSITIONS[i] === 'vinyl' ? (
+          <Sequence key={`v${i}`} from={b - Math.round(0.5 * fps)} durationInFrames={Math.round(1.0 * fps)} name="vinyl-through-lens" style={{zIndex: 4}}>
+            <VinylThroughLens p={ep.palette} dir={i % 2 ? -1 : 1} />
           </Sequence>
-        ))}
+        ) : TRANSITIONS[i] === 'leak' ? (
+          <Sequence key={`l${i}`} from={b - Math.round(0.45 * fps)} durationInFrames={Math.round(0.9 * fps)} name="light-leak" style={{zIndex: 4}}>
+            <LightLeak p={ep.palette} dir={i % 2 ? -1 : 1} />
+          </Sequence>
+        ) : null)}
         <BeatBars p={ep.palette} y={1920} height={70} opacity={0.35} />
         <Grain />
         <Header ep={ep} />

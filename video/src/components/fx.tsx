@@ -65,15 +65,100 @@ export const LiveBackground: React.FC<{p: Palette}> = ({p}) => {
 };
 
 /** Caméra : lent push-in permanent + « punch » sur les impacts + tremblement optionnel. */
-export const Camera: React.FC<{children: React.ReactNode; punches?: number[]; shake?: number[]; drift?: number}> = ({children, punches = [], shake = [], drift = 0.06}) => {
+/** Plan de caméra (Bang Motion §3b « ukuran shot ») : à `at` s, la caméra cadre (x, y) avec l'échelle s. */
+export type Shot = {at: number; s: number; x?: number; y?: number; dur?: number};
+
+const easeInOut = (k: number) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
+
+/** Caméra : plans (wide ↔ medium close-up ↔ close-up) vers l'élément qui raconte, push lent pendant les tenues,
+ *  « punch » sur les impacts, tremblement. Les bords du monde ne sont jamais révélés (clamp). */
+export const Camera: React.FC<{children: React.ReactNode; punches?: number[]; shake?: number[]; drift?: number; shots?: Shot[]}> = ({children, punches = [], shake = [], drift = 0.05, shots = []}) => {
   const f = useCurrentFrame();
   const {fps, durationInFrames} = useVideoConfig();
   const t = f / fps;
-  let s = 1 + drift * (f / Math.max(1, durationInFrames));
-  for (const p of punches) { const d = t - p; if (d >= 0 && d < 0.6) s += 0.08 * Math.exp(-d * 8); }
-  let dx = 0, dy = 0;
-  for (const sh of shake) { const d = t - sh; if (d >= 0 && d < 0.5) { const k = Math.exp(-d * 9) * 18; dx += Math.sin(f * 2.1) * k; dy += Math.cos(f * 2.7) * k; } }
-  return <AbsoluteFill style={{transform: `translate(${dx}px, ${dy}px) scale(${s})`}}>{children}</AbsoluteFill>;
+  // plan courant : interpolation ease-in-out du plan précédent vers le suivant
+  let cur = {s: 1, x: 540, y: 960};
+  const list = [{at: -1, s: 1, x: 540, y: 960, dur: 0}, ...shots].sort((a, b) => a.at - b.at);
+  for (let i = 1; i < list.length; i++) {
+    const sh = list[i]; if (t < sh.at) break;
+    const prev = cur; const k = easeInOut(Math.min(1, (t - sh.at) / (sh.dur ?? 0.8)));
+    cur = {s: prev.s + (sh.s - prev.s) * k, x: prev.x + ((sh.x ?? 540) - prev.x) * k, y: prev.y + ((sh.y ?? 960) - prev.y) * k};
+  }
+  let s = cur.s * (1 + drift * (f / Math.max(1, durationInFrames)));   // push lent pendant la tenue
+  for (const p of punches) { const d = t - p; if (d >= 0 && d < 0.6) s *= 1 + 0.08 * Math.exp(-d * 8); }
+  let tx = 540 - cur.x * s, ty = 960 - cur.y * s;
+  tx = Math.min(0, Math.max(1080 - 1080 * s, tx)); ty = Math.min(0, Math.max(1920 - 1920 * s, ty));
+  if (s < 1) { tx = (1080 - 1080 * s) / 2; ty = (1920 - 1920 * s) / 2; }
+  for (const sh of shake) { const d = t - sh; if (d >= 0 && d < 0.5) { const k = Math.exp(-d * 9) * 18; tx += Math.sin(f * 2.1) * k; ty += Math.cos(f * 2.7) * k; } }
+  return <AbsoluteFill style={{transformOrigin: '0 0', transform: `translate(${tx}px, ${ty}px) scale(${s})`}}>{children}</AbsoluteFill>;
+};
+
+/** Transitions Bang Motion §4c (menu, jamais la même deux fois de suite, objet-wipe ≤ 2). */
+export type TransitionKind = 'push' | 'rotY' | 'rack' | 'whip' | 'vinyl' | 'leak';
+const pw2in = (k: number) => k * k, pw4out = (k: number) => 1 - Math.pow(1 - k, 4);
+
+/** Enveloppe de scène : entrée lente et appuyée (0,8 s, power4.out), sortie rapide (0,45 s, power2.in), qui se chevauchent. */
+export const SceneShell: React.FC<{children: React.ReactNode; enter?: TransitionKind; exit?: TransitionKind; exitAt: number; dir?: number}> = ({children, enter, exit, exitAt, dir = 1}) => {
+  const f = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  const t = f / fps;
+  const e = enter ? pw4out(Math.min(1, t / 0.8)) : 1;
+  const x = exit ? pw2in(Math.max(0, Math.min(1, (t - exitAt) / 0.45))) : 0;
+  let tr = '', blur = 0, op = 1;
+  // entrée
+  if (enter === 'push') { tr += ` scale(${0.72 + 0.28 * e})`; blur += (1 - e) * 14; op *= Math.min(1, e * 1.6); }
+  if (enter === 'rotY') { tr += ` perspective(1400px) translateZ(${-320 * (1 - e)}px) rotateY(${-35 * (1 - e) * dir}deg)`; op *= Math.min(1, e * 1.5); }
+  if (enter === 'rack') { tr += ` scale(${1.18 - 0.18 * e})`; blur += (1 - e) * 16; }
+  if (enter === 'whip') { tr += ` translateX(${190 * (1 - e) * dir}px)`; blur += (1 - e) * 18; }
+  if (enter === 'leak' || enter === 'vinyl') { op *= Math.min(1, e * 2); }
+  // sortie
+  if (exit === 'push') { tr += ` scale(${1 + 1.3 * x})`; blur += 20 * x; op *= 1 - x; }
+  if (exit === 'rotY') { tr += ` perspective(1400px) rotateY(${38 * x * dir}deg) scale(${1 - 0.12 * x})`; op *= 1 - x; }
+  if (exit === 'rack') { tr += ` scale(${1 - 0.15 * x})`; blur += 18 * x; op *= 1 - 0.85 * x; }
+  if (exit === 'whip') { tr += ` translateX(${-200 * x * dir}px)`; blur += 20 * x; op *= 1 - x; }
+  if (exit === 'leak' || exit === 'vinyl') { op *= 1 - x; }
+  return <AbsoluteFill style={{transform: tr || undefined, filter: blur > 0.3 ? `blur(${blur.toFixed(1)}px)` : undefined, opacity: op}}>{children}</AbsoluteFill>;
+};
+
+/** Objet qui traverse l'objectif AVEC ÉPAISSEUR (vinyle 3D) : couvre le cadre pile sur la coupe. */
+export const VinylThroughLens: React.FC<{p: Palette; dir?: number}> = ({p, dir = 1}) => {
+  const f = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  const k = Math.min(1, f / (1.0 * fps));           // 1 s, pic à 0,5 s (= la coupe)
+  if (k >= 1) return null;
+  const sc = 0.25 + 3.2 * Math.sin(Math.PI * k) ** 1.5;
+  const x = 540 + dir * (-700 + 1400 * k), y = 1500 - 1100 * k;
+  const blur = Math.abs(Math.cos(Math.PI * k)) * 6;
+  const disc = (dz: number, shade: string) => (
+    <g transform={`translate(0, ${dz})`}>
+      <circle r={300} fill={shade} />
+      {[0, 1, 2, 3, 4, 5].map((i) => <circle key={i} r={140 + i * 26} fill="none" stroke="#ffffff" strokeOpacity={0.06} strokeWidth={3} />)}
+      <circle r={105} fill={p.accent} /><circle r={10} fill={p.bg} />
+    </g>
+  );
+  return (
+    <AbsoluteFill style={{pointerEvents: 'none'}}>
+      <svg width={1080} height={1920} style={{filter: blur > 0.3 ? `blur(${blur}px)` : undefined}}>
+        <g transform={`translate(${x}, ${y}) scale(${sc}) rotate(${dir * 200 * k}) scale(1, 0.82)`}>
+          {[22, 16, 10, 4].map((dz) => <circle key={dz} cy={dz} r={300} fill="#04040a" />)}
+          {disc(0, '#0b0b16')}
+        </g>
+      </svg>
+    </AbsoluteFill>
+  );
+};
+
+/** Éclat de lumière qui couvre ~50 % du cadre au moment de la coupe (pas 100 %). */
+export const LightLeak: React.FC<{p: Palette; dir?: number}> = ({p, dir = 1}) => {
+  const f = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  const k = Math.min(1, f / (0.9 * fps));
+  if (k >= 1) return null;
+  const a = Math.sin(Math.PI * k);
+  return (
+    <AbsoluteFill style={{pointerEvents: 'none', mixBlendMode: 'screen', opacity: a,
+      background: `radial-gradient(ellipse 70% 45% at ${dir > 0 ? 20 + 60 * k : 80 - 60 * k}% 45%, ${p.accent}ee 0%, ${p.accent}55 35%, transparent 70%)`}} />
+  );
 };
 
 /** Transition en volet diagonal (couvre puis révèle) — placée à chaque changement de scène. */

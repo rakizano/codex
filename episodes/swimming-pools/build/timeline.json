@@ -1,18 +1,18 @@
 {
  "engine": "piper",
  "voice": "~/voices/sherpa/vits-piper-fr_FR-upmc-medium/fr_FR-upmc-medium.onnx#1",
- "duration": 84.387,
+ "duration": 83.57,
  "music_breaks": [
   {
-   "at": 8.041,
+   "at": 7.694999999999999,
    "dur": 1.8
   },
   {
-   "at": 62.717,
+   "at": 62.362,
    "dur": 1.4
   },
   {
-   "at": 74.823,
+   "at": 74.113,
    "dur": 1.6
   }
  ],
@@ -45,127 +45,127 @@
    ],
    "music_break": 1.8,
    "start": 0.0,
-   "end": 7.816,
+   "end": 7.47,
    "words": [
     {
      "w": "Tu",
      "start": 0.0,
-     "end": 0.183
+     "end": 0.199
     },
     {
      "w": "connais",
-     "start": 0.183,
-     "end": 0.594
+     "start": 0.199,
+     "end": 0.647
     },
     {
      "w": "forcément",
-     "start": 0.594,
-     "end": 1.096
+     "start": 0.647,
+     "end": 1.195
     },
     {
      "w": "ce",
-     "start": 1.096,
-     "end": 1.278
+     "start": 1.195,
+     "end": 1.394
     },
     {
      "w": "refrain.",
-     "start": 1.278,
-     "end": 1.735
+     "start": 1.394,
+     "end": 1.892
     },
     {
      "w": "On",
-     "start": 2.055,
-     "end": 2.268
+     "start": 2.212,
+     "end": 2.391
     },
     {
      "w": "le",
-     "start": 2.268,
-     "end": 2.482
+     "start": 2.391,
+     "end": 2.571
     },
     {
      "w": "crie",
-     "start": 2.482,
-     "end": 2.802
+     "start": 2.571,
+     "end": 2.84
     },
     {
      "w": "en",
-     "start": 2.802,
-     "end": 3.015
+     "start": 2.84,
+     "end": 3.019
     },
     {
      "w": "soirée,",
-     "start": 3.015,
-     "end": 3.496
+     "start": 3.019,
+     "end": 3.423
     },
     {
      "w": "verre",
-     "start": 3.496,
-     "end": 3.869
+     "start": 3.423,
+     "end": 3.737
     },
     {
      "w": "levé.",
-     "start": 3.869,
-     "end": 4.243
+     "start": 3.737,
+     "end": 4.05
     },
     {
      "w": "Mais",
-     "start": 4.563,
-     "end": 4.796
+     "start": 4.37,
+     "end": 4.591
     },
     {
      "w": "est-ce",
-     "start": 4.796,
-     "end": 5.106
+     "start": 4.591,
+     "end": 4.884
     },
     {
      "w": "que",
-     "start": 5.106,
-     "end": 5.3
+     "start": 4.884,
+     "end": 5.068
     },
     {
      "w": "tu",
-     "start": 5.3,
-     "end": 5.455
+     "start": 5.068,
+     "end": 5.215
     },
     {
      "w": "sais",
-     "start": 5.455,
-     "end": 5.688
+     "start": 5.215,
+     "end": 5.435
     },
     {
      "w": "vraiment",
-     "start": 5.688,
-     "end": 6.076
+     "start": 5.435,
+     "end": 5.802
     },
     {
      "w": "ce",
-     "start": 6.076,
-     "end": 6.232
+     "start": 5.802,
+     "end": 5.949
     },
     {
      "w": "que",
-     "start": 6.232,
-     "end": 6.426
+     "start": 5.949,
+     "end": 6.132
     },
     {
      "w": "raconte",
-     "start": 6.426,
-     "end": 6.775
+     "start": 6.132,
+     "end": 6.462
     },
     {
      "w": "ce",
-     "start": 6.775,
-     "end": 6.93
+     "start": 6.462,
+     "end": 6.609
     },
     {
      "w": "morceau",
-     "start": 6.93,
-     "end": 7.279
+     "start": 6.609,
+     "end": 6.94
     },
     {
      "w": "?",
-     "start": 7.279,
-     "end": 7.396
+     "start": 6.94,
+     "end": 7.05
     }
    ]
   },
@@ -192,113 +192,113 @@
      "at": "good"
     }
    ],
-   "start": 10.066,
-   "end": 18.768,
+   "start": 9.72,
+   "end": 18.196,
    "words": [
     {
      "w": "Swimming",
-     "start": 10.066,
-     "end": 10.625
+     "start": 9.72,
+     "end": 10.263
     },
     {
      "w": "Pools,",
-     "start": 10.625,
-     "end": 11.072
+     "start": 10.263,
+     "end": 10.698
     },
     {
      "w": "de",
-     "start": 11.072,
-     "end": 11.295
+     "start": 10.698,
+     "end": 10.916
     },
     {
      "w": "Kendrick",
-     "start": 11.295,
-     "end": 11.854
+     "start": 10.916,
+     "end": 11.46
     },
     {
      "w": "Lamar.",
-     "start": 11.854,
-     "end": 12.301
+     "start": 11.46,
+     "end": 11.895
     },
     {
      "w": "Sorti",
-     "start": 12.301,
-     "end": 12.692
+     "start": 11.895,
+     "end": 12.275
     },
     {
      "w": "en",
-     "start": 12.692,
-     "end": 12.916
+     "start": 12.275,
+     "end": 12.493
     },
     {
      "w": "2012,",
-     "start": 12.916,
-     "end": 13.307
+     "start": 12.493,
+     "end": 12.874
     },
     {
      "w": "c'est",
-     "start": 13.307,
-     "end": 13.698
+     "start": 12.874,
+     "end": 13.254
     },
     {
      "w": "l'un",
-     "start": 13.698,
-     "end": 14.033
+     "start": 13.254,
+     "end": 13.58
     },
     {
      "w": "des",
-     "start": 14.033,
-     "end": 14.313
+     "start": 13.58,
+     "end": 13.852
     },
     {
      "w": "singles",
-     "start": 14.313,
-     "end": 14.816
+     "start": 13.852,
+     "end": 14.342
     },
     {
      "w": "de",
-     "start": 14.816,
-     "end": 15.039
+     "start": 14.342,
+     "end": 14.559
     },
     {
      "w": "l'album",
-     "start": 15.039,
-     "end": 15.542
+     "start": 14.559,
+     "end": 15.049
     },
     {
      "w": "good",
-     "start": 15.542,
-     "end": 15.878
+     "start": 15.049,
+     "end": 15.375
     },
     {
      "w": "kid,",
-     "start": 15.878,
-     "end": 16.213
+     "start": 15.375,
+     "end": 15.701
     },
     {
      "w": "m.A.A.d",
-     "start": 16.213,
-     "end": 16.716
+     "start": 15.701,
+     "end": 16.191
     },
     {
      "w": "city,",
-     "start": 16.716,
-     "end": 17.107
+     "start": 16.191,
+     "end": 16.571
     },
     {
      "w": "produit",
-     "start": 17.107,
-     "end": 17.61
+     "start": 16.571,
+     "end": 17.061
     },
     {
      "w": "par",
-     "start": 17.61,
-     "end": 17.889
+     "start": 17.061,
+     "end": 17.333
     },
     {
      "w": "T-Minus.",
-     "start": 17.889,
-     "end": 18.448
+     "start": 17.333,
+     "end": 17.876
     }
    ]
   },
@@ -311,158 +311,158 @@
    ],
    "text": "Le point de départ, c'est sa famille. Kendrick a raconté qu'en grandissant, l'alcool faisait partie du décor : les fêtes, les adultes autour de lui, les verres qui se remplissent.",
    "tts": "Le point de départ, c'est sa famille. Kène-drik a raconté qu'en grandissant, l'alcool faisait partie du décor : les fêtes, les adultes autour de lui, les verres qui se remplissent.",
-   "start": 19.218,
-   "end": 30.091,
+   "start": 18.646,
+   "end": 29.282,
    "words": [
     {
      "w": "Le",
-     "start": 19.218,
-     "end": 19.417
+     "start": 18.646,
+     "end": 18.835
     },
     {
      "w": "point",
-     "start": 19.417,
-     "end": 19.766
+     "start": 18.835,
+     "end": 19.165
     },
     {
      "w": "de",
-     "start": 19.766,
-     "end": 19.965
+     "start": 19.165,
+     "end": 19.353
     },
     {
      "w": "départ,",
-     "start": 19.965,
-     "end": 20.413
+     "start": 19.353,
+     "end": 19.777
     },
     {
      "w": "c'est",
-     "start": 20.413,
-     "end": 20.761
+     "start": 19.777,
+     "end": 20.107
     },
     {
      "w": "sa",
-     "start": 20.761,
-     "end": 20.96
+     "start": 20.107,
+     "end": 20.295
     },
     {
      "w": "famille.",
-     "start": 20.96,
-     "end": 21.458
+     "start": 20.295,
+     "end": 20.766
     },
     {
      "w": "Kendrick",
-     "start": 21.778,
-     "end": 22.237
+     "start": 21.086,
+     "end": 21.535
     },
     {
      "w": "a",
-     "start": 22.237,
-     "end": 22.375
+     "start": 21.535,
+     "end": 21.669
     },
     {
      "w": "raconté",
-     "start": 22.375,
-     "end": 22.788
+     "start": 21.669,
+     "end": 22.072
     },
     {
      "w": "qu'en",
-     "start": 22.788,
-     "end": 23.11
+     "start": 22.072,
+     "end": 22.386
     },
     {
      "w": "grandissant,",
-     "start": 23.11,
-     "end": 23.753
+     "start": 22.386,
+     "end": 23.013
     },
     {
      "w": "l'alcool",
-     "start": 23.753,
-     "end": 24.213
+     "start": 23.013,
+     "end": 23.461
     },
     {
      "w": "faisait",
-     "start": 24.213,
-     "end": 24.626
+     "start": 23.461,
+     "end": 23.864
     },
     {
      "w": "partie",
-     "start": 24.626,
-     "end": 24.994
+     "start": 23.864,
+     "end": 24.223
     },
     {
      "w": "du",
-     "start": 24.994,
-     "end": 25.177
+     "start": 24.223,
+     "end": 24.402
     },
     {
      "w": "décor",
-     "start": 25.177,
-     "end": 25.499
+     "start": 24.402,
+     "end": 24.716
     },
     {
      "w": ":",
-     "start": 25.499,
-     "end": 25.637
+     "start": 24.716,
+     "end": 24.85
     },
     {
      "w": "les",
-     "start": 25.917,
-     "end": 26.155
+     "start": 25.13,
+     "end": 25.367
     },
     {
      "w": "fêtes,",
-     "start": 26.155,
-     "end": 26.535
+     "start": 25.367,
+     "end": 25.745
     },
     {
      "w": "les",
-     "start": 26.535,
-     "end": 26.773
+     "start": 25.745,
+     "end": 25.982
     },
     {
      "w": "adultes",
-     "start": 26.773,
-     "end": 27.202
+     "start": 25.982,
+     "end": 26.407
     },
     {
      "w": "autour",
-     "start": 27.202,
-     "end": 27.582
+     "start": 26.407,
+     "end": 26.786
     },
     {
      "w": "de",
-     "start": 27.582,
-     "end": 27.773
+     "start": 26.786,
+     "end": 26.975
     },
     {
      "w": "lui,",
-     "start": 27.773,
-     "end": 28.058
+     "start": 26.975,
+     "end": 27.259
     },
     {
      "w": "les",
-     "start": 28.058,
-     "end": 28.296
+     "start": 27.259,
+     "end": 27.495
     },
     {
      "w": "verres",
-     "start": 28.296,
-     "end": 28.677
+     "start": 27.495,
+     "end": 27.874
     },
     {
      "w": "qui",
-     "start": 28.677,
-     "end": 28.915
+     "start": 27.874,
+     "end": 28.11
     },
     {
      "w": "se",
-     "start": 28.915,
-     "end": 29.105
+     "start": 28.11,
+     "end": 28.3
     },
     {
      "w": "remplissent.",
-     "start": 29.105,
-     "end": 29.771
+     "start": 28.3,
+     "end": 28.962
     }
    ]
   },
@@ -476,203 +476,203 @@
    "text": "Dans une interview au magazine Complex en 2012, il explique avoir grandi dans un foyer où il fallait choisir : boire de temps en temps, ou devenir un ivrogne. Et selon lui, c'est ça, le vrai sujet du morceau.",
    "tts": "Dans une interview au magazine Complèxe en deux mille douze, il explique avoir grandi dans un foyer où il fallait choisir : boire de temps en temps, ou devenir un ivrogne. Et selon lui, c'est ça, le vrai sujet du morceau.",
    "pause_before": 0.3,
-   "start": 30.841,
-   "end": 43.844,
+   "start": 30.032,
+   "end": 43.685,
    "words": [
     {
      "w": "Dans",
-     "start": 30.841,
-     "end": 31.13
+     "start": 30.032,
+     "end": 30.327
     },
     {
      "w": "une",
-     "start": 31.13,
-     "end": 31.37
+     "start": 30.327,
+     "end": 30.574
     },
     {
      "w": "interview",
-     "start": 31.37,
-     "end": 31.898
+     "start": 30.574,
+     "end": 31.115
     },
     {
      "w": "au",
-     "start": 31.898,
-     "end": 32.091
+     "start": 31.115,
+     "end": 31.312
     },
     {
      "w": "magazine",
-     "start": 32.091,
-     "end": 32.571
+     "start": 31.312,
+     "end": 31.805
     },
     {
      "w": "Complex",
-     "start": 32.571,
-     "end": 33.004
+     "start": 31.805,
+     "end": 32.248
     },
     {
      "w": "en",
-     "start": 33.004,
-     "end": 33.196
+     "start": 32.248,
+     "end": 32.445
     },
     {
      "w": "2012,",
-     "start": 33.196,
-     "end": 33.533
+     "start": 32.445,
+     "end": 32.79
     },
     {
      "w": "il",
-     "start": 33.533,
-     "end": 33.725
+     "start": 32.79,
+     "end": 32.987
     },
     {
      "w": "explique",
-     "start": 33.725,
-     "end": 34.205
+     "start": 32.987,
+     "end": 33.479
     },
     {
      "w": "avoir",
-     "start": 34.205,
-     "end": 34.542
+     "start": 33.479,
+     "end": 33.824
     },
     {
      "w": "grandi",
-     "start": 34.542,
-     "end": 34.926
+     "start": 33.824,
+     "end": 34.218
     },
     {
      "w": "dans",
-     "start": 34.926,
-     "end": 35.215
+     "start": 34.218,
+     "end": 34.514
     },
     {
      "w": "un",
-     "start": 35.215,
-     "end": 35.407
+     "start": 34.514,
+     "end": 34.711
     },
     {
      "w": "foyer",
-     "start": 35.407,
-     "end": 35.743
+     "start": 34.711,
+     "end": 35.056
     },
     {
      "w": "où",
-     "start": 35.743,
-     "end": 35.935
+     "start": 35.056,
+     "end": 35.253
     },
     {
      "w": "il",
-     "start": 35.935,
-     "end": 36.128
+     "start": 35.253,
+     "end": 35.45
     },
     {
      "w": "fallait",
-     "start": 36.128,
-     "end": 36.56
+     "start": 35.45,
+     "end": 35.893
     },
     {
      "w": "choisir",
-     "start": 36.56,
-     "end": 36.993
+     "start": 35.893,
+     "end": 36.336
     },
     {
      "w": ":",
-     "start": 36.993,
-     "end": 37.137
+     "start": 36.336,
+     "end": 36.484
     },
     {
      "w": "boire",
-     "start": 37.417,
-     "end": 37.746
+     "start": 36.764,
+     "end": 37.099
     },
     {
      "w": "de",
-     "start": 37.746,
-     "end": 37.935
+     "start": 37.099,
+     "end": 37.29
     },
     {
      "w": "temps",
-     "start": 37.935,
-     "end": 38.264
+     "start": 37.29,
+     "end": 37.625
     },
     {
      "w": "en",
-     "start": 38.264,
-     "end": 38.453
+     "start": 37.625,
+     "end": 37.816
     },
     {
      "w": "temps,",
-     "start": 38.453,
-     "end": 38.829
+     "start": 37.816,
+     "end": 38.199
     },
     {
      "w": "ou",
-     "start": 38.829,
-     "end": 39.017
+     "start": 38.199,
+     "end": 38.39
     },
     {
      "w": "devenir",
-     "start": 39.017,
-     "end": 39.441
+     "start": 38.39,
+     "end": 38.821
     },
     {
      "w": "un",
-     "start": 39.441,
-     "end": 39.629
+     "start": 38.821,
+     "end": 39.012
     },
     {
      "w": "ivrogne.",
-     "start": 39.629,
-     "end": 40.1
+     "start": 39.012,
+     "end": 39.491
     },
     {
      "w": "Et",
-     "start": 40.42,
-     "end": 40.627
+     "start": 39.811,
+     "end": 40.048
     },
     {
      "w": "selon",
-     "start": 40.627,
-     "end": 40.989
+     "start": 40.048,
+     "end": 40.462
     },
     {
      "w": "lui,",
-     "start": 40.989,
-     "end": 41.299
+     "start": 40.462,
+     "end": 40.818
     },
     {
      "w": "c'est",
-     "start": 41.299,
-     "end": 41.661
+     "start": 40.818,
+     "end": 41.233
     },
     {
      "w": "ça,",
-     "start": 41.661,
-     "end": 41.92
+     "start": 41.233,
+     "end": 41.529
     },
     {
      "w": "le",
-     "start": 41.92,
-     "end": 42.127
+     "start": 41.529,
+     "end": 41.766
     },
     {
      "w": "vrai",
-     "start": 42.127,
-     "end": 42.437
+     "start": 41.766,
+     "end": 42.121
     },
     {
      "w": "sujet",
-     "start": 42.437,
-     "end": 42.799
+     "start": 42.121,
+     "end": 42.536
     },
     {
      "w": "du",
-     "start": 42.799,
-     "end": 43.006
+     "start": 42.536,
+     "end": 42.773
     },
     {
      "w": "morceau.",
-     "start": 43.006,
-     "end": 43.524
+     "start": 42.773,
+     "end": 43.365
     }
    ]
   },
@@ -684,163 +684,163 @@
     "conscience"
    ],
    "text": "Écoute bien : il y a deux voix. Celle des potes qui insistent, qui remplissent encore le verre. Et une autre, plus grave, comme une conscience, qui le met en garde.",
-   "start": 44.294,
-   "end": 54.511,
+   "start": 44.135,
+   "end": 54.211,
    "words": [
     {
      "w": "Écoute",
-     "start": 44.294,
-     "end": 44.582
+     "start": 44.135,
+     "end": 44.461
     },
     {
      "w": "bien",
-     "start": 44.582,
-     "end": 44.798
+     "start": 44.461,
+     "end": 44.706
     },
     {
      "w": ":",
-     "start": 44.798,
-     "end": 44.907
+     "start": 44.706,
+     "end": 44.828
     },
     {
      "w": "il",
-     "start": 45.187,
-     "end": 45.358
+     "start": 45.108,
+     "end": 45.259
     },
     {
      "w": "y",
-     "start": 45.358,
-     "end": 45.486
+     "start": 45.259,
+     "end": 45.373
     },
     {
      "w": "a",
-     "start": 45.486,
-     "end": 45.614
+     "start": 45.373,
+     "end": 45.486
     },
     {
      "w": "deux",
-     "start": 45.614,
-     "end": 45.87
+     "start": 45.486,
+     "end": 45.713
     },
     {
      "w": "voix.",
-     "start": 45.87,
-     "end": 46.169
+     "start": 45.713,
+     "end": 45.978
     },
     {
      "w": "Celle",
-     "start": 46.489,
-     "end": 46.824
+     "start": 46.298,
+     "end": 46.607
     },
     {
      "w": "des",
-     "start": 46.824,
-     "end": 47.063
+     "start": 46.607,
+     "end": 46.827
     },
     {
      "w": "potes",
-     "start": 47.063,
-     "end": 47.398
+     "start": 46.827,
+     "end": 47.136
     },
     {
      "w": "qui",
-     "start": 47.398,
-     "end": 47.637
+     "start": 47.136,
+     "end": 47.356
     },
     {
      "w": "insistent,",
-     "start": 47.637,
-     "end": 48.21
+     "start": 47.356,
+     "end": 47.885
     },
     {
      "w": "qui",
-     "start": 48.21,
-     "end": 48.449
+     "start": 47.885,
+     "end": 48.106
     },
     {
      "w": "remplissent",
-     "start": 48.449,
-     "end": 49.071
+     "start": 48.106,
+     "end": 48.679
     },
     {
      "w": "encore",
-     "start": 49.071,
-     "end": 49.453
+     "start": 48.679,
+     "end": 49.032
     },
     {
      "w": "le",
-     "start": 49.453,
-     "end": 49.644
+     "start": 49.032,
+     "end": 49.208
     },
     {
      "w": "verre.",
-     "start": 49.644,
-     "end": 50.027
+     "start": 49.208,
+     "end": 49.561
     },
     {
      "w": "Et",
-     "start": 50.347,
-     "end": 50.534
+     "start": 49.881,
+     "end": 50.076
     },
     {
      "w": "une",
-     "start": 50.534,
-     "end": 50.769
+     "start": 50.076,
+     "end": 50.321
     },
     {
      "w": "autre,",
-     "start": 50.769,
-     "end": 51.144
+     "start": 50.321,
+     "end": 50.712
     },
     {
      "w": "plus",
-     "start": 51.144,
-     "end": 51.425
+     "start": 50.712,
+     "end": 51.006
     },
     {
      "w": "grave,",
-     "start": 51.425,
-     "end": 51.8
+     "start": 51.006,
+     "end": 51.397
     },
     {
      "w": "comme",
-     "start": 51.8,
-     "end": 52.128
+     "start": 51.397,
+     "end": 51.739
     },
     {
      "w": "une",
-     "start": 52.128,
-     "end": 52.363
+     "start": 51.739,
+     "end": 51.984
     },
     {
      "w": "conscience,",
-     "start": 52.363,
-     "end": 52.972
+     "start": 51.984,
+     "end": 52.62
     },
     {
      "w": "qui",
-     "start": 52.972,
-     "end": 53.207
+     "start": 52.62,
+     "end": 52.864
     },
     {
      "w": "le",
-     "start": 53.207,
-     "end": 53.394
+     "start": 52.864,
+     "end": 53.06
     },
     {
      "w": "met",
-     "start": 53.394,
-     "end": 53.629
+     "start": 53.06,
+     "end": 53.304
     },
     {
      "w": "en",
-     "start": 53.629,
-     "end": 53.816
+     "start": 53.304,
+     "end": 53.5
     },
     {
      "w": "garde.",
-     "start": 53.816,
-     "end": 54.191
+     "start": 53.5,
+     "end": 53.891
     }
    ]
   },
@@ -853,118 +853,118 @@
    ],
    "text": "D'où l'image de la piscine. Pas une piscine d'eau : une piscine d'alcool, assez grande pour plonger dedans. Et pour s'y noyer.",
    "music_break": 1.4,
-   "start": 54.961,
-   "end": 62.492,
+   "start": 54.661,
+   "end": 62.137,
    "words": [
     {
      "w": "D'où",
-     "start": 54.961,
-     "end": 55.204
+     "start": 54.661,
+     "end": 54.916
     },
     {
      "w": "l'image",
-     "start": 55.204,
-     "end": 55.568
+     "start": 54.916,
+     "end": 55.299
     },
     {
      "w": "de",
-     "start": 55.568,
-     "end": 55.73
+     "start": 55.299,
+     "end": 55.469
     },
     {
      "w": "la",
-     "start": 55.73,
-     "end": 55.892
+     "start": 55.469,
+     "end": 55.639
     },
     {
      "w": "piscine.",
-     "start": 55.892,
-     "end": 56.296
+     "start": 55.639,
+     "end": 56.064
     },
     {
      "w": "Pas",
-     "start": 56.616,
-     "end": 56.765
+     "start": 56.384,
+     "end": 56.528
     },
     {
      "w": "une",
-     "start": 56.765,
-     "end": 56.914
+     "start": 56.528,
+     "end": 56.672
     },
     {
      "w": "piscine",
-     "start": 56.914,
-     "end": 57.181
+     "start": 56.672,
+     "end": 56.932
     },
     {
      "w": "d'eau",
-     "start": 57.181,
-     "end": 57.389
+     "start": 56.932,
+     "end": 57.134
     },
     {
      "w": ":",
-     "start": 57.389,
-     "end": 57.478
+     "start": 57.134,
+     "end": 57.221
     },
     {
      "w": "une",
-     "start": 57.758,
-     "end": 58.016
+     "start": 57.501,
+     "end": 57.737
     },
     {
      "w": "piscine",
-     "start": 58.016,
-     "end": 58.48
+     "start": 57.737,
+     "end": 58.161
     },
     {
      "w": "d'alcool,",
-     "start": 58.48,
-     "end": 59.046
+     "start": 58.161,
+     "end": 58.681
     },
     {
      "w": "assez",
-     "start": 59.046,
-     "end": 59.407
+     "start": 58.681,
+     "end": 59.011
     },
     {
      "w": "grande",
-     "start": 59.407,
-     "end": 59.819
+     "start": 59.011,
+     "end": 59.389
     },
     {
      "w": "pour",
-     "start": 59.819,
-     "end": 60.128
+     "start": 59.389,
+     "end": 59.672
     },
     {
      "w": "plonger",
-     "start": 60.128,
-     "end": 60.592
+     "start": 59.672,
+     "end": 60.097
     },
     {
      "w": "dedans.",
-     "start": 60.592,
-     "end": 61.056
+     "start": 60.097,
+     "end": 60.522
     },
     {
      "w": "Et",
-     "start": 61.376,
-     "end": 61.514
+     "start": 60.842,
+     "end": 61.011
     },
     {
      "w": "pour",
-     "start": 61.514,
-     "end": 61.722
+     "start": 61.011,
+     "end": 61.266
     },
     {
      "w": "s'y",
-     "start": 61.722,
-     "end": 61.895
+     "start": 61.266,
+     "end": 61.478
     },
     {
      "w": "noyer.",
-     "start": 61.895,
-     "end": 62.172
+     "start": 61.478,
+     "end": 61.817
     }
    ]
   },
@@ -977,168 +977,168 @@
    ],
    "text": "Alors oui, le refrain marche en soirée. Mais le morceau ne fait pas la fête : il décrit la pression du groupe, la tentation, et ce qu'on reproduit sans s'en rendre compte.",
    "music_break": 1.6,
-   "start": 64.342,
-   "end": 74.598,
+   "start": 63.987,
+   "end": 73.888,
    "words": [
     {
      "w": "Alors",
-     "start": 64.342,
-     "end": 64.729
+     "start": 63.987,
+     "end": 64.355
     },
     {
      "w": "oui,",
-     "start": 64.729,
-     "end": 65.06
+     "start": 64.355,
+     "end": 64.67
     },
     {
      "w": "le",
-     "start": 65.06,
-     "end": 65.281
+     "start": 64.67,
+     "end": 64.881
     },
     {
      "w": "refrain",
-     "start": 65.281,
-     "end": 65.778
+     "start": 64.881,
+     "end": 65.354
     },
     {
      "w": "marche",
-     "start": 65.778,
-     "end": 66.22
+     "start": 65.354,
+     "end": 65.775
     },
     {
      "w": "en",
-     "start": 66.22,
-     "end": 66.441
+     "start": 65.775,
+     "end": 65.985
     },
     {
      "w": "soirée.",
-     "start": 66.441,
-     "end": 66.938
+     "start": 65.985,
+     "end": 66.458
     },
     {
      "w": "Mais",
-     "start": 67.258,
-     "end": 67.461
+     "start": 66.778,
+     "end": 66.962
     },
     {
      "w": "le",
-     "start": 67.461,
-     "end": 67.597
+     "start": 66.962,
+     "end": 67.084
     },
     {
      "w": "morceau",
-     "start": 67.597,
-     "end": 67.901
+     "start": 67.084,
+     "end": 67.359
     },
     {
      "w": "ne",
-     "start": 67.901,
-     "end": 68.037
+     "start": 67.359,
+     "end": 67.481
     },
     {
      "w": "fait",
-     "start": 68.037,
-     "end": 68.24
+     "start": 67.481,
+     "end": 67.665
     },
     {
      "w": "pas",
-     "start": 68.24,
-     "end": 68.409
+     "start": 67.665,
+     "end": 67.818
     },
     {
      "w": "la",
-     "start": 68.409,
-     "end": 68.545
+     "start": 67.818,
+     "end": 67.94
     },
     {
      "w": "fête",
-     "start": 68.545,
-     "end": 68.748
+     "start": 67.94,
+     "end": 68.124
     },
     {
      "w": ":",
-     "start": 68.748,
-     "end": 68.849
+     "start": 68.124,
+     "end": 68.215
     },
     {
      "w": "il",
-     "start": 69.129,
-     "end": 69.316
+     "start": 68.495,
+     "end": 68.68
     },
     {
      "w": "décrit",
-     "start": 69.316,
-     "end": 69.691
+     "start": 68.68,
+     "end": 69.049
     },
     {
      "w": "la",
-     "start": 69.691,
-     "end": 69.878
+     "start": 69.049,
+     "end": 69.233
     },
     {
      "w": "pression",
-     "start": 69.878,
-     "end": 70.346
+     "start": 69.233,
+     "end": 69.694
     },
     {
      "w": "du",
-     "start": 70.346,
-     "end": 70.533
+     "start": 69.694,
+     "end": 69.879
     },
     {
      "w": "groupe,",
-     "start": 70.533,
-     "end": 70.955
+     "start": 69.879,
+     "end": 70.294
     },
     {
      "w": "la",
-     "start": 70.955,
-     "end": 71.142
+     "start": 70.294,
+     "end": 70.478
     },
     {
      "w": "tentation,",
-     "start": 71.142,
-     "end": 71.703
+     "start": 70.478,
+     "end": 71.031
     },
     {
      "w": "et",
-     "start": 71.703,
-     "end": 71.891
+     "start": 71.031,
+     "end": 71.216
     },
     {
      "w": "ce",
-     "start": 71.891,
-     "end": 72.078
+     "start": 71.216,
+     "end": 71.4
     },
     {
      "w": "qu'on",
-     "start": 72.078,
-     "end": 72.405
+     "start": 71.4,
+     "end": 71.723
     },
     {
      "w": "reproduit",
-     "start": 72.405,
-     "end": 72.92
+     "start": 71.723,
+     "end": 72.23
     },
     {
      "w": "sans",
-     "start": 72.92,
-     "end": 73.201
+     "start": 72.23,
+     "end": 72.507
     },
     {
      "w": "s'en",
-     "start": 73.201,
-     "end": 73.482
+     "start": 72.507,
+     "end": 72.784
     },
     {
      "w": "rendre",
-     "start": 73.482,
-     "end": 73.856
+     "start": 72.784,
+     "end": 73.153
     },
     {
      "w": "compte.",
-     "start": 73.856,
-     "end": 74.278
+     "start": 73.153,
+     "end": 73.568
     }
    ]
   },
@@ -1149,123 +1149,123 @@
     "écouter"
    ],
    "text": "La prochaine fois que tu l'entends, tu l'écouteras de la même façon ? Dis-moi en commentaire quel morceau tu veux que je décortique.",
-   "start": 76.648,
-   "end": 83.937,
+   "start": 75.938,
+   "end": 83.12,
    "words": [
     {
      "w": "La",
-     "start": 76.648,
-     "end": 76.821
+     "start": 75.938,
+     "end": 76.099
     },
     {
      "w": "prochaine",
-     "start": 76.821,
-     "end": 77.296
+     "start": 76.099,
+     "end": 76.541
     },
     {
      "w": "fois",
-     "start": 77.296,
-     "end": 77.556
+     "start": 76.541,
+     "end": 76.783
     },
     {
      "w": "que",
-     "start": 77.556,
-     "end": 77.772
+     "start": 76.783,
+     "end": 76.984
     },
     {
      "w": "tu",
-     "start": 77.772,
-     "end": 77.945
+     "start": 76.984,
+     "end": 77.145
     },
     {
      "w": "l'entends,",
-     "start": 77.945,
-     "end": 78.464
+     "start": 77.145,
+     "end": 77.628
     },
     {
      "w": "tu",
-     "start": 78.464,
-     "end": 78.637
+     "start": 77.628,
+     "end": 77.789
     },
     {
      "w": "l'écouteras",
-     "start": 78.637,
-     "end": 79.2
+     "start": 77.789,
+     "end": 78.312
     },
     {
      "w": "de",
-     "start": 79.2,
-     "end": 79.373
+     "start": 78.312,
+     "end": 78.473
     },
     {
      "w": "la",
-     "start": 79.373,
-     "end": 79.546
+     "start": 78.473,
+     "end": 78.634
     },
     {
      "w": "même",
-     "start": 79.546,
-     "end": 79.805
+     "start": 78.634,
+     "end": 78.876
     },
     {
      "w": "façon",
-     "start": 79.805,
-     "end": 80.108
+     "start": 78.876,
+     "end": 79.157
     },
     {
      "w": "?",
-     "start": 80.108,
-     "end": 80.238
+     "start": 79.157,
+     "end": 79.278
     },
     {
      "w": "Dis-moi",
-     "start": 80.658,
-     "end": 81.023
+     "start": 79.698,
+     "end": 80.081
     },
     {
      "w": "en",
-     "start": 81.023,
-     "end": 81.185
+     "start": 80.081,
+     "end": 80.25
     },
     {
      "w": "commentaire",
-     "start": 81.185,
-     "end": 81.712
+     "start": 80.25,
+     "end": 80.803
     },
     {
      "w": "quel",
-     "start": 81.712,
-     "end": 81.955
+     "start": 80.803,
+     "end": 81.058
     },
     {
      "w": "morceau",
-     "start": 81.955,
-     "end": 82.32
+     "start": 81.058,
+     "end": 81.44
     },
     {
      "w": "tu",
-     "start": 82.32,
-     "end": 82.482
+     "start": 81.44,
+     "end": 81.61
     },
     {
      "w": "veux",
-     "start": 82.482,
-     "end": 82.725
+     "start": 81.61,
+     "end": 81.865
     },
     {
      "w": "que",
-     "start": 82.725,
-     "end": 82.928
+     "start": 81.865,
+     "end": 82.077
     },
     {
      "w": "je",
-     "start": 82.928,
-     "end": 83.09
+     "start": 82.077,
+     "end": 82.247
     },
     {
      "w": "décortique.",
-     "start": 83.09,
-     "end": 83.617
+     "start": 82.247,
+     "end": 82.8
     }
    ]
   }

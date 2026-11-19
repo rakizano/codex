@@ -35,7 +35,7 @@ export const KineticWord: React.FC<{text: string; at?: number; size?: number; co
   const bob = Math.sin(fr / 14 + x / 97) * 7 * s, sway = Math.sin(fr / 23 + y / 83) * 1.4 * s;
   return (
     <div style={{position: 'absolute', left: x, top: y, transform: `translate(-50%,calc(-50% + ${bob}px)) scale(${s * (1 + Math.sin(fr / 19) * 0.012)}) rotate(${(1 - s) * rot * 4 + rot + sway}deg)`, opacity: Math.min(1, s * 1.5),
-      fontFamily: FONT, fontWeight: weight, fontSize: size, color, letterSpacing: -2, whiteSpace: 'nowrap', textTransform: 'uppercase', lineHeight: 1, textShadow: '0 6px 26px #000a'}}>
+      fontFamily: FONT, fontWeight: weight, fontSize: size, color, letterSpacing: -1.5, whiteSpace: 'nowrap', lineHeight: 1.05, textShadow: '0 6px 26px #000a', filter: s < 0.97 ? `blur(${((1 - s) * 10).toFixed(1)}px)` : undefined}}>
       {text}
     </div>
   );

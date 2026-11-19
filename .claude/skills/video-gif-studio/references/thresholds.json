@@ -1,0 +1,2230 @@
+{
+  "version": 1,
+  "round": 0,
+  "thresholds": [
+    {
+      "id": "audio.loudness.target",
+      "value": -14,
+      "class": "F",
+      "unit": "LUFS",
+      "measures": "FFmpeg ebur128 integrated loudness",
+      "direction": "equal",
+      "anchors": [],
+      "history": [],
+      "provenance": {
+        "source_class": "EXT",
+        "ref": "wow/fx/acceptance-amendments.md section 6: retained streaming target -14 LUFS"
+      },
+      "status": "active",
+      "instrument": "scripts/threshold_runtime.py#v1:audio.loudness.target"
+    },
+    {
+      "id": "audio.loudness.tolerance",
+      "value": 1,
+      "class": "F",
+      "unit": "LU",
+      "measures": "Absolute difference from loudness target",
+      "direction": "max",
+      "anchors": [],
+      "history": [],
+      "provenance": {
+        "source_class": "EXT",
+        "ref": "wow/fx/acceptance-amendments.md section 6: -14 LUFS +/-1"
+      },
+      "status": "active",
+      "instrument": "scripts/threshold_runtime.py#v1:audio.loudness.tolerance"
+    },
+    {
+      "id": "audio.true_peak.max",
+      "value": -1,
+      "class": "F",
+      "unit": "dBTP",
+      "measures": "FFmpeg ebur128 true peak",
+      "direction": "max",
+      "anchors": [],
+      "history": [],
+      "provenance": {
+        "source_class": "EXT",
+        "ref": "AES TD1004 recommendation; wow/fx/thresholds.md E4"
+      },
+      "status": "active",
+      "instrument": "scripts/threshold_runtime.py#v1:audio.true_peak.max"
+    },
+    {
+      "id": "audio.limiter.ceiling",
+      "value": -1.5,
+      "class": "U",
+      "unit": "dBTP",
+      "measures": "Oversampled limiter headroom before encoding",
+      "direction": "max",
+      "anchors": [
+        {
+          "id": "audio.limiter.ceiling.best",
+          "path": "references/threshold-anchors.json#audio.limiter.ceiling/best",
+          "role": "best",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "audio.limiter.ceiling.benchmark",
+          "path": "references/threshold-anchors.json#audio.limiter.ceiling/benchmark",
+          "role": "benchmark",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "audio.limiter.ceiling.known_worse",
+          "path": "references/threshold-anchors.json#audio.limiter.ceiling/known_worse",
+          "role": "known_worse",
+          "expected": "fail",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "audio.limiter.ceiling.positive_control",
+          "path": "references/threshold-anchors.json#audio.limiter.ceiling/positive_control",
+          "role": "positive_control",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "audio.limiter.ceiling.negative_control",
+          "path": "references/threshold-anchors.json#audio.limiter.ceiling/negative_control",
+          "role": "negative_control",
+          "expected": "fail",
+          "label_source": "fixture",
+          "held_out": true
+        }
+      ],
+      "history": [],
+      "provenance": {
+        "source_class": "ANCHOR",
+        "ref": "scripts/delivery.py P0 encoded-audio QA; 0.5 dB headroom"
+      },
+      "status": "active",
+      "bounds": [
+        -6,
+        -1
+      ],
+      "max_step": 0.15,
+      "instrument": "scripts/threshold_runtime.py#v1:audio.limiter.ceiling"
+    },
+    {
+      "id": "caption.contrast.min",
+      "value": 4.5,
+      "class": "F",
+      "unit": "ratio",
+      "measures": "sRGB relative luminance, fill versus stroke",
+      "direction": "min",
+      "anchors": [],
+      "history": [],
+      "provenance": {
+        "source_class": "EXT",
+        "ref": "WCAG 2.1 1.4.3 https://www.w3.org/TR/WCAG21/#contrast-minimum ; amendments omit outer-ring rule"
+      },
+      "status": "active",
+      "instrument": "scripts/threshold_runtime.py#v1:caption.contrast.min"
+    },
+    {
+      "id": "memory.peak.max",
+      "value": 649950412.8,
+      "class": "R",
+      "unit": "bytes",
+      "measures": "Stable P0 1080x1920 30 s whole-tree peak working set; fixed machine/workload",
+      "direction": "max",
+      "anchors": [
+        {
+          "id": "memory.peak.max.best",
+          "path": "references/threshold-anchors.json#memory.peak.max/best",
+          "role": "best",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "memory.peak.max.benchmark",
+          "path": "references/threshold-anchors.json#memory.peak.max/benchmark",
+          "role": "benchmark",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "memory.peak.max.known_worse",
+          "path": "references/threshold-anchors.json#memory.peak.max/known_worse",
+          "role": "known_worse",
+          "expected": "fail",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "memory.peak.max.positive_control",
+          "path": "references/threshold-anchors.json#memory.peak.max/positive_control",
+          "role": "positive_control",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "memory.peak.max.negative_control",
+          "path": "references/threshold-anchors.json#memory.peak.max/negative_control",
+          "role": "negative_control",
+          "expected": "fail",
+          "label_source": "fixture",
+          "held_out": true
+        }
+      ],
+      "history": [],
+      "provenance": {
+        "source_class": "ANCHOR",
+        "ref": "wow/fx/benchmark-p0-stable.json: 499961856 * 1.3"
+      },
+      "status": "active",
+      "margin": 1.3,
+      "max_step": 0.1,
+      "bounds": [
+        1,
+        1500000000
+      ],
+      "instrument": "wow/fx/benchmark_p0.py#stable-50ms-tree-memory"
+    },
+    {
+      "id": "visibility.onset_contrast.min",
+      "value": {
+        "default": 0.22,
+        "tonal": 0.19,
+        "motion": 0.25
+      },
+      "class": "C",
+      "unit": "ratio",
+      "measures": "Lab onset with chroma, motion-family texture normalization and bounded temporal masking; v2",
+      "direction": "min",
+      "anchors": [
+        {
+          "id": "visibility.onset_contrast.min.best",
+          "path": "references/threshold-anchors.json#visibility.onset_contrast.min/best",
+          "role": "best",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "visibility.onset_contrast.min.benchmark",
+          "path": "references/threshold-anchors.json#visibility.onset_contrast.min/benchmark",
+          "role": "benchmark",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "visibility.onset_contrast.min.known_worse",
+          "path": "references/threshold-anchors.json#visibility.onset_contrast.min/known_worse",
+          "role": "known_worse",
+          "expected": "fail",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "visibility.onset_contrast.min.positive_control",
+          "path": "references/threshold-anchors.json#visibility.onset_contrast.min/positive_control",
+          "role": "positive_control",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "visibility.onset_contrast.min.negative_control",
+          "path": "references/threshold-anchors.json#visibility.onset_contrast.min/negative_control",
+          "role": "negative_control",
+          "expected": "fail",
+          "label_source": "fixture",
+          "held_out": true
+        }
+      ],
+      "history": [
+        {
+          "date": "2026-11-05",
+          "from": 1.0,
+          "to": {
+            "default": 0.5,
+            "tonal": 0.5,
+            "motion": 0.25
+          },
+          "trigger": "Lab chroma, bounded masking and texture normalization; independent family 2AFC pending",
+          "approved_by": "builder: candidate instrument only, not active",
+          "anchor_decisions": []
+        },
+        {
+          "date": "2026-11-05",
+          "from": {
+            "default": 0.5,
+            "tonal": 0.5,
+            "motion": 0.25
+          },
+          "to": {
+            "default": 0.22,
+            "tonal": 0.19,
+            "motion": 0.25
+          },
+          "trigger": "Independent review-s6-2: 17 anchors, tonal 13/13 at ~.19, motion 4/4 at .25; combined separation ~.22. Candidate only; human 2AFC still required.",
+          "approved_by": "builder: records reviewer candidate, no activation",
+          "anchor_decisions": []
+        }
+      ],
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "Agent seed pending held-out panel calibration; wow/fx/acceptance-amendments.md A6-1/A8-1/A8-2 and section 5",
+        "agent_invented": true
+      },
+      "status": "calibrate_first",
+      "bounds": [
+        0,
+        100
+      ],
+      "margin": 0.01,
+      "instrument": "scripts/fx_measure.py#Lab-texture-v2"
+    },
+    {
+      "id": "harshness.sharp4.min",
+      "value": 0.5,
+      "class": "C",
+      "unit": "ratio",
+      "measures": "Quarter-resolution whole-frame Laplacian variance output / source; v1",
+      "direction": "min",
+      "anchors": [
+        {
+          "id": "harshness.sharp4.min.best",
+          "path": "references/threshold-anchors.json#harshness.sharp4.min/best",
+          "role": "best",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "harshness.sharp4.min.benchmark",
+          "path": "references/threshold-anchors.json#harshness.sharp4.min/benchmark",
+          "role": "benchmark",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "harshness.sharp4.min.known_worse",
+          "path": "references/threshold-anchors.json#harshness.sharp4.min/known_worse",
+          "role": "known_worse",
+          "expected": "fail",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "harshness.sharp4.min.positive_control",
+          "path": "references/threshold-anchors.json#harshness.sharp4.min/positive_control",
+          "role": "positive_control",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "harshness.sharp4.min.negative_control",
+          "path": "references/threshold-anchors.json#harshness.sharp4.min/negative_control",
+          "role": "negative_control",
+          "expected": "fail",
+          "label_source": "fixture",
+          "held_out": true
+        }
+      ],
+      "history": [],
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "Agent seed pending held-out panel calibration; wow/fx/acceptance-amendments.md A6-1/A8-1/A8-2 and section 5",
+        "agent_invented": true
+      },
+      "status": "calibrate_first",
+      "bounds": [
+        0,
+        1
+      ],
+      "margin": 0.01,
+      "instrument": "scripts/threshold_runtime.py#v1:harshness.sharp4.min"
+    },
+    {
+      "id": "motion.jerk.rotation.max",
+      "value": 90.0,
+      "class": "C",
+      "unit": "degrees/s^3",
+      "measures": "Third central finite difference; minimum-jerk 10 degrees / 2 s; v1",
+      "direction": "max",
+      "anchors": [
+        {
+          "id": "motion.jerk.rotation.max.best",
+          "path": "references/threshold-anchors.json#motion.jerk.rotation.max/best",
+          "role": "best",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "motion.jerk.rotation.max.benchmark",
+          "path": "references/threshold-anchors.json#motion.jerk.rotation.max/benchmark",
+          "role": "benchmark",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "motion.jerk.rotation.max.known_worse",
+          "path": "references/threshold-anchors.json#motion.jerk.rotation.max/known_worse",
+          "role": "known_worse",
+          "expected": "fail",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "motion.jerk.rotation.max.positive_control",
+          "path": "references/threshold-anchors.json#motion.jerk.rotation.max/positive_control",
+          "role": "positive_control",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "motion.jerk.rotation.max.negative_control",
+          "path": "references/threshold-anchors.json#motion.jerk.rotation.max/negative_control",
+          "role": "negative_control",
+          "expected": "fail",
+          "label_source": "fixture",
+          "held_out": true
+        }
+      ],
+      "history": [],
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "Agent seed pending held-out panel calibration; wow/fx/acceptance-amendments.md A6-1/A8-1/A8-2 and section 5",
+        "agent_invented": true
+      },
+      "status": "calibrate_first",
+      "bounds": [
+        90,
+        30000
+      ],
+      "margin": 0.01,
+      "instrument": "scripts/threshold_runtime.py#v1:motion.jerk.rotation.max"
+    },
+    {
+      "id": "motion.jerk.position.max",
+      "value": 1800.0,
+      "class": "C",
+      "unit": "px/s^3",
+      "measures": "Third central finite difference; minimum-jerk 200 px / 2 s; v1",
+      "direction": "max",
+      "anchors": [
+        {
+          "id": "motion.jerk.position.max.best",
+          "path": "references/threshold-anchors.json#motion.jerk.position.max/best",
+          "role": "best",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "motion.jerk.position.max.benchmark",
+          "path": "references/threshold-anchors.json#motion.jerk.position.max/benchmark",
+          "role": "benchmark",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "motion.jerk.position.max.known_worse",
+          "path": "references/threshold-anchors.json#motion.jerk.position.max/known_worse",
+          "role": "known_worse",
+          "expected": "fail",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "motion.jerk.position.max.positive_control",
+          "path": "references/threshold-anchors.json#motion.jerk.position.max/positive_control",
+          "role": "positive_control",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "motion.jerk.position.max.negative_control",
+          "path": "references/threshold-anchors.json#motion.jerk.position.max/negative_control",
+          "role": "negative_control",
+          "expected": "fail",
+          "label_source": "fixture",
+          "held_out": true
+        }
+      ],
+      "history": [],
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "Agent seed pending held-out panel calibration; wow/fx/acceptance-amendments.md A6-1/A8-1/A8-2 and section 5",
+        "agent_invented": true
+      },
+      "status": "calibrate_first",
+      "bounds": [
+        1500,
+        100000
+      ],
+      "margin": 0.01,
+      "instrument": "scripts/threshold_runtime.py#v1:motion.jerk.position.max"
+    },
+    {
+      "id": "budget.perceived.max",
+      "value": 2.0,
+      "class": "U",
+      "unit": "perceived/4s",
+      "measures": "Sum of independently measured event perceived values in a rolling 4-second window",
+      "direction": "max",
+      "anchors": [
+        {
+          "id": "budget.perceived.max.best",
+          "path": "references/threshold-anchors.json#budget.perceived.max/best",
+          "role": "best",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "budget.perceived.max.benchmark",
+          "path": "references/threshold-anchors.json#budget.perceived.max/benchmark",
+          "role": "benchmark",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "budget.perceived.max.known_worse",
+          "path": "references/threshold-anchors.json#budget.perceived.max/known_worse",
+          "role": "known_worse",
+          "expected": "fail",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "budget.perceived.max.positive_control",
+          "path": "references/threshold-anchors.json#budget.perceived.max/positive_control",
+          "role": "positive_control",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "budget.perceived.max.negative_control",
+          "path": "references/threshold-anchors.json#budget.perceived.max/negative_control",
+          "role": "negative_control",
+          "expected": "fail",
+          "label_source": "fixture",
+          "held_out": true
+        }
+      ],
+      "history": [],
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "Agent provisional default; S-74/S-87, needs reference density/user choices",
+        "agent_invented": true
+      },
+      "status": "calibrate_first",
+      "bounds": [
+        0,
+        20
+      ],
+      "max_step": 0.15,
+      "instrument": "scripts/threshold_runtime.py#v1:budget.perceived.max"
+    },
+    {
+      "id": "budget.events.max",
+      "value": 4.0,
+      "class": "U",
+      "unit": "events/bar",
+      "measures": "Count of effect events per music bar",
+      "direction": "max",
+      "anchors": [
+        {
+          "id": "budget.events.max.best",
+          "path": "references/threshold-anchors.json#budget.events.max/best",
+          "role": "best",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "budget.events.max.benchmark",
+          "path": "references/threshold-anchors.json#budget.events.max/benchmark",
+          "role": "benchmark",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "budget.events.max.known_worse",
+          "path": "references/threshold-anchors.json#budget.events.max/known_worse",
+          "role": "known_worse",
+          "expected": "fail",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "budget.events.max.positive_control",
+          "path": "references/threshold-anchors.json#budget.events.max/positive_control",
+          "role": "positive_control",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "budget.events.max.negative_control",
+          "path": "references/threshold-anchors.json#budget.events.max/negative_control",
+          "role": "negative_control",
+          "expected": "fail",
+          "label_source": "fixture",
+          "held_out": true
+        }
+      ],
+      "history": [],
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "Agent provisional default; S-74/S-87, needs reference density/user choices",
+        "agent_invented": true
+      },
+      "status": "calibrate_first",
+      "bounds": [
+        0,
+        32
+      ],
+      "max_step": 0.15,
+      "instrument": "scripts/threshold_runtime.py#v1:budget.events.max"
+    },
+    {
+      "id": "wcag.general.delta.min",
+      "value": 0.1,
+      "class": "F",
+      "unit": "linear L",
+      "direction": "min",
+      "measures": "S6 wcag.general.delta.min",
+      "anchors": [],
+      "history": [],
+      "status": "active",
+      "provenance": {
+        "source_class": "EXT",
+        "ref": "WCAG 2.3.1 / acceptance-6 fixed MEAS",
+        "agent_invented": false
+      }
+    },
+    {
+      "id": "wcag.general.dark.max",
+      "value": 0.8,
+      "class": "F",
+      "unit": "linear L",
+      "direction": "max",
+      "measures": "S6 wcag.general.dark.max",
+      "anchors": [],
+      "history": [],
+      "status": "active",
+      "provenance": {
+        "source_class": "EXT",
+        "ref": "WCAG 2.3.1 / acceptance-6 fixed MEAS",
+        "agent_invented": false
+      }
+    },
+    {
+      "id": "wcag.red.saturation.min",
+      "value": 0.8,
+      "class": "F",
+      "unit": "R/(R+G+B)",
+      "direction": "min",
+      "measures": "S6 wcag.red.saturation.min",
+      "anchors": [],
+      "history": [],
+      "status": "active",
+      "provenance": {
+        "source_class": "EXT",
+        "ref": "WCAG 2.3.1 / acceptance-6 fixed MEAS",
+        "agent_invented": false
+      }
+    },
+    {
+      "id": "wcag.red.delta.min",
+      "value": 20,
+      "class": "F",
+      "unit": "red contrast x320",
+      "direction": "min",
+      "measures": "S6 wcag.red.delta.min",
+      "anchors": [],
+      "history": [],
+      "status": "active",
+      "provenance": {
+        "source_class": "EXT",
+        "ref": "WCAG 2.3.1 / acceptance-6 fixed MEAS",
+        "agent_invented": false
+      }
+    },
+    {
+      "id": "wcag.area.min",
+      "value": 0.111,
+      "class": "F",
+      "unit": "fraction",
+      "direction": "min",
+      "measures": "S6 wcag.area.min",
+      "anchors": [],
+      "history": [],
+      "status": "active",
+      "provenance": {
+        "source_class": "EXT",
+        "ref": "WCAG 2.3.1 / acceptance-6 fixed MEAS",
+        "agent_invented": false
+      }
+    },
+    {
+      "id": "wcag.flashes.max",
+      "value": 3,
+      "class": "F",
+      "unit": "flashes/s",
+      "direction": "max",
+      "measures": "S6 wcag.flashes.max",
+      "anchors": [],
+      "history": [],
+      "status": "active",
+      "provenance": {
+        "source_class": "EXT",
+        "ref": "WCAG 2.3.1 / acceptance-6 fixed MEAS",
+        "agent_invented": false
+      }
+    },
+    {
+      "id": "measure.area8.min",
+      "value": 8,
+      "class": "C",
+      "unit": "sRGB Y",
+      "direction": "min",
+      "measures": "S6 measure.area8.min",
+      "anchors": [
+        {
+          "id": "measure.area8.min.positive_control",
+          "path": "references/fx-instrument-anchors.json#positive_control",
+          "role": "positive_control",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "measure.area8.min.negative_control",
+          "path": "references/fx-instrument-anchors.json#negative_control",
+          "role": "negative_control",
+          "expected": "fail",
+          "label_source": "fixture",
+          "held_out": true
+        }
+      ],
+      "history": [],
+      "status": "calibrate_first",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "references/fx.md S6 method; independent panel calibration pending",
+        "agent_invented": true
+      }
+    },
+    {
+      "id": "perceived.luma.scale",
+      "value": 64,
+      "class": "C",
+      "unit": "sRGB Y",
+      "direction": "equal",
+      "measures": "S6 perceived.luma.scale",
+      "anchors": [
+        {
+          "id": "perceived.luma.scale.positive_control",
+          "path": "references/fx-instrument-anchors.json#positive_control",
+          "role": "positive_control",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "perceived.luma.scale.negative_control",
+          "path": "references/fx-instrument-anchors.json#negative_control",
+          "role": "negative_control",
+          "expected": "fail",
+          "label_source": "fixture",
+          "held_out": true
+        }
+      ],
+      "history": [],
+      "status": "calibrate_first",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "references/fx.md S6 method; independent panel calibration pending",
+        "agent_invented": true
+      }
+    },
+    {
+      "id": "perceived.displacement.scale",
+      "value": 24,
+      "class": "C",
+      "unit": "720p px",
+      "direction": "equal",
+      "measures": "S6 perceived.displacement.scale",
+      "anchors": [
+        {
+          "id": "perceived.displacement.scale.positive_control",
+          "path": "references/fx-instrument-anchors.json#positive_control",
+          "role": "positive_control",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "perceived.displacement.scale.negative_control",
+          "path": "references/fx-instrument-anchors.json#negative_control",
+          "role": "negative_control",
+          "expected": "fail",
+          "label_source": "fixture",
+          "held_out": true
+        }
+      ],
+      "history": [],
+      "status": "calibrate_first",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "references/fx.md S6 method; independent panel calibration pending",
+        "agent_invented": true
+      }
+    },
+    {
+      "id": "visibility.luma.weight",
+      "value": 0.1,
+      "class": "C",
+      "unit": "weight",
+      "direction": "equal",
+      "measures": "S6 visibility.luma.weight",
+      "anchors": [
+        {
+          "id": "visibility.luma.weight.positive_control",
+          "path": "references/fx-instrument-anchors.json#positive_control",
+          "role": "positive_control",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "visibility.luma.weight.negative_control",
+          "path": "references/fx-instrument-anchors.json#negative_control",
+          "role": "negative_control",
+          "expected": "fail",
+          "label_source": "fixture",
+          "held_out": true
+        }
+      ],
+      "history": [],
+      "status": "calibrate_first",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "references/fx.md S6 method; independent panel calibration pending",
+        "agent_invented": true
+      }
+    },
+    {
+      "id": "visibility.noise.floor",
+      "value": 1,
+      "class": "C",
+      "unit": "sRGB Y",
+      "direction": "min",
+      "measures": "S6 visibility.noise.floor",
+      "anchors": [
+        {
+          "id": "visibility.noise.floor.positive_control",
+          "path": "references/fx-instrument-anchors.json#positive_control",
+          "role": "positive_control",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "visibility.noise.floor.negative_control",
+          "path": "references/fx-instrument-anchors.json#negative_control",
+          "role": "negative_control",
+          "expected": "fail",
+          "label_source": "fixture",
+          "held_out": true
+        }
+      ],
+      "history": [],
+      "status": "calibrate_first",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "references/fx.md S6 method; independent panel calibration pending",
+        "agent_invented": true
+      }
+    },
+    {
+      "id": "harshness.ssim_loss.max",
+      "value": 0.35,
+      "class": "C",
+      "unit": "loss",
+      "direction": "max",
+      "measures": "S6 harshness.ssim_loss.max",
+      "anchors": [
+        {
+          "id": "harshness.ssim_loss.max.positive_control",
+          "path": "references/fx-instrument-anchors.json#positive_control",
+          "role": "positive_control",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "harshness.ssim_loss.max.negative_control",
+          "path": "references/fx-instrument-anchors.json#negative_control",
+          "role": "negative_control",
+          "expected": "fail",
+          "label_source": "fixture",
+          "held_out": true
+        }
+      ],
+      "history": [],
+      "status": "calibrate_first",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "references/fx.md S6 method; independent panel calibration pending",
+        "agent_invented": true
+      }
+    },
+    {
+      "id": "harshness.frames.min",
+      "value": 4,
+      "class": "C",
+      "unit": "frames",
+      "direction": "min",
+      "measures": "S6 harshness.frames.min",
+      "anchors": [
+        {
+          "id": "harshness.frames.min.positive_control",
+          "path": "references/fx-instrument-anchors.json#positive_control",
+          "role": "positive_control",
+          "expected": "pass",
+          "label_source": "fixture",
+          "held_out": true
+        },
+        {
+          "id": "harshness.frames.min.negative_control",
+          "path": "references/fx-instrument-anchors.json#negative_control",
+          "role": "negative_control",
+          "expected": "fail",
+          "label_source": "fixture",
+          "held_out": true
+        }
+      ],
+      "history": [],
+      "status": "calibrate_first",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "references/fx.md S6 method; independent panel calibration pending",
+        "agent_invented": true
+      }
+    },
+    {
+      "id": "director.energy.low",
+      "value": 0.4,
+      "class": "U",
+      "unit": "energy",
+      "direction": "max",
+      "measures": "S6 director.energy.low",
+      "anchors": [],
+      "history": [],
+      "status": "active",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "references/fx.md S6 method; independent panel calibration pending",
+        "agent_invented": true
+      }
+    },
+    {
+      "id": "director.energy.high",
+      "value": 0.8,
+      "class": "U",
+      "unit": "energy",
+      "direction": "min",
+      "measures": "S6 director.energy.high",
+      "anchors": [],
+      "history": [],
+      "status": "active",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "references/fx.md S6 method; independent panel calibration pending",
+        "agent_invented": true
+      }
+    },
+    {
+      "id": "director.budget.base",
+      "value": 0.4,
+      "class": "U",
+      "unit": "perceived/4s",
+      "direction": "equal",
+      "measures": "S6 director.budget.base",
+      "anchors": [],
+      "history": [],
+      "status": "active",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "references/fx.md S6 method; independent panel calibration pending",
+        "agent_invented": true
+      }
+    },
+    {
+      "id": "director.budget.gain",
+      "value": 5.5,
+      "class": "U",
+      "unit": "perceived/4s/energy",
+      "direction": "equal",
+      "measures": "S6 director.budget.gain",
+      "anchors": [],
+      "history": [],
+      "status": "active",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "references/fx.md S6 method; independent panel calibration pending",
+        "agent_invented": true
+      }
+    },
+    {
+      "id": "director.density.base",
+      "value": 1,
+      "class": "U",
+      "unit": "events/bar",
+      "direction": "equal",
+      "measures": "S6 director.density.base",
+      "anchors": [],
+      "history": [],
+      "status": "active",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "references/fx.md S6 method; independent panel calibration pending",
+        "agent_invented": true
+      }
+    },
+    {
+      "id": "director.density.gain",
+      "value": 4,
+      "class": "U",
+      "unit": "events/bar/energy",
+      "direction": "equal",
+      "measures": "S6 director.density.gain",
+      "anchors": [],
+      "history": [],
+      "status": "active",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "references/fx.md S6 method; independent panel calibration pending",
+        "agent_invented": true
+      }
+    },
+    {
+      "id": "director.breathe.max",
+      "value": 0.25,
+      "class": "U",
+      "unit": "perceived",
+      "direction": "max",
+      "measures": "S6 director.breathe.max",
+      "anchors": [],
+      "history": [],
+      "status": "active",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "references/fx.md S6 method; independent panel calibration pending",
+        "agent_invented": true
+      }
+    },
+    {
+      "id": "director.flash.run.max",
+      "value": 8,
+      "class": "U",
+      "unit": "events",
+      "direction": "max",
+      "measures": "S6 director.flash.run.max",
+      "anchors": [],
+      "history": [],
+      "status": "active",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "references/fx.md S6 method; independent panel calibration pending",
+        "agent_invented": true
+      }
+    },
+    {
+      "id": "query.history.window",
+      "value": 3,
+      "class": "U",
+      "unit": "choices",
+      "direction": "equal",
+      "measures": "S6 query.history.window",
+      "anchors": [],
+      "history": [],
+      "status": "active",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "references/fx.md S6 method; independent panel calibration pending",
+        "agent_invented": true
+      }
+    },
+    {
+      "id": "query.intent.weight",
+      "value": 4,
+      "class": "U",
+      "unit": "score",
+      "direction": "equal",
+      "measures": "S6 query.intent.weight",
+      "anchors": [],
+      "history": [],
+      "status": "active",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "references/fx.md S6 method; independent panel calibration pending",
+        "agent_invented": true
+      }
+    },
+    {
+      "id": "query.gate.weight",
+      "value": 1,
+      "class": "U",
+      "unit": "score",
+      "direction": "equal",
+      "measures": "S6 query.gate.weight",
+      "anchors": [],
+      "history": [],
+      "status": "active",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "references/fx.md S6 method; independent panel calibration pending",
+        "agent_invented": true
+      }
+    },
+    {
+      "id": "query.cost.weight",
+      "value": 0.01,
+      "class": "U",
+      "unit": "score/ms",
+      "direction": "equal",
+      "measures": "S6 query.cost.weight",
+      "anchors": [],
+      "history": [],
+      "status": "active",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "references/fx.md S6 method; independent panel calibration pending",
+        "agent_invented": true
+      }
+    },
+    {
+      "id": "query.diversity.weight",
+      "value": 10,
+      "class": "U",
+      "unit": "score/occurrence",
+      "direction": "equal",
+      "measures": "S6 query.diversity.weight",
+      "anchors": [],
+      "history": [],
+      "status": "active",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "references/fx.md S6 method; independent panel calibration pending",
+        "agent_invented": true
+      }
+    },
+    {
+      "id": "audio.sfx.codec_headroom",
+      "value": 0.2,
+      "class": "U",
+      "unit": "dB",
+      "direction": "min",
+      "measures": "S6 audio.sfx.codec_headroom",
+      "anchors": [],
+      "history": [],
+      "status": "active",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "references/fx.md S6 method; independent panel calibration pending",
+        "agent_invented": true
+      }
+    },
+    {
+      "id": "query.related.match",
+      "value": 0.5,
+      "class": "U",
+      "unit": "intent match",
+      "direction": "equal",
+      "measures": "S6 query.related.match",
+      "anchors": [],
+      "history": [],
+      "status": "active",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "references/fx.md S6 method; independent panel calibration pending",
+        "agent_invented": true
+      }
+    },
+    {
+      "id": "calibration.monotonic.tolerance",
+      "value": 0.01,
+      "class": "F",
+      "unit": "perceived",
+      "direction": "max",
+      "measures": "S6 calibration.monotonic.tolerance",
+      "anchors": [],
+      "history": [],
+      "status": "active",
+      "provenance": {
+        "source_class": "EXT",
+        "ref": "acceptance-6 S-71 fixed reproducibility contract",
+        "agent_invented": false
+      }
+    },
+    {
+      "id": "calibration.grid.points",
+      "value": 11,
+      "class": "F",
+      "unit": "samples",
+      "direction": "equal",
+      "measures": "S6 calibration.grid.points",
+      "anchors": [],
+      "history": [],
+      "status": "active",
+      "provenance": {
+        "source_class": "EXT",
+        "ref": "acceptance-6 S-71 fixed reproducibility contract",
+        "agent_invented": false
+      }
+    },
+    {
+      "anchors": [],
+      "class": "F",
+      "direction": "equal",
+      "history": [],
+      "id": "taste.smooth.seconds",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "measures": "S7 smooth.seconds",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "PHYS"
+      },
+      "status": "active",
+      "unit": "s",
+      "value": 2
+    },
+    {
+      "anchors": [],
+      "class": "F",
+      "direction": "equal",
+      "history": [],
+      "id": "taste.weak.seconds",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "measures": "S7 weak.seconds",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "PHYS"
+      },
+      "status": "active",
+      "unit": "s",
+      "value": 2
+    },
+    {
+      "anchors": [],
+      "class": "U",
+      "direction": "min",
+      "history": [],
+      "id": "taste.curve.correlation.min",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "max_step": 0.15,
+      "measures": "S7 curve.correlation.min",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "GUESS"
+      },
+      "status": "active",
+      "unit": "Pearson r",
+      "value": 0.6
+    },
+    {
+      "anchors": [],
+      "class": "U",
+      "direction": "max",
+      "history": [],
+      "id": "taste.curve.peak_bars.max",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "max_step": 0.15,
+      "measures": "S7 curve.peak_bars.max",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "GUESS"
+      },
+      "status": "active",
+      "unit": "bar",
+      "value": 1
+    },
+    {
+      "anchors": [],
+      "class": "F",
+      "direction": "equal",
+      "history": [],
+      "id": "taste.audio.low_hz",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "measures": "S7 audio.low_hz",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "PHYS"
+      },
+      "status": "active",
+      "unit": "Hz",
+      "value": 80
+    },
+    {
+      "anchors": [],
+      "class": "U",
+      "direction": "max",
+      "history": [],
+      "id": "taste.audio.silence_db",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "max_step": 0.15,
+      "measures": "S7 audio.silence_db",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "GUESS"
+      },
+      "status": "active",
+      "unit": "dBFS",
+      "value": -50
+    },
+    {
+      "anchors": [
+        {
+          "expected": "pass",
+          "held_out": true,
+          "id": "taste.cut.rgb_delta.positive_control",
+          "label_source": "fixture",
+          "path": "tests/test_taste.py#cut.rgb_delta",
+          "role": "positive_control"
+        },
+        {
+          "expected": "fail",
+          "held_out": true,
+          "id": "taste.cut.rgb_delta.negative_control",
+          "label_source": "fixture",
+          "path": "tests/test_taste.py#cut.rgb_delta",
+          "role": "negative_control"
+        }
+      ],
+      "class": "C",
+      "direction": "min",
+      "history": [],
+      "id": "taste.cut.rgb_delta",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "measures": "S7 cut.rgb_delta",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "GUESS"
+      },
+      "status": "calibrate_first",
+      "unit": "RGB L2",
+      "value": 25
+    },
+    {
+      "anchors": [
+        {
+          "expected": "pass",
+          "held_out": true,
+          "id": "taste.peak.prominence.positive_control",
+          "label_source": "fixture",
+          "path": "tests/test_taste.py#peak.prominence",
+          "role": "positive_control"
+        },
+        {
+          "expected": "fail",
+          "held_out": true,
+          "id": "taste.peak.prominence.negative_control",
+          "label_source": "fixture",
+          "path": "tests/test_taste.py#peak.prominence",
+          "role": "negative_control"
+        }
+      ],
+      "class": "C",
+      "direction": "min",
+      "history": [],
+      "id": "taste.peak.prominence",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "measures": "S7 peak.prominence",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "GUESS"
+      },
+      "status": "calibrate_first",
+      "unit": "z",
+      "value": 0.1
+    },
+    {
+      "anchors": [
+        {
+          "expected": "pass",
+          "held_out": true,
+          "id": "taste.luminance.no_peak.positive_control",
+          "label_source": "fixture",
+          "path": "tests/test_taste.py#luminance.no_peak",
+          "role": "positive_control"
+        },
+        {
+          "expected": "fail",
+          "held_out": true,
+          "id": "taste.luminance.no_peak.negative_control",
+          "label_source": "fixture",
+          "path": "tests/test_taste.py#luminance.no_peak",
+          "role": "negative_control"
+        }
+      ],
+      "class": "C",
+      "direction": "max",
+      "history": [],
+      "id": "taste.luminance.no_peak",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "measures": "S7 luminance.no_peak",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "GUESS"
+      },
+      "status": "calibrate_first",
+      "unit": "ratio",
+      "value": 0.01
+    },
+    {
+      "anchors": [],
+      "class": "U",
+      "direction": "min",
+      "history": [],
+      "id": "taste.luminance.jump.min",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "max_step": 0.15,
+      "measures": "S7 luminance.jump.min",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "GUESS"
+      },
+      "status": "active",
+      "unit": "ratio",
+      "value": 0.15
+    },
+    {
+      "anchors": [],
+      "class": "U",
+      "direction": "min",
+      "history": [],
+      "id": "taste.shot.cv.min",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "max_step": 0.15,
+      "measures": "S7 shot.cv.min",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "GUESS"
+      },
+      "status": "active",
+      "unit": "ratio",
+      "value": 0.4
+    },
+    {
+      "anchors": [],
+      "class": "U",
+      "direction": "max",
+      "history": [],
+      "id": "taste.eye.distance.max",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "max_step": 0.15,
+      "measures": "S7 eye.distance.max",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "GUESS"
+      },
+      "status": "active",
+      "unit": "width",
+      "value": 0.3
+    },
+    {
+      "anchors": [
+        {
+          "expected": "pass",
+          "held_out": true,
+          "id": "taste.action.motion.min.positive_control",
+          "label_source": "fixture",
+          "path": "tests/test_taste.py#action.motion.min",
+          "role": "positive_control"
+        },
+        {
+          "expected": "fail",
+          "held_out": true,
+          "id": "taste.action.motion.min.negative_control",
+          "label_source": "fixture",
+          "path": "tests/test_taste.py#action.motion.min",
+          "role": "negative_control"
+        }
+      ],
+      "class": "C",
+      "direction": "min",
+      "history": [],
+      "id": "taste.action.motion.min",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "measures": "S7 action.motion.min",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "GUESS"
+      },
+      "status": "calibrate_first",
+      "unit": "px/frame",
+      "value": 0.3
+    },
+    {
+      "anchors": [],
+      "class": "U",
+      "direction": "min",
+      "history": [],
+      "id": "taste.action.ratio.min",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "max_step": 0.15,
+      "measures": "S7 action.ratio.min",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "GUESS"
+      },
+      "status": "active",
+      "unit": "ratio",
+      "value": 0.25
+    },
+    {
+      "anchors": [],
+      "class": "U",
+      "direction": "max",
+      "history": [],
+      "id": "taste.mickey.max",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "max_step": 0.15,
+      "measures": "S7 mickey.max",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "GUESS"
+      },
+      "status": "active",
+      "unit": "ratio",
+      "value": 0.75
+    },
+    {
+      "anchors": [],
+      "class": "U",
+      "direction": "max",
+      "history": [],
+      "id": "taste.valley.ratio.max",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "max_step": 0.15,
+      "measures": "S7 valley.ratio.max",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "GUESS"
+      },
+      "status": "active",
+      "unit": "ratio",
+      "value": 0.85
+    },
+    {
+      "anchors": [],
+      "class": "F",
+      "direction": "max",
+      "history": [],
+      "id": "taste.ablation.mae.max",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "measures": "S7 ablation.mae.max",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "PHYS"
+      },
+      "status": "active",
+      "unit": "Y",
+      "value": 0.5
+    },
+    {
+      "anchors": [],
+      "class": "F",
+      "direction": "min",
+      "history": [],
+      "id": "taste.ablation.psnr.min",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "measures": "S7 ablation.psnr.min",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "PHYS"
+      },
+      "status": "active",
+      "unit": "dB",
+      "value": 48
+    },
+    {
+      "anchors": [
+        {
+          "expected": "pass",
+          "held_out": true,
+          "id": "taste.ablation.lufs.max.positive_control",
+          "label_source": "fixture",
+          "path": "tests/test_taste.py#ablation.lufs.max",
+          "role": "positive_control"
+        },
+        {
+          "expected": "fail",
+          "held_out": true,
+          "id": "taste.ablation.lufs.max.negative_control",
+          "label_source": "fixture",
+          "path": "tests/test_taste.py#ablation.lufs.max",
+          "role": "negative_control"
+        }
+      ],
+      "class": "C",
+      "direction": "max",
+      "history": [],
+      "id": "taste.ablation.lufs.max",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "measures": "S7 ablation.lufs.max",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "GUESS"
+      },
+      "status": "calibrate_first",
+      "unit": "LU",
+      "value": 0.5
+    },
+    {
+      "anchors": [],
+      "class": "U",
+      "direction": "min",
+      "history": [],
+      "id": "taste.angle.min",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "max_step": 0.15,
+      "measures": "S7 angle.min",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "GUESS"
+      },
+      "status": "active",
+      "unit": "degrees",
+      "value": 30
+    },
+    {
+      "anchors": [],
+      "class": "U",
+      "direction": "equal",
+      "history": [],
+      "id": "taste.budget.base",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "max_step": 0.15,
+      "measures": "S7 budget.base",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "GUESS"
+      },
+      "status": "active",
+      "unit": "perceived",
+      "value": 0.1
+    },
+    {
+      "anchors": [],
+      "class": "U",
+      "direction": "equal",
+      "history": [],
+      "id": "taste.budget.slope",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "max_step": 0.15,
+      "measures": "S7 budget.slope",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "GUESS"
+      },
+      "status": "active",
+      "unit": "perceived",
+      "value": 1
+    },
+    {
+      "anchors": [],
+      "class": "U",
+      "direction": "max",
+      "history": [],
+      "id": "taste.profile.step.max",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "max_step": 0.15,
+      "measures": "S7 profile.step.max",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "GUESS"
+      },
+      "status": "active",
+      "unit": "ratio",
+      "value": 0.15
+    },
+    {
+      "anchors": [],
+      "class": "F",
+      "direction": "equal",
+      "history": [],
+      "id": "taste.profile.wilson.z",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "measures": "S7 profile.wilson.z",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "PHYS"
+      },
+      "status": "active",
+      "unit": "z",
+      "value": 1.959963984540054
+    },
+    {
+      "anchors": [],
+      "class": "F",
+      "direction": "min",
+      "history": [],
+      "id": "taste.profile.wilson.min",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "measures": "S7 profile.wilson.min",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "PHYS"
+      },
+      "status": "active",
+      "unit": "ratio",
+      "value": 0.5
+    },
+    {
+      "anchors": [],
+      "class": "U",
+      "direction": "min",
+      "history": [],
+      "id": "taste.focal.overlap.min",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "max_step": 0.15,
+      "measures": "S7 focal.overlap.min",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "GUESS"
+      },
+      "status": "active",
+      "unit": "ratio",
+      "value": 0.5
+    },
+    {
+      "anchors": [],
+      "class": "F",
+      "direction": "max",
+      "history": [],
+      "id": "taste.match.gray.de.max",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "measures": "S7 match.gray.de.max",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "PHYS"
+      },
+      "status": "active",
+      "unit": "deltaE2000",
+      "value": 2
+    },
+    {
+      "anchors": [],
+      "class": "F",
+      "direction": "max",
+      "history": [],
+      "id": "taste.match.color.de.max",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "measures": "S7 match.color.de.max",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "PHYS"
+      },
+      "status": "active",
+      "unit": "deltaE2000",
+      "value": 3
+    },
+    {
+      "anchors": [],
+      "class": "F",
+      "direction": "max",
+      "history": [],
+      "id": "taste.match.color.worst.max",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "measures": "S7 match.color.worst.max",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "PHYS"
+      },
+      "status": "active",
+      "unit": "deltaE2000",
+      "value": 5
+    },
+    {
+      "anchors": [],
+      "class": "F",
+      "direction": "max",
+      "history": [],
+      "id": "taste.match.luma.max",
+      "instrument": "scripts/taste_report.py / taste_lint.py v1",
+      "measures": "S7 match.luma.max",
+      "provenance": {
+        "ref": "wow/fx/acceptance-7.md as amended by acceptance-amendments.md; references/taste.md",
+        "source_class": "PHYS"
+      },
+      "status": "active",
+      "unit": "ratio",
+      "value": 0.02
+    },
+    {
+      "anchors": [],
+      "class": "U",
+      "direction": "max",
+      "history": [],
+      "id": "taste.tokens.fonts.max",
+      "max_step": 0.15,
+      "measures": "tokens.fonts.max",
+      "provenance": {
+        "ref": "wow/fx/spec-7.md; intentional exceptions allowed",
+        "source_class": "GUESS"
+      },
+      "status": "active",
+      "unit": "count",
+      "value": 2
+    },
+    {
+      "anchors": [],
+      "class": "U",
+      "direction": "max",
+      "history": [],
+      "id": "taste.shot_size.repeat",
+      "max_step": 0.15,
+      "measures": "shot_size.repeat",
+      "provenance": {
+        "ref": "wow/fx/spec-7.md; intentional exceptions allowed",
+        "source_class": "GUESS"
+      },
+      "status": "active",
+      "unit": "count",
+      "value": 3
+    },
+    {
+      "id": "taste.profile.pairs.min",
+      "value": 8,
+      "class": "F",
+      "unit": "pairs",
+      "measures": "P-USER moving comparison pairs per delivery",
+      "direction": "min",
+      "provenance": {
+        "source_class": "PHYS",
+        "ref": "wow/fx/acceptance-amendments.md P-USER"
+      },
+      "anchors": [],
+      "history": [],
+      "status": "active"
+    },
+    {
+      "id": "taste.curve.residual.max",
+      "value": 0.08,
+      "class": "C",
+      "unit": "aligned planning intensity",
+      "measures": "Two-second missing-intensity residual after proxy P5/P95 alignment",
+      "direction": "max",
+      "provenance": {
+        "source_class": "ANCHOR",
+        "ref": "tests/test_taste_scenarios.py plateau/mesa clean-film calibration; wow/fx/build-notes-s7.md round 6"
+      },
+      "anchors": [
+        {"id": "clean-plateaus", "path": "tests/test_taste_scenarios.py#test_encoded_plateaus_and_mesa", "role": "positive_control", "expected": "pass", "label_source": "fixture"},
+        {"id": "clean-short-hold", "path": "tests/test_taste_scenarios.py#test_f_design_match_mismatch_shift", "role": "positive_control", "expected": "pass", "label_source": "fixture"},
+        {"id": "plateau-freeze", "path": "tests/test_taste_scenarios.py#test_encoded_plateau_freeze", "role": "negative_control", "expected": "fail", "label_source": "fixture"}
+      ],
+      "history": [],
+      "status": "active",
+      "scope": "Relative shape review only; synthetic H.264/AAC clean films, not human aesthetic calibration",
+      "instrument": "scripts/taste_common.py compare_curve; shared by taste_lint.weakest",
+      "margin": 0.01
+    },
+    {
+      "id": "brief.hero_height.min",
+      "value": 0.4,
+      "unit": "fraction",
+      "direction": "min",
+      "class": "C",
+      "measures": "Brief authoring advice; not an external standard",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "blank-page SKILL.md Rules / Procedure (MIT); acceptance-11 CJK counting adaptation",
+        "agent_invented": false
+      },
+      "anchors": [
+        {
+          "id": "hero_height.min-valid",
+          "path": "tests/test_brief.py",
+          "role": "positive_control",
+          "expected": "pass",
+          "label_source": "fixture"
+        },
+        {
+          "id": "hero_height.min-invalid",
+          "path": "tests/test_brief.py",
+          "role": "negative_control",
+          "expected": "fail",
+          "label_source": "fixture"
+        }
+      ],
+      "history": [],
+      "status": "active"
+    },
+    {
+      "id": "brief.text_px.min",
+      "value": 24,
+      "unit": "px at short side 1080",
+      "direction": "min",
+      "class": "C",
+      "measures": "Brief authoring advice; not an external standard",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "blank-page SKILL.md Rules / Procedure (MIT); acceptance-11 CJK counting adaptation",
+        "agent_invented": false
+      },
+      "anchors": [
+        {
+          "id": "text_px.min-valid",
+          "path": "tests/test_brief.py",
+          "role": "positive_control",
+          "expected": "pass",
+          "label_source": "fixture"
+        },
+        {
+          "id": "text_px.min-invalid",
+          "path": "tests/test_brief.py",
+          "role": "negative_control",
+          "expected": "fail",
+          "label_source": "fixture"
+        }
+      ],
+      "history": [],
+      "status": "active"
+    },
+    {
+      "id": "brief.end_hold.max",
+      "value": 1,
+      "unit": "seconds, exclusive",
+      "direction": "max",
+      "class": "C",
+      "measures": "Brief authoring advice; not an external standard",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "blank-page SKILL.md Rules / Procedure (MIT); acceptance-11 CJK counting adaptation",
+        "agent_invented": false
+      },
+      "anchors": [
+        {
+          "id": "end_hold.max-valid",
+          "path": "tests/test_brief.py",
+          "role": "positive_control",
+          "expected": "pass",
+          "label_source": "fixture"
+        },
+        {
+          "id": "end_hold.max-invalid",
+          "path": "tests/test_brief.py",
+          "role": "negative_control",
+          "expected": "fail",
+          "label_source": "fixture"
+        }
+      ],
+      "history": [],
+      "status": "active"
+    },
+    {
+      "id": "brief.turn_end.min",
+      "value": 0.32,
+      "unit": "fraction of duration, exclusive",
+      "direction": "min",
+      "class": "C",
+      "measures": "Brief authoring advice; not an external standard",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "blank-page SKILL.md Rules / Procedure (MIT); acceptance-11 CJK counting adaptation",
+        "agent_invented": false
+      },
+      "anchors": [
+        {
+          "id": "turn_end.min-valid",
+          "path": "tests/test_brief.py",
+          "role": "positive_control",
+          "expected": "pass",
+          "label_source": "fixture"
+        },
+        {
+          "id": "turn_end.min-invalid",
+          "path": "tests/test_brief.py",
+          "role": "negative_control",
+          "expected": "fail",
+          "label_source": "fixture"
+        }
+      ],
+      "history": [],
+      "status": "active"
+    },
+    {
+      "id": "brief.words.en.max",
+      "value": 150,
+      "unit": "words",
+      "direction": "max",
+      "class": "C",
+      "measures": "Brief authoring advice; not an external standard",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "blank-page SKILL.md Rules / Procedure (MIT); acceptance-11 CJK counting adaptation",
+        "agent_invented": false
+      },
+      "anchors": [
+        {
+          "id": "words.en.max-valid",
+          "path": "tests/test_brief.py",
+          "role": "positive_control",
+          "expected": "pass",
+          "label_source": "fixture"
+        },
+        {
+          "id": "words.en.max-invalid",
+          "path": "tests/test_brief.py",
+          "role": "negative_control",
+          "expected": "fail",
+          "label_source": "fixture"
+        }
+      ],
+      "history": [],
+      "status": "active"
+    },
+    {
+      "id": "brief.words.cjk.max",
+      "value": 300,
+      "unit": "characters plus Latin words",
+      "direction": "max",
+      "class": "C",
+      "measures": "Brief authoring advice; not an external standard",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "blank-page SKILL.md Rules / Procedure (MIT); acceptance-11 CJK counting adaptation",
+        "agent_invented": false
+      },
+      "anchors": [
+        {
+          "id": "words.cjk.max-valid",
+          "path": "tests/test_brief.py",
+          "role": "positive_control",
+          "expected": "pass",
+          "label_source": "fixture"
+        },
+        {
+          "id": "words.cjk.max-invalid",
+          "path": "tests/test_brief.py",
+          "role": "negative_control",
+          "expected": "fail",
+          "label_source": "fixture"
+        }
+      ],
+      "history": [],
+      "status": "active"
+    },
+    {
+      "id": "brief.edit_words.en.max",
+      "value": 50,
+      "unit": "words",
+      "direction": "max",
+      "class": "C",
+      "measures": "Brief authoring advice; not an external standard",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "blank-page SKILL.md Rules / Procedure (MIT); acceptance-11 CJK counting adaptation",
+        "agent_invented": false
+      },
+      "anchors": [
+        {
+          "id": "edit_words.en.max-valid",
+          "path": "tests/test_brief.py",
+          "role": "positive_control",
+          "expected": "pass",
+          "label_source": "fixture"
+        },
+        {
+          "id": "edit_words.en.max-invalid",
+          "path": "tests/test_brief.py",
+          "role": "negative_control",
+          "expected": "fail",
+          "label_source": "fixture"
+        }
+      ],
+      "history": [],
+      "status": "active"
+    },
+    {
+      "id": "brief.edit_words.cjk.max",
+      "value": 100,
+      "unit": "characters plus Latin words",
+      "direction": "max",
+      "class": "C",
+      "measures": "Brief authoring advice; not an external standard",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "blank-page SKILL.md Rules / Procedure (MIT); acceptance-11 CJK counting adaptation",
+        "agent_invented": false
+      },
+      "anchors": [
+        {
+          "id": "edit_words.cjk.max-valid",
+          "path": "tests/test_brief.py",
+          "role": "positive_control",
+          "expected": "pass",
+          "label_source": "fixture"
+        },
+        {
+          "id": "edit_words.cjk.max-invalid",
+          "path": "tests/test_brief.py",
+          "role": "negative_control",
+          "expected": "fail",
+          "label_source": "fixture"
+        }
+      ],
+      "history": [],
+      "status": "active"
+    },
+    {
+      "id": "brief.word_error_ratio",
+      "value": 1.2,
+      "unit": "ratio",
+      "direction": "max",
+      "class": "C",
+      "measures": "Brief authoring advice; not an external standard",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "blank-page SKILL.md Rules / Procedure (MIT); acceptance-11 CJK counting adaptation",
+        "agent_invented": false
+      },
+      "anchors": [
+        {
+          "id": "word_error_ratio-valid",
+          "path": "tests/test_brief.py",
+          "role": "positive_control",
+          "expected": "pass",
+          "label_source": "fixture"
+        },
+        {
+          "id": "word_error_ratio-invalid",
+          "path": "tests/test_brief.py",
+          "role": "negative_control",
+          "expected": "fail",
+          "label_source": "fixture"
+        }
+      ],
+      "history": [],
+      "status": "active"
+    },
+    {
+      "id": "brief.forks.max",
+      "value": 3,
+      "unit": "creative forks",
+      "direction": "max",
+      "class": "C",
+      "measures": "Brief authoring advice; not an external standard",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "blank-page SKILL.md Rules / Procedure (MIT); acceptance-11 CJK counting adaptation",
+        "agent_invented": false
+      },
+      "anchors": [
+        {
+          "id": "forks.max-valid",
+          "path": "tests/test_brief.py",
+          "role": "positive_control",
+          "expected": "pass",
+          "label_source": "fixture"
+        },
+        {
+          "id": "forks.max-invalid",
+          "path": "tests/test_brief.py",
+          "role": "negative_control",
+          "expected": "fail",
+          "label_source": "fixture"
+        }
+      ],
+      "history": [],
+      "status": "active"
+    },
+    {
+      "id": "brief.visual_refs",
+      "value": 5,
+      "unit": "reference slots",
+      "direction": "equal",
+      "class": "C",
+      "measures": "Brief authoring advice; not an external standard",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "blank-page SKILL.md Rules / Procedure (MIT); acceptance-11 CJK counting adaptation",
+        "agent_invented": false
+      },
+      "anchors": [
+        {
+          "id": "visual_refs-valid",
+          "path": "tests/test_brief.py",
+          "role": "positive_control",
+          "expected": "pass",
+          "label_source": "fixture"
+        },
+        {
+          "id": "visual_refs-invalid",
+          "path": "tests/test_brief.py",
+          "role": "negative_control",
+          "expected": "fail",
+          "label_source": "fixture"
+        }
+      ],
+      "history": [],
+      "status": "active"
+    },
+    {
+      "id": "brief.motion_refs",
+      "value": 3,
+      "unit": "reference slots",
+      "direction": "equal",
+      "class": "C",
+      "measures": "Brief authoring advice; not an external standard",
+      "provenance": {
+        "source_class": "GUESS",
+        "ref": "blank-page SKILL.md Rules / Procedure (MIT); acceptance-11 CJK counting adaptation",
+        "agent_invented": false
+      },
+      "anchors": [
+        {
+          "id": "motion_refs-valid",
+          "path": "tests/test_brief.py",
+          "role": "positive_control",
+          "expected": "pass",
+          "label_source": "fixture"
+        },
+        {
+          "id": "motion_refs-invalid",
+          "path": "tests/test_brief.py",
+          "role": "negative_control",
+          "expected": "fail",
+          "label_source": "fixture"
+        }
+      ],
+      "history": [],
+      "status": "active"
+    }
+  ],
+  "pending": [],
+  "audit": [],
+  "calibration_tables": {
+    "fx_perceived": "references/fx-calibration.json"
+  }
+}

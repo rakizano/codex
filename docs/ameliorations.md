@@ -82,3 +82,8 @@
 - Anneaux qui s'ouvrent à chaque coupe, calés sur la cymbale.
 - Tous les titres animés flottent et oscillent en permanence après leur apparition (plus aucun texte figé).
 - Testé aussi : Coqui VITS « CSS10 » (fém., GitHub sherpa-onnx) → DNSMOS 3,01–3,19 sur 4 essais, inférieur à Pierre/Gilles : écarté. Toutes les voix françaises téléchargeables depuis ce conteneur ont été évaluées.
+
+## Passe 4 — skills Bang Motion + Video GIF Studio
+- Installés dans `.claude/skills/` après lecture (licences MIT, aucun appel réseau suspect) — provenance : `.claude/skills/THIRD_PARTY_SKILLS.md`.
+- **Bang Motion** appliqué à Remotion : menu de transitions (fini le bloc diagonal répété), entrées lentes / sorties rapides qui se chevauchent, plans de caméra serrés ↔ larges sur l'élément qui raconte, typographie en casse de phrase. Règles ajoutées au skill `remotion-music-explainer` pour toutes les nouvelles vidéos.
+- **Video GIF Studio** : seule la partie locale et gratuite est utilisée (`music_sync.py`, analyse de tempo). `pipeline/licensed_beats.py` cale les coupes sur les vrais temps d'un morceau **sous licence** déposé dans `episodes/<slug>/music/licence.*` (testé : 86 BPM détectés sur un signal à 86 BPM). Routes payantes (Grok, fal.ai, Suno) non utilisées.

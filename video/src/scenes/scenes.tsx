@@ -16,7 +16,7 @@ export const HookTitle: React.FC<SceneProps> = ({seg, p, ep}) => {
   const tt = t < q ? t : q; // le temps « s'arrête » sur la question
   const beams = [0, 1, 2, 3];
   return (
-    <Camera punches={[q]} shake={[q]}>
+    <Camera punches={[q]} shake={[q]} shots={[{at: 0, s: 1.7, x: 540, y: 1180, dur: 0.01}, {at: Math.max(0.3, wordTime(seg, 'crie') - 0.3), s: 1, dur: 0.9}]}>
       {/* projecteurs qui balaient */}
       <svg width={1080} height={1920} style={{position: 'absolute', opacity: (1 - freeze) * 0.8}}>
         {beams.map((i) => {
@@ -45,7 +45,7 @@ export const HookTitle: React.FC<SceneProps> = ({seg, p, ep}) => {
       {/* « pause » : icône vinyle rayé quand la question tombe */}
       {freeze > 0 && (
         <div style={{position: 'absolute', left: 60, top: 190, opacity: freeze, transform: `rotate(${-20 + freeze * 20}deg) scale(${0.6 + freeze * 0.4})`,
-          fontFamily: FONT, fontWeight: 900, fontSize: 44, color: p.bg, background: p.accent, padding: '10px 22px', borderRadius: 12}}>❚❚ PAUSE</div>
+          fontFamily: FONT, fontWeight: 900, fontSize: 44, color: p.bg, background: p.accent, padding: '10px 22px', borderRadius: 12}}>❚❚ pause</div>
       )}
     </Camera>
   );
@@ -57,10 +57,10 @@ export const ArtistTitleCard: React.FC<SceneProps> = ({seg, p, ep}) => {
   const {pulse} = useBeat(abs(seg, ep));
   const s = usePop(0.05, 14);
   const arm = ease(t, 0.2, 0.9);
-  const title = ep.title.split(' (')[0].toUpperCase();
+  const title = ep.title.split(' (')[0];
   const sub = ep.title.includes('(') ? '(' + ep.title.split('(')[1] : '';
   return (
-    <Camera punches={[0.9]}>
+    <Camera punches={[0.9]} shots={[{at: 0, s: 1.65, x: 540, y: 820, dur: 0.01}, {at: 0.35, s: 1, dur: 1.0}, {at: wordTime(seg, 'produit') - 0.2, s: 1.25, x: 800, y: 1200, dur: 0.7}]}>
       {/* sillons lumineux qui rayonnent au beat */}
       <svg width={1080} height={1920} style={{position: 'absolute'}}>
         {[0, 1, 2].map((i) => <circle key={i} cx={540} cy={820} r={400 + i * 70 + pulse * 30} fill="none" stroke={p.main} strokeOpacity={0.15 - i * 0.04} strokeWidth={6} />)}
@@ -102,7 +102,7 @@ export const FamilyRoom: React.FC<SceneProps> = ({seg, p}) => {
   const flicker = 0.16 + 0.05 * Math.sin(t * 2) + 0.04 * (random(`fl${Math.floor(f / 3)}`) > 0.9 ? 1 : 0);
   const bottles = [0, 1, 2, 3, 4];
   return (
-    <AbsoluteFill>
+    <Camera drift={0} shots={[{at: wordTime(seg, 'verres') - 0.4, s: 1.7, x: 900, y: 1300, dur: 0.7}, {at: wordTime(seg, 'verres') + 1.6, s: 1, dur: 0.8}]}><AbsoluteFill>
       <AbsoluteFill style={{transform: `scale(${push})`, transformOrigin: '50% 45%'}}>
         <svg width={1080} height={1920} style={{position: 'absolute'}}>
           {/* maison, fenêtre éclairée */}
@@ -137,9 +137,9 @@ export const FamilyRoom: React.FC<SceneProps> = ({seg, p}) => {
           <Glass level={0.12 + 0.82 * fill} p={p} w={170} h={240} />
         </div>
       </AbsoluteFill>
-      <KineticWord text="sa famille" at={wordTime(seg, 'famille')} color={p.ink} y={210} size={100} />
-      <KineticWord text="l'alcool dans le décor" at={wordTime(seg, "l'alcool")} color={p.accent} x={420} y={1250} size={56} rot={2} />
-    </AbsoluteFill>
+      <KineticWord text="Sa famille" at={wordTime(seg, 'famille')} color={p.ink} x={330} y={210} size={104} />
+      <KineticWord text="L'alcool dans le décor" at={wordTime(seg, "l'alcool")} color={p.accent} x={420} y={1250} size={56} rot={2} />
+    </AbsoluteFill></Camera>
   );
 };
 
@@ -152,7 +152,7 @@ export const FactReveal: React.FC<SceneProps> = ({seg, p}) => {
   const walker = ease(t, fork + 0.3, fork + 2.6);
   const ivrogne = wordTime(seg, 'ivrogne');
   return (
-    <Camera punches={[ivrogne]}>
+    <Camera punches={[ivrogne]} shots={[{at: 0.5, s: 1.22, x: 540, y: 520, dur: 0.8}, {at: fork - 0.4, s: 1, dur: 0.9}, {at: ivrogne - 0.1, s: 1.08, x: 540, y: 1050, dur: 0.6}]}>
       <div style={{position: 'absolute', left: 540, top: 470, width: 840, transform: `translate(-50%,-50%) perspective(1600px) rotateY(${(1 - open) * -45}deg) scale(${(0.6 + 0.4 * open) * (1 - 0.35 * k)}) translateY(${-k * 260}px) rotate(${Math.sin(t * 0.8) * 1.2}deg)`,
         transformOrigin: '0% 50%', padding: 50, background: p.ink, borderRadius: 28, fontFamily: FONT, color: p.bg, boxShadow: '0 30px 80px #0009'}}>
         <div style={{fontSize: 34, fontWeight: 800, letterSpacing: 6, color: p.main}}>INTERVIEW · COMPLEX · 2012</div>
@@ -173,8 +173,8 @@ export const FactReveal: React.FC<SceneProps> = ({seg, p}) => {
           </g>
         )}
       </svg>
-      {t > fork && <KineticWord text="de temps en temps" at={fork + 0.7} color={p.main} x={250} y={960} size={40} rot={-4} />}
-      {t > fork && <KineticWord text="devenir un ivrogne" at={ivrogne} color={p.accent} x={830} y={960} size={40} rot={3} />}
+      {t > fork && <KineticWord text="De temps en temps" at={fork + 0.7} color={p.main} x={300} y={960} size={38} rot={-4} />}
+      {t > fork && <KineticWord text="Devenir un ivrogne" at={ivrogne} color={p.accent} x={790} y={960} size={38} rot={3} />}
     </Camera>
   );
 };
@@ -187,14 +187,14 @@ export const TwoVoices: React.FC<SceneProps> = ({seg, p, ep}) => {
   const b = ease(t, second - 0.2, second + 0.6);
   const bubbles = ['encore !', 'bois !', 'allez…', 'un dernier', 'cul sec !', 'juste un'];
   const head = (x: number, flip: number, color: string, glow: number) => (
-    <g transform={`translate(${x}, 1160) scale(${flip}, 1)`}>
+    <g transform={`translate(${x}, 1000) scale(${flip}, 1)`}>
       <circle r={150 + glow * 30} fill={color} opacity={0.15 * glow} />
       <path d="M -90 120 Q -110 -60 0 -140 Q 110 -150 120 -30 L 150 10 L 118 30 Q 120 90 60 120 L 60 200 L -90 200 Z" fill={color} />
     </g>
   );
   return (
-    <AbsoluteFill>
-      <div style={{position: 'absolute', top: 110, width: '100%', textAlign: 'center', fontFamily: FONT, fontWeight: 900, fontSize: 90, color: p.ink, transform: `scale(${usePop(0)})`}}>DEUX VOIX</div>
+    <Camera shots={[{at: 0.6, s: 1.15, x: 420, y: 760, dur: 0.8}, {at: second - 0.3, s: 1.15, x: 660, y: 760, dur: 0.8}, {at: second + 2.2, s: 1, dur: 0.9}]}><AbsoluteFill>
+      <div style={{position: 'absolute', top: 110, width: '100%', textAlign: 'center', fontFamily: FONT, fontWeight: 900, fontSize: 90, color: p.ink, transform: `scale(${usePop(0)})`}}>Deux voix</div>
       <svg width={1080} height={1920} style={{position: 'absolute'}}>
         {head(280, 1, p.main, 1 - b * 0.6)}
         {head(800, -1, p.accent, b)}
@@ -212,9 +212,9 @@ export const TwoVoices: React.FC<SceneProps> = ({seg, p, ep}) => {
         fontFamily: FONT, fontWeight: 900, fontSize: 46, padding: '22px 28px', borderRadius: 30, boxShadow: `0 0 ${40 + pulse * 40}px ${p.accent}`}}>
         « fais gaffe… »
       </div>
-      <div style={{position: 'absolute', top: 900, left: 160, fontFamily: FONT, color: p.main, fontSize: 38, fontWeight: 900, opacity: 1 - b * 0.5}}>LES POTES</div>
-      <div style={{position: 'absolute', top: 900, left: 620, fontFamily: FONT, color: p.accent, fontSize: 38, fontWeight: 900, opacity: 0.3 + b * 0.7}}>LA CONSCIENCE</div>
-    </AbsoluteFill>
+      <div style={{position: 'absolute', top: 810, left: 160, fontFamily: FONT, color: p.main, fontSize: 38, fontWeight: 900, opacity: 1 - b * 0.5}}>Les potes</div>
+      <div style={{position: 'absolute', top: 810, left: 620, fontFamily: FONT, color: p.accent, fontSize: 38, fontWeight: 900, opacity: 0.3 + b * 0.7}}>La conscience</div>
+    </AbsoluteFill></Camera>
   );
 };
 
@@ -229,7 +229,7 @@ export const PoolDive: React.FC<SceneProps> = ({seg, p}) => {
   const arcX = 540 + Math.sin(fall * Math.PI) * 120;
   const arcY = 640 - Math.sin(fall * Math.PI) * 160 + fall * 420;
   return (
-    <Camera punches={[splashT, drown]} shake={[splashT]}>
+    <Camera punches={[splashT, drown]} shake={[splashT]} shots={[{at: dive - 0.7, s: 1.18, x: 540, y: 700, dur: 0.6}, {at: dive + 0.5, s: 1, dur: 0.5}]}>
       <svg width={1080} height={1920} style={{position: 'absolute'}}>
         <rect x={120} y={700} width={840} height={900} rx={40} fill={p.ink} opacity={0.14} />
         <rect x={150} y={730} width={780} height={840} rx={30} fill={p.accent} opacity={0.78} />
@@ -258,9 +258,9 @@ export const PoolDive: React.FC<SceneProps> = ({seg, p}) => {
         <path d={`M 0 ${1920 - level * 1920} q 135 -30 270 0 t 270 0 t 270 0 t 270 0`} fill={p.accent} opacity={level} transform={`translate(${Math.sin(t * 2) * 30},0)`} />
       </svg>
       <Burst at={splashT} x={560} y={1040} color="#ffffff" n={30} spread={620} seed="splash" gravity={1400} />
-      <KineticWord text="pas d'eau" at={wordTime(seg, 'pas')} color={p.ink} y={220} size={100} />
-      <KineticWord text="de l'alcool" at={wordTime(seg, "d'alcool") || wordTime(seg, 'alcool')} color={p.main} y={340} size={115} rot={3} />
-      {t > drown && <KineticWord text="s'y noyer" at={drown} color={p.bg} y={960} size={150} />}
+      <KineticWord text="Pas d'eau" at={wordTime(seg, 'pas')} color={p.ink} x={340} y={220} size={100} />
+      <KineticWord text="de l'alcool" at={wordTime(seg, "d'alcool") || wordTime(seg, 'alcool')} color={p.main} x={640} y={350} size={118} rot={3} />
+      {t > drown && <KineticWord text="S'y noyer" at={drown} color={p.bg} y={960} size={150} />}
     </Camera>
   );
 };
@@ -274,10 +274,10 @@ export const TikTokUsageContrast: React.FC<SceneProps> = ({seg, p, ep}) => {
   const items = [['🧠', 'pression du groupe'], ['🍸', 'tentation'], ['🔁', 'ce qu’on reproduit']];
   const scroll = (t * 160) % 260;
   return (
-    <Camera punches={[right]}>
+    <Camera punches={[right]} shots={[{at: 0, s: 1.45, x: 540, y: 730, dur: 0.01}, {at: right - 0.35, s: 1, dur: 0.8}]}>
       <AbsoluteFill style={{background: p.bg}} />
       <div style={{position: 'absolute', left: 0, width: 1080 - split * 540, top: 0, height: 1920, background: p.accent}} />
-      <div style={{position: 'absolute', left: 0, width: 1080 - split * 540, top: 260, textAlign: 'center', fontFamily: FONT, fontWeight: 900, fontSize: 64, color: p.bg}}>EN SOIRÉE</div>
+      <div style={{position: 'absolute', left: 0, width: 1080 - split * 540, top: 260, textAlign: 'center', fontFamily: FONT, fontWeight: 900, fontSize: 64, color: p.bg}}>En soirée</div>
       {/* téléphone + fil qui défile */}
       <div style={{position: 'absolute', left: (1080 - split * 540) / 2 - 160, top: 420, width: 320, height: 620, borderRadius: 44, background: p.bg, overflow: 'hidden', transform: `scale(${1 + pulse * 0.02})`}}>
         {[0, 1, 2, 3].map((i) => (
@@ -291,7 +291,7 @@ export const TikTokUsageContrast: React.FC<SceneProps> = ({seg, p, ep}) => {
         })}
       </div>
       <div style={{position: 'absolute', left: 30, top: 1080, width: 480, fontFamily: FONT, fontSize: 26, color: p.bg, opacity: 0.85}}>usage observé à confirmer par relevé (tiktok-usage.md)</div>
-      <div style={{position: 'absolute', left: 590, top: 260, width: 460, textAlign: 'center', fontFamily: FONT, fontWeight: 900, fontSize: 56, color: p.ink, opacity: split}}>DANS LE MORCEAU</div>
+      <div style={{position: 'absolute', left: 590, top: 260, width: 460, textAlign: 'center', fontFamily: FONT, fontWeight: 900, fontSize: 56, color: p.ink, opacity: split}}>Dans le morceau</div>
       {items.map(([ic, x], i) => {
         const at = right + 0.8 + i * 1.0;
         const s = ease(t, at, at + 0.35);
@@ -312,11 +312,11 @@ export const EndQuestion: React.FC<SceneProps> = ({seg, p, ep}) => {
   const {pulse} = useBeat(abs(seg, ep));
   const c = wordTime(seg, 'commentaire');
   return (
-    <AbsoluteFill>
+    <Camera drift={0.04} shots={[{at: c - 0.3, s: 1.3, x: 540, y: 820, dur: 0.9}]}><AbsoluteFill>
       <div style={{position: 'absolute', left: 540, top: 1340, transform: `translate(-50%,-50%) scale(${0.72 + pulse * 0.04})`, opacity: 0.95}}>
         <VinylRecord size={700} p={p} label="L'ENVERS DU SON" rpm={20 + t * 6} />
       </div>
-      <KineticWord text="et maintenant," at={0.2} color={p.ink} y={340} size={90} />
+      <KineticWord text="Et maintenant," at={0.2} color={p.ink} y={340} size={90} />
       <KineticWord text="tu l'écoutes" at={0.9} color={p.main} y={480} size={120} rot={2} />
       <KineticWord text="pareil ?" at={1.6} color={p.accent} y={640} size={160} />
       {['🎧', '💬', '🔥', '🎤'].map((e, i) => {
@@ -326,7 +326,7 @@ export const EndQuestion: React.FC<SceneProps> = ({seg, p, ep}) => {
       })}
       <div style={{position: 'absolute', left: 540, top: 840, transform: `translate(-50%,-50%) scale(${ease(t, c, c + 0.35) * (1 + pulse * 0.05)})`, background: p.ink, color: p.bg,
         fontFamily: FONT, fontWeight: 900, fontSize: 46, padding: '18px 34px', borderRadius: 999, whiteSpace: 'nowrap'}}>ton morceau en commentaire ↓</div>
-    </AbsoluteFill>
+    </AbsoluteFill></Camera>
   );
 };
 
