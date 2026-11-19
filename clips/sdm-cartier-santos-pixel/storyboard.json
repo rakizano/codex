@@ -1,0 +1,808 @@
+{
+ "song": {
+  "artist": "SDM",
+  "title": "Cartier Santos",
+  "album": "ALVALM (2024)",
+  "version_duration": 183.0,
+  "lrclib_ref_id": 33605312,
+  "sync_confidence": "élevée",
+  "sync_spread_median_s": 0.08,
+  "n_sources": 16,
+  "notes": [
+   "Clip calé sur le son TikTok fourni (60,02 s) : passage de la chanson 41.0 s → 101.0 s, vitesse normale.",
+   "Débuts de phrases pris sur les mots entendus dans ce son (Whisper : 137 mots appariés aux paroles, erreur d'ajustement 0.161 s).",
+   "Écartés : la fin de « Mon shit caché dans la veste… » (commencée avant le son) et « j'avais bloqué ma soirée… » (coupée par la fin du son). Ad-libs non affichés."
+  ]
+ },
+ "passage": {
+  "start": 0.0,
+  "end": 60.022,
+  "duration": 60.022,
+  "start_fmt": "0:00.000",
+  "end_fmt": "1:00.022"
+ },
+ "fps": 30,
+ "width": 1080,
+ "height": 1920,
+ "direction": {
+  "concept": "La relation racontée comme un jeu vidéo rétro : lui est le joueur (barre de cœurs, compteur de pièces), elle vide son compteur niveau après niveau ; pause, élimination, blocs qui tombent, chaîne au cœur, jusqu'à l'écran « continue ? » sur « est-ce que t'es sûr ? ».",
+  "universe": "Pixel art 16 bits : niveaux à défilement dans la cité la nuit, ciel violet, briques, réverbères, pièces qui tournent, cœurs, interface de jeu (HUD).",
+  "palette": {
+   "nuit violette": "#1a1033",
+   "violet": "#3b2a6b",
+   "cyan": "#29d3ff",
+   "magenta": "#ff4fd8",
+   "or pièce": "#ffd23f",
+   "vert": "#3ddc84",
+   "béton": "#5c5470",
+   "blanc": "#f8f8f8",
+   "rouge signature": "#e10600"
+  },
+  "typography": "Pixelify Sans grasse, blanc avec ombre portée noire dure décalée (pixel), mot rouge plus grand ; entrées « pop » et « stamp » comme des bulles de jeu.",
+  "graphic_style": "Illustrations vectorielles pixellisées dans le moteur (mosaïque 9 px ≈ 120×213 « pixels » de jeu) et palette réduite (6 niveaux par canal) ; aplats francs, silhouettes de sprites : lui en cyan à capuche, elle en magenta.",
+  "animation_principles": "Rythme de jeu vidéo : sprites qui marchent, sautent, clignotent ; défilements latéraux, pièces qui tournent, HUD vivant ; secousses sur les coups ; pause figée.",
+  "transitions": "Stores pixel, glitch, iris de jeu vidéo, coupes sèches sur les temps forts, poussées latérales comme un changement d'écran, flash blanc.",
+  "references": "Jeux de plateforme 8/16 bits (grammaire générale, aucun jeu reproduit)."
+ },
+ "style": {
+  "fonts": [
+   "Pixelify Sans:700"
+  ],
+  "typo": {
+   "font": "Pixelify Sans",
+   "weight": 700,
+   "color": "#f8f8f8",
+   "red": "#e10600",
+   "size": 120,
+   "redScale": 1.25,
+   "lineHeight": 1.0,
+   "enter": "pop",
+   "emphasis": "pulse",
+   "exit": "none",
+   "shadow": "6px 6px 0 #0d0d0d",
+   "redShadow": "6px 6px 0 #0d0d0d",
+   "wordIn": 0.12,
+   "sylDur": 0.15,
+   "preroll": 0.03
+  },
+  "fx": {
+   "pixelate": 9,
+   "posterize": 6,
+   "grain": 0,
+   "vignette": 0.25,
+   "scanlines": 0.06
+  },
+  "palette": {}
+ },
+ "beats": [],
+ "scenes": [
+  {
+   "id": "s00",
+   "start": 0.0,
+   "lyrics": [
+    {
+     "text": "La vie d'ma / mère, bébé, ma / tchop sans / coco,",
+     "red": "mère",
+     "start": 1.175,
+     "end": 3.6,
+     "song_t": 1.175,
+     "timing": "LRC",
+     "src_line": 0,
+     "enter": "stamp",
+     "emphasis": "shake",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 3.62,
+   "transition": {
+    "type": "cut",
+    "dur": 0
+   },
+   "visual": "Niveau 1, rue de la cité : il pose un genou à terre devant elle, main sur le cœur, des cœurs pixel s'envolent.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s01",
+   "start": 3.62,
+   "lyrics": [
+    {
+     "text": "j'peux être / ton bébé",
+     "red": "bébé",
+     "start": 3.74,
+     "end": 6.125,
+     "song_t": 3.74,
+     "timing": "LRC",
+     "src_line": 1,
+     "enter": "pop",
+     "emphasis": "pulse",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "end": 6.145,
+   "transition": {
+    "type": "push",
+    "dur": 0.3,
+    "dir": "left"
+   },
+   "visual": "Défilement latéral : il conduit une petite voiture pixel, elle à côté, la route et les réverbères défilent.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s02",
+   "start": 6.145,
+   "lyrics": [
+    {
+     "text": "Elle savait / m'parler, au / bout d'deux, / trois dél',",
+     "red": "parler",
+     "start": 6.265,
+     "end": 8.98,
+     "song_t": 6.265,
+     "timing": "LRC",
+     "src_line": 2,
+     "enter": "pop",
+     "emphasis": "late",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 9.0,
+   "transition": {
+    "type": "blinds",
+    "dur": 0.35,
+    "n": 8
+   },
+   "visual": "Face à face : bulles de dialogue pixel qui alternent, remplies de petits cœurs.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s03",
+   "start": 9.0,
+   "lyrics": [
+    {
+     "text": "j'me mets à / rêver",
+     "red": "rêver",
+     "start": 9.12,
+     "end": 11.62,
+     "song_t": 9.12,
+     "timing": "LRC",
+     "src_line": 3,
+     "enter": "drift",
+     "emphasis": "glow",
+     "pos": "upper",
+     "align": "center"
+    }
+   ],
+   "end": 11.64,
+   "transition": {
+    "type": "iris",
+    "dur": 0.4
+   },
+   "visual": "Il dort sur un banc, bulle de rêve : château pixel et cœur géant dans les étoiles.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s04",
+   "start": 11.64,
+   "lyrics": [
+    {
+     "text": "Que j'prends / sur moi, dés / l'début, elle,",
+     "red": "début",
+     "start": 11.76,
+     "end": 13.947,
+     "song_t": 11.76,
+     "timing": "LRC",
+     "src_line": 4,
+     "enter": "stamp",
+     "emphasis": "shake",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "end": 13.967,
+   "transition": {
+    "type": "cut",
+    "dur": 0
+   },
+   "visual": "Il porte une pile de caisses sur le dos et avance péniblement.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s05",
+   "start": 13.967,
+   "lyrics": [
+    {
+     "text": "elle a / seulement / voulu prendre / des sous sur / me",
+     "red": "sous",
+     "start": 14.087,
+     "end": 16.32,
+     "song_t": 14.087,
+     "timing": "LRC",
+     "src_line": 5,
+     "enter": "pop",
+     "emphasis": "scramble",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 16.34,
+   "transition": {
+    "type": "flash",
+    "dur": 0.2
+   },
+   "visual": "Les pièces s'envolent de lui vers elle ; le compteur de pièces chute.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s06",
+   "start": 16.34,
+   "lyrics": [
+    {
+     "text": "Quand j'avais / pas one sur / moi,",
+     "red": "one",
+     "start": 16.46,
+     "end": 17.72,
+     "song_t": 16.46,
+     "timing": "LRC",
+     "src_line": 6,
+     "enter": "stamp",
+     "emphasis": "late",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "end": 17.74,
+   "transition": {
+    "type": "cut",
+    "dur": 0
+   },
+   "visual": "Il retourne ses poches vides, compteur à 0, une mouche passe.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s07",
+   "start": 17.74,
+   "lyrics": [
+    {
+     "text": "pas d'souci / pour elle, / d'toute façon / j'étais le / huitième de / tous ses mecs",
+     "red": "huitième",
+     "start": 17.86,
+     "end": 21.46,
+     "song_t": 17.86,
+     "timing": "LRC",
+     "src_line": 7,
+     "enter": "pop",
+     "emphasis": "shake",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 21.48,
+   "transition": {
+    "type": "push",
+    "dur": 0.3,
+    "dir": "left"
+   },
+   "visual": "Une file de 8 garçons identiques ; il est le n° 8, elle tout devant.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s08",
+   "start": 21.48,
+   "lyrics": [
+    {
+     "text": "Faudra d'la / foi et du / courage,",
+     "red": "courage",
+     "start": 21.6,
+     "end": 22.96,
+     "song_t": 21.6,
+     "timing": "LRC",
+     "src_line": 8,
+     "enter": "stamp",
+     "emphasis": "pulse",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "end": 22.98,
+   "transition": {
+    "type": "glitch",
+    "dur": 0.35
+   },
+   "visual": "Héros avec bouclier face à un château sombre au sommet d'un escalier.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s09",
+   "start": 22.98,
+   "lyrics": [
+    {
+     "text": "une relation / remplie de / rage, j'vois / jamais / l'soleil,",
+     "red": "rage",
+     "start": 23.1,
+     "end": 24.86,
+     "song_t": 23.1,
+     "timing": "LRC",
+     "src_line": 9,
+     "enter": "stamp",
+     "emphasis": "shake",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 24.88,
+   "transition": {
+    "type": "cut",
+    "dur": 0
+   },
+   "visual": "Niveau orage : pluie pixel, éclairs, cœurs qui se brisent au-dessus d'eux.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s10",
+   "start": 24.88,
+   "lyrics": [
+    {
+     "text": "que l'orage",
+     "red": "orage",
+     "start": 25.0,
+     "end": 26.44,
+     "song_t": 25.0,
+     "timing": "LRC",
+     "src_line": 10,
+     "enter": "stamp",
+     "emphasis": "shake",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 26.46,
+   "transition": {
+    "type": "flash",
+    "dur": 0.2
+   },
+   "visual": "Gros nuage d'orage pixel, éclair qui frappe, écran qui flashe.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s11",
+   "start": 26.46,
+   "lyrics": [
+    {
+     "text": "Elle veut son / blase en / tatouage,",
+     "red": "tatouage",
+     "start": 26.58,
+     "end": 28.0,
+     "song_t": 26.58,
+     "timing": "LRC",
+     "src_line": 11,
+     "enter": "pop",
+     "emphasis": "reveal",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "end": 28.02,
+   "transition": {
+    "type": "blinds",
+    "dur": 0.35,
+    "n": 8,
+    "dir": "horizontal"
+   },
+   "visual": "Gros plan d'un bras : un tatouage cœur qui se dessine pixel par pixel.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s12",
+   "start": 28.02,
+   "lyrics": [
+    {
+     "text": "que j'me / sépare d'mon / entourage, la / dernière / collection / Courrèges",
+     "red": "entourage",
+     "start": 28.14,
+     "end": 31.26,
+     "song_t": 28.14,
+     "timing": "LRC",
+     "src_line": 12,
+     "enter": "pop",
+     "emphasis": "slidein",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 31.28,
+   "transition": {
+    "type": "push",
+    "dur": 0.3,
+    "dir": "right"
+   },
+   "visual": "Ses potes partent vers la gauche ; elle le tire vers la droite avec des sacs de shopping.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s13",
+   "start": 31.28,
+   "lyrics": [
+    {
+     "text": "Mon Dieu, dans / quel film on / est?",
+     "red": "film",
+     "start": 31.4,
+     "end": 33.18,
+     "song_t": 31.4,
+     "timing": "LRC",
+     "src_line": 13,
+     "enter": "pop",
+     "emphasis": "glow",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 33.2,
+   "transition": {
+    "type": "iris",
+    "dur": 0.4
+   },
+   "visual": "Salle de cinéma rétro : leur couple projeté à l'écran, têtes du public en silhouette.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s14",
+   "start": 33.2,
+   "lyrics": [
+    {
+     "text": "Mais comment / j'me suis / attaché sans / la connaître?",
+     "red": "attaché",
+     "start": 33.32,
+     "end": 36.86,
+     "song_t": 33.32,
+     "timing": "LRC",
+     "src_line": 14,
+     "enter": "stamp",
+     "emphasis": "shake",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "end": 36.88,
+   "transition": {
+    "type": "cut",
+    "dur": 0
+   },
+   "visual": "Il est enchaîné à elle par une chaîne avec un cadenas en forme de cœur.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s15",
+   "start": 36.88,
+   "lyrics": [
+    {
+     "text": "Que elle veut / ci, elle veut / ça, pourtant,",
+     "red": "ça",
+     "start": 37.0,
+     "end": 38.87,
+     "song_t": 37.0,
+     "timing": "LRC",
+     "src_line": 15,
+     "enter": "pop",
+     "emphasis": "late",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 38.89,
+   "transition": {
+    "type": "push",
+    "dur": 0.3,
+    "dir": "up"
+   },
+   "visual": "Vitrine : des objets apparaissent un à un avec étiquettes de prix (sac, chaussures, montre).",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s16",
+   "start": 38.89,
+   "lyrics": [
+    {
+     "text": "on m'a juré / qu'le bonheur",
+     "red": "bonheur",
+     "start": 39.01,
+     "end": 40.628,
+     "song_t": 39.01,
+     "timing": "LRC",
+     "src_line": 16,
+     "enter": "drift",
+     "emphasis": "glow",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 40.648,
+   "transition": {
+    "type": "wipe",
+    "dur": 0.35,
+    "dir": "right"
+   },
+   "visual": "Lever de soleil pixel sur les collines : un coffre au trésor s'ouvre sur des cœurs.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s17",
+   "start": 40.648,
+   "lyrics": [
+    {
+     "text": "s'trouvait pas / dans la / monnaie",
+     "red": "monnaie",
+     "start": 40.768,
+     "end": 41.84,
+     "song_t": 40.768,
+     "timing": "LRC",
+     "src_line": 17,
+     "enter": "drop",
+     "emphasis": "shake",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 41.86,
+   "transition": {
+    "type": "cut",
+    "dur": 0
+   },
+   "visual": "Une montagne de pièces qui s'effondre dans un trou noir.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s18",
+   "start": 41.86,
+   "lyrics": [
+    {
+     "text": "J'l'élimine à / ses vues, / c'est qu'une / tch', à ces,",
+     "red": "élimine",
+     "start": 41.98,
+     "end": 45.22,
+     "song_t": 41.98,
+     "timing": "LRC",
+     "src_line": 18,
+     "enter": "stamp",
+     "emphasis": "shake",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "end": 45.24,
+   "transition": {
+    "type": "glitch",
+    "dur": 0.35
+   },
+   "visual": "Son sprite à elle clignote comme touché puis disparaît en particules.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s19",
+   "start": 45.24,
+   "lyrics": [
+    {
+     "text": "j'l'assimile",
+     "red": "assimile",
+     "start": 45.36,
+     "end": 47.135,
+     "song_t": 45.36,
+     "timing": "LRC",
+     "src_line": 19,
+     "enter": "pop",
+     "emphasis": "pulse",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 47.155,
+   "transition": {
+    "type": "blinds",
+    "dur": 0.35,
+    "n": 8
+   },
+   "visual": "Blocs façon puzzle qui tombent et complètent une ligne qui s'efface.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s20",
+   "start": 47.155,
+   "lyrics": [
+    {
+     "text": "Oh là là, pas / si vite,",
+     "red": "vite",
+     "start": 47.275,
+     "end": 48.56,
+     "song_t": 47.275,
+     "timing": "LRC",
+     "src_line": 20,
+     "enter": "slide",
+     "emphasis": "slidein",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "end": 48.58,
+   "transition": {
+    "type": "push",
+    "dur": 0.25,
+    "dir": "left"
+   },
+   "visual": "Il court vite (lignes de vitesse) ; elle l'attrape par la capuche.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s21",
+   "start": 48.58,
+   "lyrics": [
+    {
+     "text": "elle me dit / \"tu bouges / pas, ton sang,",
+     "red": "sang",
+     "start": 48.7,
+     "end": 49.96,
+     "song_t": 48.7,
+     "timing": "LRC",
+     "src_line": 21,
+     "enter": "stamp",
+     "emphasis": "late",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 49.98,
+   "transition": {
+    "type": "cut",
+    "dur": 0
+   },
+   "visual": "Tout est figé : icône pause géante, flocons arrêtés en l'air.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s22",
+   "start": 49.98,
+   "lyrics": [
+    {
+     "text": "j'ai pas assez / bu\"",
+     "red": "bu",
+     "start": 50.1,
+     "end": 52.96,
+     "song_t": 50.1,
+     "timing": "LRC",
+     "src_line": 22,
+     "enter": "pop",
+     "emphasis": "glow",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 52.98,
+   "transition": {
+    "type": "flash",
+    "dur": 0.2
+   },
+   "visual": "Pleine lune : sa silhouette avec des ailes de chauve-souris, chauves-souris qui volent.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s23",
+   "start": 52.98,
+   "lyrics": [
+    {
+     "text": "J'prends plus / sur moi, c'est / fini,",
+     "red": "fini",
+     "start": 53.1,
+     "end": 54.66,
+     "song_t": 53.1,
+     "timing": "LRC",
+     "src_line": 23,
+     "enter": "stamp",
+     "emphasis": "late",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "end": 54.68,
+   "transition": {
+    "type": "iris",
+    "dur": 0.4
+   },
+   "visual": "Écran de fin de partie : il s'éloigne d'un cœur brisé, l'image s'assombrit.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s24",
+   "start": 54.68,
+   "lyrics": [
+    {
+     "text": "j'y ai / réfléchi toute / la semaine",
+     "red": "semaine",
+     "start": 54.8,
+     "end": 57.505,
+     "song_t": 54.8,
+     "timing": "LRC",
+     "src_line": 24,
+     "enter": "pop",
+     "emphasis": "pulse",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 57.525,
+   "transition": {
+    "type": "blinds",
+    "dur": 0.35,
+    "n": 8,
+    "dir": "horizontal"
+   },
+   "visual": "Sur le toit, il réfléchit : soleil et lune défilent 7 fois, 7 cases de jours se cochent.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s25",
+   "start": 57.525,
+   "lyrics": [
+    {
+     "text": "Elle me répond / \"est-ce que / t'es sûr?\", me / dit \"dommage,",
+     "red": "sûr",
+     "start": 57.645,
+     "end": 60.002,
+     "song_t": 57.645,
+     "timing": "LRC",
+     "src_line": 25,
+     "enter": "pop",
+     "emphasis": "shake",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 60.022,
+   "transition": {
+    "type": "glitch",
+    "dur": 0.35
+   },
+   "visual": "Écran de téléphone pixel : sa bulle de message arrive ; compte à rebours « continue ? ».",
+   "camera": "",
+   "animation": ""
+  }
+ ],
+ "lyrics_file": "work/lyrics_sound_scenes.json",
+ "tiktok_sound": {
+  "source": "vidéo TikTok fournie par l'utilisateur",
+  "duration_s": 60.022,
+  "song_start_s": 41.015,
+  "song_end_s": 101.037,
+  "speed": 1.0,
+  "instruction": "Dans le brouillon TikTok : « Ajouter un son » → choisir CE son (celui de la vidéo fournie) → ne pas couper : il démarre à 0:00 avec la vidéo → Publier."
+ },
+ "outro": {
+  "dur": 0.6,
+  "color": "#0d0d0d",
+  "text": true
+ }
+}

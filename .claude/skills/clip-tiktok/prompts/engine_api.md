@@ -89,4 +89,8 @@ push {dir} · slide {dir} · zoom · spin · whip {dir} · glitch · bar {dir, c
 
 ## Effets globaux (style.fx) et fin
 `grain` (0..0.15), `vignette` (0..0.8), `grade` (filtre CSS : "contrast(1.1) saturate(1.2) hue-rotate(-8deg)"),
-`scanlines`, `halftone`, `tint` + `tintOpacity` + `tintBlend`, `paper`. `storyboard.outro = {dur, color, text: true}` : fondu final.
+`scanlines`, `halftone`, `tint` + `tintOpacity` + `tintBlend`, `paper`,
+`pixelate` (taille d'un « pixel » en px, ex. 9 → mosaïque nette des illustrations ; le texte HTML reste net — prendre une police pixel
+comme Pixelify Sans / Silkscreen / Press Start 2P) et `posterize` (niveaux par canal, ex. 6 → palette rétro). Avec `pixelate`,
+dessiner des formes épaisses (traits ≥ 10 px, personnages s ≥ 0,8, `outline` noir 6-8 px) : les détails plus fins disparaissent.
+Le rendu est environ 2× plus lent. `storyboard.outro = {dur, color, text: true}` : fondu final.

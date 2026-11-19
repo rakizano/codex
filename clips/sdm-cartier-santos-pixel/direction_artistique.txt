@@ -1,0 +1,113 @@
+DIRECTION ARTISTIQUE — SDM « Cartier Santos »
+
+CONCEPT / NARRATION
+  La relation racontée comme un jeu vidéo rétro : lui est le joueur (barre de cœurs, compteur de pièces), elle vide son compteur niveau après niveau ; pause, élimination, blocs qui tombent, chaîne au cœur, jusqu'à l'écran « continue ? » sur « est-ce que t'es sûr ? ».
+
+UNIVERS VISUEL
+  Pixel art 16 bits : niveaux à défilement dans la cité la nuit, ciel violet, briques, réverbères, pièces qui tournent, cœurs, interface de jeu (HUD).
+
+PALETTE
+  nuit violette  #1a1033
+  violet         #3b2a6b
+  cyan           #29d3ff
+  magenta        #ff4fd8
+  or pièce       #ffd23f
+  vert           #3ddc84
+  béton          #5c5470
+  blanc          #f8f8f8
+  rouge signature #e10600
+
+TYPOGRAPHIE
+  Pixelify Sans grasse, blanc avec ombre portée noire dure décalée (pixel), mot rouge plus grand ; entrées « pop » et « stamp » comme des bulles de jeu.
+
+STYLE GRAPHIQUE
+  Illustrations vectorielles pixellisées dans le moteur (mosaïque 9 px ≈ 120×213 « pixels » de jeu) et palette réduite (6 niveaux par canal) ; aplats francs, silhouettes de sprites : lui en cyan à capuche, elle en magenta.
+
+PRINCIPES D'ANIMATION
+  Rythme de jeu vidéo : sprites qui marchent, sautent, clignotent ; défilements latéraux, pièces qui tournent, HUD vivant ; secousses sur les coups ; pause figée.
+
+TRANSITIONS & MONTAGE
+  Stores pixel, glitch, iris de jeu vidéo, coupes sèches sur les temps forts, poussées latérales comme un changement d'écran, flash blanc.
+
+INFLUENCES
+  Jeux de plateforme 8/16 bits (grammaire générale, aucun jeu reproduit).
+
+DÉCOUPAGE (scène → image)
+  s00  0.00- 3.62s  La vie d'ma mère, bébé, ma tchop sans coco,
+       image : Niveau 1, rue de la cité : il pose un genou à terre devant elle, main sur le cœur, des cœurs pixel s'envolent.
+       transition d'entrée : cut
+  s01  3.62- 6.14s  j'peux être ton bébé
+       image : Défilement latéral : il conduit une petite voiture pixel, elle à côté, la route et les réverbères défilent.
+       transition d'entrée : push
+  s02  6.14- 9.00s  Elle savait m'parler, au bout d'deux, trois dél',
+       image : Face à face : bulles de dialogue pixel qui alternent, remplies de petits cœurs.
+       transition d'entrée : blinds
+  s03  9.00-11.64s  j'me mets à rêver
+       image : Il dort sur un banc, bulle de rêve : château pixel et cœur géant dans les étoiles.
+       transition d'entrée : iris
+  s04 11.64-13.97s  Que j'prends sur moi, dés l'début, elle,
+       image : Il porte une pile de caisses sur le dos et avance péniblement.
+       transition d'entrée : cut
+  s05 13.97-16.34s  elle a seulement voulu prendre des sous sur me
+       image : Les pièces s'envolent de lui vers elle ; le compteur de pièces chute.
+       transition d'entrée : flash
+  s06 16.34-17.74s  Quand j'avais pas one sur moi,
+       image : Il retourne ses poches vides, compteur à 0, une mouche passe.
+       transition d'entrée : cut
+  s07 17.74-21.48s  pas d'souci pour elle, d'toute façon j'étais le huitième de tous ses mecs
+       image : Une file de 8 garçons identiques ; il est le n° 8, elle tout devant.
+       transition d'entrée : push
+  s08 21.48-22.98s  Faudra d'la foi et du courage,
+       image : Héros avec bouclier face à un château sombre au sommet d'un escalier.
+       transition d'entrée : glitch
+  s09 22.98-24.88s  une relation remplie de rage, j'vois jamais l'soleil,
+       image : Niveau orage : pluie pixel, éclairs, cœurs qui se brisent au-dessus d'eux.
+       transition d'entrée : cut
+  s10 24.88-26.46s  que l'orage
+       image : Gros nuage d'orage pixel, éclair qui frappe, écran qui flashe.
+       transition d'entrée : flash
+  s11 26.46-28.02s  Elle veut son blase en tatouage,
+       image : Gros plan d'un bras : un tatouage cœur qui se dessine pixel par pixel.
+       transition d'entrée : blinds
+  s12 28.02-31.28s  que j'me sépare d'mon entourage, la dernière collection Courrèges
+       image : Ses potes partent vers la gauche ; elle le tire vers la droite avec des sacs de shopping.
+       transition d'entrée : push
+  s13 31.28-33.20s  Mon Dieu, dans quel film on est?
+       image : Salle de cinéma rétro : leur couple projeté à l'écran, têtes du public en silhouette.
+       transition d'entrée : iris
+  s14 33.20-36.88s  Mais comment j'me suis attaché sans la connaître?
+       image : Il est enchaîné à elle par une chaîne avec un cadenas en forme de cœur.
+       transition d'entrée : cut
+  s15 36.88-38.89s  Que elle veut ci, elle veut ça, pourtant,
+       image : Vitrine : des objets apparaissent un à un avec étiquettes de prix (sac, chaussures, montre).
+       transition d'entrée : push
+  s16 38.89-40.65s  on m'a juré qu'le bonheur
+       image : Lever de soleil pixel sur les collines : un coffre au trésor s'ouvre sur des cœurs.
+       transition d'entrée : wipe
+  s17 40.65-41.86s  s'trouvait pas dans la monnaie
+       image : Une montagne de pièces qui s'effondre dans un trou noir.
+       transition d'entrée : cut
+  s18 41.86-45.24s  J'l'élimine à ses vues, c'est qu'une tch', à ces,
+       image : Son sprite à elle clignote comme touché puis disparaît en particules.
+       transition d'entrée : glitch
+  s19 45.24-47.16s  j'l'assimile
+       image : Blocs façon puzzle qui tombent et complètent une ligne qui s'efface.
+       transition d'entrée : blinds
+  s20 47.16-48.58s  Oh là là, pas si vite,
+       image : Il court vite (lignes de vitesse) ; elle l'attrape par la capuche.
+       transition d'entrée : push
+  s21 48.58-49.98s  elle me dit "tu bouges pas, ton sang,
+       image : Tout est figé : icône pause géante, flocons arrêtés en l'air.
+       transition d'entrée : cut
+  s22 49.98-52.98s  j'ai pas assez bu"
+       image : Pleine lune : sa silhouette avec des ailes de chauve-souris, chauves-souris qui volent.
+       transition d'entrée : flash
+  s23 52.98-54.68s  J'prends plus sur moi, c'est fini,
+       image : Écran de fin de partie : il s'éloigne d'un cœur brisé, l'image s'assombrit.
+       transition d'entrée : iris
+  s24 54.68-57.52s  j'y ai réfléchi toute la semaine
+       image : Sur le toit, il réfléchit : soleil et lune défilent 7 fois, 7 cases de jours se cochent.
+       transition d'entrée : blinds
+  s25 57.52-60.02s  Elle me répond "est-ce que t'es sûr?", me dit "dommage,
+       image : Écran de téléphone pixel : sa bulle de message arrive ; compte à rebours « continue ? ».
+       transition d'entrée : glitch

@@ -158,6 +158,25 @@
     }
     if (fx.paper > 0) { overlay.appendChild(h('rect', { x: 0, y: 0, width: W, height: H, filter: 'url(#paper)', opacity: fx.paper })); }
     if (fx.grade) document.getElementById('stage').style.filter = fx.grade;
+    // Pixel art : échantillonne un point par cellule de N px puis l'étale (mosaïque nette),
+    // et réduit éventuellement la palette (posterize). Le texte (HTML) reste net.
+    if (fx.pixelate) {
+      const N = fx.pixelate, r = Math.floor(N / 2);
+      const kids = [
+        h('feFlood', { x: r, y: r, width: 1, height: 1, 'flood-color': '#000', result: 'dot' }),
+        h('feComposite', { in: 'dot', in2: 'dot', operator: 'over', width: N, height: N, result: 'cell' }),
+        h('feTile', { in: 'cell', result: 'grid' }),
+        h('feComposite', { in: 'SourceGraphic', in2: 'grid', operator: 'in', result: 'samples' }),
+        h('feMorphology', { in: 'samples', operator: 'dilate', radius: r, result: 'pix' }),
+      ];
+      if (fx.posterize) {
+        const lv = fx.posterize, vals = Array.from({ length: lv }, (_, i) => (i / (lv - 1)).toFixed(3)).join(' ');
+        kids.push(h('feComponentTransfer', { in: 'pix' }, ['R', 'G', 'B'].map(c => h('feFunc' + c, { type: 'discrete', tableValues: vals }))));
+      }
+      defs.appendChild(h('filter', { id: 'pixelate', x: 0, y: 0, width: W, height: H, filterUnits: 'userSpaceOnUse', 'color-interpolation-filters': 'sRGB' }, kids));
+      world.setAttribute('filter', 'url(#pixelate)');
+      overlay.setAttribute('filter', 'url(#pixelate)');
+    }
   }
   function updateGrain(T) {
     const g = document.getElementById('grain'); const f = Math.floor(T * 24);
