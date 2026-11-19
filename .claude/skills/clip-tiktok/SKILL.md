@@ -160,6 +160,14 @@ mots rouges, zone de sécurité, taille du texte, bandes noires) → `synchronis
   l'envoie dans la boîte de réception TikTok de l'utilisateur. Configuration : `TIKTOK_SETUP.md`.
 - Rappeler le risque droits d'auteur (son intégré = son original, peut être coupé par TikTok).
 
+### 15. (Optionnel) Finition HyperFrames
+Si l'utilisateur la demande : projet [HyperFrames](https://github.com/heygen-com/hyperframes) (gratuit,
+Apache-2.0) qui reprend `video_finale.mp4` et ajoute des blocs de son catalogue (≈ 450 : écrans, glitch,
+transitions…). Modèle : `clips/sdm-cartier-santos-pixel/hyperframes/` (voir son README). Toujours
+`export DO_NOT_TRACK=1 HYPERFRAMES_NO_TELEMETRY=1 HYPERFRAMES_NO_UPDATE_CHECK=1` (pas de télémétrie,
+ne pas lancer la commande `events` de leur skill), GSAP en local (CDN bloqué), `npx hyperframes check --json`
+puis `render`. Sortie muette : `video_finale_hyperframes.mp4`.
+
 ## Fichiers produits (dans `clips/<slug>/`)
 `video_finale.mp4` · `synchronisation.txt` · `storyboard.json` · `direction_artistique.txt` ·
 `scenes.js` (source des illustrations, re-rendable) · `contact_sheet.jpg` · `qa_report.json` · `work/` (paroles, sources).

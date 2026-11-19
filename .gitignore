@@ -9,3 +9,9 @@ clips/*/audio/
 *.flac
 clips/*/apercu_avec_son*.mp4
 clips/*/work/tiktok_sound_source.*
+clips/*/apercu_hyperframes_avec_son.mp4
+clips/*/hyperframes/assets/*.mp4
+clips/*/hyperframes/assets/*.m4a
+clips/*/hyperframes/node_modules/
+clips/*/hyperframes/renders/
+clips/*/hyperframes/.hyperframes/
