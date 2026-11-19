@@ -96,6 +96,16 @@ def main():
     else:
         warns.append('text_rects.json absent : lancer render.mjs --rects')
 
+    # cadrage (render.mjs --framing + framing.py)
+    fp = os.path.join(P, 'build', 'framing_report.json')
+    if os.path.exists(fp):
+        F = json.load(open(fp))
+        for i in F['problemes']:
+            msg = f"cadrage {i['scene']} : {i['sujet']} {i['probleme']} ({i['detail']})"
+            (fails if i['bloquant'] else warns).append(msg)
+    else:
+        warns.append('contrôle de cadrage non lancé (render.mjs --framing puis framing.py)')
+
     # planche contact
     cols = min(6, len(thumbs))
     rows = (len(thumbs) + cols - 1) // cols

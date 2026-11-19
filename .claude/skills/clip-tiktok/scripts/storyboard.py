@@ -172,7 +172,7 @@ def cmd_check(a):
     if a.scenes:
         js = open(a.scenes).read()
         for s in sc:
-            if not re.search(r"CLIP\.scene\(\s*['\"]" + re.escape(s['id']) + r"['\"]", js):
+            if not s.get('image_prompt') and not re.search(r"CLIP\.scene\(\s*['\"]" + re.escape(s['id']) + r"['\"]", js):
                 errs.append(f"{s['id']}: aucune fonction CLIP.scene('{s['id']}', …) dans scenes.js")
     res = {'ok': not errs, 'errors': errs, 'warnings': warns, 'n_scenes': len(sc),
            'n_lyric_scenes': sum(1 for s in sc if s.get('lyrics'))}

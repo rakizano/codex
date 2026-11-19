@@ -124,6 +124,20 @@ async function main() {
       console.log(JSON.stringify({ stills: files, errors }, null, 1));
       return;
     }
+    if (A.framing) {
+      // contrôle de cadrage : 3 instants par scène (hors transitions)
+      const { page, errors } = await openPage(browser, html);
+      const samples = [];
+      for (const sc of sb.scenes) {
+        const d = sc.end - sc.start;
+        for (const f of [.3, .55, .85]) samples.push(+(sc.start + d * f).toFixed(3));
+      }
+      const res = [];
+      for (const T of samples) res.push(...await page.evaluate(T => CLIP.framingAt(T), T));
+      fs.writeFileSync(path.join(PROJ, 'build', 'framing.json'), JSON.stringify({ samples: res, errors }, null, 1));
+      console.log(JSON.stringify({ n: res.length, errors }, null, 1));
+      return;
+    }
     if (A.rects) {
       const { page, errors } = await openPage(browser, html);
       const rects = await page.evaluate(() => CLIP.textRects());

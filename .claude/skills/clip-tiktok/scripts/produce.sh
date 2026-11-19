@@ -23,6 +23,10 @@ node "$S/render.mjs" --project "$P" "$@"
 echo "== 4/6 Mesure des zones de texte"
 node "$S/render.mjs" --project "$P" --rects >/dev/null
 
+echo "== 4b Contrôle du cadrage (sujets coupés / sous le texte / sous l'interface TikTok)"
+node "$S/render.mjs" --project "$P" --framing >/dev/null
+set +e; python3 "$S/framing.py" "$P"; set -e
+
 echo "== 5/6 Contrôle qualité"
 set +e; python3 "$S/qa.py" "$P"; QA=$?; set -e
 

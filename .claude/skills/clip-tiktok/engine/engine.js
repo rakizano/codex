@@ -156,6 +156,8 @@
       const s = document.createElement('div'); s.className = 'fxlayer'; s.style.background = fx.tint; s.style.opacity = fx.tintOpacity || 0.25; s.style.mixBlendMode = fx.tintBlend;
       fxDiv.appendChild(s);
     }
+    if (fx.scrimTop > 0) { const d = document.createElement('div'); d.className = 'fxlayer'; d.style.background = `linear-gradient(180deg, rgba(0,0,0,${fx.scrimTop}) 0%, rgba(0,0,0,${fx.scrimTop * .65}) 24%, rgba(0,0,0,0) 46%)`; fxDiv.appendChild(d); }
+    if (fx.scrimBottom > 0) { const d = document.createElement('div'); d.className = 'fxlayer'; d.style.background = `linear-gradient(0deg, rgba(0,0,0,${fx.scrimBottom}) 0%, rgba(0,0,0,0) 40%)`; fxDiv.appendChild(d); }
     if (fx.paper > 0) { overlay.appendChild(h('rect', { x: 0, y: 0, width: W, height: H, filter: 'url(#paper)', opacity: fx.paper })); }
     if (fx.grade) document.getElementById('stage').style.filter = fx.grade;
     // Pixel art : échantillonne un point par cellule de N px puis l'étale (mosaïque nette),
@@ -324,6 +326,24 @@
       }
     });
   };
+  // Bokeh : lumières floues qui dérivent (premier plan hors mise au point)
+  E.bokeh = function ({ n = 14, colors = ['#ffd27a', '#ff6aa8', '#7fd6ff'], area = [0, 0, W, H], size = [30, 90], seed = 21, opacity = .35, drift = [8, -6] } = {}) {
+    const r = rng(seed), g = h('g', { opacity, filter: 'url(#softblur)' }), ps = [];
+    for (let i = 0; i < n; i++) { const c = h('circle', { r: r.range(size[0], size[1]), fill: r.pick(colors) }); g.appendChild(c); ps.push([c, r(), r(), r() * 10, r.range(.5, 1.4)]); }
+    return item(g, t => { for (const [c, u, v, ph, k] of ps) set(c, { cx: area[0] + mod(u * area[2] + t * drift[0] * k, area[2]), cy: area[1] + mod(v * area[3] + t * drift[1] * k, area[3]), opacity: .6 + .4 * Math.sin(t * .8 * k + ph) }); });
+  };
+  // Éclaboussures de pluie au sol (petits anneaux qui s'ouvrent)
+  E.splashes = function ({ y0 = 1480, y1 = 1900, n = 26, color = '#cfe3ff', seed = 22, opacity = .6 } = {}) {
+    const r = rng(seed), g = h('g', { fill: 'none', stroke: color, 'stroke-width': 2.5, opacity }), ps = [];
+    for (let i = 0; i < n; i++) { const e = h('ellipse'); g.appendChild(e); ps.push([e, r() * W, r.range(y0, y1), r(), r.range(.4, .9)]); }
+    return item(g, t => { for (const [e, x, y, ph, per] of ps) { const k = mod(t / per + ph, 1); set(e, { cx: x, cy: y, rx: 4 + k * 26, ry: 1 + k * 6, opacity: 1 - k }); } });
+  };
+  // Voile lumineux chaud qui traverse l'image lentement (light leak)
+  E.lightLeak = function ({ color = '#ffb35c', opacity = .22, speed = 40, y = 500 } = {}) {
+    const fill = E.gradientDef([[0, color, 0], [.5, color, 1], [1, color, 0]], false);
+    const r_ = h('rect', { y: -400, width: 700, height: H + 800, fill, opacity, transform: 'rotate(18)' });
+    return item(h('g', { style: 'mix-blend-mode:screen' }, [r_]), t => r_.setAttribute('x', mod(t * speed, W + 1400) - 900));
+  };
   E.snow = (o = {}) => E.particles(Object.assign({ n: 120, drift: [15, 90], wobble: 40, size: [2, 7] }, o));
   E.dust = (o = {}) => E.particles(Object.assign({ n: 50, drift: [6, -12], size: [1.5, 4], opacity: .5 }, o));
   E.fireflies = (o = {}) => E.particles(Object.assign({ n: 40, color: '#ffe68a', drift: [8, -10], size: [3, 6], glow: true, twinkle: 3 }, o));
@@ -482,20 +502,41 @@
     o = Object.assign({ x: 540, y: 1500, s: 1, color: '#111', shade: null, outline: null, outlineWidth: 6, pose: 'stand', action: 'idle', facing: 1, speed: 1, hair: null, coat: false, hat: null, path: null, seed: 1, bodyWidth: 1 }, o);
     const sh = o.shade || o.color, L = { torso: 120, neck: 20, head: 38, ua: 72, la: 66, th: 88, sh: 88 }, sw = 26 * o.bodyWidth;
     const st = (c, w) => ({ fill: 'none', stroke: c, 'stroke-width': w, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' });
-    const root = h('g'), body = h('g'); root.appendChild(body);
+    const root = h('g', { 'data-key': o.key || 'personnage' }), body = h('g'); root.appendChild(body);
     const ol = o.outline;
     const mk = (c, w) => { const g = h('g'); if (ol) g.appendChild(h('path', st(ol, w + o.outlineWidth * 2))); g.appendChild(h('path', st(c, w))); return g; };
     const armB = mk(sh, sw * .8), legB = mk(sh, sw), torso = h('path', { fill: o.color, stroke: ol || o.color, 'stroke-width': ol ? o.outlineWidth : 1, 'stroke-linejoin': 'round' }),
       legF = mk(o.color, sw), armF = mk(o.color, sw * .8), headG = h('g'), coatP = o.coat ? h('path', { fill: o.coat === true ? o.color : o.coat, stroke: ol || 'none', 'stroke-width': ol ? o.outlineWidth : 0 }) : null;
-    headG.appendChild(h('circle', { r: L.head, fill: o.color, stroke: ol || 'none', 'stroke-width': ol ? o.outlineWidth : 0 }));
+    headG.appendChild(h('circle', { r: L.head, fill: o.skin || o.color, stroke: ol || 'none', 'stroke-width': ol ? o.outlineWidth : 0 }));
+    if (o.hair === 'short') headG.appendChild(h('path', { d: `M ${-L.head * 1.02} ${L.head * .1} Q ${-L.head * 1.1} ${-L.head * 1.15} ${L.head * .15} ${-L.head * 1.05} Q ${L.head * .9} ${-L.head * .95} ${L.head * .95} ${-L.head * .35} Q ${L.head * .3} ${-L.head * .55} ${-L.head * .35} ${-L.head * .2} Q ${-L.head * .55} ${L.head * .4} ${-L.head * 1.02} ${L.head * .1} Z`, fill: o.hairColor || '#1a1410' }));
     if (o.hair === 'long') headG.appendChild(h('path', { d: `M ${-L.head} -6 Q ${-L.head * 1.3} ${L.head * 2} ${-L.head * .2} ${L.head * 2.4} L ${L.head * .3} ${L.head * .3} Q 0 ${-L.head * 1.4} ${-L.head} -6 Z`, fill: o.hairColor || o.color }));
     if (o.hair === 'bun') headG.appendChild(h('circle', { cx: -L.head * .7, cy: -L.head * .8, r: L.head * .45, fill: o.hairColor || o.color }));
     if (o.hat === 'bowler') headG.append(h('ellipse', { cx: 0, cy: -L.head * .55, rx: L.head * 1.35, ry: L.head * .22, fill: o.hatColor || o.color }), h('path', { d: `M ${-L.head * .85} ${-L.head * .5} Q 0 ${-L.head * 2.1} ${L.head * .85} ${-L.head * .5} Z`, fill: o.hatColor || o.color }));
     if (o.hat === 'cap') headG.append(h('path', { d: `M ${-L.head} ${-L.head * .2} Q 0 ${-L.head * 1.7} ${L.head} ${-L.head * .2} Z`, fill: o.hatColor || o.color }), h('rect', { x: 0, y: -L.head * .35, width: L.head * 1.5, height: L.head * .25, rx: 6, fill: o.hatColor || o.color }));
     if (o.hat === 'hood') headG.appendChild(h('path', { d: `M ${-L.head * 1.25} ${L.head * .9} Q ${-L.head * 1.5} ${-L.head * 1.5} ${L.head * .3} ${-L.head * 1.35} Q ${L.head * 1.4} ${-L.head * 1.1} ${L.head * 1.1} ${L.head * .2} Z`, fill: o.hatColor || o.color }));
-    body.append(armB, legB);
+    // détails : ombre au sol, mains, chaussures, œil (clignement), mèches secondaires
+    const det = o.detail !== false;
+    const skin = o.skin || null;
+    const shadow = det && o.shadow !== false ? h('ellipse', { cx: 0, cy: 0, rx: 70, ry: 13, fill: '#000', opacity: o.shadowOpacity ?? .28 }) : null;
+    if (shadow) root.insertBefore(shadow, body);
+    const handF = det ? h('circle', { r: sw * .42, fill: skin || o.color, stroke: ol || 'none', 'stroke-width': ol ? o.outlineWidth * .7 : 0 }) : null;
+    const handB = det ? h('circle', { r: sw * .38, fill: skin ? mixColor(skin, '#000000', .25) : sh }) : null;
+    const shoeF = det ? h('path', { fill: o.shoe || mixColor(o.color, '#000000', .45) }) : null;
+    const shoeB = det ? h('path', { fill: o.shoe ? mixColor(o.shoe, '#000000', .3) : mixColor(sh, '#000000', .45) }) : null;
+    const eye = det && o.face !== false ? h('ellipse', { rx: L.head * .13, ry: L.head * .16, fill: o.eyeColor || (o.skin ? '#1a1214' : ol ? ol : mixColor(o.color, '#ffffff', .75)) }) : null;
+    const strands = det && o.hair === 'long' ? [0, 1, 2].map(() => h('path', { fill: 'none', stroke: o.hairColor || o.color, 'stroke-width': L.head * .28, 'stroke-linecap': 'round' })) : [];
+    if (shoeB) body.appendChild(shoeB);
+    body.append(armB);
+    if (handB) body.appendChild(handB);
+    body.append(legB);
     if (coatP) body.appendChild(coatP);
-    body.append(torso, legF, headG, armF);
+    body.append(torso, legF);
+    if (shoeF) body.appendChild(shoeF);
+    body.append(headG);
+    strands.forEach(st_ => headG.insertBefore(st_, headG.firstChild));
+    if (eye) headG.appendChild(eye);
+    body.append(armF);
+    if (handF) body.appendChild(handF);
     const P = (base, a, l) => [base[0] + Math.sin(rad(a)) * l, base[1] + Math.cos(rad(a)) * l];
     const setLimb = (g, pts) => { const d = `M ${pts[0][0]} ${pts[0][1]} L ${pts[1][0]} ${pts[1][1]} L ${pts[2][0]} ${pts[2][1]}`; for (const p of g.children) p.setAttribute('d', d); };
     const r = rng(o.seed);
@@ -533,9 +574,17 @@
       const e1 = P(shoulder, a.ua1, L.ua), h1 = P(e1, a.la1, L.la), e2 = P(shoulder, a.ua2, L.ua), h2 = P(e2, a.la2, L.la);
       const k1 = P(hip, a.th1, L.th), f1 = P(k1, a.th1 + a.sh1, L.sh), k2 = P(hip, a.th2, L.th), f2 = P(k2, a.th2 + a.sh2, L.sh);
       setLimb(armF, [shoulder, e1, h1]); setLimb(armB, [shoulder, e2, h2]); setLimb(legF, [hip, k1, f1]); setLimb(legB, [hip, k2, f2]);
+      if (handF) { set(handF, { cx: h1[0], cy: h1[1] }); set(handB, { cx: h2[0], cy: h2[1] }); }
+      if (shoeF) {
+        const shoe = (f, ang) => { const ca = Math.cos(rad(ang * .3)), sa = Math.sin(rad(ang * .3)); const L2 = sw * 1.6, Hh = sw * .55; return `M ${f[0] - sw * .45} ${f[1] - Hh * .4} L ${f[0] + L2 * ca} ${f[1] + L2 * sa - Hh * .2} Q ${f[0] + L2 * ca + 6} ${f[1] + L2 * sa + Hh * .5} ${f[0] + L2 * ca - 4} ${f[1] + L2 * sa + Hh * .6} L ${f[0] - sw * .55} ${f[1] + Hh * .6} Z`; };
+        shoeF.setAttribute('d', shoe(f1, a.th1 + a.sh1)); shoeB.setAttribute('d', shoe(f2, a.th2 + a.sh2));
+      }
+      if (eye) { const ph = (t * .37 + ph0 * .1) % 1, blink = ph > .965 ? Math.abs(Math.cos((ph - .965) / .035 * Math.PI)) : 1; set(eye, { cx: L.head * .45, cy: -L.head * .08, ry: L.head * .16 * Math.max(.08, blink) }); }
+      if (strands.length) strands.forEach((st_, i) => { const sway = noise(t * 1.3 + i * 2.1, ph0 + i) * 14 - (o.action === 'walk' || o.action === 'run' ? 12 : 0); const x0 = -L.head * (.55 + i * .18); st_.setAttribute('d', `M ${x0} ${-L.head * .2} Q ${x0 - 10 + sway * .4} ${L.head * 1.1} ${x0 - 6 + sway} ${L.head * (2.0 + i * .15)}`); });
+      if (shadow) { set(shadow, { cy: (L.th + L.sh) - bob, rx: 70 + bob * .8, opacity: (o.shadowOpacity ?? .28) * (1 + bob / 40) }); }
       const tw = sw * .95, nx = Math.cos(rad(a.lean)), ny = Math.sin(rad(a.lean));
       torso.setAttribute('d', `M ${-tw * nx} ${-tw * ny + 4} L ${tw * nx} ${tw * ny + 4} L ${shoulder[0] + tw * 1.05 * nx} ${shoulder[1] + tw * ny} Q ${neck[0]} ${neck[1] - 14} ${shoulder[0] - tw * 1.05 * nx} ${shoulder[1] - tw * ny} Z`);
-      if (coatP) coatP.setAttribute('d', `M ${shoulder[0] - tw * 1.1} ${shoulder[1]} L ${shoulder[0] + tw * 1.1} ${shoulder[1]} L ${tw * 2.1 + Math.sin(t * 2) * 4} ${L.th * .95} L ${-tw * 2.1 - Math.sin(t * 2.3) * 4} ${L.th * .95} Z`);
+      if (coatP) { const mv = (o.action === 'walk' || o.action === 'run') ? 1 : .35, fl = noise(t * 2.2, ph0) * 10 * mv, fl2 = noise(t * 2.5, ph0 + 3) * 10 * mv; coatP.setAttribute('d', `M ${shoulder[0] - tw * 1.1} ${shoulder[1]} L ${shoulder[0] + tw * 1.1} ${shoulder[1]} L ${tw * 2.1 + fl} ${L.th * .95} Q ${0} ${L.th * 1.02 + fl2 * .5} ${-tw * 2.1 - fl2 - mv * 8} ${L.th * .95} Z`); }
       headG.setAttribute('transform', `translate(${headC[0]},${headC[1]}) rotate(${a.head * .6})`);
       let x = o.x, y = o.y;
       if (o.path) { const pp = kf(t, o.path, o.pathEase || 'linear'); x = pp[0]; y = pp[1]; }
@@ -565,9 +614,9 @@
       id: sb.id, index, sb, start: sb.start, end: sb.end, dur: sb.end - sb.start,
       W, H, SAFE, root, inner, defs, E, h, set, kf, Ease, ease, noise, rng: rng(sb.id), mix: mixColor, clamp, lerp, smooth,
       palette: (CFG && CFG.palette) || {}, layers: [], items: [], updaters: [],
-      cam: { keys: [[0, { x: 0, y: 0, zoom: 1, rot: 0 }]], ease: 'inOutSine', shake: 0, shakeFreq: 9 },
+      cam: { keys: [[0, { x: 0, y: 0, zoom: 1, rot: 0 }]], ease: 'inOutSine', shake: 0, shakeFreq: 9, handheld: 1 },
       textFollow: 0, filterBoil: null,
-      layer(depth = 1, attrs) { const g = h('g', attrs); inner.appendChild(g); const L = { g, depth, add: (...its) => { for (const it of its) { g.appendChild(it.el || it); if (it.update) S.items.push(it); } return its[0]; } }; S.layers.push(L); return L; },
+      layer(depth = 1, attrs) { attrs = Object.assign({}, attrs); const blur = attrs.blur; delete attrs.blur; const g = h('g', attrs); if (blur) g.setAttribute('filter', `url(#${blurFilter(blur)})`); inner.appendChild(g); const L = { g, depth, add: (...its) => { for (const it of its) { g.appendChild(it.el || it); if (it.update) S.items.push(it); } return its[0]; } }; S.layers.push(L); return L; },
       add(...its) { if (!S._default) S._default = S.layer(1); return S._default.add(...its); },
       raw(markup, depth = 1) { const it = E.raw(markup); S.layer(depth).add(it); return it; },
       // keys: [[p, {x,y,zoom,rot}], ...] avec p = progression 0..1 de la scène
@@ -575,9 +624,13 @@
       update(fn) { S.updaters.push(fn); },
       boil(layer, kind = 'rough', fps = 8) { layer.boil = { kind, fps }; },
       beat(t, decay = 6) { return beatPulse(S.start + t, decay); },
+      // marque un sujet principal pour le contrôle de cadrage ; allow : 'cut' (débord voulu), 'text', 'ui'
+      key(it, name = 'objet', allow = '') { const el = it.el || it; el.setAttribute('data-key', name); if (allow) el.setAttribute('data-key-allow', allow); return it; },
     };
     return S;
   }
+  const blurCache = {};
+  function blurFilter(px) { const id = 'dof' + String(px).replace('.', '_'); if (!blurCache[id]) { defs.appendChild(h('filter', { id, x: '-10%', y: '-10%', width: '120%', height: '120%' }, [h('feGaussianBlur', { stdDeviation: px })])); blurCache[id] = 1; } return id; }
   function beatPulse(T, decay) { if (!beats.length) return 0; let lo = 0, hi = beats.length - 1, b = -1; while (lo <= hi) { const m = (lo + hi) >> 1; if (beats[m] <= T) { b = m; lo = m + 1; } else hi = m - 1; } if (b < 0) return 0; return Math.exp(-(T - beats[b]) * decay); }
 
   function applyCamera(S, t) {
@@ -585,6 +638,7 @@
     const c = kf(p, S.cam.keys, S.cam.ease);
     let sx = 0, sy = 0;
     if (S.cam.shake) { sx = noise(t * S.cam.shakeFreq, 1) * S.cam.shake; sy = noise(t * S.cam.shakeFreq, 2) * S.cam.shake; }
+    if (S.cam.handheld) { sx += noise(t * .7, 11) * S.cam.handheld * 6 + noise(t * 2.3, 12) * S.cam.handheld; sy += noise(t * .6, 13) * S.cam.handheld * 5 + noise(t * 2.1, 14) * S.cam.handheld; }
     S._cam = { x: c.x + sx, y: c.y + sy, zoom: c.zoom, rot: c.rot || 0 };
     for (const L of S.layers) {
       const d = L.depth, z = 1 + (c.zoom - 1) * d;
@@ -901,6 +955,29 @@
   }
 
   /* ------------------------------------------------------------------ */
+  /* Scène image HD (générée) : mouvement de caméra lent + atmosphère    */
+  /* storyboard.scenes[] : image, motion (push|pull|left|right|rise|fall),*/
+  /* overlay ([rain|dust|snow|fireflies|fog|sparks]), overlayColor        */
+  /* ------------------------------------------------------------------ */
+  const MOTIONS = {
+    push: [{ s: 1.0, x: 0, y: 0 }, { s: 1.13, x: 0, y: -24 }], pull: [{ s: 1.14, x: 0, y: -10 }, { s: 1.0, x: 0, y: 0 }],
+    left: [{ s: 1.1, x: 46, y: 0 }, { s: 1.1, x: -46, y: 0 }], right: [{ s: 1.1, x: -46, y: 0 }, { s: 1.1, x: 46, y: 0 }],
+    rise: [{ s: 1.1, x: 0, y: 60 }, { s: 1.1, x: 0, y: -60 }], fall: [{ s: 1.1, x: 0, y: -60 }, { s: 1.1, x: 0, y: 60 }],
+  };
+  function imageScene(S) {
+    const sb = S.sb, m = MOTIONS[sb.motion] || MOTIONS[Object.keys(MOTIONS)[S.index % 6]];
+    S.layer(1).add(E.image(sb.image, { x: -36, y: -64, w: 1152, h: 2048, from: m[0], to: m[1], dur: S.dur + .9 }));
+    const col = sb.overlayColor || '#ffffff';
+    for (const o of [].concat(sb.overlay || [])) {
+      if (o === 'rain') S.layer(1).add(E.rain({ n: 180, angle: 10, color: col, opacity: .35, seed: S.index + 1 }));
+      if (o === 'snow') S.layer(1).add(E.snow({ color: col, opacity: .8, seed: S.index + 1 }));
+      if (o === 'dust') S.layer(1).add(E.dust({ color: col, n: 70, opacity: .55, seed: S.index + 1 }));
+      if (o === 'fireflies' || o === 'sparks') S.layer(1).add(E.fireflies({ color: o === 'sparks' ? (sb.overlayColor || '#ffcf6a') : col, n: 45, seed: S.index + 1 }));
+      if (o === 'fog') S.layer(1).add(E.fog({ y: 1400, color: col, opacity: .25 }));
+    }
+  }
+
+  /* ------------------------------------------------------------------ */
   /* Assemblage                                                          */
   /* ------------------------------------------------------------------ */
   let chunks = [];
@@ -914,7 +991,7 @@
     if (CFG.background) document.body.style.background = CFG.background;
     built = SB.scenes.map((sb, i) => {
       const S = makeScene(sb, i);
-      const b = sceneBuilders[sb.id];
+      const b = sceneBuilders[sb.id] || (sb.image ? imageScene : null);
       if (!b) throw new Error('Scene builder missing: ' + sb.id);
       b(S);
       if (S._default && S.layers.indexOf(S._default) < 0) S.layers.push(S._default);
@@ -990,10 +1067,29 @@
     });
   }
 
+  function framingAt(T) {
+    renderAt(T);
+    const out = [];
+    const texts = chunks.filter(C => C.div.style.display !== 'none' && +C.div.style.opacity > .5).map(C => C.box.getBoundingClientRect());
+    built.forEach(S => {
+      if (S.root.style.display === 'none') return;
+      const t = T - S.start; if (t < 0 || t > S.dur) return;
+      S.root.querySelectorAll('[data-key]').forEach(el => {
+        let op = 1, n = el; while (n && n !== S.root) { const o = n.getAttribute && n.getAttribute('opacity'); if (o != null) op *= +o; if (n.style && n.style.display === 'none') op = 0; n = n.parentNode; }
+        if (op < .2) return;
+        const r = el.getBoundingClientRect(); if (r.width < 2 || r.height < 2) return;
+        out.push({ scene: S.id, t: +t.toFixed(2), key: el.getAttribute('data-key'), allow: el.getAttribute('data-key-allow') || '',
+          x: Math.round(r.left), y: Math.round(r.top), w: Math.round(r.width), h: Math.round(r.height),
+          text: texts.map(q => ({ x: q.left, y: q.top, w: q.width, h: q.height })) });
+      });
+    });
+    return out;
+  }
+
   window.CLIP = {
     mod, W, H, SAFE, E, Ease, kf, noise, rng, h, set, mixColor, clamp, lerp, smooth,
     scene(id, builder) { sceneBuilders[id] = builder; },
-    load, renderAt, textRects,
+    load, renderAt, textRects, framingAt,
     duration: () => SB ? SB.passage.duration : 0,
   };
 })();
