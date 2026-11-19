@@ -1,0 +1,370 @@
+{
+ "artist": "Sdm",
+ "title": "Cartier Santos",
+ "album": "Hits Hits Hits 2026 Vol.2",
+ "duration": 60.022,
+ "lrclib_ref_id": 33605312,
+ "version_cluster_ids": [
+  33605312,
+  18484039,
+  16843883,
+  24872158,
+  23909753,
+  24327823,
+  33308289,
+  31988029,
+  16034255,
+  13420369,
+  14247850,
+  15756268,
+  13022509,
+  12627569,
+  37081018,
+  38410931
+ ],
+ "version_cluster_albums": [
+  "19M views",
+  "3:04",
+  "70 Hits 2025 Vol.2",
+  "70 Hits 2026",
+  "A LA VIE A LA MORT",
+  "CARTIER SANTOS",
+  "Hits Hits Hits 2025 Vol. 2",
+  "Hits Hits Hits 2026 Vol.2",
+  "Hits Hits Hits 2026, Vol.2, CD2",
+  "Hits Hits Hits été 2025",
+  "Playlist Summer Hits 2025",
+  "Playlist Winter Hits 2025",
+  "SDM",
+  "SDM Officiel",
+  "SDM Songs",
+  "SDM Videos"
+ ],
+ "other_versions": [
+  {
+   "duration": 184.0,
+   "n": 16,
+   "albums": [
+    "19M views",
+    "3:04",
+    "70 Hits 2025 Vol.2",
+    "70 Hits 2026"
+   ]
+  },
+  {
+   "duration": 186.3,
+   "n": 1,
+   "albums": [
+    "Rap Francais"
+   ]
+  },
+  {
+   "duration": 211.0,
+   "n": 5,
+   "albums": [
+    "Cartier Santos",
+    "Hits Hits Hits Été 2025",
+    "SDM Songs",
+    "SDM Videos"
+   ]
+  },
+  {
+   "duration": 235.0,
+   "n": 1,
+   "albums": [
+    "A LA VIE A LA MORT"
+   ]
+  }
+ ],
+ "n_sources": 16,
+ "text_agreement": [
+  0.954,
+  0.954,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  0.954,
+  0.985,
+  0.954,
+  0.954,
+  0.985,
+  1.0,
+  1.0,
+  1.0
+ ],
+ "sources_disagreeing": [],
+ "sync_spread_median_s": 0.08,
+ "sync_spread_p90_s": 0.24,
+ "sync_confidence": "élevée",
+ "sync_method": "LRCLIB (paroles synchronisées ligne par ligne par la communauté), médiane multi-sources",
+ "lines": [
+  {
+   "t": 1.175,
+   "text": "La vie d'ma mère, bébé, ma tchop sans coco,",
+   "song_t": 42.19,
+   "timing_source": "LRC recalé",
+   "src_line": 9,
+   "i": 0,
+   "end": 3.74,
+   "gap_after": 2.565
+  },
+  {
+   "t": 3.74,
+   "text": "j'peux être ton bébé",
+   "song_t": 44.755,
+   "timing_source": "mot entendu",
+   "src_line": 9,
+   "i": 1,
+   "end": 6.265,
+   "gap_after": 2.525
+  },
+  {
+   "t": 6.265,
+   "text": "Elle savait m'parler, au bout d'deux, trois dél',",
+   "song_t": 47.28,
+   "timing_source": "LRC recalé",
+   "src_line": 10,
+   "i": 2,
+   "end": 9.12,
+   "gap_after": 2.855
+  },
+  {
+   "t": 9.12,
+   "text": "j'me mets à rêver",
+   "song_t": 50.135,
+   "timing_source": "mot entendu",
+   "src_line": 10,
+   "i": 3,
+   "end": 11.76,
+   "gap_after": 2.64
+  },
+  {
+   "t": 11.76,
+   "text": "Que j'prends sur moi, dés l'début, elle,",
+   "song_t": 52.775,
+   "timing_source": "mot entendu",
+   "src_line": 11,
+   "i": 4,
+   "end": 14.087,
+   "gap_after": 2.327
+  },
+  {
+   "t": 14.087,
+   "text": "elle a seulement voulu prendre des sous sur me",
+   "song_t": 55.102,
+   "timing_source": "estimé",
+   "src_line": 11,
+   "i": 5,
+   "end": 16.46,
+   "gap_after": 2.373
+  },
+  {
+   "t": 16.46,
+   "text": "Quand j'avais pas one sur moi,",
+   "song_t": 57.475,
+   "timing_source": "mot entendu",
+   "src_line": 12,
+   "i": 6,
+   "end": 17.86,
+   "gap_after": 1.4
+  },
+  {
+   "t": 17.86,
+   "text": "pas d'souci pour elle, d'toute façon j'étais le huitième de tous ses mecs",
+   "song_t": 58.875,
+   "timing_source": "mot entendu",
+   "src_line": 12,
+   "i": 7,
+   "end": 21.6,
+   "gap_after": 3.74
+  },
+  {
+   "t": 21.6,
+   "text": "Faudra d'la foi et du courage,",
+   "song_t": 62.615,
+   "timing_source": "mot entendu",
+   "src_line": 13,
+   "i": 8,
+   "end": 23.1,
+   "gap_after": 1.5
+  },
+  {
+   "t": 23.1,
+   "text": "une relation remplie de rage, j'vois jamais l'soleil,",
+   "song_t": 64.115,
+   "timing_source": "mot entendu",
+   "src_line": 13,
+   "i": 9,
+   "end": 25.0,
+   "gap_after": 1.9
+  },
+  {
+   "t": 25.0,
+   "text": "que l'orage",
+   "song_t": 66.015,
+   "timing_source": "mot entendu",
+   "src_line": 13,
+   "i": 10,
+   "end": 26.58,
+   "gap_after": 1.58
+  },
+  {
+   "t": 26.58,
+   "text": "Elle veut son blase en tatouage,",
+   "song_t": 67.595,
+   "timing_source": "mot entendu",
+   "src_line": 14,
+   "i": 11,
+   "end": 28.14,
+   "gap_after": 1.56
+  },
+  {
+   "t": 28.14,
+   "text": "que j'me sépare d'mon entourage, la dernière collection Courrèges",
+   "song_t": 69.155,
+   "timing_source": "mot entendu",
+   "src_line": 14,
+   "i": 12,
+   "end": 31.4,
+   "gap_after": 3.26
+  },
+  {
+   "t": 31.4,
+   "text": "Mon Dieu, dans quel film on est?",
+   "song_t": 72.415,
+   "timing_source": "mot entendu",
+   "src_line": 15,
+   "i": 13,
+   "end": 33.32,
+   "gap_after": 1.92
+  },
+  {
+   "t": 33.32,
+   "text": "Mais comment j'me suis attaché sans la connaître?",
+   "song_t": 74.335,
+   "timing_source": "mot entendu",
+   "src_line": 15,
+   "i": 14,
+   "end": 37.0,
+   "gap_after": 3.68
+  },
+  {
+   "t": 37.0,
+   "text": "Que elle veut ci, elle veut ça, pourtant,",
+   "song_t": 78.015,
+   "timing_source": "mot entendu",
+   "src_line": 16,
+   "i": 15,
+   "end": 39.01,
+   "gap_after": 2.01
+  },
+  {
+   "t": 39.01,
+   "text": "on m'a juré qu'le bonheur",
+   "song_t": 80.025,
+   "timing_source": "estimé",
+   "src_line": 16,
+   "i": 16,
+   "end": 40.768,
+   "gap_after": 1.758
+  },
+  {
+   "t": 40.768,
+   "text": "s'trouvait pas dans la monnaie",
+   "song_t": 81.783,
+   "timing_source": "estimé",
+   "src_line": 16,
+   "i": 17,
+   "end": 41.98,
+   "gap_after": 1.212
+  },
+  {
+   "t": 41.98,
+   "text": "J'l'élimine à ses vues, c'est qu'une tch', à ces,",
+   "song_t": 82.995,
+   "timing_source": "mot entendu",
+   "src_line": 17,
+   "i": 18,
+   "end": 45.36,
+   "gap_after": 3.38
+  },
+  {
+   "t": 45.36,
+   "text": "j'l'assimile",
+   "song_t": 86.375,
+   "timing_source": "mot entendu",
+   "src_line": 17,
+   "i": 19,
+   "end": 47.275,
+   "gap_after": 1.915
+  },
+  {
+   "t": 47.275,
+   "text": "Oh là là, pas si vite,",
+   "song_t": 88.29,
+   "timing_source": "LRC recalé",
+   "src_line": 18,
+   "i": 20,
+   "end": 48.7,
+   "gap_after": 1.425
+  },
+  {
+   "t": 48.7,
+   "text": "elle me dit \"tu bouges pas, ton sang,",
+   "song_t": 89.715,
+   "timing_source": "mot entendu",
+   "src_line": 18,
+   "i": 21,
+   "end": 50.1,
+   "gap_after": 1.4
+  },
+  {
+   "t": 50.1,
+   "text": "j'ai pas assez bu\"",
+   "song_t": 91.115,
+   "timing_source": "mot entendu",
+   "src_line": 18,
+   "i": 22,
+   "end": 53.1,
+   "gap_after": 3.0
+  },
+  {
+   "t": 53.1,
+   "text": "J'prends plus sur moi, c'est fini,",
+   "song_t": 94.115,
+   "timing_source": "mot entendu",
+   "src_line": 19,
+   "i": 23,
+   "end": 54.8,
+   "gap_after": 1.7
+  },
+  {
+   "t": 54.8,
+   "text": "j'y ai réfléchi toute la semaine",
+   "song_t": 95.815,
+   "timing_source": "mot entendu",
+   "src_line": 19,
+   "i": 24,
+   "end": 57.645,
+   "gap_after": 2.845
+  },
+  {
+   "t": 57.645,
+   "text": "Elle me répond \"est-ce que t'es sûr?\", me dit \"dommage,",
+   "song_t": 98.66,
+   "timing_source": "LRC recalé",
+   "src_line": 20,
+   "i": 25,
+   "end": 60.022,
+   "gap_after": 2.377
+  }
+ ],
+ "sound_clock": true,
+ "sound_mapping": {
+  "song_start_s": 41.015,
+  "speed": 1.0,
+  "sound_duration_s": 60.022
+ }
+}

@@ -119,6 +119,15 @@ dessinées par toi (SVG) : décors en couches de parallaxe, personnages riggés 
 se balancent, objets animés, particules, caméra. Personnalise avec du SVG sur mesure (`S.h`, `E.raw`).
 Toute animation doit être une **fonction pure du temps local `t`** (pas d'état accumulé).
 
+### 9 bis. Qualité d'animation et cadrage (exigences de l'utilisateur)
+- Chaque plan : ≥ 3 couches (fond flou, plan moyen, premier plan), ≥ 3 éléments animés, personnages vivants
+  (mains, regard, respiration, cheveux/vêtements qui suivent), atmosphère (pluie/poussière/bokeh/lumière qui vacille).
+- Gabarit de cadrage : personnages entre x ≈ 130 et 900, pieds ≤ 1520, tête sous le bas du texte (≈ 760 px) ;
+  aucun objet principal coupé, masqué par un autre, sous le texte ou sous les boutons/la légende TikTok ;
+  contenus « dans » un cadre (fenêtre, écran) découpés avec un clipPath.
+- `node $SK/scripts/render.mjs --project clips/<slug> --framing && python3 $SK/scripts/framing.py clips/<slug>` :
+  corriger jusqu'à « n_problemes: 0 » (déclarer avec S.key(…, allow) uniquement les débords réellement voulus).
+
 ### 10. Revue visuelle (obligatoire avant le rendu complet)
 ```bash
 python3 $SK/scripts/fonts.py --project clips/<slug> "<Police 1>" "<Police 2:700>"

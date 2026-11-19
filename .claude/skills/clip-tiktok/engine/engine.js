@@ -502,7 +502,7 @@
     o = Object.assign({ x: 540, y: 1500, s: 1, color: '#111', shade: null, outline: null, outlineWidth: 6, pose: 'stand', action: 'idle', facing: 1, speed: 1, hair: null, coat: false, hat: null, path: null, seed: 1, bodyWidth: 1 }, o);
     const sh = o.shade || o.color, L = { torso: 120, neck: 20, head: 38, ua: 72, la: 66, th: 88, sh: 88 }, sw = 26 * o.bodyWidth;
     const st = (c, w) => ({ fill: 'none', stroke: c, 'stroke-width': w, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' });
-    const root = h('g', { 'data-key': o.key || 'personnage' }), body = h('g'); root.appendChild(body);
+    const root = h('g', o.key === false ? {} : { 'data-key': o.key || 'personnage', 'data-key-allow': o.keyAllow || null }), body = h('g'); root.appendChild(body);
     const ol = o.outline;
     const mk = (c, w) => { const g = h('g'); if (ol) g.appendChild(h('path', st(ol, w + o.outlineWidth * 2))); g.appendChild(h('path', st(c, w))); return g; };
     const armB = mk(sh, sw * .8), legB = mk(sh, sw), torso = h('path', { fill: o.color, stroke: ol || o.color, 'stroke-width': ol ? o.outlineWidth : 1, 'stroke-linejoin': 'round' }),
@@ -597,7 +597,7 @@
   E.crowd = function ({ n = 14, y = 1600, x0 = -50, x1 = W + 50, s = .55, color = '#0d0d10', seed = 12, action = 'sway', depthRows = 2 } = {}) {
     const r = rng(seed), g = h('g'), figs = [];
     for (let row = depthRows - 1; row >= 0; row--) for (let i = 0; i < n; i++) {
-      const f = E.figure({ x: lerp(x0, x1, (i + r() * .6) / n), y: y + row * 60, s: s * (1 + row * .15) * r.range(.85, 1.1), color: row ? color : mixColor(color, '#000000', .3), action: r() < .3 ? 'idle' : action, seed: r.int(1, 1e6), facing: r() < .5 ? 1 : -1, pose: r() < .2 ? 'arms_up' : 'stand', hair: r() < .3 ? 'long' : null });
+      const f = E.figure({ key: false, x: lerp(x0, x1, (i + r() * .6) / n), y: y + row * 60, s: s * (1 + row * .15) * r.range(.85, 1.1), color: row ? color : mixColor(color, '#000000', .3), action: r() < .3 ? 'idle' : action, seed: r.int(1, 1e6), facing: r() < .5 ? 1 : -1, pose: r() < .2 ? 'arms_up' : 'stand', hair: r() < .3 ? 'long' : null });
       g.appendChild(f.el); figs.push(f);
     }
     return item(g, t => figs.forEach(f => f.update(t)));

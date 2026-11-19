@@ -25,6 +25,10 @@ CLIP.scene('s03', S => {
 - `S.update(fn(t, p, S))` : animation libre, **pure en t** (t peut être négatif ou > durée pendant les transitions).
 - `S.camera(keys, ease, {shake, shakeFreq})` : keys `[[p, {x, y, zoom, rot}], ...]`, p = progression 0..1.
 - `S.boil(layer, 'rough'|'wobble', fps)` : trait « vivant » façon dessin animé à la main.
+- `S.layer(depth, { blur: px })` : flou de profondeur de champ (plans éloignés 3-6 px, premier plan bokeh 6-8 px).
+- `S.camera(keys, ease, { handheld: 0..2 })` : caméra portée subtile (1 par défaut, 0 pour un plan fixe).
+- `S.key(item, 'nom', 'cut,ui,text,overlap')` : marque un sujet principal pour le contrôle de cadrage ; le 3e argument
+  déclare une exception voulue (avant-bras qui entre par le bord, gros plan de visage, personnage tenant un objet…).
 - `S.beat(t)` : impulsion 0..1 sur les pulsations (`storyboard.beats`), 0 si aucune.
 - `S.dur`, `S.start`, `S.end`, `S.sb` (entrée du storyboard), `S.rng()` (aléatoire déterministe), `S.defs`.
 - Un « item » est `{ el, update?(t, p) }`. `layer.add` accepte un item ou un élément SVG.
@@ -49,6 +53,7 @@ CLIP.scene('s03', S => {
 | `E.road({horizon,color,line,width,speed})` · `E.grid({horizon,color,bg,speed})` | route / grille rétro en perspective qui défile |
 | `E.rain`, `E.snow`, `E.dust`, `E.fireflies`, `E.particles({n,color,size,area,drift,wobble,glow,twinkle})` | atmosphère |
 | `E.rays({x,y,n,color,opacity,speed})` · `E.fog({y,height,color,opacity,speed})` | lumière, brume |
+| `E.bokeh({n,colors,area,size,opacity})` · `E.splashes({y0,y1,n,color})` · `E.lightLeak({color,opacity,speed})` | profondeur, pluie au sol, voile lumineux |
 | `E.tree({x,y,height,color,seed,depth,sway,leaves})` | arbre procédural qui ondule |
 | `E.birds({n,x,y,speed,color,size})` | vol d'oiseaux qui battent des ailes |
 | `E.clock({x,y,r,face,rim,hands,speed,start,numerals,roman,warp,ticking})` | horloge (warp = déformée) |
@@ -68,6 +73,10 @@ hair ('long'|'bun'), hairColor, hat ('bowler'|'cap'|'hood'), hatColor, coat (tru
 - `action` : idle, breathe, walk, run, sway, dance, float, tremble, reach, none.
 - `path` : `[[t, [x, y]], ...]` pour déplacer le personnage ; `anim(a, t)` modifie les angles à chaque image.
 - Repères utiles (s = échelle) : hanches à y − 176·s ; tête à y − 354·s ; main tendue (pose point) ≈ (x + 138·s, y − 286·s).
+- Détails (actifs par défaut, `detail: false` pour les couper) : mains, chaussures (`shoe`), œil qui cligne (`face: false`
+  pour une silhouette), ombre au sol (`shadow`, `shadowOpacity`), mèches et pans de manteau qui suivent le mouvement.
+  `skin` colore tête et mains ; `hair: 'short'|'long'|'bun'`.
+- Cadrage : chaque personnage est un sujet clé (`key: 'nom'`, `key: false` pour un figurant, `keyAllow: 'cut,ui,overlap'`).
 
 ## Typographie (storyboard → scenes[].lyrics[])
 `{ text, red, start, end, song_t, pos, align, enter, emphasis, exit, size, width, rotate, follow, sing, words, typo:{...} }`

@@ -9,6 +9,7 @@ Problèmes détectés, à 3 instants de chaque scène :
   SOUS_TEXTE  le sujet est recouvert par un bloc de paroles (> 18 % de sa surface)    [allow 'text']
   ZONE_UI     le sujet est sous les boutons TikTok (droite) ou la légende (bas) > 35 % [allow 'ui']
   MINUSCULE   le sujet occupe moins de 0,4 % de l'image (illisible sur téléphone)
+  SE_MASQUENT deux sujets principaux de natures différentes se recouvrent à > 30 %   [allow 'overlap']
 Erreurs bloquantes : COUPÉ et SOUS_TEXTE (> 35 %). Le reste : avertissements.
 """
 import json
@@ -54,6 +55,24 @@ def main():
             if k not in issues or (block and not issues[k]['bloquant']):
                 issues[k] = {'scene': s['scene'], 'sujet': s['key'], 'probleme': code, 'detail': msg, 't': s['t'], 'bloquant': block,
                              'boite': [round(v) for v in r]}
+    # sujets principaux qui se masquent entre eux (même scène, même instant)
+    from collections import defaultdict
+    groups = defaultdict(list)
+    for s in d['samples']:
+        groups[(s['scene'], s['t'])].append(s)
+    for (sc, t), lst_ in groups.items():
+        for i in range(len(lst_)):
+            for j in range(i + 1, len(lst_)):
+                a_, b_ = lst_[i], lst_[j]
+                if 'overlap' in a_['allow'] or 'overlap' in b_['allow']:
+                    continue
+                ra = (a_['x'], a_['y'], a_['x'] + a_['w'], a_['y'] + a_['h']); rb = (b_['x'], b_['y'], b_['x'] + b_['w'], b_['y'] + b_['h'])
+                small = min(a_['w'] * a_['h'], b_['w'] * b_['h'])
+                ov = inter(ra, rb) / max(1, small)
+                if ov > .3 and a_['key'] != b_['key']:
+                    k = (sc, a_['key'] + '+' + b_['key'], 'SE_MASQUENT')
+                    if k not in issues:
+                        issues[k] = {'scene': sc, 'sujet': f"{a_['key']}/{b_['key']}", 'probleme': 'SE_MASQUENT', 'detail': f"{ov:.0%} du plus petit recouvert", 't': t, 'bloquant': False, 'boite': [round(v) for v in ra]}
     lst = sorted(issues.values(), key=lambda i: (i['scene'], i['probleme']))
     rep = {'ok': not any(i['bloquant'] for i in lst), 'n_problemes': len(lst), 'problemes': lst}
     json.dump(rep, open(os.path.join(P, 'build', 'framing_report.json'), 'w'), indent=1, ensure_ascii=False)
