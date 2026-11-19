@@ -65,6 +65,13 @@ CLIP.scene('s03', S => {
 | `E.raw(svgString)` → `{el, q(sel), qa(sel)}` | n'importe quel SVG écrit à la main |
 | `E.figure({...})` | personnage riggé (voir ci-dessous) · `E.crowd({n,y,s,color,action})` foule |
 
+### Personnage `E.person` (recommandé) — profils anatomiques
+Même squelette que `E.figure` (pose, action, anim, path, facing, speed, key, keyAllow) mais rendu soigné : membres effilés,
+torse de profil, tête de profil (nez, menton, oreille, sourcil, œil qui cligne), mains, chaussures.
+`outfit`: hoodie|tee|jacket|trench|dress · `hair`: short|buzz|long|bun|curly · `hat`: hood|cap|beanie|fedora ·
+`look`: {skin, top, bottom, shoe, hair, hat, coat} · `silhouette`: couleur unique (style affiche) · `rim`: liseré lumineux.
+Échelle : s = 1 ≈ 400 px de haut (pieds en y).
+
 ### Personnage `E.figure`
 `{x, y (= pieds), s (échelle; 1 ≈ 350 px de haut), color, shade, outline, pose, action, speed, facing (1|-1),
 hair ('long'|'bun'), hairColor, hat ('bowler'|'cap'|'hood'), hatColor, coat (true|couleur), bodyWidth, path, pathEase, anim(a, t)}`
@@ -94,7 +101,8 @@ hair ('long'|'bun'), hairColor, hat ('bowler'|'cap'|'hood'), hatColor, coat (tru
 `{type, dur, align ('center'|'before'|'after'), ease, ...}`
 cut · fade · dip {color} · flash · wipe {dir} · diagonal {angle} · iris {x,y} · ink {seed} · radial {x,y,ccw,color: aiguille visible} ·
 shape {shape: diamond|star|hex|heart|triangle|square, rotate, color} · blinds {n, dir: vertical|horizontal} ·
-push {dir} · slide {dir} · zoom · spin · whip {dir} · glitch · bar {dir, color, width, slant}.
+push {dir} · slide {dir} · zoom {x, y, scale : plongée dans un point} · spin · whip {dir} · glitch · bar {dir, color, width, slant} ·
+tear {seed, slant, paper : déchirure de papier} · slices {n} · dots {x, y, cols : révélation en trame de points}.
 
 ## Effets globaux (style.fx) et fin
 `grain` (0..0.15), `vignette` (0..0.8), `grade` (filtre CSS : "contrast(1.1) saturate(1.2) hue-rotate(-8deg)"),

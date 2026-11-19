@@ -498,6 +498,32 @@
     think: { lean: 4, head: 12, ua1: 30, la1: 150, ua2: 10, la2: 70, th1: 3, sh1: 0, th2: -3, sh2: 0 },
   };
   E.POSES = POSES;
+  // squelette d'animation partagé (poses + actions) — angles en degrés, 0 = membre vers le bas
+  function rigAngles(o, t, ph0) {
+    const base = Object.assign({}, typeof o.pose === 'string' ? POSES[o.pose] : Object.assign({}, POSES.stand, o.pose));
+    const a = Object.assign({}, base); let bob = 0, rot = 0; const sp = o.speed, T = t * sp + ph0;
+    switch (o.action) {
+      case 'walk': {
+        const c = T * 5.2; a.th1 = Math.sin(c) * 26; a.th2 = -Math.sin(c) * 26; a.sh1 = -Math.max(0, Math.sin(c + 1.6)) * 38; a.sh2 = -Math.max(0, -Math.sin(c + 1.6)) * 38;
+        a.ua1 = -Math.sin(c) * 22 + base.ua1 * .3; a.ua2 = Math.sin(c) * 22; a.la1 = a.ua1 + 18; a.la2 = a.ua2 + 18; bob = Math.abs(Math.cos(c)) * -7; a.lean += 4; break;
+      }
+      case 'run': {
+        const c = T * 9; a.th1 = Math.sin(c) * 48; a.th2 = -Math.sin(c) * 48; a.sh1 = -60 - Math.sin(c + 1.5) * 40; a.sh2 = -60 + Math.sin(c + 1.5) * 40;
+        a.ua1 = -Math.sin(c) * 50; a.ua2 = Math.sin(c) * 50; a.la1 = a.ua1 + 90; a.la2 = a.ua2 + 90; bob = Math.abs(Math.cos(c)) * -16; a.lean = 16; break;
+      }
+      case 'idle': { a.lean += Math.sin(T * 1.6) * 1.5; a.head += Math.sin(T * .9) * 3; a.ua1 += Math.sin(T * 1.6) * 3; a.ua2 -= Math.sin(T * 1.6) * 3; bob = Math.sin(T * 1.6) * 2; break; }
+      case 'sway': { a.lean += Math.sin(T * 2) * 6; a.head += Math.sin(T * 2 + 1) * 8; a.ua1 += Math.sin(T * 2) * 15; a.ua2 += Math.sin(T * 2) * 15; break; }
+      case 'dance': { const c = T * 6; a.ua1 = 140 + Math.sin(c) * 30; a.la1 = a.ua1 + 30; a.ua2 = -140 - Math.sin(c + 1) * 30; a.la2 = a.ua2 - 30; a.lean = Math.sin(c) * 10; a.head = Math.sin(c + .5) * 15; a.th1 = 10 + Math.sin(c) * 10; a.th2 = -10 + Math.sin(c) * 10; bob = Math.abs(Math.sin(c)) * -14; break; }
+      case 'float': { rot = Math.sin(T * .6) * 14 + t * 6 * sp; a.ua1 = 70 + Math.sin(T) * 25; a.ua2 = -70 - Math.sin(T * 1.1) * 25; a.la1 = a.ua1 + 20; a.la2 = a.ua2 - 20; a.th1 = 25 + Math.sin(T * .8) * 15; a.th2 = -20 - Math.sin(T * .7) * 15; a.sh1 = -30; a.sh2 = -10; bob = Math.sin(T * 1.1) * 18; break; }
+      case 'breathe': { bob = Math.sin(T * 1.2) * 3; a.lean += Math.sin(T * 1.2) * 2; break; }
+      case 'tremble': { a.lean += noise(T * 14, 1) * 3; a.head += noise(T * 12, 2) * 6; a.ua1 += noise(T * 15, 3) * 6; a.ua2 += noise(T * 13, 4) * 6; break; }
+      case 'reach': { const k = Ease.inOutSine(clamp((t * sp) / 2.5)); a.ua1 = lerp(base.ua1, 165, k); a.la1 = lerp(base.la1, 172, k); a.head = lerp(base.head, -30, k); a.lean = lerp(base.lean, -6, k); break; }
+      case 'none': break;
+    }
+    if (o.anim) o.anim(a, t); // personnalisation libre
+    return { a, bob, rot };
+  }
+
   E.figure = function (o = {}) {
     o = Object.assign({ x: 540, y: 1500, s: 1, color: '#111', shade: null, outline: null, outlineWidth: 6, pose: 'stand', action: 'idle', facing: 1, speed: 1, hair: null, coat: false, hat: null, path: null, seed: 1, bodyWidth: 1 }, o);
     const sh = o.shade || o.color, L = { torso: 120, neck: 20, head: 38, ua: 72, la: 66, th: 88, sh: 88 }, sw = 26 * o.bodyWidth;
@@ -541,30 +567,7 @@
     const setLimb = (g, pts) => { const d = `M ${pts[0][0]} ${pts[0][1]} L ${pts[1][0]} ${pts[1][1]} L ${pts[2][0]} ${pts[2][1]}`; for (const p of g.children) p.setAttribute('d', d); };
     const r = rng(o.seed);
     const ph0 = r() * 10;
-    function anglesAt(t) {
-      const base = Object.assign({}, typeof o.pose === 'string' ? POSES[o.pose] : Object.assign({}, POSES.stand, o.pose));
-      const a = Object.assign({}, base); let bob = 0, rot = 0; const sp = o.speed, T = t * sp + ph0;
-      switch (o.action) {
-        case 'walk': {
-          const c = T * 5.2; a.th1 = Math.sin(c) * 26; a.th2 = -Math.sin(c) * 26; a.sh1 = -Math.max(0, Math.sin(c + 1.6)) * 38; a.sh2 = -Math.max(0, -Math.sin(c + 1.6)) * 38;
-          a.ua1 = -Math.sin(c) * 22 + base.ua1 * .3; a.ua2 = Math.sin(c) * 22; a.la1 = a.ua1 + 18; a.la2 = a.ua2 + 18; bob = Math.abs(Math.cos(c)) * -7; a.lean += 4; break;
-        }
-        case 'run': {
-          const c = T * 9; a.th1 = Math.sin(c) * 48; a.th2 = -Math.sin(c) * 48; a.sh1 = -60 - Math.sin(c + 1.5) * 40; a.sh2 = -60 + Math.sin(c + 1.5) * 40;
-          a.ua1 = -Math.sin(c) * 50; a.ua2 = Math.sin(c) * 50; a.la1 = a.ua1 + 90; a.la2 = a.ua2 + 90; bob = Math.abs(Math.cos(c)) * -16; a.lean = 16; break;
-        }
-        case 'idle': { a.lean += Math.sin(T * 1.6) * 1.5; a.head += Math.sin(T * .9) * 3; a.ua1 += Math.sin(T * 1.6) * 3; a.ua2 -= Math.sin(T * 1.6) * 3; bob = Math.sin(T * 1.6) * 2; break; }
-        case 'sway': { a.lean += Math.sin(T * 2) * 6; a.head += Math.sin(T * 2 + 1) * 8; a.ua1 += Math.sin(T * 2) * 15; a.ua2 += Math.sin(T * 2) * 15; break; }
-        case 'dance': { const c = T * 6; a.ua1 = 140 + Math.sin(c) * 30; a.la1 = a.ua1 + 30; a.ua2 = -140 - Math.sin(c + 1) * 30; a.la2 = a.ua2 - 30; a.lean = Math.sin(c) * 10; a.head = Math.sin(c + .5) * 15; a.th1 = 10 + Math.sin(c) * 10; a.th2 = -10 + Math.sin(c) * 10; bob = Math.abs(Math.sin(c)) * -14; break; }
-        case 'float': { rot = Math.sin(T * .6) * 14 + t * 6 * sp; a.ua1 = 70 + Math.sin(T) * 25; a.ua2 = -70 - Math.sin(T * 1.1) * 25; a.la1 = a.ua1 + 20; a.la2 = a.ua2 - 20; a.th1 = 25 + Math.sin(T * .8) * 15; a.th2 = -20 - Math.sin(T * .7) * 15; a.sh1 = -30; a.sh2 = -10; bob = Math.sin(T * 1.1) * 18; break; }
-        case 'breathe': { bob = Math.sin(T * 1.2) * 3; a.lean += Math.sin(T * 1.2) * 2; break; }
-        case 'tremble': { a.lean += noise(T * 14, 1) * 3; a.head += noise(T * 12, 2) * 6; a.ua1 += noise(T * 15, 3) * 6; a.ua2 += noise(T * 13, 4) * 6; break; }
-        case 'reach': { const k = Ease.inOutSine(clamp((t * sp) / 2.5)); a.ua1 = lerp(base.ua1, 165, k); a.la1 = lerp(base.la1, 172, k); a.head = lerp(base.head, -30, k); a.lean = lerp(base.lean, -6, k); break; }
-        case 'none': break;
-      }
-      if (o.anim) o.anim(a, t); // personnalisation libre
-      return { a, bob, rot };
-    }
+    const anglesAt = t => rigAngles(o, t, ph0);
     function pose(t) {
       const { a, bob, rot } = anglesAt(t);
       const hip = [0, 0];
@@ -594,6 +597,128 @@
     }
     return item(root, pose);
   };
+  /* --- Personnage « corps » (E.person) : silhouettes anatomiques de profil -------------------
+   * Même squelette/actions que E.figure (pose, action, anim, path, facing, speed), rendu soigné :
+   * membres effilés à articulations arrondies, torse de profil (dos/poitrine), tête de profil
+   * (front, nez, lèvres, menton, oreille, œil qui cligne), mains, chaussures, vêtements et coiffures.
+   * o.look : { skin, top, bottom, shoe, hair, hat, coat, accent }
+   * o.outfit : 'hoodie' | 'tee' | 'jacket' | 'trench' | 'dress'      o.hair : 'short' | 'buzz' | 'long' | 'bun' | 'curly' | null
+   * o.hat : null | 'hood' | 'cap' | 'beanie' | 'fedora'               o.silhouette : couleur unique (style affiche)
+   * o.rim : couleur de liseré lumineux (contre-jour) ; o.s : échelle (1 ≈ 400 px de haut)
+   */
+  E.person = function (o = {}) {
+    o = Object.assign({ x: 540, y: 1500, s: 1, facing: 1, pose: 'stand', action: 'idle', speed: 1, seed: 1, outfit: 'hoodie', hair: 'short', hat: null, silhouette: null, rim: null, shadow: true }, o);
+    const lk = Object.assign({ skin: '#c48a64', top: '#20263a', bottom: '#1a1d2a', shoe: '#ece8e0', hair: '#17110d', hat: '#1a1f30', coat: '#d6b48a', accent: '#e9e4da' }, o.look || {});
+    const S1 = o.silhouette;
+    if (S1) for (const k2 in lk) lk[k2] = S1;
+    const darker = c => S1 ? S1 : mixColor(c, '#000000', .28);
+    const L = { torso: 128, neck: 14, head: 33, ua: 74, la: 68, th: 94, sh: 92 };
+    const root = h('g', o.key === false ? {} : { 'data-key': o.key || 'personnage', 'data-key-allow': o.keyAllow || null });
+    const shadowEl = o.shadow ? h('ellipse', { rx: 78, ry: 12, fill: '#000', opacity: .28 }) : null;
+    if (shadowEl) root.appendChild(shadowEl);
+    const body = h('g'); root.appendChild(body);
+    const P2 = (b, a, l) => [b[0] + Math.sin(rad(a)) * l, b[1] + Math.cos(rad(a)) * l];
+    // segment effilé à bouts ronds
+    const capsule = (p0, p1, w0, w1) => {
+      const dx = p1[0] - p0[0], dy = p1[1] - p0[1], len = Math.hypot(dx, dy) || 1, nx = -dy / len, ny = dx / len;
+      return `M ${p0[0] + nx * w0} ${p0[1] + ny * w0} L ${p1[0] + nx * w1} ${p1[1] + ny * w1} A ${w1} ${w1} 0 0 0 ${p1[0] - nx * w1} ${p1[1] - ny * w1} L ${p0[0] - nx * w0} ${p0[1] - ny * w0} A ${w0} ${w0} 0 0 0 ${p0[0] + nx * w0} ${p0[1] + ny * w0} Z`;
+    };
+    const mk = (fill, extra) => { const e = h('path', Object.assign({ fill }, extra || {})); return e; };
+    const isSkirt = o.outfit === 'dress';
+    const sleeve = o.outfit === 'tee' ? null : lk.top;
+    // éléments (ordre de profondeur : membres arrière → torse → membres avant → tête)
+    const backArmU = mk(darker(sleeve || lk.skin)), backArmL = mk(darker(o.outfit === 'tee' ? lk.skin : (sleeve || lk.skin))), backHand = mk(darker(lk.skin));
+    const backThigh = mk(darker(isSkirt ? lk.skin : lk.bottom)), backShin = mk(darker(isSkirt ? lk.skin : lk.bottom)), backShoe = mk(darker(lk.shoe));
+    const coatBack = (o.outfit === 'trench') ? mk(darker(lk.coat)) : null;
+    const torso = mk(o.outfit === 'trench' ? lk.coat : lk.top);
+    const skirt = isSkirt ? mk(lk.top) : null;
+    const frontThigh = mk(isSkirt ? lk.skin : lk.bottom), frontShin = mk(isSkirt ? lk.skin : lk.bottom), frontShoe = mk(lk.shoe);
+    const coatFront = (o.outfit === 'trench') ? mk(lk.coat) : null;
+    const belt = (o.outfit === 'trench') ? h('path', { fill: 'none', stroke: S1 || darker(lk.coat), 'stroke-width': 7 }) : null;
+    const pocket = (o.outfit === 'hoodie') ? h('path', { fill: 'none', stroke: S1 || darker(lk.top), 'stroke-width': 4, opacity: .8 }) : null;
+    const neckEl = mk(lk.skin);
+    const headG = h('g');
+    const hoodBack = o.hat === 'hood' ? mk(darker(lk.top)) : null;
+    const hairBack = (o.hair === 'long' || o.hair === 'bun' || o.hair === 'curly') ? mk(lk.hair) : null;
+    const headP = mk(lk.skin, { d: `M -31 -14 A 33 33 0 0 1 22 -26 Q 31 -16 31 -7 L 40 5 Q 41 8 36 9 L 33 10 Q 35 14 33 16 Q 35 19 33 21 Q 34 26 28 31 Q 16 38 2 35 Q -20 33 -30 12 Z` });
+    const ear = S1 ? null : h('ellipse', { cx: -4, cy: 2, rx: 6, ry: 9, fill: darker(lk.skin) });
+    const eye = S1 ? null : h('ellipse', { cx: 20, cy: -7, rx: 3.6, ry: 4.2, fill: '#141012' });
+    const brow = S1 ? null : h('path', { d: 'M 13 -15 Q 21 -19 28 -15', stroke: lk.hair, 'stroke-width': 3.5, fill: 'none', 'stroke-linecap': 'round' });
+    const lips = S1 ? null : h('path', { d: 'M 33 16 L 29 16', stroke: darker(lk.skin), 'stroke-width': 3, 'stroke-linecap': 'round' });
+    let hairTop = null;
+    if (o.hair === 'short') hairTop = mk(lk.hair, { d: 'M -33 4 Q -38 -30 -6 -36 Q 22 -38 30 -16 Q 14 -24 -2 -18 Q -12 -14 -14 -2 Q -22 -6 -26 8 Z' });
+    if (o.hair === 'buzz') hairTop = mk(lk.hair, { d: 'M -32 0 Q -34 -32 -2 -35 Q 24 -36 28 -20 Q 6 -26 -12 -18 Q -22 -12 -24 4 Z', opacity: .9 });
+    if (o.hair === 'long' || o.hair === 'bun' || o.hair === 'curly') hairTop = mk(lk.hair, { d: 'M -34 10 Q -40 -34 -4 -38 Q 26 -40 32 -14 Q 18 -26 0 -22 Q -10 -18 -14 0 Z' });
+    let hatEl = null;
+    if (o.hat === 'cap') hatEl = mk(lk.hat, { d: 'M -32 -6 Q -34 -38 0 -40 Q 28 -40 31 -16 L 58 -12 Q 58 -6 30 -8 Z' });
+    if (o.hat === 'beanie') hatEl = mk(lk.hat, { d: 'M -34 -2 Q -36 -46 0 -46 Q 34 -44 32 -6 Z' });
+    if (o.hat === 'fedora') hatEl = mk(lk.hat, { d: 'M -56 -16 Q 0 -26 58 -16 Q 60 -10 30 -14 Q 30 -50 0 -52 Q -28 -50 -28 -14 Q -58 -10 -56 -16 Z' });
+    if (o.hat === 'hood') hatEl = mk(lk.top, { d: 'M -40 26 Q -50 -40 0 -46 Q 34 -46 38 -12 Q 30 -30 4 -30 Q -18 -28 -20 6 Q -22 26 -14 40 Z' });
+    [hoodBack, hairBack, headP, ear, hairTop, hatEl, eye, brow, lips].forEach(e => e && headG.appendChild(e));
+    const frontArmU = mk(sleeve || lk.skin), frontArmL = mk(o.outfit === 'tee' ? lk.skin : (sleeve || lk.skin)), frontHand = mk(lk.skin);
+    const parts = [backArmU, backArmL, backHand, backThigh, backShin, backShoe, coatBack, frontThigh, frontShin, frontShoe, torso, skirt, coatFront, belt, pocket, neckEl, headG, frontArmU, frontArmL, frontHand];
+    parts.forEach(e => e && body.appendChild(e));
+    if (o.rim && !S1) {} // liseré : géré par filtre global si besoin
+    if (o.rim) body.setAttribute('filter', `url(#${rimFilter(o.rim)})`);
+    const r_ = rng(o.seed), ph0 = r_() * 10;
+    const handD = (wr, ang, sz) => { const c = Math.cos(rad(ang)), s_ = Math.sin(rad(ang)); const R = (x, y) => [wr[0] + x * c - y * s_, wr[1] + x * s_ + y * c]; const p = [R(-2, -9), R(18, -12), R(31, -5), R(32, 5), R(18, 12), R(-2, 9)].map(q => q.map(v => v.toFixed(1)).join(' ')); return `M ${p[0]} Q ${p[1]} ${p[2]} L ${p[3]} Q ${p[4]} ${p[5]} Z`; };
+    const shoeD = (f, ang) => { const c = Math.cos(rad(ang)), s_ = Math.sin(rad(ang)); const R = (x, y) => [f[0] + x * c - y * s_, f[1] + x * s_ + y * c].map(v => v.toFixed(1)).join(' '); return `M ${R(-14, -10)} L ${R(10, -10)} Q ${R(30, -6)} ${R(42, 2)} L ${R(44, 9)} L ${R(-16, 9)} Z`; };
+    function draw(t) {
+      const { a, bob, rot } = rigAngles(o, t, ph0);
+      const lean = a.lean, cl = Math.cos(rad(lean)), sl = Math.sin(rad(lean));
+      const T_ = (x, y) => [x * cl - y * sl, x * sl + y * cl]; // repère du torse (y vers le haut négatif)
+      const breath = 1 + Math.sin(t * 1.6 + ph0) * .015;
+      const neckB = T_(4, -L.torso), shoulder = T_(0, -L.torso + 12);
+      const tor = [[-22, 0], [-26, -40], [-24, -82], [-20, -112], [-6, -L.torso - 2], [10, -L.torso + 2], [22, -104 * breath], [27, -84 * breath], [22, -46], [20, 0]].map(([x, y]) => T_(x, y));
+      torso.setAttribute('d', `M ${tor[0]} Q ${tor[1]} ${tor[2]} Q ${tor[3]} ${tor[4]} Q ${tor[5]} ${tor[6]} Q ${tor[7]} ${tor[8]} L ${tor[9]} Z`.replace(/,/g, ' '));
+      const headC = [neckB[0] + Math.sin(rad(lean + a.head * .5)) * (L.neck + L.head * .9), neckB[1] - Math.cos(rad(lean + a.head * .5)) * (L.neck + L.head * .9)];
+      neckEl.setAttribute('d', capsule(neckB, [headC[0] - 6, headC[1] + 20], 9, 9));
+      headG.setAttribute('transform', `translate(${headC[0]},${headC[1]}) rotate(${a.head * .6 + lean * .3})`);
+      if (eye) { const ph = (t * .33 + ph0 * .1) % 1, bl = ph > .965 ? Math.abs(Math.cos((ph - .965) / .035 * Math.PI)) : 1; eye.setAttribute('ry', 4.2 * Math.max(.1, bl)); }
+      if (hairBack) { const sw = noise(t * 1.4, ph0) * 10 - ((o.action === 'walk' || o.action === 'run') ? 10 : 0); hairBack.setAttribute('d', o.hair === 'bun' ? 'M -40 -30 A 16 16 0 1 1 -40 -29 Z' : o.hair === 'curly' ? 'M -38 -10 Q -60 20 -40 50 Q -20 62 -10 40 Q -30 20 -20 -10 Z' : `M -30 -12 Q ${-52 + sw * .4} 40 ${-40 + sw} ${92} Q -20 100 -6 86 Q -14 40 -8 0 Z`); }
+      if (hoodBack) hoodBack.setAttribute('d', 'M -26 20 Q -54 -10 -36 -40 Q -20 -50 0 -44 L -18 30 Z');
+      // bras
+      const e1 = P2(shoulder, a.ua1, L.ua), w1 = P2(e1, a.la1, L.la), e2 = P2(shoulder, a.ua2, L.ua), w2 = P2(e2, a.la2, L.la);
+      frontArmU.setAttribute('d', capsule(shoulder, e1, 15, 12)); frontArmL.setAttribute('d', capsule(e1, w1, 12, 8.5)); frontHand.setAttribute('d', handD(w1, 90 - a.la1, 1));
+      backArmU.setAttribute('d', capsule(shoulder, e2, 14, 11)); backArmL.setAttribute('d', capsule(e2, w2, 11, 8)); backHand.setAttribute('d', handD(w2, 90 - a.la2, 1));
+      // jambes
+      const hipF = T_(4, -4), hipB = T_(-4, -4);
+      const k1 = P2(hipF, a.th1, L.th), f1 = P2(k1, a.th1 + a.sh1, L.sh), k2 = P2(hipB, a.th2, L.th), f2 = P2(k2, a.th2 + a.sh2, L.sh);
+      frontThigh.setAttribute('d', capsule(hipF, k1, 22, 15)); frontShin.setAttribute('d', capsule(k1, f1, 15, 10)); frontShoe.setAttribute('d', shoeD(f1, (a.th1 + a.sh1) * .25));
+      backThigh.setAttribute('d', capsule(hipB, k2, 21, 14)); backShin.setAttribute('d', capsule(k2, f2, 14, 9.5)); backShoe.setAttribute('d', shoeD(f2, (a.th2 + a.sh2) * .25));
+      if (pocket) { const p0 = T_(18, -26), p1 = T_(24, -50), p2 = T_(-6, -50); pocket.setAttribute('d', `M ${p0[0]} ${p0[1]} L ${p1[0]} ${p1[1]} L ${p2[0]} ${p2[1]}`); }
+      if (o.outfit === 'trench') {
+        const mv = (o.action === 'walk' || o.action === 'run') ? 1 : .35, fl = noise(t * 2.2, ph0) * 12 * mv;
+        const s0 = T_(-24, -112), s1 = T_(26, -100), kF = [k1[0] + 18, Math.max(k1[1], k2[1]) + 18], kB = [Math.min(k1[0], k2[0]) - 26 - fl - mv * 10, Math.max(k1[1], k2[1]) + 22];
+        coatFront.setAttribute('d', `M ${s1[0]} ${s1[1]} Q ${s1[0] + 10} ${s1[1] + 60} ${kF[0] + fl * .3} ${kF[1]} L ${T_(-4, 0)[0]} ${kF[1] + 4} L ${T_(0, -100)[0]} ${T_(0, -100)[1]} Z`);
+        coatBack.setAttribute('d', `M ${s0[0]} ${s0[1]} Q ${s0[0] - 16} ${s0[1] + 80} ${kB[0]} ${kB[1]} L ${T_(0, 0)[0] + 6} ${kB[1] + 6} L ${T_(0, -100)[0]} ${T_(0, -100)[1]} Z`);
+        const b0 = T_(-25, -52), b1 = T_(25, -50); belt.setAttribute('d', `M ${b0[0]} ${b0[1]} L ${b1[0]} ${b1[1]}`);
+      }
+      if (skirt) { const sw2 = noise(t * 2, ph0) * 8; const w0 = T_(-24, -8), w1_ = T_(22, -8); skirt.setAttribute('d', `M ${w0[0]} ${w0[1]} L ${w1_[0]} ${w1_[1]} L ${w1_[0] + 30 + sw2} ${w1_[1] + 100} Q ${0} ${w1_[1] + 112} ${w0[0] - 30 - sw2} ${w0[1] + 100} Z`); }
+      let x = o.x, y = o.y;
+      if (o.path) { const pp = kf(t, o.path, o.pathEase || 'linear'); x = pp[0]; y = pp[1]; }
+      const footY = L.th + L.sh + 9;
+      if (shadowEl) set(shadowEl, { cx: 0, cy: footY - bob, rx: 78 + bob, opacity: .28 * (1 + bob / 40) });
+      root.setAttribute('transform', `translate(${x},${y}) scale(${o.s * o.facing},${o.s}) rotate(${rot}) translate(0,${-footY + bob})`);
+    }
+    return item(root, draw);
+  };
+  const rimCache = {};
+  function rimFilter(color) { // liseré lumineux côté face (contre-jour)
+    const id = 'rim' + color.replace('#', '');
+    if (!rimCache[id]) {
+      defs.appendChild(h('filter', { id, x: '-20%', y: '-20%', width: '140%', height: '140%' }, [
+        h('feMorphology', { in: 'SourceAlpha', operator: 'erode', radius: 3, result: 'er' }),
+        h('feOffset', { in: 'er', dx: -5, dy: 0, result: 'off' }),
+        h('feComposite', { in: 'SourceAlpha', in2: 'off', operator: 'out', result: 'edge' }),
+        h('feFlood', { 'flood-color': color, result: 'col' }),
+        h('feComposite', { in: 'col', in2: 'edge', operator: 'in', result: 'rim' }),
+        h('feMerge', {}, [h('feMergeNode', { in: 'SourceGraphic' }), h('feMergeNode', { in: 'rim' })])]));
+      rimCache[id] = 1;
+    }
+    return id;
+  }
+
   E.crowd = function ({ n = 14, y = 1600, x0 = -50, x1 = W + 50, s = .55, color = '#0d0d10', seed = 12, action = 'sway', depthRows = 2 } = {}) {
     const r = rng(seed), g = h('g'), figs = [];
     for (let row = depthRows - 1; row >= 0; row--) for (let i = 0; i < n; i++) {
@@ -608,7 +733,7 @@
   /* ------------------------------------------------------------------ */
   function makeScene(sb, index) {
     const root = h('g', { class: 'scene', 'data-id': sb.id, style: 'display:none' });
-    const inner = h('g'); root.appendChild(inner);
+    const inner = h('g', { id: 'sci' + index }); root.appendChild(inner);
     world.appendChild(root);
     const S = {
       id: sb.id, index, sb, start: sb.start, end: sb.end, dur: sb.end - sb.start,
@@ -671,6 +796,24 @@
   function prepTransition(tr) {
     const type = tr.type || 'fade';
     const st = { type, dur: tr.dur ?? .5, opts: tr };
+    if (type === 'slices' || type === 'dots') {
+      st.mask = makeMask(type, tr); st.els = [];
+      if (type === 'slices') { const n = tr.n || 10; for (let i = 0; i < n; i++) { const r_ = h('rect', { x: 0, y: i * H / n - 1, width: W, height: H / n + 2 }); st.mask.shapes.appendChild(r_); st.els.push(r_); } }
+      if (type === 'dots') { const cols = tr.cols || 12, cw = W / cols, rows = Math.ceil(H / cw); for (let r_ = 0; r_ <= rows; r_++) for (let c = 0; c <= cols; c++) { const e = h('circle', { cx: c * cw + (r_ % 2) * cw / 2, cy: r_ * cw, r: 0 }); st.mask.shapes.appendChild(e); st.els.push([e, c * cw + (r_ % 2) * cw / 2, r_ * cw, cw]); } }
+    }
+    if (type === 'tear') {
+      // déchirure : moitié gauche = la scène elle-même (clip), moitié droite = clone <use> (clip)
+      const r_ = rng(tr.seed || 7); let jag = []; for (let y = -200; y <= H + 200; y += 70) jag.push([W / 2 + (tr.x0 ?? 0) + (r_() - .5) * 90 + (y / H - .5) * (tr.slant ?? 80), y]);
+      const jp = jag.map(([x, y]) => `${x.toFixed(1)} ${y}`).join(' L ');
+      const idL = nid('tearL'), idR = nid('tearR');
+      defs.appendChild(h('clipPath', { id: idL }, [h('path', { d: `M -3000 -400 L ${jp} L -3000 ${H + 400} Z` })]));
+      defs.appendChild(h('clipPath', { id: idR }, [h('path', { d: `M 4000 -400 L ${jp} L 4000 ${H + 400} Z` })]));
+      st.clipL = idL; st.use = h('use'); st.useG = h('g', { 'clip-path': `url(#${idR})`, style: 'display:none' }, [st.use]);
+      const edge = `M ${jp}`;
+      st.edgeL = h('path', { d: edge, fill: 'none', stroke: tr.paper || '#f4efe4', 'stroke-width': 14, 'stroke-linejoin': 'bevel', style: 'display:none' });
+      st.edgeR = h('path', { d: edge, fill: 'none', stroke: tr.paper || '#f4efe4', 'stroke-width': 14, 'stroke-linejoin': 'bevel', style: 'display:none' });
+      st.shadow = h('path', { d: edge, fill: 'none', stroke: '#000', 'stroke-width': 40, opacity: .25, filter: 'url(#softblur)', style: 'display:none' });
+    }
     if (['wipe', 'iris', 'ink', 'shape', 'blinds', 'diagonal', 'bar', 'radial'].includes(type)) {
       st.mask = makeMask(type, tr);
       const s = st.mask.shapes;
@@ -727,6 +870,32 @@
         if (st.hand) { st.hand.setAttribute('opacity', k > 0 && k < 1 ? 1 : 0); st.hand.setAttribute('transform', `translate(${cx},${cy}) rotate(${ang})`); }
         I.setAttribute('mask', `url(#${st.mask.id})`); break;
       }
+      case 'slices': {
+        const n = st.els.length;
+        st.els.forEach((r_, i) => { const kk = Ease.outCubic(clamp(k * 1.7 - (i % 2 ? i / n * .7 : (n - i) / n * .7))); r_.setAttribute('x', (i % 2 ? 1 : -1) * (1 - kk) * W); });
+        I.setAttribute('mask', `url(#${st.mask.id})`); break;
+      }
+      case 'dots': {
+        const fx = o.x ?? W / 2, fy = o.y ?? H / 2, maxD = Math.hypot(W, H);
+        st.els.forEach(([e, x, y, cw]) => { const d = Math.hypot(x - fx, y - fy) / maxD; const kk = clamp((k * 1.6 - d * .6) / .7); e.setAttribute('r', Ease.inOutCubic(kk) * cw * .75); });
+        I.setAttribute('mask', `url(#${st.mask.id})`); break;
+      }
+      case 'tear': {
+        if (!O) { I.setAttribute('opacity', e); break; }
+        // la scène entrante passe dessous, la sortante se déchire en deux
+        world.insertBefore(I, O);
+        if (!st.useG.parentNode) world.appendChild(st.useG);
+        world.appendChild(st.useG); world.appendChild(st.shadow); world.appendChild(st.edgeL); world.appendChild(st.edgeR);
+        st.use.setAttribute('href', '#' + O.firstChild.id);
+        const kk = Ease.inCubic(k), dx = kk * 760, dy = kk * kk * 260, rr = kk * 14;
+        const tl = `translate(${-dx},${dy}) rotate(${-rr} ${W / 2} ${H})`, tr_ = `translate(${dx},${dy * 1.2}) rotate(${rr} ${W / 2} ${H})`;
+        O.setAttribute('clip-path', `url(#${st.clipL})`); O.setAttribute('transform', tl);
+        st.useG.style.display = ''; st.useG.setAttribute('transform', tr_);
+        st.edgeL.style.display = ''; st.edgeL.setAttribute('transform', tl + ' translate(-7,0)');
+        st.edgeR.style.display = ''; st.edgeR.setAttribute('transform', tr_ + ' translate(7,0)');
+        st.shadow.style.display = k > .02 ? '' : 'none'; st.shadow.setAttribute('transform', `translate(0,${dy})`); st.shadow.setAttribute('opacity', .25 * (1 - k));
+        break;
+      }
       case 'blinds': {
         const n = st.els.length, vert = (o.dir || 'vertical') === 'vertical';
         st.els.forEach((r, i) => { const kk = clamp(e * 1.6 - i / n * .6); if (vert) set(r, { x: i * W / n, y: -10, width: W / n * kk + 1, height: H + 20 }); else set(r, { x: -10, y: i * H / n, width: W + 20, height: H / n * kk + 1 }); });
@@ -739,8 +908,9 @@
         I.setAttribute('transform', `translate(${-dx * (1 - e) * W},${-dy * (1 - e) * H})`); break;
       }
       case 'zoom': {
-        if (O) { O.setAttribute('transform', `translate(${W / 2},${H / 2}) scale(${1 + e * 1.8}) translate(${-W / 2},${-H / 2})`); O.setAttribute('opacity', 1 - smooth(.3, .9, k)); }
-        I.setAttribute('transform', `translate(${W / 2},${H / 2}) scale(${.55 + .45 * e}) translate(${-W / 2},${-H / 2})`); I.setAttribute('opacity', smooth(.15, .7, k));
+        const zx = o.x ?? W / 2, zy = o.y ?? H / 2, zs = o.scale ?? 2.8;
+        if (O) { O.setAttribute('transform', `translate(${zx},${zy}) scale(${1 + Ease.inCubic(k) * zs}) translate(${-zx},${-zy})`); O.setAttribute('opacity', 1 - smooth(.35, .9, k)); }
+        I.setAttribute('transform', `translate(${W / 2},${H / 2}) scale(${.6 + .4 * e}) translate(${-W / 2},${-H / 2})`); I.setAttribute('opacity', smooth(.2, .75, k));
         if (O) world.appendChild(O); break;
       }
       case 'spin': {
@@ -788,7 +958,8 @@
     }
   }
   function resetScene(S) {
-    const r = S.root; r.removeAttribute('opacity'); r.removeAttribute('transform'); r.removeAttribute('mask'); r.removeAttribute('filter');
+    const r = S.root; r.removeAttribute('opacity'); r.removeAttribute('transform'); r.removeAttribute('mask'); r.removeAttribute('filter'); r.removeAttribute('clip-path');
+    if (S.trans && S.trans.useG) { S.trans.useG.style.display = 'none'; S.trans.edgeL.style.display = 'none'; S.trans.edgeR.style.display = 'none'; S.trans.shadow.style.display = 'none'; }
   }
 
   /* ------------------------------------------------------------------ */

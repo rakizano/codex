@@ -1,0 +1,69 @@
+DIRECTION ARTISTIQUE — SDM « Cartier Santos »
+
+CONCEPT / NARRATION
+  Le refrain et le 2e couplet racontés en 12 affiches animées, une par phrase : la photo du début, l'argent qui file, la lune rouge des 8 rivaux, l'orage, la chaîne du film, la partie d'échecs, la rupture. Chaque affiche évolue quand la 2e moitié de la phrase arrive.
+
+UNIVERS VISUEL
+  Affiches sérigraphiées des années 70 revisitées : silhouettes fortes, palettes réduites par scène (bleu nuit et cramoisi, bruns chauds, violet de rêve, noir et ivoire), trame et grain d'impression.
+
+PALETTE
+  bleu nuit      #1d2b4f
+  cramoisi       #b3261e
+  brun chaud     #7a4a2e
+  ocre           #d89a4a
+  violet         #4a2f6a
+  ivoire         #efe6d2
+  rouge signature #e10600
+
+TYPOGRAPHIE
+  Anton (condensée, capitales), blanc, aligné en haut à gauche ; le texte s'accumule mot à mot au rythme exact du chant ; mot rouge par bloc.
+
+STYLE GRAPHIQUE
+  Aplats + trame de points et grain d'impression ; personnages anatomiques de profil (nouveau rendu : profils, mains, vêtements, coiffures), souvent en silhouette avec liseré lumineux ; ombres et lumières franches.
+
+PRINCIPES D'ANIMATION
+  Chaque affiche vit : caméra lente, fumée, pluie, lumière qui change (chaud → froid), personnages qui gesticulent ; à chaque morceau de phrase, un événement visuel (révélation, éclair, apparition, bascule de lumière).
+
+TRANSITIONS & MONTAGE
+  Déchirure de papier, trame de points qui révèle l'image, tranches qui glissent, plongée dans un objet (zoom ciblé), coup de fouet, fondu au blanc papier.
+
+INFLUENCES
+  Edit TikTok de référence (Josman – Goal) : texte en haut à gauche qui s'accumule, affiches à silhouettes ; personnages fictifs.
+
+DÉCOUPAGE (scène → image)
+  s00  0.00- 6.14s  La vie d'ma mère, bébé, ma tchop sans coco, / j'peux être ton bébé
+       image : Polaroid posé sur une table la nuit : la photo se révèle (leur couple dans une voiture sous un néon), puis la caméra plonge dedans.
+       transition d'entrée : cut
+  s01  6.14-11.64s  Elle savait m'parler, au bout d'deux, trois dél', / j'me mets à rêver
+       image : Deux tours face à face la nuit, chacun sur son balcon au téléphone ; puis le ciel vire au violet du rêve, étoiles filantes.
+       transition d'entrée : zoom
+  s02 11.64-16.34s  Que j'prends sur moi, dés l'début, elle, / elle a seulement voulu prendre des sous sur me
+       image : Lui de dos sur un canapé dans un salon brun chaud, fumée qui monte ; elle apparaît dans l'encadrement de la porte, des pièces s'envolent de sa poche vers elle.
+       transition d'entrée : dots
+  s03 16.34-21.48s  Quand j'avais pas one sur moi, / pas d'souci pour elle, d'toute façon j'étais le huitième de tous ses mecs
+       image : Sous un réverbère froid, il retourne ses poches vides ; puis une lune rouge géante et la file de 8 silhouettes, lui le 8e avec un liseré.
+       transition d'entrée : tear
+  s04 21.48-26.46s  Faudra d'la foi et du courage, / une relation remplie de rage, j'vois jamais l'soleil, que l'orage
+       image : Deux silhouettes sur un toit rouge au-dessus de la ville bleu nuit ; les nuages s'amoncellent, puis l'éclair frappe et la pluie tombe.
+       transition d'entrée : slices
+  s05 26.46-31.28s  Elle veut son blase en tatouage, / que j'me sépare d'mon entourage, la dernière collection Courrèges
+       image : Gros plan de l'avant-bras : un cœur se tatoue ; puis panoramique vers la vitrine où elle porte des sacs pendant que ses potes s'éloignent.
+       transition d'entrée : dip
+  s06 31.28-36.88s  Mon Dieu, dans quel film on est? / Mais comment j'me suis attaché sans la connaître?
+       image : Pellicule de film qui défile à la verticale avec les scènes de leur histoire ; puis la pellicule s'enroule autour de ses poignets.
+       transition d'entrée : zoom
+  s07 36.88-41.86s  Que elle veut ci, elle veut ça, pourtant, / on m'a juré qu'le bonheur s'trouvait pas dans la monnaie
+       image : Vitrine de luxe : montre, sac, escarpins s'allument un à un ; puis la lumière tombe et des pièces chutent dans un puits noir.
+       transition d'entrée : slices
+  s08 41.86-47.16s  J'l'élimine à ses vues, c'est qu'une tch', à ces, j'l'assimile
+       image : Échiquier noir et ivoire : sa main renverse la reine, puis la reine est absorbée dans l'ombre du roi.
+       transition d'entrée : dots
+  s09 47.16-52.98s  Oh là là, pas si vite, / elle me dit "tu bouges pas, ton sang, / j'ai pas assez bu"
+       image : Rue sous un lampadaire cramoisi : il s'en va, elle lui attrape le bras ; puis le noir, des yeux qui brillent et des chauves-souris.
+       transition d'entrée : whip
+  s10 52.98-57.52s  J'prends plus sur moi, c'est fini, / j'y ai réfléchi toute la semaine
+       image : Ils sont attablés devant une fenêtre à lumière chaude ; puis la lumière devient froide et sa chaise à elle est vide.
+       transition d'entrée : tear
+  s11 57.52-60.02s  Elle me répond "est-ce que t'es sûr?", me dit "dommage,
+       image : Gros plan du téléphone dans sa main : la bulle de sa réponse arrive, points de saisie.
+       transition d'entrée : fade

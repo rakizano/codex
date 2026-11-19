@@ -128,6 +128,14 @@ Toute animation doit être une **fonction pure du temps local `t`** (pas d'état
 - `node $SK/scripts/render.mjs --project clips/<slug> --framing && python3 $SK/scripts/framing.py clips/<slug>` :
   corriger jusqu'à « n_problemes: 0 » (déclarer avec S.key(…, allow) uniquement les débords réellement voulus).
 
+### 9 ter. Style « affiches animées » (référence appréciée de l'utilisateur : edit Josman – Goal)
+Une image par phrase (scènes groupées par ligne source), texte condensé (Anton) aligné en haut à gauche qui
+s'ACCUMULE mot à mot au moment exact du chant (`lyrics[].words` = instants, blocs ≤ ~11 mots), mot rouge
+par bloc ; l'image évolue à chaque morceau de phrase via `scenes[].marks` (révélation, éclair, bascule de
+lumière, apparition) ; palettes réduites par scène + `fx.halftone`/`grain`/`paper` ; personnages `E.person`
+souvent en silhouette avec liseré ; transitions graphiques (tear, dots, slices, zoom ciblé). Modèle :
+`clips/sdm-cartier-santos-v3/`. Si un mot rouge est élidé (« J'l'élimine »), dupliquer son instant dans `words`.
+
 ### 10. Revue visuelle (obligatoire avant le rendu complet)
 ```bash
 python3 $SK/scripts/fonts.py --project clips/<slug> "<Police 1>" "<Police 2:700>"

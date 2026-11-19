@@ -15,7 +15,7 @@ import sys
 import unicodedata
 
 TRANSITIONS = {'cut', 'fade', 'dip', 'flash', 'wipe', 'diagonal', 'iris', 'ink', 'shape', 'blinds', 'push', 'slide',
-               'zoom', 'spin', 'whip', 'glitch', 'bar', 'radial'}
+               'zoom', 'spin', 'whip', 'glitch', 'bar', 'radial', 'tear', 'slices', 'dots'}
 ENTERS = {'pop', 'rise', 'drop', 'slide', 'blur', 'stamp', 'type', 'split', 'mask', 'drift', 'line'}
 EMPHASES = {'grow', 'late', 'shake', 'pulse', 'slidein', 'drop', 'reveal', 'glow', 'scramble', 'breathe', 'shrink', 'none'}
 

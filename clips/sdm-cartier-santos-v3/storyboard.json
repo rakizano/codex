@@ -1,0 +1,756 @@
+{
+ "song": {
+  "artist": "SDM",
+  "title": "Cartier Santos",
+  "album": "ALVALM (2024)",
+  "version_duration": 183.0,
+  "lrclib_ref_id": 33605312,
+  "sync_confidence": "élevée",
+  "sync_spread_median_s": 0.08,
+  "n_sources": 16,
+  "notes": [
+   "Clip calé sur le son TikTok fourni (60,02 s) : passage de la chanson 41.0 s → 101.0 s, vitesse normale.",
+   "Débuts de phrases pris sur les mots entendus dans ce son (Whisper : 137 mots appariés aux paroles, erreur d'ajustement 0.161 s).",
+   "Écartés : la fin de « Mon shit caché dans la veste… » (commencée avant le son) et « j'avais bloqué ma soirée… » (coupée par la fin du son). Ad-libs non affichés."
+  ]
+ },
+ "passage": {
+  "start": 0.0,
+  "end": 60.022,
+  "duration": 60.022,
+  "start_fmt": "0:00.000",
+  "end_fmt": "1:00.022"
+ },
+ "fps": 30,
+ "width": 1080,
+ "height": 1920,
+ "tiktok_sound": {
+  "source": "vidéo TikTok fournie par l'utilisateur",
+  "duration_s": 60.022,
+  "song_start_s": 41.015,
+  "song_end_s": 101.037,
+  "speed": 1.0,
+  "instruction": "Dans le brouillon TikTok : « Ajouter un son » → choisir CE son (celui de la vidéo fournie) → ne pas couper : il démarre à 0:00 avec la vidéo → Publier."
+ },
+ "lyrics_file": "work/lyrics_sound_scenes.json",
+ "scenes": [
+  {
+   "id": "s00",
+   "start": 0.0,
+   "end": 6.145,
+   "lyrics": [
+    {
+     "text": "La vie d'ma / mère, bébé, ma / tchop sans / coco,",
+     "words": [
+      1.175,
+      1.357,
+      1.538,
+      1.72,
+      2.083,
+      2.447,
+      2.629,
+      2.81,
+      2.992
+     ],
+     "start": 1.175,
+     "end": 3.7,
+     "song_t": 42.19,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "mère",
+     "pos": "top",
+     "align": "left"
+    },
+    {
+     "text": "j'peux être ton / bébé",
+     "words": [
+      3.74,
+      3.935,
+      4.325,
+      4.52
+     ],
+     "start": 3.74,
+     "end": 6.125,
+     "song_t": 44.755,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "bébé",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    1.175,
+    3.74
+   ],
+   "visual": "Polaroid posé sur une table la nuit : la photo se révèle (leur couple dans une voiture sous un néon), puis la caméra plonge dedans.",
+   "transition": {
+    "type": "cut",
+    "dur": 0
+   }
+  },
+  {
+   "id": "s01",
+   "start": 6.145,
+   "end": 11.64,
+   "lyrics": [
+    {
+     "text": "Elle savait / m'parler, au / bout d'deux, / trois dél',",
+     "words": [
+      6.265,
+      6.632,
+      7.0,
+      7.0,
+      7.367,
+      7.55,
+      7.734,
+      7.918,
+      8.101
+     ],
+     "start": 6.265,
+     "end": 9.08,
+     "song_t": 47.28,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "parler",
+     "pos": "top",
+     "align": "left"
+    },
+    {
+     "text": "j'me mets à / rêver",
+     "words": [
+      9.12,
+      9.32,
+      9.52,
+      9.72
+     ],
+     "start": 9.12,
+     "end": 11.62,
+     "song_t": 50.135,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "rêver",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12,
+    2.975
+   ],
+   "visual": "Deux tours face à face la nuit, chacun sur son balcon au téléphone ; puis le ciel vire au violet du rêve, étoiles filantes.",
+   "transition": {
+    "type": "zoom",
+    "dur": 0.5,
+    "x": 540,
+    "y": 1060,
+    "scale": 3.2
+   }
+  },
+  {
+   "id": "s02",
+   "start": 11.64,
+   "end": 16.34,
+   "lyrics": [
+    {
+     "text": "Que j'prends / sur moi, dés / l'début, elle,",
+     "words": [
+      11.76,
+      11.947,
+      12.133,
+      12.32,
+      12.507,
+      12.693,
+      12.693,
+      13.067
+     ],
+     "start": 11.76,
+     "end": 14.047,
+     "song_t": 52.775,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "début",
+     "pos": "top",
+     "align": "left"
+    },
+    {
+     "text": "elle a / seulement voulu / prendre des / sous sur me",
+     "words": [
+      14.087,
+      14.375,
+      14.519,
+      14.951,
+      15.24,
+      15.528,
+      15.672,
+      15.816,
+      15.96
+     ],
+     "start": 14.087,
+     "end": 16.32,
+     "song_t": 55.102,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "sous",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12,
+    2.447
+   ],
+   "visual": "Lui de dos sur un canapé dans un salon brun chaud, fumée qui monte ; elle apparaît dans l'encadrement de la porte, des pièces s'envolent de sa poche vers elle.",
+   "transition": {
+    "type": "dots",
+    "dur": 0.6,
+    "x": 540,
+    "y": 1100
+   }
+  },
+  {
+   "id": "s03",
+   "start": 16.34,
+   "end": 21.48,
+   "lyrics": [
+    {
+     "text": "Quand j'avais / pas one sur / moi,",
+     "words": [
+      16.46,
+      16.609,
+      16.906,
+      17.055,
+      17.352,
+      17.501
+     ],
+     "start": 16.46,
+     "end": 17.82,
+     "song_t": 57.475,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "one",
+     "pos": "top",
+     "align": "left"
+    },
+    {
+     "text": "pas d'souci / pour elle, / d'toute façon / j'étais le / huitième de / tous ses mecs",
+     "words": [
+      17.86,
+      18.019,
+      18.337,
+      18.496,
+      18.814,
+      19.132,
+      19.45,
+      19.767,
+      19.926,
+      20.403,
+      20.562,
+      20.721,
+      20.88
+     ],
+     "start": 17.86,
+     "end": 21.46,
+     "song_t": 58.875,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "huitième",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12,
+    1.52
+   ],
+   "visual": "Sous un réverbère froid, il retourne ses poches vides ; puis une lune rouge géante et la file de 8 silhouettes, lui le 8e avec un liseré.",
+   "transition": {
+    "type": "tear",
+    "dur": 0.75
+   }
+  },
+  {
+   "id": "s04",
+   "start": 21.48,
+   "end": 26.46,
+   "lyrics": [
+    {
+     "text": "Faudra d'la foi / et du courage,",
+     "words": [
+      21.6,
+      21.883,
+      22.025,
+      22.167,
+      22.308,
+      22.45
+     ],
+     "start": 21.6,
+     "end": 23.06,
+     "song_t": 62.615,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "courage",
+     "pos": "top",
+     "align": "left"
+    },
+    {
+     "text": "une relation / remplie de / rage, j'vois / jamais / l'soleil, que / l'orage",
+     "words": [
+      23.1,
+      23.315,
+      23.638,
+      23.854,
+      23.961,
+      24.177,
+      24.284,
+      24.5,
+      25.0,
+      25.207,
+      25.207
+     ],
+     "start": 23.1,
+     "end": 26.44,
+     "song_t": 64.115,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "orage",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12,
+    1.62,
+    3.52
+   ],
+   "visual": "Deux silhouettes sur un toit rouge au-dessus de la ville bleu nuit ; les nuages s'amoncellent, puis l'éclair frappe et la pluie tombe.",
+   "transition": {
+    "type": "slices",
+    "dur": 0.5,
+    "n": 10
+   }
+  },
+  {
+   "id": "s05",
+   "start": 26.46,
+   "end": 31.28,
+   "lyrics": [
+    {
+     "text": "Elle veut son / blase en / tatouage,",
+     "words": [
+      26.58,
+      26.845,
+      26.978,
+      27.11,
+      27.376,
+      27.508
+     ],
+     "start": 26.58,
+     "end": 28.1,
+     "song_t": 67.595,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "tatouage",
+     "pos": "top",
+     "align": "left"
+    },
+    {
+     "text": "que j'me sépare / d'mon / entourage, la / dernière / collection / Courrèges",
+     "words": [
+      28.14,
+      28.279,
+      28.417,
+      28.833,
+      28.971,
+      29.526,
+      29.664,
+      30.08,
+      30.495
+     ],
+     "start": 28.14,
+     "end": 31.26,
+     "song_t": 69.155,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "entourage",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12,
+    1.68
+   ],
+   "visual": "Gros plan de l'avant-bras : un cœur se tatoue ; puis panoramique vers la vitrine où elle porte des sacs pendant que ses potes s'éloignent.",
+   "transition": {
+    "type": "dip",
+    "dur": 0.3,
+    "color": "#f4efe4"
+   }
+  },
+  {
+   "id": "s06",
+   "start": 31.28,
+   "end": 36.88,
+   "lyrics": [
+    {
+     "text": "Mon Dieu, dans / quel film on / est?",
+     "words": [
+      31.4,
+      31.591,
+      31.783,
+      31.974,
+      32.166,
+      32.357,
+      32.549
+     ],
+     "start": 31.4,
+     "end": 33.28,
+     "song_t": 72.415,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "film",
+     "pos": "top",
+     "align": "left"
+    },
+    {
+     "text": "Mais comment / j'me suis / attaché sans la / connaître?",
+     "words": [
+      33.32,
+      33.502,
+      33.865,
+      34.046,
+      34.228,
+      34.772,
+      34.954,
+      35.135
+     ],
+     "start": 33.32,
+     "end": 36.86,
+     "song_t": 74.335,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "attaché",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12,
+    2.04
+   ],
+   "visual": "Pellicule de film qui défile à la verticale avec les scènes de leur histoire ; puis la pellicule s'enroule autour de ses poignets.",
+   "transition": {
+    "type": "zoom",
+    "dur": 0.45,
+    "x": 540,
+    "y": 1000,
+    "scale": 2.5
+   }
+  },
+  {
+   "id": "s07",
+   "start": 36.88,
+   "end": 41.86,
+   "lyrics": [
+    {
+     "text": "Que elle veut / ci, elle veut / ça, pourtant,",
+     "words": [
+      37.0,
+      37.155,
+      37.466,
+      37.621,
+      37.777,
+      38.087,
+      38.243,
+      38.398
+     ],
+     "start": 37.0,
+     "end": 38.97,
+     "song_t": 78.015,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "ça",
+     "pos": "top",
+     "align": "left"
+    },
+    {
+     "text": "on m'a juré / qu'le bonheur / s'trouvait pas / dans la monnaie",
+     "words": [
+      39.01,
+      39.197,
+      39.384,
+      39.757,
+      40.131,
+      40.768,
+      41.062,
+      41.21,
+      41.357,
+      41.504
+     ],
+     "start": 39.01,
+     "end": 41.84,
+     "song_t": 80.025,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "monnaie",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12,
+    2.13,
+    3.888
+   ],
+   "visual": "Vitrine de luxe : montre, sac, escarpins s'allument un à un ; puis la lumière tombe et des pièces chutent dans un puits noir.",
+   "transition": {
+    "type": "slices",
+    "dur": 0.5,
+    "n": 8
+   }
+  },
+  {
+   "id": "s08",
+   "start": 41.86,
+   "end": 47.155,
+   "lyrics": [
+    {
+     "text": "J'l'élimine à / ses vues, c'est / qu'une tch', à / ces, / j'l'assimile",
+     "words": [
+      41.98,
+      41.98,
+      42.703,
+      42.884,
+      43.064,
+      43.245,
+      43.426,
+      43.968,
+      44.149,
+      44.329,
+      45.36
+     ],
+     "start": 41.98,
+     "end": 47.135,
+     "song_t": 82.995,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "élimine",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12,
+    3.5
+   ],
+   "visual": "Échiquier noir et ivoire : sa main renverse la reine, puis la reine est absorbée dans l'ombre du roi.",
+   "transition": {
+    "type": "dots",
+    "dur": 0.55,
+    "x": 300,
+    "y": 1300
+   }
+  },
+  {
+   "id": "s09",
+   "start": 47.155,
+   "end": 52.98,
+   "lyrics": [
+    {
+     "text": "Oh là là, pas / si vite,",
+     "words": [
+      47.275,
+      47.448,
+      47.621,
+      47.794,
+      47.967,
+      48.14
+     ],
+     "start": 47.275,
+     "end": 48.66,
+     "song_t": 88.29,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "vite",
+     "pos": "top",
+     "align": "left"
+    },
+    {
+     "text": "elle me dit \"tu / bouges pas, ton / sang,",
+     "words": [
+      48.7,
+      48.938,
+      49.057,
+      49.176,
+      49.295,
+      49.533,
+      49.652,
+      49.771
+     ],
+     "start": 48.7,
+     "end": 50.06,
+     "song_t": 89.715,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "sang",
+     "pos": "top",
+     "align": "left"
+    },
+    {
+     "text": "j'ai pas assez / bu\"",
+     "words": [
+      50.1,
+      50.3,
+      50.5,
+      50.9
+     ],
+     "start": 50.1,
+     "end": 52.96,
+     "song_t": 91.115,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "bu",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12,
+    1.545,
+    2.945
+   ],
+   "visual": "Rue sous un lampadaire cramoisi : il s'en va, elle lui attrape le bras ; puis le noir, des yeux qui brillent et des chauves-souris.",
+   "transition": {
+    "type": "whip",
+    "dur": 0.3,
+    "dir": "left"
+   }
+  },
+  {
+   "id": "s10",
+   "start": 52.98,
+   "end": 57.525,
+   "lyrics": [
+    {
+     "text": "J'prends plus / sur moi, c'est / fini,",
+     "words": [
+      53.1,
+      53.291,
+      53.483,
+      53.674,
+      53.866,
+      54.057
+     ],
+     "start": 53.1,
+     "end": 54.76,
+     "song_t": 94.115,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "fini",
+     "pos": "top",
+     "align": "left"
+    },
+    {
+     "text": "j'y ai réfléchi / toute la / semaine",
+     "words": [
+      54.8,
+      54.984,
+      55.167,
+      55.718,
+      56.085,
+      56.269
+     ],
+     "start": 54.8,
+     "end": 57.505,
+     "song_t": 95.815,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "semaine",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12,
+    1.82
+   ],
+   "visual": "Ils sont attablés devant une fenêtre à lumière chaude ; puis la lumière devient froide et sa chaise à elle est vide.",
+   "transition": {
+    "type": "tear",
+    "dur": 0.7,
+    "seed": 11
+   }
+  },
+  {
+   "id": "s11",
+   "start": 57.525,
+   "end": 60.022,
+   "lyrics": [
+    {
+     "text": "Elle me répond / \"est-ce que / t'es sûr?\", me / dit \"dommage,",
+     "words": [
+      57.645,
+      57.914,
+      58.049,
+      58.318,
+      58.588,
+      58.723,
+      58.857,
+      58.992,
+      59.127,
+      59.261
+     ],
+     "start": 57.645,
+     "end": 60.002,
+     "song_t": 98.66,
+     "timing": "mots entendus (Whisper) + répartition syllabique",
+     "red": "sûr",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "marks": [
+    0.12
+   ],
+   "visual": "Gros plan du téléphone dans sa main : la bulle de sa réponse arrive, points de saisie.",
+   "transition": {
+    "type": "fade",
+    "dur": 0.35
+   }
+  }
+ ],
+ "direction": {
+  "concept": "Le refrain et le 2e couplet racontés en 12 affiches animées, une par phrase : la photo du début, l'argent qui file, la lune rouge des 8 rivaux, l'orage, la chaîne du film, la partie d'échecs, la rupture. Chaque affiche évolue quand la 2e moitié de la phrase arrive.",
+  "universe": "Affiches sérigraphiées des années 70 revisitées : silhouettes fortes, palettes réduites par scène (bleu nuit et cramoisi, bruns chauds, violet de rêve, noir et ivoire), trame et grain d'impression.",
+  "palette": {
+   "bleu nuit": "#1d2b4f",
+   "cramoisi": "#b3261e",
+   "brun chaud": "#7a4a2e",
+   "ocre": "#d89a4a",
+   "violet": "#4a2f6a",
+   "ivoire": "#efe6d2",
+   "rouge signature": "#e10600"
+  },
+  "typography": "Anton (condensée, capitales), blanc, aligné en haut à gauche ; le texte s'accumule mot à mot au rythme exact du chant ; mot rouge par bloc.",
+  "graphic_style": "Aplats + trame de points et grain d'impression ; personnages anatomiques de profil (nouveau rendu : profils, mains, vêtements, coiffures), souvent en silhouette avec liseré lumineux ; ombres et lumières franches.",
+  "animation_principles": "Chaque affiche vit : caméra lente, fumée, pluie, lumière qui change (chaud → froid), personnages qui gesticulent ; à chaque morceau de phrase, un événement visuel (révélation, éclair, apparition, bascule de lumière).",
+  "transitions": "Déchirure de papier, trame de points qui révèle l'image, tranches qui glissent, plongée dans un objet (zoom ciblé), coup de fouet, fondu au blanc papier.",
+  "references": "Edit TikTok de référence (Josman – Goal) : texte en haut à gauche qui s'accumule, affiches à silhouettes ; personnages fictifs."
+ },
+ "style": {
+  "fonts": [
+   "Anton"
+  ],
+  "typo": {
+   "font": "Anton",
+   "color": "#f6f2ea",
+   "red": "#e10600",
+   "size": 124,
+   "redScale": 1.08,
+   "lineHeight": 0.98,
+   "spacing": 0.005,
+   "enter": "line",
+   "emphasis": "none",
+   "exit": "none",
+   "wordIn": 0.1,
+   "shadow": "0 3px 0 rgba(0,0,0,.35)",
+   "redShadow": "0 3px 0 rgba(0,0,0,.35)",
+   "preroll": 0.02,
+   "maxHeight": 640,
+   "width": 820
+  },
+  "fx": {
+   "grain": 0.11,
+   "vignette": 0.42,
+   "halftone": 0.12,
+   "paper": 0.1,
+   "scrimTop": 0.32,
+   "grade": "contrast(1.06) saturate(.95)"
+  },
+  "palette": {}
+ },
+ "outro": {
+  "dur": 0.6,
+  "color": "#000000",
+  "text": true
+ }
+}
