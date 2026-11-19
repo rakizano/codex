@@ -36,7 +36,12 @@ jobs:
           SLUG: ${{ inputs.slug }}
           BEFORE: ${{ github.event.before }}
           SILENT: ${{ vars.TIKTOK_UPLOAD_SILENT }}
+          HAS_TOKEN: ${{ secrets.TIKTOK_REFRESH_TOKEN != '' }}
         run: |
+          if [ "$HAS_TOKEN" != "true" ]; then
+            echo "::notice::Compte TikTok pas encore connecté (secret TIKTOK_REFRESH_TOKEN absent) : rien envoyé. Voir TIKTOK_SETUP.md."
+            echo "videos=" >> "$GITHUB_OUTPUT"; exit 0
+          fi
           if [ -n "$SLUG" ]; then
             files="clips/$SLUG/video_avec_musique.mp4 clips/$SLUG/video_finale.mp4"
           elif [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
