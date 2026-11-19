@@ -1,0 +1,15 @@
+html, body { margin: 0; padding: 0; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+#stage, #fx, #lyrics, #grain { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: hidden; }
+#stage svg { display: block; }
+#fx { pointer-events: none; }
+#fx .fxlayer { position: absolute; inset: 0; }
+#grain { pointer-events: none; mix-blend-mode: overlay; background-repeat: repeat; }
+#lyrics { pointer-events: none; }
+.chunk { position: absolute; transform-origin: 50% 50%; will-change: transform, opacity; }
+.chunk .box { display: block; }
+.chunk[data-align="left"] .box { text-align: left; }
+.chunk[data-align="right"] .box { text-align: right; }
+.line { display: block; white-space: nowrap; }
+.word { display: inline-block; transform-origin: 50% 70%; will-change: transform, opacity; }
+.word.red { position: relative; z-index: 2; margin: 0 0.1em; }
+.ch { display: inline-block; }
