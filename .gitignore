@@ -2,3 +2,8 @@ clips/*/build/
 clips/*/stills/
 clips/*/fonts.css
 __pycache__/
+clips/*/audio/
+*.wav
+*.m4a
+*.mp3
+*.flac

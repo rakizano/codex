@@ -128,6 +128,17 @@ mots rouges, zone de sécurité, taille du texte, bandes noires) → `synchronis
   fiabilité de la synchro, et ce qui reste estimé.
 - Commit + push du dossier `clips/<slug>/` (sans `build/` ni `stills/`) sur la branche de travail.
 
+### 14. Musique + brouillon TikTok (si l'utilisateur fournit l'audio)
+- Chercher le fichier audio joint (`/mnt/user-data/uploads/`, ou un chemin donné). Ne jamais télécharger
+  la musique depuis YouTube ou un site non autorisé ; si aucun fichier n'est fourni, livrer la version muette
+  et demander le fichier (version album, sans DRM).
+- `python3 $SK/scripts/add_music.py clips/<slug> --audio <fichier>` → `video_avec_musique.mp4`
+  (vérifie la version par la durée, recale le décalage s'il est net). Lire `work/music_report.json`.
+  Vérifier à l'écoute d'une image + extrait si besoin ; signaler un décalage appliqué.
+- Commit + push de `video_avec_musique.mp4` (dépôt privé) : le workflow `.github/workflows/tiktok-draft.yml`
+  l'envoie dans la boîte de réception TikTok de l'utilisateur. Configuration : `TIKTOK_SETUP.md`.
+- Rappeler le risque droits d'auteur (son intégré = son original, peut être coupé par TikTok).
+
 ## Fichiers produits (dans `clips/<slug>/`)
 `video_finale.mp4` · `synchronisation.txt` · `storyboard.json` · `direction_artistique.txt` ·
 `scenes.js` (source des illustrations, re-rendable) · `contact_sheet.jpg` · `qa_report.json` · `work/` (paroles, sources).

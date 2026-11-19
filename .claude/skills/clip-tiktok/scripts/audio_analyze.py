@@ -120,9 +120,10 @@ def main():
         def sc(o):
             vals = []
             for t in starts:
-                i0 = int((t + o) * fps)
-                if 0 <= i0 < len(venv) - 4:
-                    vals.append(venv[i0:i0 + 4].max())
+                # une attaque au temps T apparaît dans la trame dont la FIN de fenêtre (2048 éch.) atteint T
+                i0 = int(round(((t + o) - 2048 / SR) * fps))
+                if 1 <= i0 < len(venv) - 2:
+                    vals.append(venv[i0 - 1:i0 + 2].max())
             return float(np.mean(vals)) if vals else 0
 
         scores = np.array([sc(o) for o in offs])

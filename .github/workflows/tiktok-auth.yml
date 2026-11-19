@@ -1,0 +1,44 @@
+# Connexion TikTok (à faire UNE fois, puis environ une fois par an).
+# Échange le code d'autorisation contre un jeton et l'enregistre dans le secret TIKTOK_REFRESH_TOKEN.
+name: TikTok — connexion du compte
+
+on:
+  workflow_dispatch:
+    inputs:
+      code:
+        description: "Code copié depuis la barre d'adresse après autorisation (valeur de ?code=…)"
+        required: true
+      redirect_uri:
+        description: "Redirect URI déclarée dans l'app TikTok (doit être identique)"
+        required: true
+        default: "https://github.com/rakizano/codex"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tiktok-token
+  cancel-in-progress: false
+
+jobs:
+  auth:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Échanger le code contre un jeton
+        env:
+          TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
+          TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
+          CODE: ${{ inputs.code }}
+          REDIRECT: ${{ inputs.redirect_uri }}
+        run: |
+          python3 .claude/skills/clip-tiktok/scripts/tiktok_upload.py exchange --code "$CODE" --redirect-uri "$REDIRECT" --out "$RUNNER_TEMP/tok.json"
+      - name: Enregistrer le jeton de renouvellement dans les secrets du dépôt
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          NEW=$(python3 -c "import json,os;print(json.load(open(os.environ['RUNNER_TEMP']+'/tok.json'))['refresh_token'])")
+          echo "::add-mask::$NEW"
+          gh secret set TIKTOK_REFRESH_TOKEN --repo "$GITHUB_REPOSITORY" --body "$NEW"
+          rm -f "$RUNNER_TEMP/tok.json"
+          echo "### ✅ Compte TikTok connecté" >> "$GITHUB_STEP_SUMMARY"
