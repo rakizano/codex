@@ -194,3 +194,11 @@ Si l'utilisateur fournit (ou re-fournit) la vidéo de référence :
 `python3 $SK/scripts/analyze_reference.py <video> --out clips/_reference` puis regarder
 `reference_sheet.jpg` et `timeline_*.jpg` ; consigner les observations dans `prompts/reference_notes.md`
 (rythme de coupe, placement du texte, animations, transitions) et en tenir compte dans les clips suivants.
+
+## 16. Moteur multi-univers (8 styles A–H, 3D Three.js, directeur automatique)
+
+Voir `MOTEUR.md`. En résumé : `scripts/director.py` lit les paroles calées sur le son et choisit, phrase par phrase,
+l'univers graphique le plus juste (3D cinématographique, éditorial, cartoon, néon/social, low-poly, objets rétro,
+pastel, voxel), le mot coloré (couleur selon le sens, harmonisée avec l'univers), la typographie cinétique, la
+transition et les paramètres du gabarit. Le storyboard produit se rend sans `scenes.js` (gabarits
+`engine/scenes/*.js`) et reste modifiable à la main. Test : `bash tests/selftest.sh`.

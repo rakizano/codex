@@ -43,13 +43,23 @@ const DUR = sb.passage.duration;
 const NFRAMES = Math.round(DUR * FPS);
 const SCALE = A.preview ? 0.5 : 1;
 
+// composants (3D, etc.) puis univers graphiques (gabarits de scènes A–H)
+function extraScripts() {
+  const out = [];
+  for (const d of ['components', 'scenes']) { const dir = path.join(ENGINE, d); if (fs.existsSync(dir)) fs.readdirSync(dir).filter(f => f.endsWith('.js')).sort().forEach(f => out.push(path.join(dir, f))); }
+  return out;
+}
+const LAUNCH = { args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--disable-gpu-vsync'] };
+
 function buildHTML() {
   const fontsCss = fs.existsSync(path.join(PROJ, 'fonts.css')) ? fs.readFileSync(path.join(PROJ, 'fonts.css'), 'utf8') : '';
   const html = `<!doctype html><html><head><meta charset="utf-8">
 <style>${fontsCss}</style>
 <link rel="stylesheet" href="file://${ENGINE}/engine.css">
+<script src="file://${path.resolve(ENGINE, '../vendor/three.min.js')}"></script>
 <script src="file://${ENGINE}/engine.js"></script>
-<script src="file://${path.join(PROJ, 'scenes.js')}"></script>
+${extraScripts().map(f => `<script src="file://${f}"></script>`).join('\n')}
+${fs.existsSync(path.join(PROJ, 'scenes.js')) ? `<script src="file://${path.join(PROJ, 'scenes.js')}"></script>` : ''}
 </head><body><script>window.__SB = ${JSON.stringify(sb)};</script></body></html>`;
   const dir = path.join(PROJ, 'build');
   fs.mkdirSync(dir, { recursive: true });
@@ -62,7 +72,7 @@ async function openPage(browser, htmlFile) {
   const page = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: SCALE });
   const errors = [];
   page.on('pageerror', e => errors.push('pageerror: ' + e.message));
-  page.on('console', m => { if (m.type() === 'error' || m.type() === 'warning') errors.push(m.type() + ': ' + m.text()); });
+  page.on('console', m => { if ((m.type() === 'error' || m.type() === 'warning') && !m.text().includes('GL Driver Message')) errors.push(m.type() + ': ' + m.text()); });
   await page.goto('file://' + htmlFile);
   await page.evaluate(async () => {
     // charger explicitement toutes les @font-face AVANT la mise en page du texte
@@ -106,7 +116,7 @@ async function renderRange(browser, html, f0, f1, out, tag) {
 
 async function main() {
   const html = buildHTML();
-  const browser = await chromium.launch();
+  const browser = await chromium.launch(LAUNCH);
   try {
     if (A.stills || A['scene-stills']) {
       const outdir = path.resolve(A.outdir || path.join(PROJ, 'stills'));

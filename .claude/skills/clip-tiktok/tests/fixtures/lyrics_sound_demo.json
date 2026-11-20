@@ -1,0 +1,95 @@
+{
+ "artist": "Test",
+ "title": "Démo moteur",
+ "duration": 12,
+ "n_sources": 1,
+ "sync_confidence": "test",
+ "lines": [
+  {
+   "t": 0.0,
+   "text": "Seul dans la foule je marche sans personne",
+   "end": 1.9,
+   "words_sound_t": {
+    "0": 0.1,
+    "1": 0.3,
+    "2": 0.5,
+    "3": 0.7,
+    "4": 0.9,
+    "5": 1.1,
+    "6": 1.3,
+    "7": 1.5
+   }
+  },
+  {
+   "t": 2.0,
+   "text": "Je compte les billets du jour de paye",
+   "end": 3.9,
+   "words_sound_t": {
+    "0": 2.1,
+    "1": 2.3,
+    "2": 2.5,
+    "3": 2.7,
+    "4": 2.9,
+    "5": 3.1,
+    "6": 3.3,
+    "7": 3.5
+   }
+  },
+  {
+   "t": 4.0,
+   "text": "Ma voiture file sur la route de nuit",
+   "end": 5.9,
+   "words_sound_t": {
+    "0": 4.1,
+    "1": 4.3,
+    "2": 4.5,
+    "3": 4.7,
+    "4": 4.9,
+    "5": 5.1,
+    "6": 5.3,
+    "7": 5.5
+   }
+  },
+  {
+   "t": 6.0,
+   "text": "Tous mes amis likent la story",
+   "end": 7.9,
+   "words_sound_t": {
+    "0": 6.1,
+    "1": 6.3,
+    "2": 6.5,
+    "3": 6.7,
+    "4": 6.9,
+    "5": 7.1
+   }
+  },
+  {
+   "t": 8.0,
+   "text": "Le mal empire sous la pluie",
+   "end": 9.9,
+   "words_sound_t": {
+    "0": 8.1,
+    "1": 8.3,
+    "2": 8.5,
+    "3": 8.7,
+    "4": 8.9,
+    "5": 9.1
+   }
+  },
+  {
+   "t": 10.0,
+   "text": "Sur le tapis rouge c'est moi la star",
+   "end": 11.9,
+   "words_sound_t": {
+    "0": 10.1,
+    "1": 10.3,
+    "2": 10.5,
+    "3": 10.7,
+    "4": 10.9,
+    "5": 11.1,
+    "6": 11.3,
+    "7": 11.5
+   }
+  }
+ ]
+}

@@ -10,6 +10,7 @@ le temps correspondant dans la chanson originale.
 """
 import argparse
 import json
+import os
 import re
 import sys
 import unicodedata
@@ -170,9 +171,9 @@ def cmd_check(a):
     if trs and max(trs.count(t) for t in set(trs)) / len(trs) > 0.6 and len(trs) > 3:
         warns.append('une même transition domine (>60 %) : varier selon la musique')
     if a.scenes:
-        js = open(a.scenes).read()
+        js = open(a.scenes).read() if os.path.exists(a.scenes) else ''   # scenes.js facultatif si toutes les scènes utilisent des gabarits
         for s in sc:
-            if not s.get('image_prompt') and not re.search(r"CLIP\.scene\(\s*['\"]" + re.escape(s['id']) + r"['\"]", js):
+            if not s.get('image_prompt') and not s.get('template') and not re.search(r"CLIP\.scene\(\s*['\"]" + re.escape(s['id']) + r"['\"]", js):
                 errs.append(f"{s['id']}: aucune fonction CLIP.scene('{s['id']}', …) dans scenes.js")
     res = {'ok': not errs, 'errors': errs, 'warnings': warns, 'n_scenes': len(sc),
            'n_lyric_scenes': sum(1 for s in sc if s.get('lyrics'))}

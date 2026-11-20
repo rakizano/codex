@@ -1165,7 +1165,7 @@
         if (isRed) { w.classList.add('red'); w.style.color = ty.red || '#e10600'; w.style.fontSize = (ty.redScale || 1.25) + 'em'; if (ty.redFont) w.style.fontFamily = `'${ty.redFont}'`; if (ty.redShadow) w.style.textShadow = ty.redShadow; if (ty.redStroke) w.style.webkitTextStroke = ty.redStroke; }
         if (ty.box) { w.style.background = ty.box; w.style.padding = '0.02em 0.18em'; w.style.margin = '0.04em'; if (isRed && ty.redBox) { w.style.background = ty.redBox; w.style.color = ty.redOnBox || '#fff'; } }
         const chars = [];
-        if ((ch.enter || ty.enter) === 'type' || (ch.enter || ty.enter) === 'split' || (isRed && (ch.emphasis || ty.emphasis) === 'scramble')) {
+        if (['type', 'split', 'build'].includes(ch.enter || ty.enter) || (isRed && (ch.emphasis || ty.emphasis) === 'scramble')) {
           for (const c of wtxt) { const s = document.createElement('span'); s.className = 'ch'; s.textContent = c; w.appendChild(s); chars.push(s); }
         } else w.textContent = wtxt;
         L.appendChild(w); if (!glued) L.appendChild(document.createTextNode(' '));
@@ -1204,7 +1204,7 @@
   }
 
   function wordState(C, w, t, idx) {
-    const u = t - w.t; let o = 1, x = 0, y = 0, s = 1, r = 0, blur = 0, clip = null;
+    const u = t - w.t; let o = 1, x = 0, y = 0, s = 1, r = 0, blur = 0, clip = null, sk = 0, sx = 1, sy = 1, rx = 0;
     const D = C.ty.wordIn || .28;
     const k = clamp(u / D);
     switch (C.enter) {
@@ -1218,9 +1218,16 @@
       case 'split': o = clamp(u / .15); break;
       case 'mask': o = u >= 0 ? 1 : 0; clip = 100 - Ease.outCubic(k) * 100; break;
       case 'drift': o = Ease.inOutSine(clamp(u / .6)); x = (1 - Ease.outCubic(clamp(u / 1.2))) * 40; break;
+      // --- modes cinétiques supplémentaires ---
+      case 'bounce': o = clamp(u / .06); y = u < 0 ? -140 : -Math.abs(Math.cos(u * 15)) * 130 * Math.exp(-u * 8); sy = u < 0 ? 1 : 1 - Math.max(0, Math.cos(u * 15)) * .12 * Math.exp(-u * 8); break;
+      case 'zoomin': o = clamp(u / .07); s = u < 0 ? 3.2 : lerp(3.2, 1, Ease.outExpo(clamp(u / .35))); blur = (1 - clamp(u / .25)) * 12; break;
+      case 'swing': o = clamp(u / .1); r = u < 0 ? -50 : (1 - Ease.outBack(clamp(u / .4))) * -50; y = (1 - Ease.outCubic(k)) * 30; break;
+      case 'warp': { o = clamp(u / .08); const kk = clamp(u / .45), el = u < 0 ? 1 : Math.exp(-kk * 5) * Math.cos(kk * 14); sk = -28 * el; sx = 1 + .45 * el; sy = 1 - .3 * el; break; }
+      case 'flip': o = clamp(u / .1); rx = u < 0 ? 90 : (1 - Ease.outBack(clamp(u / .4))) * 90; break;
+      case 'build': o = u >= 0 ? 1 : 0; break;
       case 'line': default: o = Ease.outQuad(k); y = (1 - Ease.outCubic(k)) * 40;
     }
-    return { o, x, y, s, r, blur, clip, u };
+    return { o, x, y, s, r, blur, clip, u, sk, sx, sy, rx };
   }
 
   function renderChunk(C, t, S) {
@@ -1246,7 +1253,8 @@
     const drift = C.ty.drift ?? 0; // dérive lente globale (px/s)
     const lt = t - ch.start;
     C.div.style.opacity = go;
-    C.div.style.transform = `translate(${gx + cam.x * fl + drift * lt * (C.ty.driftX ?? 0)}px,${gy + cam.y * fl - drift * lt * (C.ty.driftY ?? 1)}px) rotate(${C.rot}deg) scale(${gs})`;
+    const pv = ch.perspective || C.ty.perspective;
+    C.div.style.transform = `translate(${gx + cam.x * fl + drift * lt * (C.ty.driftX ?? 0)}px,${gy + cam.y * fl - drift * lt * (C.ty.driftY ?? 1)}px) rotate(${C.rot}deg) scale(${gs})` + (pv ? ` perspective(${pv.d || 1100}px) rotateX(${pv.rx || 0}deg) rotateY(${pv.ry || 0}deg)` : '');
     C.div.style.filter = gb ? `blur(${gb}px)` : '';
     C.words.forEach((w, i) => {
       let st = wordState(C, w, t, i);
@@ -1269,11 +1277,20 @@
           }
           case 'breathe': st.s *= 1 + Math.sin(u * 3) * .04; break;
           case 'shrink': st.s *= 1 - Ease.inOutSine(clamp((u - .3) / Math.max(.8, ch.end - w.t - .4))) * .35; break;
+          case 'colorshift': { const k = Ease.inOutSine(clamp(u / .45)); w.el.style.color = mixColor(C.ty.color || '#ffffff', C.ty.red || '#e10600', k); break; }
+          case 'outline': { const k = Ease.outCubic(clamp(u / .3)); w.el.style.webkitTextStroke = `${(k * (C.ty.outlineWidth || 10)).toFixed(1)}px ${C.ty.outlineColor || '#000'}`; w.el.style.paintOrder = 'stroke fill'; break; }
+          case 'wave': st.y += Math.sin(t * 7 + i) * 7; st.r += Math.sin(t * 5 + i) * 2; break;
+          case 'jelly': { const b = S ? S.beat(t - S.start, 9) : 0; st.sx *= 1 + b * .18; st.sy *= 1 - b * .12; break; }
+          case 'highlight': { const k = Ease.inOutCubic(clamp(u / .4)); w.el.style.backgroundImage = `linear-gradient(${C.ty.marker || '#ffd23f'}, ${C.ty.marker || '#ffd23f'})`; w.el.style.backgroundRepeat = 'no-repeat'; w.el.style.backgroundPosition = '0 88%'; w.el.style.backgroundSize = `${(k * 100).toFixed(1)}% 42%`; break; }
           case 'none': break;
         }
         if (C.ty.redTilt) st.r += C.ty.redTilt;
       }
       // apparition caractère par caractère
+      if (w.chars.length && C.enter === 'build') {   // lettres qui se construisent : chaque lettre vole depuis une position éparse
+        w.chars.forEach((c, j) => { const uu = st.u - j * .035, k = Ease.outBack(clamp(uu / .38)), a = (j * 2.39 + i) % 6.28;
+          c.style.display = 'inline-block'; c.style.opacity = clamp(uu / .12); c.style.transform = `translate(${(1 - k) * Math.cos(a) * 160}px,${(1 - k) * Math.sin(a) * 160}px) rotate(${(1 - k) * (j % 2 ? 90 : -90)}deg) scale(${.4 + .6 * clamp(k)})`; });
+      }
       if (w.chars.length && (C.enter === 'type' || C.enter === 'split')) {
         const per = C.enter === 'type' ? .04 : .03;
         w.chars.forEach((c, j) => {
@@ -1284,7 +1301,7 @@
       }
       const el = w.el;
       el.style.opacity = st.o;
-      el.style.transform = `translate(${st.x}px,${st.y}px) scale(${st.s}) rotate(${st.r}deg)`;
+      el.style.transform = `translate(${st.x}px,${st.y}px) scale(${st.s}) rotate(${st.r}deg)` + (st.sk ? ` skewX(${st.sk}deg)` : '') + (st.sx !== 1 || st.sy !== 1 ? ` scale(${st.sx},${st.sy})` : '') + (st.rx ? ` perspective(500px) rotateX(${st.rx}deg)` : '');
       el.style.filter = (st.blur ? `blur(${st.blur}px)` : '') + extra;
       el.style.clipPath = st.clip != null ? `inset(0 ${st.clip}% 0 0)` : '';
     });
@@ -1316,6 +1333,7 @@
   /* ------------------------------------------------------------------ */
   /* Assemblage                                                          */
   /* ------------------------------------------------------------------ */
+  const templates = {};
   let chunks = [];
   function load(storyboard) {
     SB = storyboard;
@@ -1327,7 +1345,7 @@
     if (CFG.background) document.body.style.background = CFG.background;
     built = SB.scenes.map((sb, i) => {
       const S = makeScene(sb, i);
-      const b = sceneBuilders[sb.id] || (sb.image ? imageScene : null);
+      const b = sceneBuilders[sb.id] || (sb.template && templates[sb.template] ? (S2 => templates[sb.template](S2, sb.params || {})) : null) || (sb.image ? imageScene : null);
       if (!b) throw new Error('Scene builder missing: ' + sb.id);
       b(S);
       if (S._default && S.layers.indexOf(S._default) < 0) S.layers.push(S._default);
@@ -1425,6 +1443,8 @@
   window.CLIP = {
     mod, W, H, SAFE, E, Ease, kf, noise, rng, h, set, mixColor, clamp, lerp, smooth,
     scene(id, builder) { sceneBuilders[id] = builder; },
+    // gabarits de scènes réutilisables (univers A–H) : storyboard.scenes[].template + params
+    template(name, builder) { templates[name] = builder; }, templates: () => Object.keys(templates),
     load, renderAt, textRects, framingAt,
     duration: () => SB ? SB.passage.duration : 0,
   };
