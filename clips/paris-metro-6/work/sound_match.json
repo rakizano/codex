@@ -1,0 +1,21 @@
+{
+ "file": "tiktok_sound_source.mp4",
+ "language": "fr",
+ "sound_duration_s": 37.477,
+ "song_start_s": 142.52,
+ "song_end_s": 181.268,
+ "speed": 1.0339,
+ "speed_note": "accéléré",
+ "recognized_words": 74,
+ "matched_words": 30,
+ "anchors_used": 3,
+ "anchor_type": "débuts de lignes",
+ "fit_rms_s": 0.374,
+ "confidence": "moyenne",
+ "first_lines_in_sound": [
+  "  0.00s  93 millions je vais pas te faire un croquis",
+  "  2.64s  Et cette bitch elle sait que je l'aime",
+  "  4.06s  Sous les néons d'Amsterdam je te promets qu'on verra qu'elle",
+  "  6.68s  C'est la seule étoile filante qu'on peut croiser à Bir Hakeim"
+ ]
+}

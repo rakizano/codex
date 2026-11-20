@@ -1,0 +1,27 @@
+TITRE      : BIR HAKEIM
+ARTISTE    : Cherry Pie
+VERSION    : ? — durée de la version : 4:03 (243 s)
+
+SON TIKTOK UTILISÉ (clip calé dessus, de sa 1re à sa dernière seconde)
+  Source   : vidéo TikTok fournie par l'utilisateur (trajet ligne 6) — son « BIR HAKEIM » de Cherry Pie
+  Durée    : 33.40 s  (= durée exacte de video_finale.mp4)
+  Passage de la chanson contenu dans le son : 2:22.000 → 2:57.000 (vitesse ×1.048)
+
+PLACER LA MUSIQUE
+  Dans le brouillon TikTok : « Ajouter un son » → choisir CE son (celui de la vidéo du métro, BIR HAKEIM de Cherry Pie) → ne pas couper : il démarre à 0:00 avec la vidéo → Publier.
+
+FIABILITÉ DES TIMESTAMPS
+  Méthode  : paroles synchronisées LRCLIB, médiane de 4 source(s) concordante(s)
+  Écart médian entre sources : 0.0 s — confiance : élevée
+  Note : Son TikTok = passage 2:22.0 → 2:57 environ de la chanson, légèrement accéléré (≈ ×1,05 d'après les débuts de lignes entendus).
+  Note : Débuts de mots pris directement dans le son (Whisper large-v3, 52 mots) ; texte affiché = paroles LRCLIB, sans modification.
+  Note : Après « …c'est pas toi qui va la ken » (12,3 s), plus aucune ligne de paroles dans la source jusqu'à la fin du son : partie instrumentale illustrée sans texte.
+  Synchronisation vérifiée sur l'audio du son TikTok (reconnaissance des paroles chantées).
+  Le timing mot par mot à l'intérieur d'une phrase est ESTIMÉ (répartition syllabique).
+
+PAROLES ET TIMESTAMPS (son TikTok | vidéo)
+  2:21.990 |   0.00s  [s00]  93 millions je vais pas te faire un croquis   (mot rouge : croquis)
+  2:25.250 |   3.00s  [s01]  Et cette bitch elle sait que je l'aime   (mot rouge : l'aime)
+  2:26.720 |   4.48s  [s02]  Sous les néons d'Amsterdam je te promets qu'on verra qu'elle   (mot rouge : néons)
+  2:29.430 |   7.08s  [s03]  C'est la seule étoile filante qu'on peut croiser à Bir Hakeim   (mot rouge : ['Bir', 'Hakeim'])
+  2:32.250 |   9.80s  [s04]  Une fille aux moeurs légères mais c'est pas toi qui va la ken   (mot rouge : fille)
