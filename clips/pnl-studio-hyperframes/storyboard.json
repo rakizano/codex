@@ -1,0 +1,882 @@
+{
+ "project": {
+  "title": "PNL — Différents (démo du studio)",
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "audio": "assets/audio/sound.m4a",
+  "duration": 23.9,
+  "lyrics": "input/lyrics_sound.json",
+  "analysis": "config/audio.json",
+  "fonts": {
+   "Anton": "Anton-400.ttf",
+   "Bebas Neue": "BebasNeue-400.ttf",
+   "Permanent Marker": "PermanentMarker-400.ttf",
+   "Special Elite": "SpecialElite-400.ttf",
+   "Caveat Brush": "CaveatBrush-400.ttf",
+   "Russo One": "RussoOne-400.ttf",
+   "VT323": "VT323-400.ttf",
+   "Cinzel": "Cinzel-400.ttf",
+   "Tinos": "Tinos-700.ttf",
+   "Archivo Black": "ArchivoBlack-400.ttf"
+  },
+  "font_families": {
+   "condensée": [
+    "Anton",
+    "Bebas Neue",
+    "League Gothic"
+   ],
+   "sans moderne": [
+    "Inter",
+    "Montserrat"
+   ],
+   "éditoriale": [
+    "Archivo Black",
+    "Playfair Display",
+    "EB Garamond"
+   ],
+   "rétro": [
+    "VT323",
+    "Special Elite"
+   ],
+   "manuscrite": [
+    "Caveat Brush",
+    "Permanent Marker"
+   ],
+   "futuriste": [
+    "Russo One",
+    "Space Mono"
+   ],
+   "expressive": [
+    "Cinzel",
+    "Oswald"
+   ]
+  }
+ },
+ "audio_analysis": "config/audio.json",
+ "lyrics_source": "input/lyrics_sound.json",
+ "song": {
+  "artist": "PNL",
+  "title": "Différents",
+  "album": "Que la famille",
+  "n_sources": 5,
+  "sync_confidence": "élevée"
+ },
+ "duration": 23.9,
+ "scenes": [
+  {
+   "id": "s01",
+   "start": 0.0,
+   "end": 1.795,
+   "lyrics": "J'sais qu'j'suis pas intégré, je perds de mes intérêts",
+   "line": "J'sais qu'j'suis pas intégré, je perds de mes intérêts",
+   "part": "1/1",
+   "template": "city3d",
+   "style": "3d",
+   "reading": "symbolic",
+   "description": "le héros traverse la foule à contre-sens puis se retourne — rue de nuit, brouillard, colonnes de lumière",
+   "characters": [
+    "héros lumineux (3D)",
+    "foule grise alignée (3D)"
+   ],
+   "objects": [
+    "lampadaires"
+   ],
+   "decor": "rue de nuit, brouillard, colonnes de lumière",
+   "camera": {
+    "label": "orbite + dolly 3D"
+   },
+   "animations": {
+    "main": "le héros traverse la foule à contre-sens puis se retourne",
+    "secondary": "les têtes de la foule le suivent du regard"
+   },
+   "text": {
+    "font": "Anton",
+    "color": "#ffffff",
+    "accent": "#ffd27a",
+    "pos": "top",
+    "text": "J'sais / qu'j'suis pas / intégré, je / perds de mes / intérêts",
+    "words": [
+     0.0,
+     0.0,
+     0.16,
+     0.2,
+     0.2,
+     0.32,
+     0.48,
+     0.8,
+     1.12
+    ],
+    "important": "intégré",
+    "impact": 0.116,
+    "preset": "progressive",
+    "intensity": 1.26,
+    "why": "le mot se construit lettre par lettre, isolé",
+    "outAt": 1.475
+   },
+   "params": {},
+   "sfx": [],
+   "analysis": {
+    "sense": {
+     "outsider": 1,
+     "reject": 1
+    },
+    "intensity": 0.406,
+    "important": "intégré",
+    "impact": 0.116,
+    "scores": {
+     "social_reject": 3.0,
+     "city3d": 3.0,
+     "stage3d_name": 0.0,
+     "room_phone": 0.0
+    }
+   },
+   "transition_out": {
+    "preset": "zoomThroughObject",
+    "cause": "la caméra plonge à travers un point du décor (ou une lettre)"
+   }
+  },
+  {
+   "id": "s02",
+   "start": 1.795,
+   "end": 3.699,
+   "lyrics": "Les mains dans le merde alors qu'elles sont faites pour les enterrer",
+   "line": "Les mains dans le merde alors qu'elles sont faites pour les enterrer",
+   "part": "1/1",
+   "template": "cartoon_dig",
+   "style": "cartoon",
+   "reading": "literal",
+   "description": "il creuse, la terre vole — terrain dessiné à la main, palette sépia, soleil grimaçant",
+   "characters": [
+    "personnage cartoon"
+   ],
+   "objects": [
+    "pelle",
+    "mottes de terre",
+    "monticule"
+   ],
+   "decor": "terrain dessiné à la main, palette sépia, soleil grimaçant",
+   "camera": {
+    "label": "dolly avant 2D, caméra portée"
+   },
+   "animations": {
+    "main": "il creuse, la terre vole",
+    "secondary": "le monticule grandit, le soleil se balance"
+   },
+   "text": {
+    "font": "Permanent Marker",
+    "color": "#2a1d12",
+    "accent": "#d2452c",
+    "pos": [
+     150,
+     900
+    ],
+    "shadow": "4px 5px 0 #e8d2a6",
+    "text": "Les mains / dans le merde / alors / qu'elles sont / faites pour / les enterrer",
+    "words": [
+     1.88,
+     2.08,
+     2.22,
+     2.33,
+     2.44,
+     2.58,
+     2.76,
+     2.82,
+     2.88,
+     3.0,
+     3.12,
+     3.24
+    ],
+    "important": "enterrer",
+    "impact": 3.553,
+    "preset": "heavySentence",
+    "intensity": 1.25,
+    "why": "une phrase lourde qui tombe et s'écrase au sol",
+    "ground": 1300,
+    "outAt": 3.379
+   },
+   "params": {},
+   "sfx": [],
+   "analysis": {
+    "sense": {
+     "hands": 1,
+     "dirt": 1,
+     "bury": 1,
+     "humor": 1
+    },
+    "intensity": 0.403,
+    "important": "enterrer",
+    "impact": 3.553,
+    "scores": {
+     "cartoon_dig": 11.0,
+     "social_reject": 1.5,
+     "room_phone": 0.0,
+     "phone_ui": 0.0
+    }
+   },
+   "transition_out": {
+    "preset": "impactFlash",
+    "cause": "l'impact du texte au sol / un kick"
+   }
+  },
+  {
+   "id": "s03",
+   "start": 3.699,
+   "end": 5.603,
+   "lyrics": "J'sais combien tu paierais pour te faire opérer",
+   "line": "J'sais combien tu paierais pour te faire opérer",
+   "part": "1/1",
+   "template": "editorial",
+   "style": "editorial",
+   "reading": "symbolic",
+   "description": "le ticket s'imprime ligne à ligne — papier crème, grille",
+   "characters": [],
+   "objects": [
+    "ticket de caisse",
+    "étiquette de prix",
+    "formes géométriques"
+   ],
+   "decor": "papier crème, grille",
+   "camera": {
+    "label": "zoom brutal (crash zoom)"
+   },
+   "animations": {
+    "main": "le ticket s'imprime ligne à ligne",
+    "secondary": "l'étiquette se balance, les formes glissent"
+   },
+   "text": {
+    "font": "Archivo Black",
+    "color": "#1b1a17",
+    "accent": "#e8452c",
+    "pos": "top",
+    "text": "J'sais / combien tu / paierais / pour te / faire / opérer",
+    "words": [
+     3.84,
+     3.84,
+     4.1,
+     4.3,
+     4.61,
+     4.92,
+     5.0,
+     5.12
+    ],
+    "important": "paierais",
+    "impact": 4.35,
+    "preset": "brutalGiant",
+    "intensity": 1.21,
+    "why": "le prix grossit brutalement jusqu'à remplir l'écran sur l'impact",
+    "outAt": 5.283
+   },
+   "params": {},
+   "sfx": [],
+   "analysis": {
+    "sense": {
+     "money": 1,
+     "price": 2,
+     "cost": 1,
+     "health": 1
+    },
+    "intensity": 0.359,
+    "important": "paierais",
+    "impact": 4.35,
+    "scores": {
+     "editorial": 13.0,
+     "night_drive": 2.0,
+     "stage3d_name": 0.0,
+     "social_reject": 0.0
+    }
+   },
+   "transition_out": {
+    "preset": "liquid",
+    "cause": "encre / peinture qui envahit"
+   }
+  },
+  {
+   "id": "s04",
+   "start": 5.603,
+   "end": 7.507,
+   "lyrics": "De tout ce mal qui paraît si fort et qui semble empirer",
+   "line": "De tout ce mal qui paraît si fort et qui semble empirer",
+   "part": "1/1",
+   "template": "ink_storm",
+   "style": "drawing",
+   "reading": "symbolic",
+   "description": "le nuage grossit et s'assombrit — ville dessinée au crayon, aquarelle pastel",
+   "characters": [
+    "passant au crayon avec parapluie"
+   ],
+   "objects": [
+    "nuage",
+    "pluie",
+    "éclair"
+   ],
+   "decor": "ville dessinée au crayon, aquarelle pastel",
+   "camera": {
+    "label": "tilt 2D"
+   },
+   "animations": {
+    "main": "le nuage grossit et s'assombrit",
+    "secondary": "la pluie tombe, l'éclair claque, le passant marche"
+   },
+   "text": {
+    "font": "Caveat Brush",
+    "color": "#3a3640",
+    "accent": "#5a6fd6",
+    "pos": "top",
+    "case": "none",
+    "text": "De tout ce / mal qui / paraît si / fort et qui / semble / empirer",
+    "words": [
+     5.66,
+     5.88,
+     5.98,
+     6.08,
+     6.16,
+     6.3,
+     6.44,
+     6.58,
+     6.72,
+     6.86,
+     7.02,
+     7.2
+    ],
+    "important": "empirer",
+    "impact": 7.25,
+    "preset": "windDisperse",
+    "intensity": 1.24,
+    "why": "le mal emporte les lettres",
+    "outAt": 7.187
+   },
+   "params": {},
+   "sfx": [],
+   "analysis": {
+    "sense": {
+     "health": 1,
+     "pain": 1,
+     "worse": 2
+    },
+    "intensity": 0.39,
+    "important": "empirer",
+    "impact": 7.25,
+    "scores": {
+     "ink_storm": 9.0,
+     "stage3d_name": 0.0,
+     "social_reject": 0.0,
+     "room_phone": 0.0
+    }
+   },
+   "transition_out": {
+    "preset": "whipPan",
+    "cause": "mouvement de caméra (panoramique filé)"
+   }
+  },
+  {
+   "id": "s05",
+   "start": 7.507,
+   "end": 10.05,
+   "lyrics": "Viens m'voir et j'te dirai le prix d'la fonce-dé-dé-dé",
+   "line": "Viens m'voir et j'te dirai le prix d'la fonce-dé-dé-dé",
+   "part": "1/1",
+   "template": "room_phone",
+   "style": "flat2d",
+   "reading": "literal",
+   "description": "il marche jusqu'à la table et attrape le téléphone — chambre de nuit en aplats",
+   "characters": [
+    "personnage en aplat"
+   ],
+   "objects": [
+    "téléphone qui vibre",
+    "table",
+    "fenêtre de nuit"
+   ],
+   "decor": "chambre de nuit en aplats",
+   "camera": {
+    "label": "dolly avant qui suit le personnage"
+   },
+   "animations": {
+    "main": "il marche jusqu'à la table et attrape le téléphone",
+    "secondary": "le téléphone vibre et clignote, lumière de lampe"
+   },
+   "text": {
+    "font": "Bebas Neue",
+    "color": "#ffffff",
+    "accent": "#3ff0ff",
+    "pos": "top",
+    "text": "Viens m'voir / et j'te dirai / le prix d'la / fonce-dé-dé-dé",
+    "words": [
+     7.68,
+     7.81,
+     7.94,
+     8.0,
+     8.1,
+     8.1,
+     8.4,
+     8.7,
+     8.78
+    ],
+    "important": "dirai",
+    "impact": 8.15,
+    "preset": "sideSweep",
+    "intensity": 1.21,
+    "why": "les mots entrent comme une conversation",
+    "outAt": 9.73
+   },
+   "params": {},
+   "sfx": [],
+   "analysis": {
+    "sense": {
+     "money": 2,
+     "price": 1,
+     "call": 2,
+     "come": 1,
+     "tell": 1
+    },
+    "intensity": 0.355,
+    "important": "dirai",
+    "impact": 8.15,
+    "scores": {
+     "room_phone": 10.0,
+     "editorial": 5.8,
+     "night_drive": 4.0,
+     "stage3d_name": 0.0
+    }
+   },
+   "transition_out": {
+    "preset": "objectFillScreen",
+    "cause": "un objet (l'écran du téléphone) grandit jusqu'à devenir le monde suivant"
+   }
+  },
+  {
+   "id": "s06",
+   "start": 10.05,
+   "end": 11.315,
+   "lyrics": "Si t'as appris à compter-ter-ter, on",
+   "line": "Si t'as appris à compter-ter-ter, on sera amis, enchanté-té-té",
+   "part": "1/2",
+   "template": "phone_ui",
+   "style": "neon",
+   "reading": "literal",
+   "description": "les deux avatars se rejoignent, étincelles — interface sociale néon",
+   "characters": [
+    "deux avatars"
+   ],
+   "objects": [
+    "bulles de commentaires",
+    "compteur",
+    "réactions"
+   ],
+   "decor": "interface sociale néon",
+   "camera": {
+    "label": "dolly arrière"
+   },
+   "animations": {
+    "main": "les deux avatars se rejoignent, étincelles",
+    "secondary": "bulles qui poppent, compteur calé sur les kicks, cœurs qui montent"
+   },
+   "text": {
+    "font": "Russo One",
+    "color": "#e9fdff",
+    "accent": "#ff3fb4",
+    "pos": "top",
+    "shadow": "0 0 22px rgba(63,240,255,.8)",
+    "text": "Si t'as / appris à / compter-ter-ter, / on",
+    "words": [
+     10.17,
+     10.37,
+     10.57,
+     10.77,
+     10.88,
+     11.15
+    ],
+    "important": "compter-ter-ter",
+    "impact": 10.93,
+    "preset": "beatJelly",
+    "intensity": 1.33,
+    "why": "les échos « -ter-ter » rebondissent sur les kicks",
+    "outAt": 10.995
+   },
+   "params": {},
+   "sfx": [],
+   "analysis": {
+    "sense": {
+     "money": 1,
+     "count": 1
+    },
+    "intensity": 0.478,
+    "important": "compter-ter-ter",
+    "impact": 10.93,
+    "scores": {
+     "phone_ui": 6.0,
+     "night_drive": 2.0,
+     "editorial": 1.3,
+     "stage3d_name": 0.0
+    }
+   },
+   "transition_out": {
+    "preset": "whipPan",
+    "cause": "mouvement de caméra (panoramique filé)"
+   }
+  },
+  {
+   "id": "s07",
+   "start": 11.315,
+   "end": 13.84,
+   "lyrics": "sera amis, enchanté-té-té",
+   "line": "Si t'as appris à compter-ter-ter, on sera amis, enchanté-té-té",
+   "part": "2/2",
+   "template": "phone_ui",
+   "style": "neon",
+   "reading": "literal",
+   "description": "les deux avatars se rejoignent, étincelles — interface sociale néon",
+   "characters": [
+    "deux avatars"
+   ],
+   "objects": [
+    "bulles de commentaires",
+    "compteur",
+    "réactions"
+   ],
+   "decor": "interface sociale néon",
+   "camera": {
+    "label": "dolly arrière"
+   },
+   "animations": {
+    "main": "les deux avatars se rejoignent, étincelles",
+    "secondary": "bulles qui poppent, compteur calé sur les kicks, cœurs qui montent"
+   },
+   "text": {
+    "font": "Russo One",
+    "color": "#e9fdff",
+    "accent": "#ff3fb4",
+    "pos": "top",
+    "shadow": "0 0 22px rgba(63,240,255,.8)",
+    "text": "sera amis, / enchanté-té-té",
+    "words": [
+     11.42,
+     11.69,
+     11.96
+    ],
+    "important": "enchanté-té-té",
+    "impact": 12.01,
+    "preset": "dropBounce",
+    "intensity": 1.23,
+    "why": "variation (aucune règle du lexique)",
+    "outAt": 13.52
+   },
+   "params": {},
+   "sfx": [],
+   "analysis": {
+    "sense": {
+     "friends": 2,
+     "meet": 1,
+     "social": 1
+    },
+    "intensity": 0.38,
+    "important": "enchanté-té-té",
+    "impact": 12.01,
+    "scores": {
+     "phone_ui": 2.6,
+     "social_reject": 0.8,
+     "stage3d_name": 0.0,
+     "night_drive": 0.0
+    }
+   },
+   "transition_out": {
+    "preset": "zoomThroughObject",
+    "cause": "la caméra plonge à travers un point du décor (ou une lettre)"
+   }
+  },
+  {
+   "id": "s08",
+   "start": 13.84,
+   "end": 16.075,
+   "lyrics": "Moi c'est Ade', moi c'est Ade' khey",
+   "line": "Moi c'est Ade', moi c'est Ade' khey",
+   "part": "1/1",
+   "template": "stage3d_name",
+   "style": "3d",
+   "reading": "symbolic",
+   "description": "le nom apparaît en vraies lettres 3D, la caméra tourne autour — scène circulaire, confettis",
+   "characters": [
+    "personnage voxel qui salue"
+   ],
+   "objects": [
+    "lettres 3D extrudées dorées",
+    "projecteurs"
+   ],
+   "decor": "scène circulaire, confettis",
+   "camera": {
+    "label": "orbite 3D + zoom de focale"
+   },
+   "animations": {
+    "main": "le nom apparaît en vraies lettres 3D, la caméra tourne autour",
+    "secondary": "projecteurs qui balaient, confettis, salut"
+   },
+   "text": {
+    "font": "Cinzel",
+    "color": "#f6e7b8",
+    "accent": "#ffd23f",
+    "pos": "top",
+    "text": "Moi c'est / Ade', moi / c'est Ade' / khey",
+    "words": [
+     13.96,
+     14.2,
+     14.36,
+     14.73,
+     15.1,
+     15.24,
+     15.44
+    ],
+    "important": "Ade'",
+    "impact": 15.859,
+    "preset": "materialize3D",
+    "intensity": 1.25,
+    "why": "le nom se matérialise en profondeur",
+    "outAt": 15.755
+   },
+   "params": {
+    "word3d": "Ade"
+   },
+   "sfx": [],
+   "analysis": {
+    "sense": {
+     "name": 4,
+     "ego": 2
+    },
+    "intensity": 0.405,
+    "important": "Ade'",
+    "impact": 15.859,
+    "scores": {
+     "stage3d_name": 12.0,
+     "night_drive": 0.0,
+     "duo_walk": 0.0,
+     "social_reject": -1.2
+    }
+   },
+   "transition_out": {
+    "preset": "perspectiveCube",
+    "cause": "on tourne la page du monde"
+   }
+  },
+  {
+   "id": "s09",
+   "start": 16.075,
+   "end": 18.455,
+   "lyrics": "Sors la 'teille, vas-y claque le jour de paye",
+   "line": "Sors la 'teille, vas-y claque le jour de paye",
+   "part": "1/1",
+   "template": "night_drive",
+   "style": "3d",
+   "reading": "literal",
+   "description": "la voiture traverse la ville — ville low-poly de nuit",
+   "characters": [],
+   "objects": [
+    "voiture low-poly",
+    "billets",
+    "lampadaires",
+    "lettres 3D au bord de la route"
+   ],
+   "decor": "ville low-poly de nuit",
+   "camera": {
+    "label": "caméra qui suit la voiture"
+   },
+   "animations": {
+    "main": "la voiture traverse la ville",
+    "secondary": "billets qui volent, reflets"
+   },
+   "text": {
+    "font": "Bebas Neue",
+    "color": "#ffffff",
+    "accent": "#ffd23f",
+    "pos": "top",
+    "text": "Sors la / 'teille, / vas-y / claque le / jour de / paye",
+    "words": [
+     16.26,
+     16.58,
+     16.96,
+     17.22,
+     17.44,
+     17.54,
+     17.66,
+     17.86,
+     18.0
+    ],
+    "important": "paye",
+    "impact": 17.972,
+    "preset": "toCamera",
+    "intensity": 0.98,
+    "why": "le texte arrive de loin et fonce vers la caméra comme la voiture",
+    "outAt": 18.135
+   },
+   "params": {
+    "word3d": "PAYE"
+   },
+   "sfx": [],
+   "analysis": {
+    "sense": {
+     "money": 1,
+     "payday": 1,
+     "bottle": 1,
+     "party": 2,
+     "go": 1
+    },
+    "intensity": 0.126,
+    "important": "paye",
+    "impact": 17.972,
+    "scores": {
+     "night_drive": 11.3,
+     "social_reject": 0.0,
+     "duo_walk": 0.0,
+     "editorial": -0.2
+    }
+   },
+   "transition_out": {
+    "preset": "flyThrough",
+    "cause": "camera fly-through (on traverse l'écran)"
+   }
+  },
+  {
+   "id": "s10",
+   "start": 18.455,
+   "end": 20.97,
+   "lyrics": "J'veux pas d'ton facebook, rrht ptou",
+   "line": "J'veux pas d'ton facebook, rrht ptou",
+   "part": "1/1",
+   "template": "social_reject",
+   "style": "neon",
+   "reading": "literal",
+   "description": "la carte est barrée puis se brise en deux — interface sombre quadrillée",
+   "characters": [],
+   "objects": [
+    "carte de profil",
+    "gros X",
+    "crachat cartoon"
+   ],
+   "decor": "interface sombre quadrillée",
+   "camera": {
+    "label": "zoom brutal + tremblement à l'impact"
+   },
+   "animations": {
+    "main": "la carte est barrée puis se brise en deux",
+    "secondary": "crachat qui la frappe, éclaboussures"
+   },
+   "text": {
+    "font": "Russo One",
+    "color": "#ffffff",
+    "accent": "#ff2d55",
+    "pos": "top",
+    "text": "J'veux pas / d'ton / facebook, / rrht ptou",
+    "words": [
+     18.54,
+     18.54,
+     18.76,
+     18.85,
+     18.94,
+     19.14
+    ],
+    "important": "ptou",
+    "impact": 19.691,
+    "preset": "explodeOut",
+    "intensity": 1.03,
+    "why": "les lettres explosent sur le crachat",
+    "outAt": 20.65
+   },
+   "params": {},
+   "sfx": [],
+   "analysis": {
+    "sense": {
+     "humor": 2,
+     "phone": 1,
+     "social": 1,
+     "reject": 3,
+     "insult": 2
+    },
+    "intensity": 0.176,
+    "important": "ptou",
+    "impact": 19.691,
+    "scores": {
+     "social_reject": 17.0,
+     "cartoon_dig": 0.8,
+     "duo_walk": 0.0,
+     "room_phone": -0.2
+    }
+   },
+   "transition_out": {
+    "preset": "glitch",
+    "cause": "interface / réseau social"
+   }
+  },
+  {
+   "id": "s11",
+   "start": 20.97,
+   "end": 23.9,
+   "lyrics": "T'sais qu'j'ai ma main sur ta fesse",
+   "line": "T'sais qu'j'ai ma main sur ta fesse",
+   "part": "1/1",
+   "template": "duo_walk",
+   "style": "flat2d",
+   "reading": "literal",
+   "description": "les deux marchent côte à côte — rue de nuit violette, ville au loin",
+   "characters": [
+    "silhouette",
+    "personnage en aplat rose"
+   ],
+   "objects": [
+    "réverbères"
+   ],
+   "decor": "rue de nuit violette, ville au loin",
+   "camera": {
+    "label": "travelling latéral avec parallaxe, premier plan flou"
+   },
+   "animations": {
+    "main": "les deux marchent côte à côte",
+    "secondary": "cônes de lumière qui défilent"
+   },
+   "text": {
+    "font": "Anton",
+    "color": "#ffffff",
+    "accent": "#ff6aa8",
+    "pos": "upper",
+    "text": "T'sais / qu'j'ai ma / main sur ta / fesse",
+    "words": [
+     21.09,
+     20.88,
+     21.18,
+     21.26,
+     21.34,
+     21.36,
+     21.48
+    ],
+    "important": "fesse",
+    "impact": 21.664,
+    "preset": "stackPile",
+    "intensity": 0.99,
+    "why": "les mots tombent et s'empilent comme des corps qui se rapprochent",
+    "align": "center",
+    "outAt": 23.58
+   },
+   "params": {},
+   "sfx": [],
+   "analysis": {
+    "sense": {
+     "hands": 1,
+     "love": 1,
+     "two": 2,
+     "touch": 2
+    },
+    "intensity": 0.138,
+    "important": "fesse",
+    "impact": 21.664,
+    "scores": {
+     "duo_walk": 13.0,
+     "cartoon_dig": -0.2,
+     "stage3d_name": -3.2,
+     "room_phone": -3.2
+    }
+   },
+   "transition_out": {
+    "preset": null,
+    "cause": "fin du clip"
+   }
+  }
+ ]
+}
