@@ -1,0 +1,41 @@
+<template>
+  <style>__FONTS__
+    #root { position: absolute; inset: 0; overflow: hidden; background: #071226; }
+    #__ID__-stage, #__ID__-stage .lay { position: absolute; inset: 0; }
+  </style>
+  <div id="root" data-composition-id="__ID__" data-width="1080" data-height="1920">
+    <div id="__ID__-stage">
+      <canvas id="__ID__-bokeh" class="lay" width="1080" height="1920"></canvas>
+      <svg id="__ID__-ui" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <canvas id="__ID__-fx" class="lay" width="1080" height="1920"></canvas>
+      <div id="__ID__-txt"></div>
+    </div>
+  </div>
+  <script>
+    /* SceneTemplate « phone_ui » — à l'intérieur de l'écran : interface sociale néon (bulles qui poppent, réactions
+       qui montent, compteur à rouleaux qui « compte » sur les kicks), deux avatars qui se rejoignent → étincelles. */
+    (function () {
+      const CFG = __CFG__;
+      HFS.boot('__ID__', CFG, (sc, ctx) => {
+        const P = ctx.P, sv = HFS.svg, U = ctx.layer('ui'), CY = P.accent || '#3ff0ff', MG = P.accent2 || '#ff3fb4';
+        const bok = HFS.fx.particles(ctx.layer('bokeh'), { kind: 'bokeh', n: 22, colors: [CY, MG, '#6a5cff'], seed: 3 });
+        const bubbles = [0, 1, 2, 3].map(i => { const g = sv('g', {}, U); sv('rect', { x: 0, y: -40, width: 520, height: 80, rx: 40, fill: 'rgba(15,35,70,.85)', stroke: i % 2 ? MG : CY, 'stroke-width': 3 }, g); sv('circle', { cx: 40, cy: 0, r: 26, fill: i % 2 ? MG : CY }, g); sv('rect', { x: 84, y: -16, width: 220 + (i * 41) % 120, height: 14, rx: 7, fill: '#fff', opacity: .8 }, g); sv('rect', { x: 84, y: 8, width: 120 + (i * 53) % 90, height: 10, rx: 5, fill: '#fff', opacity: .4 }, g); return g; });
+        const counter = sv('g', {}, U), digits = [0, 1, 2, 3].map(i => { const tx = sv('text', { x: 330 + i * 110, y: 1150, 'font-family': 'Russo One', 'font-size': 150, fill: CY, 'text-anchor': 'middle' }, counter); return tx; });
+        const av = [CY, MG].map((c, i) => { const g = sv('g', {}, U); sv('circle', { r: 70, fill: '#0b1a33', stroke: c, 'stroke-width': 8 }, g); sv('circle', { cy: -14, r: 24, fill: c }, g); sv('path', { d: 'M -40 40 Q 0 0 40 40 Z', fill: c }, g); return g; });
+        const sparks = HFS.fx.particles(ctx.layer('fx'), { kind: 'sparks', n: 60, colors: [CY, MG, '#ffffff'], seed: 8, at: sc.dur * .62, x: 540, y: 1520, size: 6 });
+        const hearts = [...Array(12)].map((_, i) => sv('path', { d: 'M 0 18 C -30 -4 -18 -30 0 -14 C 18 -30 30 -4 0 18 Z', fill: i % 2 ? MG : '#ff5a7a' }, U));
+        sc.update(t => {
+          bok(t); sparks(t);
+          bubbles.forEach((g, i) => { const k = HFS.ease.outBack(HFS.m.clamp((t - .15 - i * .35) / .3)), n = Math.floor((t - .15) / .35); g.setAttribute('transform', `translate(120,${1500 - (Math.min(n, 3) - i) * 100}) scale(${Math.max(0, k)})`); g.setAttribute('opacity', k > 0 ? 1 : 0); });
+          // compteur : avance d'un cran à chaque kick (synchro musicale)
+          const kicks = (HFS.audio.data.kicks || []).filter(x => x >= sc.t0 && x <= sc.t0 + t).length; const val = String(1000 + kicks * 37 + Math.floor(t * 3)).slice(-4);
+          digits.forEach((d, i) => { d.textContent = val[i]; d.setAttribute('transform', `translate(0,${-sc.beat(t, 'kicks', 14) * 20})`); });
+          counter.setAttribute('opacity', 1 - HFS.m.clamp((t - sc.dur * .55) / .2));
+          const meet = HFS.ease.inOutCubic(HFS.m.clamp(t / (sc.dur * .62))); av[0].setAttribute('transform', `translate(${180 + meet * 270},1520)`); av[1].setAttribute('transform', `translate(${900 - meet * 270},1520)`);
+          hearts.forEach((h, i) => { const u = ((t * .7 + i / 12) % 1); h.setAttribute('transform', `translate(${940 + Math.sin(u * 8 + i) * 30},${1450 - u * 700}) scale(${.8 + u})`); h.setAttribute('opacity', 1 - u); });
+        });
+        HFS.camera(sc, [{ el: ctx.layer('bokeh'), depth: .3 }, { el: U, depth: 1 }, { el: ctx.layer('fx'), depth: 1 }], Object.assign({ preset: 'dollyOut', amount: .7, handheld: .4 }, CFG.camera || {}));
+      });
+    })();
+  </script>
+</template>

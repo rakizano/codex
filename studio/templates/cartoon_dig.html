@@ -1,0 +1,45 @@
+<template>
+  <style>__FONTS__
+    #root { position: absolute; inset: 0; overflow: hidden; background: #efe0c2; }
+    #__ID__-stage, #__ID__-stage .lay { position: absolute; inset: 0; }
+    #__ID__-svg { position: absolute; inset: 0; }
+  </style>
+  <div id="root" data-composition-id="__ID__" data-width="1080" data-height="1920">
+    <div id="__ID__-stage">
+      <div class="lay" id="__ID__-bg"></div>
+      <svg id="__ID__-svg" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <canvas id="__ID__-dirt" class="lay" width="1080" height="1920"></canvas>
+      <div id="__ID__-txt"></div>
+    </div>
+  </div>
+  <script>
+    /* SceneTemplate « cartoon_dig » — cartoon dessiné : trait qui « bout » à 12 i/s, palette sépia ; un personnage
+       creuse (pelle tenue en main), la terre vole en mottes balistiques ; la phrase tombe lourdement et touche le sol. */
+    (function () {
+      const CFG = __CFG__;
+      HFS.boot('__ID__', CFG, (sc, ctx) => {
+        const s = document.getElementById('__ID__-svg'), sv = HFS.svg, ink = '#2a1d12';
+        const bg = ctx.layer('bg'); bg.style.background = 'radial-gradient(ellipse at 50% 40%, #f6ead2, #d9c39a)';
+        const draw = sv('g', {}, s); const boil = HFS.fx.boil(draw);
+        sv('path', { d: 'M -40 1330 Q 260 1290 520 1320 T 1120 1310 L 1120 1990 L -40 1990 Z', fill: '#d8b98a', stroke: ink, 'stroke-width': 8 }, draw);
+        for (let x = 0; x < 1100; x += 70) sv('path', { d: `M ${x} 1400 l 16 -24 M ${x + 30} 1440 l 12 -18`, stroke: ink, 'stroke-width': 4 }, draw);
+        const sun = sv('circle', { cx: 860, cy: 820, r: 80, fill: '#f0c26a', stroke: ink, 'stroke-width': 8 }, draw);
+        const hole = sv('ellipse', { cx: 640, cy: 1335, rx: 130, ry: 28, fill: '#3a2616', stroke: ink, 'stroke-width': 7 }, draw);
+        const mound = sv('path', { fill: '#a77d4f', stroke: ink, 'stroke-width': 7 }, draw);
+        const chg = sv('g', {}, draw);
+        const C = HFS.char(chg, { style: 'cartoon', scale: 1.15, facing: 1, track: [{ t: 0, act: 'walk', x: 180, y: 1335 }, { t: .7, act: 'pickUp', x: 430, dur: .55 }, { t: 1.25, act: 'pickUp', dur: .55 }, { t: 1.8, act: 'pickUp', dur: .55 }, { t: 2.35, act: 'pickUp', dur: .55 }] });
+        const shovel = sv('g', {}, draw); sv('path', { d: 'M 0 -170 L 0 40', stroke: '#7b5634', 'stroke-width': 14, 'stroke-linecap': 'round' }, shovel); sv('path', { d: 'M -38 40 L 38 40 Q 42 110 0 140 Q -42 110 -38 40 Z', fill: '#b9b2a2', stroke: ink, 'stroke-width': 7 }, shovel);
+        const dirt = HFS.m.rng('dirt__ID__'), cv = document.getElementById('__ID__-dirt').getContext('2d'), clumps = []; for (let i = 0; i < 26; i++) clumps.push([dirt() * 2.6, 300 + dirt() * 500, -900 - dirt() * 700, 8 + dirt() * 14]);
+        sc.update(t => {
+          C.render(t); const [hx, hy] = C.handPos; const dig = (t > .7) ? Math.sin(((t - .7) % .55) / .55 * Math.PI) : 0;
+          shovel.setAttribute('transform', `translate(${hx},${hy}) rotate(${-25 + dig * 40})`);
+          const m = HFS.m.clamp(t / sc.dur + .2); mound.setAttribute('d', `M 820 1330 Q 920 ${1330 - 190 * m} 1020 1330 Z`);
+          cv.clearRect(0, 0, 1080, 1920); cv.fillStyle = '#7b5634'; cv.strokeStyle = ink; cv.lineWidth = 4;
+          for (const [t0, vx, vy, r] of clumps) { const u = t - .8 - t0 * .7; if (u < 0 || u > 1.1) continue; const x = 640 + vx * u, y = 1320 + vy * u + 2600 * u * u; if (y > 1335) continue; cv.beginPath(); cv.arc(x, y, r, 0, 6.28); cv.fill(); cv.stroke(); }
+          sun.setAttribute('transform', `rotate(${Math.sin(t * 2) * 8} 860 820)`); boil(t);
+        });
+        HFS.camera(sc, [{ el: ctx.layer('bg'), depth: .3 }, { el: s, depth: 1 }, { el: document.getElementById('__ID__-dirt'), depth: 1 }], Object.assign({ preset: 'dollyIn', amount: .6, handheld: .4 }, CFG.camera || {}));
+      });
+    })();
+  </script>
+</template>

@@ -1,0 +1,44 @@
+<template>
+  <style>__FONTS__
+    #root { position: absolute; inset: 0; overflow: hidden; background: #1b1d2b; }
+    #__ID__-stage, #__ID__-stage .lay { position: absolute; inset: 0; }
+  </style>
+  <div id="root" data-composition-id="__ID__" data-width="1080" data-height="1920">
+    <div id="__ID__-stage">
+      <svg id="__ID__-wall" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="__ID__-mid" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <div id="__ID__-txt"></div>
+    </div>
+  </div>
+  <script>
+    /* SceneTemplate « room_phone » — chambre de nuit en aplats : le téléphone vibre et s'allume sur la table ;
+       le personnage entre, marche jusqu'à la table, ATTRAPE le téléphone (l'objet suit sa main), le regarde.
+       Sortie : l'écran du téléphone grandit jusqu'à remplir l'image (transition objectFill) → scène suivante DANS l'écran. */
+    (function () {
+      const CFG = __CFG__;
+      HFS.boot('__ID__', CFG, (sc, ctx) => {
+        const P = ctx.P, sv = HFS.svg, Wl = ctx.layer('wall'), M = ctx.layer('mid'), screenCol = P.screen || '#3ff0ff';
+        sv('rect', { width: 1080, height: 1920, fill: '#22253a' }, Wl); sv('rect', { y: 1380, width: 1080, height: 540, fill: '#161722' }, Wl);
+        const win = sv('g', {}, Wl); sv('rect', { x: 620, y: 420, width: 330, height: 460, fill: '#0b1030', stroke: '#3a3e58', 'stroke-width': 18 }, win); sv('circle', { cx: 860, cy: 520, r: 46, fill: '#f4f1e1' }, win);
+        for (let i = 0; i < 14; i++) sv('rect', { x: 640 + (i * 53) % 290, y: 760 - (i * 37) % 120, width: 18, height: 26, fill: i % 3 ? '#ffcf7a' : '#2b2f48' }, win);
+        sv('line', { x1: 785, y1: 420, x2: 785, y2: 880, stroke: '#3a3e58', 'stroke-width': 10 }, win);
+        const lamp = sv('ellipse', { cx: 250, cy: 1050, rx: 360, ry: 420, fill: '#ffcf7a', opacity: .12 }, Wl);
+        sv('rect', { x: 560, y: 1180, width: 420, height: 34, rx: 8, fill: '#5a3e2c' }, M); sv('rect', { x: 600, y: 1214, width: 26, height: 200, fill: '#4a3222' }, M); sv('rect', { x: 915, y: 1214, width: 26, height: 200, fill: '#4a3222' }, M);
+        const ch = sv('g', {}, M);
+        const tw = P.walkTo ?? 640, tp = P.pickAt ?? 1.5, D = sc.dur;
+        const C = HFS.char(ch, { style: 'flat', scale: 1.05, look: P.look, track: [{ t: 0, act: 'walk', x: -120, y: 1500 }, { t: tp - .05, act: 'reach', x: tw }, { t: tp + .35, act: 'hold' }] });
+        const phone = sv('g', {}, M), pb = sv('rect', { x: -34, y: -62, width: 68, height: 124, rx: 12, fill: '#0d0f18', stroke: '#454a66', 'stroke-width': 4 }, phone), ps = sv('rect', { x: -27, y: -52, width: 54, height: 104, rx: 6, fill: screenCol }, phone);
+        const halo = sv('circle', { r: 120, fill: screenCol, opacity: .15 }, M);
+        const pos = t => { if (t < tp + .1) return [800, 1170, 90]; C.render(t); const [hx, hy] = C.handPos; const k = HFS.m.clamp((t - tp - .1) / .3); return [HFS.m.lerp(800, hx + 10, HFS.ease.outCubic(k)), HFS.m.lerp(1170, hy - 70, HFS.ease.outCubic(k)), HFS.m.lerp(90, -12, k)]; };
+        sc.update(t => {
+          C.render(t); const [x, y, r] = pos(t), buzz = t < tp ? Math.sin(t * 70) * 5 * (Math.floor(t * 2.5) % 2) : 0;
+          phone.setAttribute('transform', `translate(${x + buzz},${y}) rotate(${r})`); halo.setAttribute('cx', x); halo.setAttribute('cy', y); halo.setAttribute('opacity', .12 + .1 * Math.abs(Math.sin(t * 6)));
+          ps.setAttribute('fill', Math.floor(t * 2.5) % 2 && t < tp ? '#ffffff' : screenCol); lamp.setAttribute('opacity', .1 + .02 * Math.sin(t * 3));
+        });
+        // la sortie zoome DANS l'écran du téléphone : rectangle d'écran à l'instant où la transition commence
+        ctx.outTarget = () => { const d = (CFG.tout && CFG.tout.dur) || .6, t = D - d; const [x, y] = pos(t); return { rect: [x - 27 * 1.0, y - 52, 54, 104], color: CFG.tout.color || screenCol, radius: 8, x, y }; };
+        HFS.camera(sc, [{ el: Wl, depth: .5 }, { el: M, depth: 1 }], Object.assign({ preset: 'dollyIn', amount: .8, handheld: .5, follow: t => ({ x: -(C.x - 540) * .25 }) }, CFG.camera || {}));
+      });
+    })();
+  </script>
+</template>

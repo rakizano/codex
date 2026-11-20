@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Studio clip</title>
+<style>
+  :root { --bg: #0f1117; --panel: #181b24; --line: #2a2f3d; --ink: #e9ecf3; --muted: #9aa3b5; --acc: #ff4d6d; --ok: #3ddc97; }
+  * { box-sizing: border-box; } body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 system-ui, -apple-system, sans-serif; }
+  header { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 14px 16px; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--bg); z-index: 5; }
+  header h1 { font-size: 16px; margin: 0 12px 0 0; }
+  button, label.btn { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; font: inherit; cursor: pointer; }
+  button.primary { background: var(--acc); border-color: var(--acc); color: #fff; }
+  main { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 16px; padding: 16px; }
+  @media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+  .scene { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin-bottom: 12px; }
+  .scene h3 { margin: 0 0 8px; font-size: 14px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+  .scene h3 small { color: var(--muted); font-weight: 400; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px; }
+  .f { display: flex; flex-direction: column; gap: 3px; } .f span { color: var(--muted); font-size: 12px; }
+  input, select, textarea { background: #10131b; color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; font: inherit; width: 100%; }
+  textarea { min-height: 54px; }
+  .why { color: var(--muted); font-size: 12px; margin-top: 6px; }
+  aside .box { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin-bottom: 12px; }
+  aside img, aside video { width: 100%; border-radius: 8px; margin-top: 8px; }
+  pre { white-space: pre-wrap; font-size: 11px; color: var(--muted); max-height: 220px; overflow: auto; margin: 6px 0 0; }
+  .pill { display: inline-block; padding: 1px 8px; border-radius: 99px; background: #242a38; font-size: 12px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Studio clip</h1>
+  <label class="btn">Importer la musique <input id="audio" type="file" accept="audio/*,video/*" hidden /></label>
+  <button id="lyricsBtn">Paroles…</button>
+  <button id="direct">Visual Director</button>
+  <button id="save">Enregistrer</button>
+  <button id="build">Compiler</button>
+  <button id="render" class="primary">Rendu MP4</button>
+  <span id="status" class="pill">prêt</span>
+</header>
+<main>
+  <section id="scenes"></section>
+  <aside>
+    <div class="box"><b>Aperçu</b><div class="why">Clique « Aperçu » sur une scène : HyperFrames calcule les images exactes de ces instants.</div><div id="preview"></div></div>
+    <div class="box"><b>Audio</b><div id="audioInfo" class="why"></div></div>
+    <div class="box"><b>Journal</b><pre id="log"></pre></div>
+  </aside>
+</main>
+<script>
+let S = null;
+const $ = s => document.querySelector(s), st = t => { $('#status').textContent = t; };
+const api = async (p, o = {}) => { const r = await fetch(p, o); return r.json(); };
+const opt = (list, v) => list.map(x => `<option ${x === v ? 'selected' : ''}>${x}</option>`).join('');
+async function load() {
+  S = await api('/api/state');
+  const a = S.audio; $('#audioInfo').textContent = a ? `${a.duration}s · ${a.bpm} BPM · ${a.kicks.length} kicks · ${(a.impacts || []).length} impacts forts · sections ${JSON.stringify(a.sections)}` : 'aucune analyse';
+  render();
+}
+function render() {
+  const sb = S.storyboard; if (!sb) { $('#scenes').innerHTML = '<p>Pas encore de storyboard : importe la musique et les paroles, puis lance le Visual Director.</p>'; return; }
+  const T = Object.keys(S.templates), A = Object.keys(S.animations).filter(k => !k.startsWith('_')), TR = Object.keys(S.transitions).filter(k => !k.startsWith('_'));
+  $('#scenes').innerHTML = sb.scenes.map((s, i) => `
+    <div class="scene" data-i="${i}">
+      <h3>${s.id} <small>${s.start.toFixed(2)} → ${s.end.toFixed(2)} s · ${s.style} · ${s.reading}</small> <button data-prev="${i}">Aperçu</button></h3>
+      <div class="grid">
+        <label class="f"><span>Paroles affichées (/ = retour)</span><textarea data-k="text.text">${s.text.text}</textarea></label>
+        <label class="f"><span>Scène (gabarit)</span><select data-k="template">${opt(T, s.template)}</select></label>
+        <label class="f"><span>Animation du texte</span><select data-k="text.preset">${opt(A, s.text.preset)}</select></label>
+        <label class="f"><span>Mot important</span><input data-k="text.important" value="${s.text.important}"></label>
+        <label class="f"><span>Impact (s)</span><input type="number" step="0.01" data-k="text.impact" value="${s.text.impact}"></label>
+        <label class="f"><span>Intensité</span><input type="number" step="0.1" data-k="text.intensity" value="${s.text.intensity}"></label>
+        <label class="f"><span>Police</span><input data-k="text.font" value="${s.text.font}"></label>
+        <label class="f"><span>Caméra</span><select data-k="camera.preset"><option value="">(défaut de la scène)</option>${opt(S.cameras, (s.camera || {}).preset)}</select></label>
+        <label class="f"><span>Transition de sortie</span><select data-k="transition_out.preset"><option value="">(aucune)</option>${opt(TR, (s.transition_out || {}).preset)}</select></label>
+        <label class="f"><span>Début (s)</span><input type="number" step="0.01" data-k="start" value="${s.start}"></label>
+        <label class="f"><span>Fin (s)</span><input type="number" step="0.01" data-k="end" value="${s.end}"></label>
+      </div>
+      <div class="why">${s.description}<br>Texte : ${s.text.why || ''} · Sens détecté : ${JSON.stringify(s.analysis.sense)}</div>
+    </div>`).join('');
+  document.querySelectorAll('[data-k]').forEach(el => el.addEventListener('change', () => {
+    const i = +el.closest('.scene').dataset.i, path = el.dataset.k.split('.'); let o = S.storyboard.scenes[i];
+    for (let k = 0; k < path.length - 1; k++) { o[path[k]] = o[path[k]] || {}; o = o[path[k]]; }
+    const v = el.type === 'number' ? +el.value : el.value; o[path[path.length - 1]] = v;
+    if (path[0] === 'start' && i > 0) S.storyboard.scenes[i - 1].end = v;   // les scènes restent jointives
+    if (path[0] === 'end' && i < S.storyboard.scenes.length - 1) S.storyboard.scenes[i + 1].start = v;
+    st('modifié (non enregistré)');
+  }));
+  document.querySelectorAll('[data-prev]').forEach(b => b.addEventListener('click', async () => {
+    const s = S.storyboard.scenes[+b.dataset.prev]; await save(); await doBuild();
+    const at = [0.25, 0.5, 0.8].map(k => (s.start + (s.end - s.start) * k).toFixed(2)).join(',');
+    st('aperçu…'); const r = await api('/api/snapshot?at=' + at, { method: 'POST' }); st(r.ok ? 'aperçu prêt' : 'erreur');
+    $('#preview').innerHTML = (r.images || []).map(src => `<img src="${src}">`).join(''); $('#log').textContent = r.log || '';
+  }));
+}
+async function save() { await api('/api/storyboard', { method: 'PUT', body: JSON.stringify(S.storyboard) }); st('enregistré'); }
+async function doBuild() { st('compilation…'); const r = await api('/api/build', { method: 'POST' }); $('#log').textContent = r.log; st(r.ok ? 'compilé' : 'erreur de compilation'); }
+$('#save').onclick = save;
+$('#build').onclick = async () => { await save(); await doBuild(); };
+$('#direct').onclick = async () => { st('direction…'); const r = await api('/api/direct', { method: 'POST' }); $('#log').textContent = r.log; await load(); st('storyboard régénéré'); };
+$('#audio').onchange = async e => { const f = e.target.files[0]; if (!f) return; st('analyse audio…'); const r = await api('/api/audio', { method: 'POST', body: f }); $('#log').textContent = r.log; await load(); st('audio analysé'); };
+$('#lyricsBtn').onclick = async () => { const t = prompt('Colle les paroles (une ligne par phrase). Pour un calage mot à mot, utilise plutôt tiktok_sound_match.py.'); if (!t) return; await api('/api/lyrics', { method: 'POST', body: JSON.stringify({ text: t }) }); st('paroles importées'); };
+$('#render').onclick = async () => { await save(); await doBuild(); await api('/api/render', { method: 'POST' }); st('rendu en cours…');
+  const poll = setInterval(async () => { const j = await api('/api/job'); $('#log').textContent = j.log.slice(-3000); if (!j.running) { clearInterval(poll); st(j.code === 0 ? 'rendu terminé' : 'rendu en erreur'); if (j.out) $('#preview').innerHTML = `<video src="${j.out}" controls></video>`; } }, 3000); };
+load();
+</script>
+</body>
+</html>

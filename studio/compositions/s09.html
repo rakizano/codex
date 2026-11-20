@@ -1,0 +1,44 @@
+<template>
+  <style>@font-face { font-family: 'Anton'; src: url('assets/fonts/Anton-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Bebas Neue'; src: url('assets/fonts/BebasNeue-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Permanent Marker'; src: url('assets/fonts/PermanentMarker-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Special Elite'; src: url('assets/fonts/SpecialElite-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Caveat Brush'; src: url('assets/fonts/CaveatBrush-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Russo One'; src: url('assets/fonts/RussoOne-400.ttf'); font-display: block; }
+    @font-face { font-family: 'VT323'; src: url('assets/fonts/VT323-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Cinzel'; src: url('assets/fonts/Cinzel-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Tinos'; src: url('assets/fonts/Tinos-700.ttf'); font-display: block; }
+    @font-face { font-family: 'Archivo Black'; src: url('assets/fonts/ArchivoBlack-400.ttf'); font-display: block; }
+    
+    #root { position: absolute; inset: 0; overflow: hidden; background: #0a0b18; }
+    #s09-stage, #s09-stage .lay { position: absolute; inset: 0; }
+    #s09-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+  </style>
+  <div id="root" data-composition-id="s09" data-width="1080" data-height="1920">
+    <div id="s09-stage">
+      <canvas id="s09-gl" width="1080" height="1920"></canvas>
+      <canvas id="s09-bills" class="lay" width="1080" height="1920"></canvas>
+      <div id="s09-txt"></div>
+    </div>
+  </div>
+  <script>
+    /* SceneTemplate « night_drive » — low-poly 3D : la voiture traverse une ville de nuit (lampadaires, reflets,
+       ombres), la caméra la suit puis passe devant ; billets qui volent ; le texte arrive de loin et fonce vers la caméra. */
+    (function () {
+      const CFG = {"fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s09", "dur": 2.905, "t0": 15.825, "text": {"font": "Bebas Neue", "color": "#ffffff", "accent": "#ffd23f", "pos": "top", "text": "Sors la / 'teille, / vas-y / claque le / jour de / paye", "words": [16.26, 16.58, 16.96, 17.22, 17.44, 17.54, 17.66, 17.86, 18.0], "important": "paye", "impact": 17.972, "preset": "toCamera", "intensity": 0.98, "why": "le texte arrive de loin et fonce vers la caméra comme la voiture", "outAt": 18.135}, "params": {"word3d": "PAYE"}, "camera": null, "tin": {"kind": "perspective", "dur": 0.5, "delay": 0.0}, "tout": {"kind": "zoomThrough", "to": 10, "dur": 0.55}};
+      HFS.boot('s09', CFG, (sc, ctx) => {
+        const P = ctx.P, X = HFS.three(sc, document.getElementById('s09-gl'), { bg: 0x0a0b18, fog: [0x0a0b18, 16, 70], exposure: 1.3 }), T = X.T, K = HFS.K3;
+        X.add(new T.HemisphereLight(0x3a4870, 0x05050a, .6));
+        X.add(K.lowpolyCity(T, { seed: 4, length: 200, maxH: 24 }));
+        for (let z = 10; z > -170; z -= 16) [-1, 1].forEach((s, j) => { const l = K.streetLight(T, { dir: -s, light: (z / 16) % 2 === 0 && j === 0 }); l.position.set(s * 5.2, 0, z - j * 8); X.add(l); });
+        const car = K.lowpolyCar(T, { color: parseInt((P.carColor || '#e8452c').replace('#', ''), 16) }); X.add(car);
+        if (P.word3d) { const w = K.text3D(T, P.word3d, { size: 2.2, depth: .6, color: 0xffd23f, side: 0x7a4a10 }); w.position.set(-8.5, 0, -40); w.rotation.y = .6; X.add(w); const gl = new T.PointLight(0xffd23f, 3, 16, 2); gl.position.set(-6, 3, -38); X.add(gl); }
+        const zAt = t => 6 - t * 10;
+        X.update(t => { const z = zAt(t); car.position.set(Math.sin(t * .8) * .3, 0, z); car.userData.wheels.forEach(w => { w.rotation.x = -t * 25; }); });
+        X.camMove('follow', { subject: t => new T.Vector3(0, 0, zAt(t)), offset: [2.2, 2.6, 9], look: [-.4, .7, -8], ease: 'linear', handheld: .3 });
+        const bills = HFS.fx.particles(ctx.layer('bills'), { kind: 'bills', n: 14, seed: 6 });
+        sc.update(t => { if (P.bills !== false) bills(t); });
+      });
+    })();
+  </script>
+</template>

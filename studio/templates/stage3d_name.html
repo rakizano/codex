@@ -1,0 +1,37 @@
+<template>
+  <style>__FONTS__
+    #root { position: absolute; inset: 0; overflow: hidden; background: #06050b; }
+    #__ID__-stage, #__ID__-stage .lay { position: absolute; inset: 0; }
+    #__ID__-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+  </style>
+  <div id="root" data-composition-id="__ID__" data-width="1080" data-height="1920">
+    <div id="__ID__-stage">
+      <canvas id="__ID__-gl" width="1080" height="1920"></canvas>
+      <canvas id="__ID__-conf" class="lay" width="1080" height="1920"></canvas>
+      <div id="__ID__-txt"></div>
+    </div>
+  </div>
+  <script>
+    /* SceneTemplate « stage3d_name » — 3D : le mot-clé (souvent un nom) en VRAIES lettres extrudées dorées sur une
+       scène, projecteurs volumétriques qui balaient, personnage voxel qui salue ; la caméra tourne autour puis plonge. */
+    (function () {
+      const CFG = __CFG__;
+      HFS.boot('__ID__', CFG, (sc, ctx) => {
+        const P = ctx.P, X = HFS.three(sc, document.getElementById('__ID__-gl'), { bg: 0x06050b, fog: [0x06050b, 10, 40], exposure: 1.2 }), T = X.T, K = HFS.K3;
+        X.add(new T.HemisphereLight(0x3a3060, 0x000000, .5));
+        const floor = new T.Mesh(new T.CylinderGeometry(7, 7.4, .5, 48), new T.MeshStandardMaterial({ color: 0x15131f, roughness: .25, metalness: .6 })); floor.position.y = -.25; floor.receiveShadow = true; X.add(floor);
+        const word = K.text3D(T, P.word3d || 'STAR', { size: 1.25, depth: .45, color: 0xffcf4a, side: 0x7a4a10, metalness: .75, roughness: .28 }); word.position.set(0, 1.0, -1.2); X.add(word);
+        const key = new T.SpotLight(0xffffff, 3, 30, .5, .5, 1.2); key.position.set(3, 8, 6); key.target = word; key.castShadow = true; X.add(key);
+        const rim = new T.DirectionalLight(0x8fb0ff, 1.2); rim.position.set(-6, 4, -8); X.add(rim);
+        const spots = [-1, 1].map(s => { const v = K.volumetric(T, { color: 0xfff0c8, length: 16, radius: 2.4, intensity: .32, power: 2.2, shadow: false }); v.position.set(s * 5, 12, -3); X.add(v); return v; });
+        const vx = K.voxelHuman(T, { color: 0xf2efe6, headMaterial: new T.MeshStandardMaterial({ color: 0x8a5a3a, flatShading: true }), hair: 0x15100c }); vx.position.set(2.2, 0, .6); vx.rotation.y = -.5; X.add(vx);
+        const conf = HFS.fx.particles(ctx.layer('conf'), { kind: 'confetti', n: 70, colors: ['#ffd23f', '#ff5a7a', '#ffffff'], seed: 5, size: 7 });
+        X.update(t => { const pop = HFS.ease.outBack(HFS.m.clamp(t / .5)); word.scale.setScalar(Math.max(.01, pop)); word.rotation.y = Math.sin(t * .8) * .25; word.position.y = 1 + sc.beat(t, 'kicks', 10) * .12;
+          spots.forEach((v, i) => { v.rotation.z = Math.sin(t * 1.1 + i * 2) * .5; v.rotation.x = -.25; });
+          vx.pose({ wave: t * 10, raiseR: .85, headYaw: Math.sin(t) * .3 }); });
+        sc.update(t => { conf(t); ctx.layer('conf').style.opacity = HFS.m.clamp((t - .4) * 2); });
+        X.camMove('orbit', { center: [0, 1.2, -1], a0: -.7, a1: .5, r: t => 8 - t * .8, y: t => 2.4 - t * .3, fov0: 40, fov1: 32 });
+      });
+    })();
+  </script>
+</template>

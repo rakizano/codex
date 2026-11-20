@@ -18,3 +18,7 @@ clips/*/hyperframes/.hyperframes/
 clips/_reference/*/timeline/
 clips/_reference/*/shot*.jpg
 clips/_reference/b7396d40-05904A7E-76A5-44A3-83C0-1CBFDC22DD67/
+studio/assets/audio/
+studio/renders/
+studio/.hyperframes/
+studio/node_modules/

@@ -1,0 +1,57 @@
+<template>
+  <style>@font-face { font-family: 'Anton'; src: url('assets/fonts/Anton-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Bebas Neue'; src: url('assets/fonts/BebasNeue-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Permanent Marker'; src: url('assets/fonts/PermanentMarker-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Special Elite'; src: url('assets/fonts/SpecialElite-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Caveat Brush'; src: url('assets/fonts/CaveatBrush-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Russo One'; src: url('assets/fonts/RussoOne-400.ttf'); font-display: block; }
+    @font-face { font-family: 'VT323'; src: url('assets/fonts/VT323-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Cinzel'; src: url('assets/fonts/Cinzel-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Tinos'; src: url('assets/fonts/Tinos-700.ttf'); font-display: block; }
+    @font-face { font-family: 'Archivo Black'; src: url('assets/fonts/ArchivoBlack-400.ttf'); font-display: block; }
+    
+    #root { position: absolute; inset: 0; overflow: hidden; background: #f8f3ea; }
+    #s04-stage, #s04-stage .lay { position: absolute; inset: 0; }
+  </style>
+  <div id="root" data-composition-id="s04" data-width="1080" data-height="1920">
+    <div id="s04-stage">
+      <svg id="s04-paint" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <canvas id="s04-rain" class="lay" width="1080" height="1920"></canvas>
+      <svg id="s04-ink" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <div id="s04-txt"></div>
+    </div>
+  </div>
+  <script>
+    /* SceneTemplate « ink_storm » — dessin pastel / crayon qui se dessine (stroke-dashoffset), aplats qui apparaissent,
+       nuage qui grossit et s'assombrit (« empirer »), pluie, éclair ; personnage au crayon qui marche sous la pluie ;
+       les lettres sont emportées par le vent (preset windDisperse). */
+    (function () {
+      const CFG = {"fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s04", "dur": 2.364, "t0": 5.303, "text": {"font": "Caveat Brush", "color": "#3a3640", "accent": "#5a6fd6", "pos": "top", "case": "none", "text": "De tout ce / mal qui / paraît si / fort et qui / semble / empirer", "words": [5.66, 5.88, 5.98, 6.08, 6.16, 6.3, 6.44, 6.58, 6.72, 6.86, 7.02, 7.2], "important": "empirer", "impact": 7.25, "preset": "windDisperse", "intensity": 1.24, "why": "le mal emporte les lettres", "outAt": 7.187}, "params": {}, "camera": null, "tin": {"kind": "liquid", "x": 540, "y": 1900, "dur": 0.6, "delay": 0.0}, "tout": {"kind": "whip", "dir": "left", "dur": 0.32}};
+      HFS.boot('s04', CFG, (sc, ctx) => {
+        const sv = HFS.svg, pen = '#3d3a44', Pt = document.getElementById('s04-paint'), I = document.getElementById('s04-ink');
+        const draws = [], fills = [];
+        const line = (d, t0, dd, w = 4) => { const e = sv('path', { d, fill: 'none', stroke: pen, 'stroke-width': w, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', pathLength: 1, 'stroke-dasharray': 1 }, I); draws.push([e, t0, dd]); return e; };
+        const wash = (d, c, t0) => { const e = sv('path', { d, fill: c, opacity: 0 }, Pt); fills.push([e, t0]); return e; };
+        wash('M -20 300 L 1100 300 L 1100 1400 L -20 1400 Z', '#cfe0f0', .1); wash('M -20 1400 Q 300 1340 600 1390 T 1100 1370 L 1100 1940 L -20 1940 Z', '#d6e7c4', .35);
+        line('M -10 1400 Q 300 1340 600 1390 T 1100 1370', 0, .5);
+        [[90, 1200, 160, 200, '#f6cdd3'], [300, 1250, 140, 150, '#f3e2b8'], [700, 1180, 180, 220, '#f6cdd3'], [905, 1240, 140, 160, '#f3e2b8']].forEach(([x, y, w, h, c], i) => { const d = `M ${x} ${y + h} L ${x} ${y} L ${x + w / 2} ${y - w * .45} L ${x + w} ${y} L ${x + w} ${y + h}`; wash(d + ' Z', c, .4 + i * .1); line(d, .05 + i * .1, .45); line(`M ${x + w * .3} ${y + h} L ${x + w * .3} ${y + h * .55} L ${x + w * .55} ${y + h * .55} L ${x + w * .55} ${y + h}`, .25 + i * .1, .25, 3); });
+        const cloud = sv('g', {}, I), cd = 'M -230 40 Q -270 -40 -180 -62 Q -160 -160 -55 -128 Q 10 -210 105 -138 Q 210 -170 220 -64 Q 300 -30 240 40 Z';
+        const cf = sv('path', { d: cd, fill: '#e6e8f0' }, cloud); const cl = sv('path', { d: cd, fill: 'none', stroke: pen, 'stroke-width': 5, pathLength: 1, 'stroke-dasharray': 1 }, cloud);
+        const bolt = sv('path', { d: 'M 40 60 L 0 170 L 44 170 L -10 300', fill: 'none', stroke: '#e8b830', 'stroke-width': 10, 'stroke-linejoin': 'round', pathLength: 1, 'stroke-dasharray': 1 }, cloud);
+        const who = sv('g', {}, I); const C = HFS.char(who, { style: 'sketch', scale: .55, track: [{ t: 0, act: 'walk', x: 260, y: 1395 }, { t: sc.dur, act: 'walk', x: 560 }] });
+        const um = sv('path', { d: 'M -80 0 Q 0 -90 80 0 Q 55 -10 28 0 Q 0 -12 -28 0 Q -55 -10 -80 0 Z', fill: '#f6cdd3', stroke: pen, 'stroke-width': 4 }, I);
+        const rain = HFS.fx.particles(document.getElementById('s04-rain'), { kind: 'rain', n: 140, colors: ['#7d94c4'], seed: 4 });
+        sc.update(t => {
+          draws.forEach(([e, t0, d]) => e.setAttribute('stroke-dashoffset', 1 - HFS.ease.inOut(HFS.m.clamp((t - t0) / d))));
+          fills.forEach(([e, t0]) => e.setAttribute('opacity', .85 * HFS.ease.outCubic(HFS.m.clamp((t - t0) / .5))));
+          const g = HFS.ease.inOut(HFS.m.clamp(t / sc.dur)); cloud.setAttribute('transform', `translate(${540 + Math.sin(t) * 20},${860 + g * 30}) scale(${.8 + g * .7})`);
+          cf.setAttribute('fill', g < .5 ? '#e6e8f0' : '#9097ad'); cf.setAttribute('opacity', 1); cl.setAttribute('stroke-dashoffset', 1 - HFS.m.clamp(t / .6));
+          const kb = HFS.m.clamp((t - sc.dur * .72) / .12); bolt.setAttribute('stroke-dashoffset', 1 - kb); bolt.setAttribute('opacity', t > sc.dur * .72 && t < sc.dur * .9 ? 1 : 0);
+          document.getElementById('s04-rain').style.opacity = g > .3 ? Math.min(1, (g - .3) * 3) : 0; rain(t);
+          C.render(t); const [hx, hy] = C.headPos; um.setAttribute('transform', `translate(${hx + 10},${hy - 40}) rotate(${Math.sin(t * 2) * 6})`);
+        });
+        HFS.camera(sc, [{ el: Pt, depth: .6 }, { el: document.getElementById('s04-rain'), depth: 1 }, { el: I, depth: 1 }], Object.assign({ preset: 'tilt', amount: .6, handheld: 0 }, CFG.camera || {}));
+      });
+    })();
+  </script>
+</template>

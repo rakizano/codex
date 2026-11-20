@@ -1,0 +1,54 @@
+{
+ "title": "PNL — Différents (démo du studio)",
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "audio": "assets/audio/sound.m4a",
+ "duration": 23.9,
+ "lyrics": "input/lyrics_sound.json",
+ "analysis": "config/audio.json",
+ "fonts": {
+  "Anton": "Anton-400.ttf",
+  "Bebas Neue": "BebasNeue-400.ttf",
+  "Permanent Marker": "PermanentMarker-400.ttf",
+  "Special Elite": "SpecialElite-400.ttf",
+  "Caveat Brush": "CaveatBrush-400.ttf",
+  "Russo One": "RussoOne-400.ttf",
+  "VT323": "VT323-400.ttf",
+  "Cinzel": "Cinzel-400.ttf",
+  "Tinos": "Tinos-700.ttf",
+  "Archivo Black": "ArchivoBlack-400.ttf"
+ },
+ "font_families": {
+  "condensée": [
+   "Anton",
+   "Bebas Neue",
+   "League Gothic"
+  ],
+  "sans moderne": [
+   "Inter",
+   "Montserrat"
+  ],
+  "éditoriale": [
+   "Archivo Black",
+   "Playfair Display",
+   "EB Garamond"
+  ],
+  "rétro": [
+   "VT323",
+   "Special Elite"
+  ],
+  "manuscrite": [
+   "Caveat Brush",
+   "Permanent Marker"
+  ],
+  "futuriste": [
+   "Russo One",
+   "Space Mono"
+  ],
+  "expressive": [
+   "Cinzel",
+   "Oswald"
+  ]
+ }
+}

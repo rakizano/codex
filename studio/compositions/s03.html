@@ -1,0 +1,53 @@
+<template>
+  <style>@font-face { font-family: 'Anton'; src: url('assets/fonts/Anton-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Bebas Neue'; src: url('assets/fonts/BebasNeue-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Permanent Marker'; src: url('assets/fonts/PermanentMarker-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Special Elite'; src: url('assets/fonts/SpecialElite-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Caveat Brush'; src: url('assets/fonts/CaveatBrush-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Russo One'; src: url('assets/fonts/RussoOne-400.ttf'); font-display: block; }
+    @font-face { font-family: 'VT323'; src: url('assets/fonts/VT323-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Cinzel'; src: url('assets/fonts/Cinzel-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Tinos'; src: url('assets/fonts/Tinos-700.ttf'); font-display: block; }
+    @font-face { font-family: 'Archivo Black'; src: url('assets/fonts/ArchivoBlack-400.ttf'); font-display: block; }
+    
+    #root { position: absolute; inset: 0; overflow: hidden; background: #f2e8d5; }
+    #s03-stage, #s03-stage .lay { position: absolute; inset: 0; }
+  </style>
+  <div id="root" data-composition-id="s03" data-width="1080" data-height="1920">
+    <div id="s03-stage">
+      <svg id="s03-bg" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="s03-fg" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <div id="s03-txt"></div>
+    </div>
+  </div>
+  <script>
+    /* SceneTemplate « editorial » — motion design éditorial : papier crème, ticket de caisse qui s'imprime ligne à
+       ligne, étiquette de prix qui se balance, formes géométriques qui glissent, barres ; le mot clé grossit
+       brutalement jusqu'à remplir l'écran sur l'impact (preset brutalGiant). */
+    (function () {
+      const CFG = {"fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s03", "dur": 2.354, "t0": 3.549, "text": {"font": "Archivo Black", "color": "#1b1a17", "accent": "#e8452c", "pos": "top", "text": "J'sais / combien tu / paierais / pour te / faire / opérer", "words": [3.84, 3.84, 4.1, 4.3, 4.61, 4.92, 5.0, 5.12], "important": "paierais", "impact": 4.35, "preset": "brutalGiant", "intensity": 1.21, "why": "le prix grossit brutalement jusqu'à remplir l'écran sur l'impact", "outAt": 5.283}, "params": {}, "camera": null, "tin": {"kind": "flash", "color": "#ffffff", "delay": 0.15, "dur": 0.3}, "tout": {"kind": "motionBlur", "dur": 0.6}};
+      HFS.boot('s03', CFG, (sc, ctx) => {
+        const P = ctx.P, sv = HFS.svg, ink = P.ink || '#1b1a17', acc = P.accent || '#e8452c';
+        const B = document.getElementById('s03-bg'), F = document.getElementById('s03-fg');
+        for (let y = 760; y < 1500; y += 70) sv('line', { x1: 80, y1: y, x2: 1000, y2: y, stroke: ink, 'stroke-width': 1.5, opacity: .1 }, B);
+        const circ = sv('circle', { cx: 860, cy: 820, r: 140, fill: 'none', stroke: acc, 'stroke-width': 20, 'stroke-dasharray': '46 24' }, B);
+        const sq = [0, 1, 2].map(i => sv('rect', { width: 56, height: 56, fill: i === 1 ? acc : ink }, B));
+        // ticket de caisse
+        const slot = sv('rect', { x: 250, y: 860, width: 420, height: 36, rx: 10, fill: ink }, F);
+        const clipId = 's03-rc'; const cp = sv('clipPath', { id: clipId }, F); const cr = sv('rect', { x: 260, y: 880, width: 400, height: 0 }, cp);
+        const rc = sv('g', { 'clip-path': `url(#${clipId})` }, F); sv('rect', { x: 275, y: 880, width: 370, height: 640, fill: '#fffdf6', stroke: '#d6cdb8', 'stroke-width': 2 }, rc);
+        for (let i = 0; i < 9; i++) { sv('rect', { x: 305, y: 930 + i * 52, width: 150 + (i * 47) % 110, height: 14, rx: 4, fill: ink, opacity: .7 }, rc); sv('rect', { x: 555, y: 930 + i * 52, width: 60, height: 14, rx: 4, fill: i === 8 ? acc : ink }, rc); }
+        for (let i = 0; i < 26; i++) sv('rect', { x: 305 + i * 12, y: 1420, width: i % 3 ? 4 : 8, height: 70, fill: ink }, rc);
+        const tag = sv('g', {}, F); sv('path', { d: 'M 0 0 L 40 -40 L 180 -40 L 180 40 L 40 40 Z', fill: acc, stroke: ink, 'stroke-width': 6 }, tag); sv('circle', { cx: 30, cy: 0, r: 9, fill: '#f2e8d5', stroke: ink, 'stroke-width': 4 }, tag); sv('line', { x1: 30, y1: 0, x2: -60, y2: -70, stroke: ink, 'stroke-width': 4 }, tag);
+        sc.update(t => {
+          const k = HFS.m.clamp((t - .15) / (sc.dur * .7)); cr.setAttribute('height', 640 * HFS.ease.outCubic(k)); rc.setAttribute('transform', `translate(0,${-640 * (1 - HFS.ease.outCubic(k)) * 0})`);
+          slot.setAttribute('transform', `translate(${Math.sin(t * 40) * (k < 1 ? 2 : 0)},0)`);
+          tag.setAttribute('transform', `translate(760,1250) rotate(${Math.sin(t * 3.2) * 12 * Math.exp(-t * .4) + 18})`);
+          circ.setAttribute('transform', `rotate(${t * 40} 860 820)`);
+          sq.forEach((e, i) => { const kk = HFS.ease.outExpo(HFS.m.clamp((t - .1 - i * .12) / .5)); e.setAttribute('x', 120 + i * 70 - (1 - kk) * 500); e.setAttribute('y', 1560); });
+        });
+        HFS.camera(sc, [{ el: B, depth: .4 }, { el: F, depth: 1 }], Object.assign({ preset: 'crashZoom', at: .45, handheld: 0 }, CFG.camera || {}));
+      });
+    })();
+  </script>
+</template>

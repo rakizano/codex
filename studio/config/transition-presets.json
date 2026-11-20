@@ -1,0 +1,17 @@
+{
+ "_doc": "TransitionPresets : une transition = un geste de sortie (out) de la scène sortante + une entrée (in) de la scène entrante, sur une durée commune (dur) ; les deux scènes se chevauchent de dur. delay = l'entrante reste invisible jusqu'à ce que la sortante ait fini son geste. cause = ce qui la provoque à l'écran.",
+ "zoomThroughObject": { "dur": 0.6, "out": {"kind": "zoomThrough", "to": 16}, "in": {"kind": "zoomOut", "from": 0.4, "delay": 0.34}, "cause": "la caméra plonge à travers un point du décor (ou une lettre)" },
+ "objectFillScreen":  { "dur": 0.7, "out": {"kind": "objectFill"}, "in": {"kind": "zoomOut", "from": 1.25, "delay": 0.62}, "cause": "un objet (l'écran du téléphone) grandit jusqu'à devenir le monde suivant" },
+ "impactFlash":       { "dur": 0.3, "out": {"kind": "flash", "color": "#ffffff"}, "in": {"kind": "flash", "color": "#ffffff", "delay": 0.15}, "cause": "l'impact du texte au sol / un kick" },
+ "whipPan":           { "dur": 0.32, "out": {"kind": "whip", "dir": "left"}, "in": {"kind": "whip", "dir": "left"}, "cause": "mouvement de caméra (panoramique filé)" },
+ "glitch":            { "dur": 0.35, "out": {"kind": "glitch"}, "in": {"kind": "glitch"}, "cause": "interface / réseau social" },
+ "liquid":            { "dur": 0.6, "out": {"kind": "motionBlur"}, "in": {"kind": "liquid", "x": 540, "y": 1900}, "cause": "encre / peinture qui envahit" },
+ "irisFromPoint":     { "dur": 0.5, "out": {"kind": "cut"}, "in": {"kind": "iris"}, "cause": "s'ouvre depuis un objet lumineux" },
+ "starShape":         { "dur": 0.55, "out": {"kind": "cut"}, "in": {"kind": "shape", "points": 5}, "cause": "éclat / célébrité" },
+ "perspectiveCube":   { "dur": 0.5, "out": {"kind": "perspective"}, "in": {"kind": "perspective"}, "cause": "on tourne la page du monde" },
+ "flyThrough":        { "dur": 0.55, "out": {"kind": "zoomThrough", "to": 10}, "in": {"kind": "flyThrough", "delay": 0.25}, "cause": "camera fly-through (on traverse l'écran)" },
+ "splitReveal":       { "dur": 0.5, "out": {"kind": "cut"}, "in": {"kind": "split"}, "cause": "l'image s'ouvre en deux" },
+ "particles":         { "dur": 0.7, "out": {"kind": "particles", "color": "#ffffff"}, "in": {"kind": "particles", "color": "#ffffff", "delay": 0.35}, "cause": "l'image se dissout en points" },
+ "rotateSpin":        { "dur": 0.45, "out": {"kind": "rotate", "angle": 90}, "in": {"kind": "rotate", "angle": -90}, "cause": "rotation de caméra" },
+ "dropFall":          { "dur": 0.5, "out": {"kind": "fall"}, "in": {"kind": "zoomIn", "from": 1.5, "delay": 0.2}, "cause": "le décor tombe (gravité)" }
+}

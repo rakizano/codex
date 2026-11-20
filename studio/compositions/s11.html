@@ -1,0 +1,45 @@
+<template>
+  <style>@font-face { font-family: 'Anton'; src: url('assets/fonts/Anton-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Bebas Neue'; src: url('assets/fonts/BebasNeue-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Permanent Marker'; src: url('assets/fonts/PermanentMarker-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Special Elite'; src: url('assets/fonts/SpecialElite-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Caveat Brush'; src: url('assets/fonts/CaveatBrush-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Russo One'; src: url('assets/fonts/RussoOne-400.ttf'); font-display: block; }
+    @font-face { font-family: 'VT323'; src: url('assets/fonts/VT323-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Cinzel'; src: url('assets/fonts/Cinzel-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Tinos'; src: url('assets/fonts/Tinos-700.ttf'); font-display: block; }
+    @font-face { font-family: 'Archivo Black'; src: url('assets/fonts/ArchivoBlack-400.ttf'); font-display: block; }
+    
+    #root { position: absolute; inset: 0; overflow: hidden; background: #0d0a18; }
+    #s11-stage, #s11-stage .lay { position: absolute; inset: 0; }
+  </style>
+  <div id="root" data-composition-id="s11" data-width="1080" data-height="1920">
+    <div id="s11-stage">
+      <svg id="s11-far" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="s11-mid" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="s11-near" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <div id="s11-txt"></div>
+    </div>
+  </div>
+  <script>
+    /* SceneTemplate « duo_walk » — deux personnages marchent côte à côte sous des réverbères (cônes de lumière qui
+       défilent en parallaxe, premier plan flou), l'un pose la main dans le dos de l'autre ; travelling latéral. */
+    (function () {
+      const CFG = {"fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s11", "dur": 3.105, "t0": 20.795, "text": {"font": "Anton", "color": "#ffffff", "accent": "#ff6aa8", "pos": "upper", "text": "T'sais / qu'j'ai ma / main sur ta / fesse", "words": [21.09, 20.88, 21.18, 21.26, 21.34, 21.36, 21.48], "important": "fesse", "impact": 21.664, "preset": "stackPile", "intensity": 0.99, "why": "les mots tombent et s'empilent comme des corps qui se rapprochent", "align": "center", "outAt": 23.58}, "params": {}, "camera": null, "tin": {"kind": "glitch", "dur": 0.35, "delay": 0.0}, "tout": null};
+      HFS.boot('s11', CFG, (sc, ctx) => {
+        const P = ctx.P, sv = HFS.svg, Fr = ctx.layer('far'), Md = ctx.layer('mid'), Nr = ctx.layer('near'), acc = P.accent || '#ff6aa8';
+        const grd = sv('linearGradient', { id: 's11-sky', x1: 0, y1: 0, x2: 0, y2: 1 }, Fr); [['0', '#1a1030'], ['.6', '#3a1a40'], ['1', '#120a1a']].forEach(([o, c]) => sv('stop', { offset: o, 'stop-color': c }, grd));
+        sv('rect', { x: -400, width: 1900, height: 1920, fill: 'url(#s11-sky)' }, Fr);
+        const city = sv('g', {}, Fr); for (let i = 0; i < 24; i++) { const h = 200 + (i * 97) % 380; sv('rect', { x: -400 + i * 80, y: 1380 - h, width: 74, height: h, fill: '#1c1428' }, city); }
+        sv('rect', { x: -400, y: 1380, width: 1900, height: 600, fill: '#140e1c' }, Md);
+        const lamps = sv('g', {}, Md); for (let i = 0; i < 8; i++) { const x = -300 + i * 330; sv('path', { d: `M ${x - 30} 640 L ${x + 30} 640 L ${x + 170} 1390 L ${x - 170} 1390 Z`, fill: i % 2 ? acc : '#ffd9a8', opacity: .14 }, lamps); sv('rect', { x: x + 50, y: 620, width: 10, height: 770, fill: '#241a30' }, lamps); sv('circle', { cx: x, cy: 640, r: 14, fill: '#fff4dc' }, lamps); }
+        const g = sv('g', {}, Md);
+        const A = HFS.char(g, { style: 'silhouette', scale: 1.0, track: [{ t: 0, act: 'walk', x: 300, y: 1400, speed: .9 }, { t: sc.dur, act: 'walk', x: 620 }] });
+        const B = HFS.char(g, { style: 'flat', scale: .94, look: { top: acc, top2: '#c24a80', bottom: '#2a1d36', skin: '#a8714f', hair: '#1a1014' }, track: [{ t: 0, act: 'walk', x: 420, y: 1405, speed: .9 }, { t: sc.dur, act: 'walk', x: 740 }] });
+        const near = sv('g', { opacity: .9 }, Nr); for (let i = 0; i < 5; i++) sv('rect', { x: -200 + i * 420, y: 0, width: 46, height: 1920, fill: '#06040a' }, near);
+        sc.update(t => { A.render(t); B.render(t); lamps.setAttribute('transform', `translate(${-t * 120},0)`); city.setAttribute('transform', `translate(${-t * 30},0)`); near.setAttribute('transform', `translate(${-t * 420},0)`); });
+        HFS.camera(sc, [{ el: Fr, depth: .3 }, { el: Md, depth: 1 }, { el: Nr, depth: 1.4, blur: 8 }], Object.assign({ preset: 'truckRight', amount: .6, follow: t => ({ x: -(A.x - 520) }), handheld: .5 }, CFG.camera || {}));
+      });
+    })();
+  </script>
+</template>
