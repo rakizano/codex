@@ -1,0 +1,39 @@
+TITRE      : Last Christmas
+ARTISTE    : Wham!
+VERSION    : Last Christmas (single, 1984) — durée de la version : 4:23 (263 s)
+
+SON TIKTOK UTILISÉ (clip calé dessus, de sa 1re à sa dernière seconde)
+  Source   : vidéo TikTok fournie par l'utilisateur
+  Durée    : 60.02 s  (= durée exacte de video_finale.mp4)
+  Passage de la chanson contenu dans le son : 2:51.486 → 3:49.163 (vitesse ×0.961)
+
+PLACER LA MUSIQUE
+  Dans le brouillon TikTok : « Ajouter un son » → choisir CE son (celui de la vidéo fournie) → ne pas couper : il démarre à 0:00 avec la vidéo → Publier.
+
+FIABILITÉ DES TIMESTAMPS
+  Méthode  : paroles synchronisées LRCLIB, médiane de 9 source(s) concordante(s)
+  Écart médian entre sources : 0.77 s — confiance : moyenne
+  Note : Clip calé sur le son TikTok fourni (vidéo de 60,02 s) : passage de la chanson ≈ 2:51 → 3:49, joué à ×0,96 selon l'analyse.
+  Note : Débuts de phrases pris sur les mots réellement entendus dans ce son (reconnaissance vocale Whisper, 100/110 mots appariés aux paroles LRCLIB).
+  Note : Ad-libs entre parenthèses (you gave it away / special / I gave you my heart) non affichés.
+  Synchronisation vérifiée sur l'audio du son TikTok (reconnaissance des paroles chantées).
+  Le timing mot par mot à l'intérieur d'une phrase est ESTIMÉ (répartition syllabique).
+
+PAROLES ET TIMESTAMPS (son TikTok | vidéo)
+  0:00.000 |   0.00s  [s00]  My God, I thought you were someone to rely on   (mot rouge : rely)
+  0:03.980 |   3.98s  [s01]  Me? I guess I was a shoulder to cry on   (mot rouge : shoulder)
+  0:08.320 |   8.32s  [s02]  A face on a lover with a fire in his heart   (mot rouge : fire)
+  0:12.780 |  12.78s  [s03]  A man undercover,   (mot rouge : undercover)
+  0:15.380 |  15.38s  [s04]  but you tore me apart   (mot rouge : apart)
+  0:20.080 |  20.08s  [s05]  Ooh-hoo   (mot rouge : ooh-hoo)
+  0:22.400 |  22.40s  [s06]  Now I've found a real love,   (mot rouge : love)
+  0:24.620 |  24.62s  [s07]  you'll never fool me again   (mot rouge : fool)
+  0:27.540 |  27.54s  [s08]  Last Christmas, I gave you my heart   (mot rouge : heart)
+  0:31.540 |  31.54s  [s09]  But the very next day,   (mot rouge : day)
+  0:34.300 |  34.30s  [s10]  you gave it away   (mot rouge : away)
+  0:36.940 |  36.94s  [s11]  This year, to save me from tears   (mot rouge : tears)
+  0:41.060 |  41.06s  [s12]  I'll give it to someone special   (mot rouge : special)
+  0:46.040 |  46.04s  [s13]  Last Christmas, I gave you my heart   (mot rouge : christmas)
+  0:50.840 |  50.84s  [s14]  But the very next day,   (mot rouge : next)
+  0:52.720 |  52.72s  [s15]  you gave it away   (mot rouge : gave)
+  0:55.740 |  55.74s  [s16]  This year, to save me from tears   (mot rouge : year)

@@ -1,0 +1,64 @@
+DIRECTION ARTISTIQUE — Pink Floyd « Time »
+
+CONCEPT / NARRATION
+  Le dernier couplet de « Time » raconté comme la journée d'un seul homme : un Anglais au chapeau melon qui vieillit au rythme des horloges. Chaque phrase est un tableau surréaliste où le temps devient matière (sablier géant, pages de calendrier qui s'envolent, aiguille à laquelle on s'accroche, disque-horloge qui ralentit) jusqu'à la dernière image : l'homme minuscule s'éloigne dans le désert nocturne.
+
+UNIVERS VISUEL
+  Surréalisme des pochettes de rock progressif des années 70 (influence Magritte/Dalí, peinture à plat), désert ocre aux perspectives impossibles, ciel indigo, objets du temps démesurés.
+
+PALETTE
+  nuit indigo    #0f0d24
+  indigo moyen   #2a2452
+  ocre désert    #c98b4a
+  sable clair    #e7c28e
+  os / papier    #efe6d2
+  laiton oxydé   #a8834e
+  ombre sarcelle #1d3a42
+  rouge signature #e10600
+
+TYPOGRAPHIE
+  DM Serif Display, capitales, couleur os (#efe6d2) avec ombre portée douce : un serif éditorial élégant et mélancolique, cohérent avec l'époque. Mot rouge dans la même fonte, plus grand (×1.3). Animations lentes : fondu flouté, montée, glissement ; le mot SHORTER rétrécit, DEATH et MORE arrivent en retard, SCRIBBLED tremble.
+
+STYLE GRAPHIQUE
+  Aplats vectoriels peints, dégradés de ciel, grain argentique (9 %), vignettage marqué, étalonnage chaud légèrement désaturé. Silhouettes noires sur fonds chauds ; distorsion progressive (plan qui se désagrège) pour l'échec des projets.
+
+PRINCIPES D'ANIMATION
+  Lenteur et poids : caméra qui oscille comme un pendule, travellings lents, parallaxe sur 3 à 5 plans. Les personnages respirent, marchent, se balancent. Les horloges tournent toujours — accélérées quand le temps « file », figées à la fin.
+
+TRANSITIONS & MONTAGE
+  Signature : balayage d'aiguille (transition radiale) aux moments-clés ; ailleurs encre, zoom à travers, stores, poussée latérale, bande rouge. Fondu au noir final sur la note tenue de « say ».
+
+INFLUENCES
+  Esthétique des pochettes surréalistes des années 70, sans reprendre la pochette de l'album.
+
+DÉCOUPAGE (scène → image)
+  s00  0.00- 1.78s  Shorter of breath,
+       image : Gros plan : profil de l'homme au chapeau melon sur le désert au crépuscule, une horloge-soleil énorme derrière lui ; son souffle s'échappe en petite vapeur.
+       transition d'entrée : cut
+  s01  1.78- 7.44s  and one day closer to death
+       image : Plan large : sablier géant planté dans les dunes ocre ; l'homme minuscule marche vers lui, le sable s'écoule.
+       transition d'entrée : radial
+  s02  7.44-10.93s  Every year is getting shorter
+       image : Ciel indigo de nuit : des pages de calendrier (années) s'arrachent et s'envolent au vent au-dessus de l'homme assis sur un banc.
+       transition d'entrée : ink
+  s03 10.93-14.34s  Never seem to find the time
+       image : Labyrinthe aérien d'horloges flottantes de toutes tailles, chacune à une heure différente ; l'homme les cherche avec une lanterne.
+       transition d'entrée : zoom
+  s04 14.34-18.42s  Plans that either come to naught
+       image : Plan d'architecte bleu (blueprint) d'une maison idéale qui se dessine puis se désagrège en poussière.
+       transition d'entrée : blinds
+  s05 18.42-22.68s  Or half a page of scribbled lines
+       image : Bureau vu de dessus à la bougie : une page à moitié couverte de lignes griffonnées qui s'écrivent toutes seules, plume en mouvement.
+       transition d'entrée : push
+  s06 22.68-25.84s  Hanging on in quiet desperation
+       image : Nuit : l'homme suspendu à l'aiguille d'une immense horloge de tour au-dessus de la ville, jambes dans le vide.
+       transition d'entrée : ink
+  s07 25.84-30.43s  Is the English way
+       image : Rue grise sous la bruine : une file d'hommes identiques au chapeau melon et parapluie marchent au pas.
+       transition d'entrée : bar
+  s08 30.43-33.66s  The time is gone, the song is over
+       image : Disque vinyle-horloge sous un projecteur, qui ralentit et s'arrête ; le bras de lecture se relève.
+       transition d'entrée : radial
+  s09 33.66-38.81s  Thought I'd something more to say
+       image : Désert nocturne immense sous les étoiles et une lune pâle : l'homme minuscule s'éloigne vers l'horizon, ses traces derrière lui.
+       transition d'entrée : dip

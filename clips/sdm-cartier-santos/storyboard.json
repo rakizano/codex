@@ -1,0 +1,898 @@
+{
+ "song": {
+  "artist": "Sdm",
+  "title": "Cartier Santos",
+  "album": "Hits Hits Hits 2026 Vol.2",
+  "version_duration": 183.0,
+  "lrclib_ref_id": 33605312,
+  "sync_confidence": "élevée",
+  "sync_spread_median_s": 0.08,
+  "n_sources": 16,
+  "notes": [
+   "Texte vérifié par concordance de 16 transcriptions LRCLIB indépendantes (95-100 %) ; aucune page de paroles tierce n'était accessible pour une vérification supplémentaire (Genius bloque les accès automatisés).",
+   "Ligne « Pour elle, j'étais pas l'homme capable… en Féfé' » : fin recalée sur le marqueur de fin de voix commun aux sources (2:15) ; le break instrumental 2:15-2:23 est illustré sans paroles.",
+   "Ad-libs entre parenthèses (eh, eh / Oocho, ocho / la vie de rêve / mmh, mmh) non affichés."
+  ]
+ },
+ "passage": {
+  "start": 93.54,
+  "end": 165.8,
+  "duration": 72.26,
+  "start_fmt": "1:33.540",
+  "end_fmt": "2:45.800"
+ },
+ "fps": 30,
+ "width": 1080,
+ "height": 1920,
+ "direction": {
+  "concept": "Le roman-photo nocturne d'une rupture toxique dans une cité de banlieue : lui, en bleu nuit, qui « prend plus sur lui » puis rechute ; elle, en rose néon, qui ne rêve que d'or. Le break instrumental révèle l'objet du désir — une montre carrée en or — et la fin oppose son monde bleu à son monde doré.",
+  "universe": "Roman graphique urbain / BD nocturne : tours HLM, toits, cages d'escalier, réverbères au sodium, néons, écrans de téléphone ; inserts symboliques (cœur, cerveau, marionnette, pluie de billets).",
+  "palette": {
+   "nuit pétrole": "#0b1626",
+   "bleu cité": "#13304a",
+   "béton": "#5b6470",
+   "sodium": "#ff8a2a",
+   "rose néon": "#ff3d8b",
+   "or": "#d4af37",
+   "blanc cassé": "#f4f1ea",
+   "rouge signature": "#e10600"
+  },
+  "typography": "Bebas Neue (condensée, capitales), blanc cassé, ombre portée dure noire décalée façon impression BD ; mot rouge plus grand (×1.3). Entrées sèches (stamp, pop, slide, drop) calées sur le flow ; emphases variées : shake, late, slidein, pulse, scramble, glow.",
+  "graphic_style": "Aplats francs, silhouettes sombres découpées sur éclairages colorés, trame demi-teinte d'impression (halftone), grain léger, contraste et saturation renforcés. Lui = bleu nuit, elle = silhouette à cheveux longs rétroéclairée de rose, l'argent = or.",
+  "animation_principles": "Montage nerveux au rythme du rap (une image toutes les 1 à 3 s) ; caméra qui pousse, tremble sur les tensions, glisse en travelling ; éléments toujours vivants (pluie, néons qui grésillent, phares, fenêtres, battements de cœur). Le break instrumental ralentit : rotation lente de la montre en or.",
+  "transitions": "Coups de fouet (whip), poussées, glitch sur la « rage », flashs sur les punchlines, bande dorée qui traverse l'écran pour l'argent, losange doré pour la montre, encre et iris pour les moments de rêve ; fondu au noir final.",
+  "references": "Esthétique des clips et pochettes de rap français nocturnes, BD urbaine, affiches sérigraphiées."
+ },
+ "style": {
+  "fonts": [
+   "Bebas Neue"
+  ],
+  "typo": {
+   "font": "Bebas Neue",
+   "color": "#f4f1ea",
+   "red": "#e10600",
+   "size": 150,
+   "redScale": 1.3,
+   "lineHeight": 0.95,
+   "spacing": 0.01,
+   "enter": "pop",
+   "emphasis": "shake",
+   "exit": "fade",
+   "exitDur": 0.14,
+   "shadow": "6px 6px 0 #05080f",
+   "redShadow": "6px 6px 0 #05080f",
+   "wordIn": 0.2,
+   "sylDur": 0.16,
+   "preroll": 0.05
+  },
+  "fx": {
+   "grain": 0.06,
+   "vignette": 0.5,
+   "halftone": 0.1,
+   "grade": "contrast(1.1) saturate(1.15)"
+  },
+  "palette": {}
+ },
+ "beats": [],
+ "scenes": [
+  {
+   "id": "s00",
+   "start": 0.0,
+   "lyrics": [
+    {
+     "text": "J'prends plus / sur moi, c'est / fini,",
+     "red": "fini",
+     "start": 0.3,
+     "end": 2.269,
+     "song_t": 93.84,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 19,
+     "enter": "stamp",
+     "emphasis": "shake",
+     "pos": "upper",
+     "align": "left"
+    }
+   ],
+   "end": 2.289,
+   "transition": {
+    "type": "cut",
+    "dur": 0
+   },
+   "visual": "Toit d'une tour HLM la nuit : lui, de dos, au bord, la ville en contrebas ; il laisse tomber son téléphone.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s01",
+   "start": 2.289,
+   "lyrics": [
+    {
+     "text": "j'y ai réfléchi / toute la / semaine",
+     "red": "semaine",
+     "start": 2.409,
+     "end": 4.98,
+     "song_t": 95.949,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 19,
+     "enter": "pop",
+     "emphasis": "late",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 5.0,
+   "transition": {
+    "type": "push",
+    "dur": 0.4,
+    "dir": "left"
+   },
+   "visual": "Mur de sa chambre : un calendrier de 7 jours que des croix rouges barrent un à un ; lui assis tête dans les mains sous la lampe.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s02",
+   "start": 5.0,
+   "lyrics": [
+    {
+     "text": "Elle me répond / \"est-ce que / t'es sûr?\",",
+     "red": "sûr",
+     "start": 5.12,
+     "end": 6.6,
+     "song_t": 98.66,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 20,
+     "enter": "pop",
+     "emphasis": "pulse",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "end": 6.62,
+   "transition": {
+    "type": "zoom",
+    "dur": 0.4
+   },
+   "visual": "Gros plan sur un téléphone tenu en main : bulles de conversation qui apparaissent, indicateur « en train d'écrire ».",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s03",
+   "start": 6.62,
+   "lyrics": [
+    {
+     "text": "me dit / \"dommage,",
+     "red": "dommage",
+     "start": 6.74,
+     "end": 7.5,
+     "song_t": 100.28,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 20,
+     "enter": "stamp",
+     "emphasis": "none",
+     "pos": "upper",
+     "align": "center"
+    }
+   ],
+   "end": 7.52,
+   "transition": {
+    "type": "cut",
+    "dur": 0
+   },
+   "visual": "Elle à sa fenêtre éclairée de rose, silhouette qui hausse les épaules, rideau qui ondule.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s04",
+   "start": 7.52,
+   "lyrics": [
+    {
+     "text": "j'avais bloqué / ma soirée pour / qu'tu montes / sur moi\"",
+     "red": "soirée",
+     "start": 7.64,
+     "end": 10.02,
+     "song_t": 101.18,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 20,
+     "enter": "rise",
+     "emphasis": "glow",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "end": 10.04,
+   "transition": {
+    "type": "push",
+    "dur": 0.35,
+    "dir": "up"
+   },
+   "visual": "Façade de tour la nuit, la caméra monte étage par étage jusqu'à une seule fenêtre rose allumée tout en haut.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s05",
+   "start": 10.04,
+   "lyrics": [
+    {
+     "text": "D'un coup, mon / cœur est navré,",
+     "red": "cœur",
+     "start": 10.16,
+     "end": 11.239,
+     "song_t": 103.7,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 21,
+     "enter": "drop",
+     "emphasis": "pulse",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 11.259,
+   "transition": {
+    "type": "flash",
+    "dur": 0.3
+   },
+   "visual": "Radiographie de sa silhouette : un cœur lumineux dans la poitrine qui bat puis se fissure.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s06",
+   "start": 11.259,
+   "lyrics": [
+    {
+     "text": "elle sait / pile-poil où / toucher pour / que j'retourne / ma veste",
+     "red": "veste",
+     "start": 11.379,
+     "end": 15.1,
+     "song_t": 104.919,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 21,
+     "enter": "slide",
+     "emphasis": "slidein",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "end": 15.12,
+   "transition": {
+    "type": "ink",
+    "dur": 0.5
+   },
+   "visual": "Lui en marionnette : des fils tirés par une immense main rose depuis le haut ; il pivote sur lui-même.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s07",
+   "start": 15.12,
+   "lyrics": [
+    {
+     "text": "C'est ma bouche / qui a dit non,",
+     "red": "non",
+     "start": 15.24,
+     "end": 16.474,
+     "song_t": 108.78,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 22,
+     "enter": "stamp",
+     "emphasis": "shake",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "end": 16.494,
+   "transition": {
+    "type": "whip",
+    "dur": 0.35,
+    "dir": "left"
+   },
+   "visual": "Profil géant de son visage en ombre chinoise, bouche qui bouge, néon bleu en contre-jour.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s08",
+   "start": 16.494,
+   "lyrics": [
+    {
+     "text": "alors qu'mon / cœur voulait / dire oui",
+     "red": "oui",
+     "start": 16.614,
+     "end": 18.192,
+     "song_t": 110.154,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 22,
+     "enter": "pop",
+     "emphasis": "pulse",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 18.212,
+   "transition": {
+    "type": "shape",
+    "dur": 0.45,
+    "shape": "heart",
+    "color": "#ff3d8b"
+   },
+   "visual": "Plan serré sur la poitrine : cœur rose énorme qui bat très fort, ondes de choc.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s09",
+   "start": 18.212,
+   "lyrics": [
+    {
+     "text": "et mon cerveau / qui s'demande / c'que j'fais",
+     "red": "cerveau",
+     "start": 18.332,
+     "end": 19.91,
+     "song_t": 111.872,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 22,
+     "enter": "rise",
+     "emphasis": "scramble",
+     "pos": "lower",
+     "align": "center"
+    }
+   ],
+   "end": 19.93,
+   "transition": {
+    "type": "spin",
+    "dur": 0.45
+   },
+   "visual": "Sa tête en coupe : des engrenages qui tournent en tous sens et des points d'interrogation qui flottent.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s10",
+   "start": 19.93,
+   "lyrics": [
+    {
+     "text": "Faudra d'la foi / et du courage, / une relation / remplie de / rage,",
+     "red": "rage",
+     "start": 20.05,
+     "end": 23.801,
+     "song_t": 113.59,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 23,
+     "enter": "stamp",
+     "emphasis": "shake",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "end": 23.821,
+   "transition": {
+    "type": "glitch",
+    "dur": 0.45
+   },
+   "visual": "Orage sur la cité : éclairs, pluie battante, deux silhouettes face à face qui se disputent sur un balcon.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s11",
+   "start": 23.821,
+   "lyrics": [
+    {
+     "text": "à la fin, / j'm'en suis pas / remis",
+     "red": "remis",
+     "start": 23.941,
+     "end": 25.44,
+     "song_t": 117.481,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 23,
+     "enter": "drift",
+     "emphasis": "late",
+     "pos": "upper",
+     "align": "center"
+    }
+   ],
+   "end": 25.46,
+   "transition": {
+    "type": "dip",
+    "dur": 0.4
+   },
+   "visual": "Vue de dessus : lui allongé au sol d'une pièce vide, le rectangle de lumière de la fenêtre qui glisse.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s12",
+   "start": 25.46,
+   "lyrics": [
+    {
+     "text": "Vivre sans / elle, j'y / arrive pas, / j'trouve plus / l'sommeil quand / j'suis seul,",
+     "red": "sommeil",
+     "start": 25.58,
+     "end": 28.264,
+     "song_t": 119.12,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 24,
+     "enter": "rise",
+     "emphasis": "reveal",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "end": 28.284,
+   "transition": {
+    "type": "blinds",
+    "dur": 0.5,
+    "dir": "horizontal",
+    "n": 8
+   },
+   "visual": "Chambre de nuit : lui assis au bord du lit, réveil numérique qui affiche 03:47, rayures de lumière des stores.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s13",
+   "start": 28.284,
+   "lyrics": [
+    {
+     "text": "j'm'endors / après plusieurs / res-ve",
+     "red": "res-ve",
+     "start": 28.404,
+     "end": 29.99,
+     "song_t": 121.944,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 24,
+     "enter": "blur",
+     "emphasis": "glow",
+     "pos": "upper",
+     "align": "center"
+    }
+   ],
+   "end": 30.01,
+   "transition": {
+    "type": "iris",
+    "dur": 0.5
+   },
+   "visual": "Rêve : lui qui flotte en apesanteur dans un ciel violet étoilé, parmi des oreillers et des étoiles.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s14",
+   "start": 30.01,
+   "lyrics": [
+    {
+     "text": "Elle, elle fait / genre tout va / bien,",
+     "red": "bien",
+     "start": 30.13,
+     "end": 31.828,
+     "song_t": 123.67,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 25,
+     "enter": "pop",
+     "emphasis": "late",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "end": 31.848,
+   "transition": {
+    "type": "push",
+    "dur": 0.4,
+    "dir": "left"
+   },
+   "visual": "Écran de story : elle en silhouette rose, étincelles et cœurs de réactions qui montent.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s15",
+   "start": 31.848,
+   "lyrics": [
+    {
+     "text": "nouvelle / relation, elle / vit la vie",
+     "red": "relation",
+     "start": 31.968,
+     "end": 33.85,
+     "song_t": 125.508,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 25,
+     "enter": "slide",
+     "emphasis": "slidein",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 33.87,
+   "transition": {
+    "type": "slide",
+    "dur": 0.4,
+    "dir": "left"
+   },
+   "visual": "Boulevard illuminé : elle et un nouvel homme marchent main dans la main sous les guirlandes.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s16",
+   "start": 33.87,
+   "lyrics": [
+    {
+     "text": "qu'elle rêvait",
+     "red": "rêvait",
+     "start": 33.99,
+     "end": 35.32,
+     "song_t": 127.53,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 25,
+     "enter": "blur",
+     "emphasis": "glow",
+     "pos": "upper",
+     "align": "center"
+    }
+   ],
+   "end": 35.34,
+   "transition": {
+    "type": "wipe",
+    "dur": 0.45,
+    "dir": "right"
+   },
+   "visual": "La vie de rêve : coucher de soleil rose et orange, palmiers, mer scintillante, un yacht au loin.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s17",
+   "start": 35.34,
+   "lyrics": [
+    {
+     "text": "Pour elle, / j'étais pas / l'homme / capable,",
+     "red": "capable",
+     "start": 35.46,
+     "end": 37.2,
+     "song_t": 129.0,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 26,
+     "enter": "stamp",
+     "emphasis": "late",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "end": 37.23,
+   "transition": {
+    "type": "diagonal",
+    "dur": 0.4,
+    "angle": 20
+   },
+   "visual": "Arrêt de bus sous la pluie : lui seul, capuche, un bus de nuit qui passe sans s'arrêter.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s18",
+   "start": 37.23,
+   "lyrics": [
+    {
+     "text": "un homme / capable, c'est / celui qui / déboule",
+     "red": "déboule",
+     "start": 37.35,
+     "end": 39.49,
+     "song_t": 130.89,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 26,
+     "enter": "slide",
+     "emphasis": "slidein",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 39.51,
+   "transition": {
+    "type": "whip",
+    "dur": 0.3,
+    "dir": "right"
+   },
+   "visual": "Route en perspective : des phares qui foncent vers la caméra, traînées de lumière.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s19",
+   "start": 39.51,
+   "lyrics": [
+    {
+     "text": "en bas d'chez / elle en Féfé'",
+     "red": "Féfé'",
+     "start": 39.63,
+     "end": 42.3,
+     "song_t": 133.17,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 26,
+     "enter": "stamp",
+     "emphasis": "shake",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 42.6,
+   "transition": {
+    "type": "flash",
+    "dur": 0.25
+   },
+   "visual": "Pied de sa tour : une voiture de sport noire aux reflets dorés surgit et freine, phares éblouissants ; elle à la fenêtre.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s19b",
+   "start": 42.6,
+   "end": 49.8,
+   "lyrics": [],
+   "role": "break instrumental (2:15-2:23)",
+   "visual": "Break : écrin qui s'ouvre au ralenti sur une montre carrée en or qui tourne dans un faisceau de lumière, paillettes.",
+   "transition": {
+    "type": "iris",
+    "dur": 0.7
+   },
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s20",
+   "start": 49.8,
+   "lyrics": [
+    {
+     "text": "J'lui dis / \"j'peux pas / vivre sans / toi\",",
+     "red": "vivre",
+     "start": 49.92,
+     "end": 51.543,
+     "song_t": 143.46,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 27,
+     "enter": "rise",
+     "emphasis": "late",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 51.563,
+   "transition": {
+    "type": "flash",
+    "dur": 0.3
+   },
+   "visual": "Sous un réverbère, pluie fine : lui à genoux devant elle, debout, qui détourne la tête.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s21",
+   "start": 51.563,
+   "lyrics": [
+    {
+     "text": "elle m'a dit / \"que si tu",
+     "red": "si",
+     "start": 51.683,
+     "end": 53.086,
+     "song_t": 145.223,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 27,
+     "enter": "pop",
+     "emphasis": "none",
+     "pos": "upper",
+     "align": "left"
+    }
+   ],
+   "end": 53.106,
+   "transition": {
+    "type": "cut",
+    "dur": 0
+   },
+   "visual": "Contre-jour rose : sa silhouette de dos qui lève un doigt, cheveux qui bougent.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s22",
+   "start": 53.106,
+   "lyrics": [
+    {
+     "text": "m'payes une / Cartier Santos\"",
+     "red": "santos",
+     "start": 53.226,
+     "end": 55.07,
+     "song_t": 146.766,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 27,
+     "enter": "stamp",
+     "emphasis": "glow",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 55.09,
+   "transition": {
+    "type": "shape",
+    "dur": 0.45,
+    "shape": "diamond",
+    "color": "#d4af37"
+   },
+   "visual": "La montre carrée en or, immense, au centre, rayons dorés et étiquette de prix qui se balance.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s23",
+   "start": 55.09,
+   "lyrics": [
+    {
+     "text": "Même avec tout / le temps qu'on / passe,",
+     "red": "temps",
+     "start": 55.21,
+     "end": 57.418,
+     "song_t": 148.75,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 28,
+     "enter": "drift",
+     "emphasis": "reveal",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "end": 57.438,
+   "transition": {
+    "type": "fade",
+    "dur": 0.4
+   },
+   "visual": "Le banc du quartier : eux deux assis, le ciel passe du jour à la nuit en accéléré, les ombres tournent.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s24",
+   "start": 57.438,
+   "lyrics": [
+    {
+     "text": "tu veux pas / mettre un peu / plus de sérieux / sur l'dossier",
+     "red": "sérieux",
+     "start": 57.558,
+     "end": 60.47,
+     "song_t": 151.098,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 28,
+     "enter": "drop",
+     "emphasis": "shake",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "end": 60.49,
+   "transition": {
+    "type": "push",
+    "dur": 0.35,
+    "dir": "up"
+   },
+   "visual": "Bureau : une pile de dossiers, un tampon qui s'abat, des feuilles qui s'envolent.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s25",
+   "start": 60.49,
+   "lyrics": [
+    {
+     "text": "Tu sais / qu'l'argent ça / compte pas,",
+     "red": "argent",
+     "start": 60.61,
+     "end": 62.473,
+     "song_t": 154.15,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 29,
+     "enter": "pop",
+     "emphasis": "scramble",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 62.493,
+   "transition": {
+    "type": "bar",
+    "dur": 0.45,
+    "dir": "right",
+    "color": "#d4af37"
+   },
+   "visual": "Pluie de billets dorés sur lui, immobile sous un parapluie.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s26",
+   "start": 62.493,
+   "lyrics": [
+    {
+     "text": "tu t'en rendras / compte un jour / à quel point / j't'ai aimée",
+     "red": "aimée",
+     "start": 62.613,
+     "end": 65.59,
+     "song_t": 156.153,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 29,
+     "enter": "drift",
+     "emphasis": "glow",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 65.61,
+   "transition": {
+    "type": "zoom",
+    "dur": 0.4
+   },
+   "visual": "Un polaroid d'eux deux, épinglé, qui se décolore et tombe en tournoyant.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s27",
+   "start": 65.61,
+   "lyrics": [
+    {
+     "text": "J'lui dis que / j'lui souhaite / le meilleur,",
+     "red": "meilleur",
+     "start": 65.73,
+     "end": 67.975,
+     "song_t": 159.27,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 30,
+     "enter": "rise",
+     "emphasis": "late",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "end": 67.995,
+   "transition": {
+    "type": "fade",
+    "dur": 0.5
+   },
+   "visual": "Aube bleue : lui qui s'éloigne de la tour, mains dans les poches ; une seule fenêtre encore allumée.",
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s28",
+   "start": 67.995,
+   "lyrics": [
+    {
+     "text": "elle m'a dit / \"souhaite-moi / la richesse, / moi, fuck la / santé\"",
+     "red": "richesse",
+     "start": 68.115,
+     "end": 72.24,
+     "song_t": 161.655,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 30,
+     "enter": "stamp",
+     "emphasis": "glow",
+     "pos": "top",
+     "align": "center"
+    }
+   ],
+   "end": 72.26,
+   "transition": {
+    "type": "flash",
+    "dur": 0.3
+   },
+   "visual": "Elle, silhouette rétroéclairée d'or, la montre au poignet levé, pluie de pièces d'or ; tout devient doré.",
+   "camera": "",
+   "animation": ""
+  }
+ ],
+ "outro": {
+  "dur": 0.9,
+  "color": "#05080f",
+  "text": true
+ }
+}

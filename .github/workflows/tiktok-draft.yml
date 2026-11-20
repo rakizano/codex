@@ -1,0 +1,88 @@
+# Envoi automatique des clips dans les brouillons (boîte de réception) TikTok.
+# Déclenché à chaque push qui ajoute/modifie clips/<slug>/video_avec_musique.mp4
+# ou, s'il n'y a pas de version avec musique, la version muette video_finale.mp4
+# (le son officiel s'ajoute gratuitement dans TikTok ; désactivable avec la variable TIKTOK_UPLOAD_SILENT=false),
+# ou manuellement avec le nom du dossier du clip.
+name: TikTok — envoi en brouillon
+
+on:
+  push:
+    paths:
+      - "clips/*/video_avec_musique.mp4"
+      - "clips/*/video_finale.mp4"
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: "Dossier du clip dans clips/ (ex. sdm-cartier-santos)"
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tiktok-token   # le refresh_token tourne : jamais deux envois en parallèle
+  cancel-in-progress: false
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Clips à envoyer
+        id: pick
+        env:
+          SLUG: ${{ inputs.slug }}
+          BEFORE: ${{ github.event.before }}
+          SILENT: ${{ vars.TIKTOK_UPLOAD_SILENT }}
+          HAS_TOKEN: ${{ secrets.TIKTOK_REFRESH_TOKEN != '' }}
+        run: |
+          if [ "$HAS_TOKEN" != "true" ]; then
+            echo "::notice::Compte TikTok pas encore connecté (secret TIKTOK_REFRESH_TOKEN absent) : rien envoyé. Voir TIKTOK_SETUP.md."
+            echo "videos=" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          if [ -n "$SLUG" ]; then
+            files="clips/$SLUG/video_avec_musique.mp4 clips/$SLUG/video_finale.mp4"
+          elif [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            files=$(git diff-tree --no-commit-id --name-only -r HEAD)
+          else
+            files=$(git diff --name-only "$BEFORE" "$GITHUB_SHA")
+          fi
+          list=""
+          for slug in $(echo "$files" | tr ' ' '\n' | grep -E '^clips/[^/]+/video_(avec_musique|finale)\.mp4$' | cut -d/ -f2 | sort -u); do
+            if [ -f "clips/$slug/video_avec_musique.mp4" ]; then list="$list clips/$slug/video_avec_musique.mp4"
+            elif [ "$SILENT" != "false" ] || [ -n "$SLUG" ]; then [ -f "clips/$slug/video_finale.mp4" ] && list="$list clips/$slug/video_finale.mp4"
+            else echo "::notice::$slug : pas encore de version avec musique, rien envoyé"; fi
+          done
+          echo "videos=$list" >> "$GITHUB_OUTPUT"
+          echo "À envoyer :$list"
+      - name: Renouveler le jeton TikTok (et sauvegarder le nouveau, il tourne)
+        if: steps.pick.outputs.videos != ''
+        env:
+          TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
+          TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
+          TIKTOK_REFRESH_TOKEN: ${{ secrets.TIKTOK_REFRESH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          python3 .claude/skills/clip-tiktok/scripts/tiktok_upload.py refresh --out "$RUNNER_TEMP/tok.json" || {
+            echo "::error::Jeton TikTok refusé : relancez le workflow « TikTok — connexion du compte » (voir TIKTOK_SETUP.md)"; exit 1; }
+          NEW=$(python3 -c "import json,os;print(json.load(open(os.environ['RUNNER_TEMP']+'/tok.json'))['refresh_token'])")
+          echo "::add-mask::$NEW"
+          gh secret set TIKTOK_REFRESH_TOKEN --repo "$GITHUB_REPOSITORY" --body "$NEW"
+      - name: Envoyer dans les brouillons TikTok
+        if: steps.pick.outputs.videos != ''
+        run: |
+          echo "### Envoi TikTok" >> "$GITHUB_STEP_SUMMARY"
+          rc=0
+          for v in ${{ steps.pick.outputs.videos }}; do
+            echo "→ $v"
+            if python3 .claude/skills/clip-tiktok/scripts/tiktok_upload.py upload --tokens "$RUNNER_TEMP/tok.json" --video "$v" > out.json 2>&1; then
+              echo "- ✅ \`$v\` : dans votre boîte de réception TikTok, il ne reste qu'à publier" >> "$GITHUB_STEP_SUMMARY"
+            else
+              rc=1; echo "- ❌ \`$v\` : $(tail -c 300 out.json)" >> "$GITHUB_STEP_SUMMARY"
+            fi
+            cat out.json
+          done
+          rm -f "$RUNNER_TEMP/tok.json"
+          exit $rc

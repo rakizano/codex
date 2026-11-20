@@ -1,0 +1,456 @@
+{
+ "song": {
+  "artist": "Cherry Pie",
+  "title": "BIR HAKEIM",
+  "album": null,
+  "version_duration": 243.0,
+  "lrclib_ref_id": 38952552,
+  "sync_confidence": "élevée",
+  "sync_spread_median_s": 0.0,
+  "n_sources": 4,
+  "notes": [
+   "Son TikTok = passage 2:22.0 → 2:57 environ de la chanson, légèrement accéléré (≈ ×1,05 d'après les débuts de lignes entendus).",
+   "Débuts de mots pris directement dans le son (Whisper large-v3, 52 mots) ; texte affiché = paroles LRCLIB, sans modification.",
+   "Après « …c'est pas toi qui va la ken » (12,3 s), plus aucune ligne de paroles dans la source jusqu'à la fin du son : partie instrumentale illustrée sans texte."
+  ]
+ },
+ "passage": {
+  "start": 0.0,
+  "end": 33.4,
+  "duration": 33.4,
+  "start_fmt": "0:00.000",
+  "end_fmt": "0:33.400"
+ },
+ "fps": 30,
+ "width": 1080,
+ "height": 1920,
+ "direction": {
+  "concept": "« Ligne 6, minuit » : une introspection à travers Paris depuis le métro aérien, de Bir-Hakeim à la tour Eiffel qui scintille.",
+  "universe": "Mélange des deux références : la vraie nuit parisienne filmée depuis la ligne 6 (façades haussmanniennes, Seine, phares) et l'animation stylisée de la station Bir-Hakeim (néons qui virent au violet, tour constellée d'éclats).",
+  "palette": {
+   "nuit": "#0b0d1c",
+   "or tour": "#ffc04a",
+   "sodium": "#ffb35c",
+   "violet": "#7a3cff",
+   "bleu plaque": "#1d3a8a",
+   "zinc": "#3a4252"
+  },
+  "typography": "Anton blanc en haut à gauche, mots qui apparaissent au moment où ils sont chantés, un mot rouge par phrase (croquis, l'aime, néons, Bir Hakeim, fille) ; plus de texte pendant la partie instrumentale.",
+  "graphic_style": "Illustration plate à ombrages doux, personnages au visage vierge (bonnet + locks + sweat noir), lumière dorée contre nuit bleue, grain fin.",
+  "animation_principles": "Parallaxe forte (métro qui roule), scintillement de la tour sur les temps forts, néons qui grésillent, caméra portée légère.",
+  "transitions": "Une coupe toutes les 4 pulsations ; transitions de vitesse (whip, push, zoom) dans la partie rythmée, fondus et dip violet après la bascule de 23,7 s.",
+  "references": "Vidéos de l'utilisateur : trajet ligne 6 de nuit (37 s) et animation Bir-Hakeim violette (14 s)."
+ },
+ "style": {
+  "fonts": [
+   "Anton"
+  ],
+  "typo": {
+   "font": "Anton",
+   "color": "#f6f2ea",
+   "red": "#e10600",
+   "size": 112,
+   "redScale": 1.08,
+   "lineHeight": 0.98,
+   "spacing": 0.005,
+   "enter": "line",
+   "emphasis": "none",
+   "exit": "none",
+   "wordIn": 0.1,
+   "shadow": "0 3px 0 rgba(0,0,0,.45)",
+   "redShadow": "0 3px 0 rgba(0,0,0,.45)",
+   "preroll": 0.02,
+   "maxHeight": 520,
+   "width": 820
+  },
+  "fx": {
+   "grain": 0.07,
+   "vignette": 0.45,
+   "grade": "contrast(1.06) saturate(1.1)",
+   "scrimTop": 0.35
+  },
+  "palette": {}
+ },
+ "beats": [
+  0.998,
+  1.649,
+  2.299,
+  2.949,
+  3.599,
+  4.249,
+  4.899,
+  5.55,
+  6.177,
+  6.827,
+  7.477,
+  8.127,
+  8.777,
+  9.427,
+  10.077,
+  10.728,
+  11.378,
+  12.028,
+  12.678,
+  13.328,
+  13.978,
+  14.605,
+  15.256,
+  15.906,
+  16.556,
+  17.206,
+  17.856,
+  18.506,
+  19.156,
+  19.807,
+  20.457,
+  21.107,
+  21.757,
+  22.407,
+  23.057,
+  23.708,
+  24.358,
+  25.008,
+  25.658,
+  26.308,
+  26.958,
+  27.609,
+  28.259,
+  28.909,
+  29.559,
+  30.209,
+  30.859,
+  31.509,
+  32.136,
+  32.763,
+  33.414
+ ],
+ "outro": {
+  "dur": 0.5,
+  "color": "#000000",
+  "text": true
+ },
+ "tiktok_sound": {
+  "source": "vidéo TikTok fournie par l'utilisateur (trajet ligne 6) — son « BIR HAKEIM » de Cherry Pie",
+  "duration_s": 33.4,
+  "song_start_s": 142.0,
+  "song_end_s": 177.0,
+  "speed": 1.048,
+  "instruction": "Dans le brouillon TikTok : « Ajouter un son » → choisir CE son (celui de la vidéo du métro, BIR HAKEIM de Cherry Pie) → ne pas couper : il démarre à 0:00 avec la vidéo → Publier."
+ },
+ "scenes": [
+  {
+   "id": "s00",
+   "start": 0,
+   "end": 2.9,
+   "lyrics": [
+    {
+     "text": "93 millions / je vais pas / te faire un / croquis",
+     "words": [
+      0.0,
+      0.16,
+      0.56,
+      0.74,
+      0.84,
+      1.06,
+      1.12,
+      1.32,
+      1.5
+     ],
+     "start": 0.0,
+     "end": 2.85,
+     "song_t": 141.99,
+     "timing": "mots entendus dans le son (Whisper large-v3), texte LRCLIB",
+     "red": "croquis",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "visual": "Noir → le tunnel du métro : les néons défilent en traînées, puis la rame jaillit à l'air libre (flash blanc).",
+   "transition": {
+    "type": "cut",
+    "dur": 0
+   },
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s01",
+   "start": 2.9,
+   "end": 4.38,
+   "lyrics": [
+    {
+     "text": "Et cette bitch / elle sait / que je l'aime",
+     "words": [
+      3.0,
+      3.34,
+      3.54,
+      3.74,
+      3.86,
+      4.02,
+      4.1,
+      4.18
+     ],
+     "start": 3.0,
+     "end": 4.36,
+     "song_t": 145.25,
+     "timing": "mots entendus dans le son (Whisper large-v3), texte LRCLIB",
+     "red": "l'aime",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "visual": "Souvenir en violet : un polaroïd d'eux deux (elle : chignon bouclé, créoles, sweat crème) clignote comme un néon fatigué, puis se dissout en grain.",
+   "transition": {
+    "type": "flash",
+    "dur": 0.25
+   },
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s02",
+   "start": 4.38,
+   "end": 6.98,
+   "lyrics": [
+    {
+     "text": "Sous les néons / d'Amsterdam je / te promets / qu'on verra qu'elle",
+     "words": [
+      4.48,
+      4.72,
+      4.8,
+      5.1,
+      5.76,
+      5.88,
+      6.02,
+      6.42,
+      6.56,
+      6.76
+     ],
+     "start": 4.48,
+     "end": 6.960000000000001,
+     "song_t": 146.72,
+     "timing": "mots entendus dans le son (Whisper large-v3), texte LRCLIB",
+     "red": "néons",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "visual": "Quai de Bir-Hakeim : plaque émaillée bleue « Bir-Hakeim / Tour Eiffel », néons qui grésillent et virent au violet ; lui (bonnet, locks, sweat noir) de dos attend, les phares de la rame grandissent.",
+   "transition": {
+    "type": "glitch",
+    "dur": 0.3
+   },
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s03",
+   "start": 6.98,
+   "end": 9.7,
+   "lyrics": [
+    {
+     "text": "C'est la seule / étoile filante / qu'on peut croiser / à Bir Hakeim",
+     "words": [
+      7.08,
+      7.34,
+      7.36,
+      7.64,
+      7.94,
+      8.3,
+      8.54,
+      8.66,
+      8.9,
+      9.06,
+      9.2
+     ],
+     "start": 7.08,
+     "end": 9.68,
+     "song_t": 149.43,
+     "timing": "mots entendus dans le son (Whisper large-v3), texte LRCLIB",
+     "red": [
+      "Bir",
+      "Hakeim"
+     ],
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "visual": "Plan large du viaduc de Bir-Hakeim : la rame illuminée traverse le pont à deux étages, une étoile filante raye le ciel au-dessus de la tour qui scintille, la Seine pleine de reflets.",
+   "transition": {
+    "type": "zoom",
+    "dur": 0.4,
+    "x": 540,
+    "y": 900,
+    "scale": 2.2
+   },
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s04",
+   "start": 9.7,
+   "end": 12.4,
+   "lyrics": [
+    {
+     "text": "Une fille / aux moeurs / légères mais / c'est pas toi / qui va la ken",
+     "words": [
+      9.8,
+      10.02,
+      10.24,
+      10.34,
+      10.54,
+      10.86,
+      10.96,
+      11.16,
+      11.2,
+      11.42,
+      11.6,
+      11.74,
+      11.84
+     ],
+     "start": 9.8,
+     "end": 12.38,
+     "song_t": 152.25,
+     "timing": "mots entendus dans le son (Whisper large-v3), texte LRCLIB",
+     "red": "fille",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "visual": "Dans la rame : il se tient à la barre, de face (visage vierge) ; par la fenêtre, les façades haussmanniennes défilent, son reflet flotte dans la vitre.",
+   "transition": {
+    "type": "whip",
+    "dur": 0.35,
+    "dir": "left"
+   },
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s05",
+   "start": 12.4,
+   "end": 15.26,
+   "lyrics": [],
+   "visual": "Les façades vues du métro aérien : fenêtres chaudes, balcons en fer forgé, toits en zinc, auvent rouge d'un café illuminé en bas ; travelling latéral rapide.",
+   "transition": {
+    "type": "push",
+    "dur": 0.45,
+    "dir": "left"
+   },
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s06",
+   "start": 15.26,
+   "end": 17.86,
+   "lyrics": [],
+   "visual": "La révélation : les immeubles s'écartent et la tour Eiffel apparaît, dorée, son phare balaie le ciel nuageux.",
+   "transition": {
+    "type": "slices",
+    "dur": 0.5,
+    "n": 7
+   },
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s07",
+   "start": 17.86,
+   "end": 20.46,
+   "lyrics": [],
+   "visual": "Introspection : gros plan de dos, ses locks et son bonnet contre la vitre embuée ; des gouttes glissent, la tour floue en bokeh au-delà.",
+   "transition": {
+    "type": "dip",
+    "dur": 0.4,
+    "color": "#000000"
+   },
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s08",
+   "start": 20.46,
+   "end": 22.41,
+   "lyrics": [],
+   "visual": "Depuis le pont : la tour scintille à pleine puissance, un bateau-mouche glisse sur la Seine, les reflets dansent.",
+   "transition": {
+    "type": "flash",
+    "dur": 0.3
+   },
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s09",
+   "start": 22.41,
+   "end": 23.71,
+   "lyrics": [],
+   "visual": "Plongée dans le scintillement : la caméra monte le long de la dentelle de fer jusqu'au sommet, les éclats explosent sur le temps.",
+   "transition": {
+    "type": "zoom",
+    "dur": 0.4,
+    "x": 540,
+    "y": 700,
+    "scale": 2.5
+   },
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s10",
+   "start": 23.71,
+   "end": 26.31,
+   "lyrics": [],
+   "visual": "Le son se pose : sous le viaduc, la colonnade de fer en perspective, lampadaires, tout bascule dans le violet ; il marche seul vers le fond.",
+   "transition": {
+    "type": "dip",
+    "dur": 0.5,
+    "color": "#2a0e4a"
+   },
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s11",
+   "start": 26.31,
+   "end": 28.91,
+   "lyrics": [],
+   "visual": "Une avenue la nuit : traînées de phares et feux arrière, arbres, la tour au bout de la rue ; lui, petit, sur le trottoir.",
+   "transition": {
+    "type": "blinds",
+    "dur": 0.5,
+    "n": 8
+   },
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s12",
+   "start": 28.91,
+   "end": 31.51,
+   "lyrics": [],
+   "visual": "Retour chez lui : façade haussmannienne, une seule fenêtre allumée avec sa silhouette qui regarde la tour au loin ; les autres fenêtres s'éteignent une à une.",
+   "transition": {
+    "type": "diagonal",
+    "dur": 0.5
+   },
+   "camera": "",
+   "animation": ""
+  },
+  {
+   "id": "s13",
+   "start": 31.51,
+   "end": 33.4,
+   "lyrics": [],
+   "visual": "Minuit : la tour scintille une dernière fois puis s'éteint, il ne reste que les étoiles et la ville.",
+   "transition": {
+    "type": "fade",
+    "dur": 0.6
+   },
+   "camera": "",
+   "animation": ""
+  }
+ ],
+ "lyrics_file": "work/lyrics_sound_scenes.json"
+}

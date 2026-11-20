@@ -1,0 +1,92 @@
+{
+ "artist": "Cherry Pie",
+ "title": "BIR HAKEIM",
+ "album": "BIR HAKEIM",
+ "duration": 33.4,
+ "lrclib_ref_id": 38952552,
+ "version_cluster_ids": [
+  38952552,
+  38987843,
+  38925078,
+  39873396
+ ],
+ "version_cluster_albums": [
+  "BIR HAKEIM",
+  "BIR HAKEIM - Single",
+  "Back to Bag #4",
+  "Cherry Pie"
+ ],
+ "other_versions": [
+  {
+   "duration": 240.0,
+   "n": 1,
+   "albums": [
+    "BIR HAKEIM"
+   ]
+  },
+  {
+   "duration": 244.0,
+   "n": 4,
+   "albums": [
+    "BIR HAKEIM",
+    "BIR HAKEIM - Single",
+    "Back to Bag #4",
+    "Cherry Pie"
+   ]
+  }
+ ],
+ "n_sources": 4,
+ "text_agreement": [
+  1.0,
+  1.0,
+  1.0
+ ],
+ "sources_disagreeing": [],
+ "sync_spread_median_s": 0.0,
+ "sync_spread_p90_s": 0.0,
+ "sync_confidence": "élevée",
+ "sync_method": "LRCLIB (paroles synchronisées ligne par ligne par la communauté), médiane multi-sources",
+ "lines": [
+  {
+   "t": 0.0,
+   "text": "93 millions je vais pas te faire un croquis",
+   "song_t": 141.99,
+   "i": 0,
+   "end": 2.85,
+   "gap_after": 0
+  },
+  {
+   "t": 3.0,
+   "text": "Et cette bitch elle sait que je l'aime",
+   "song_t": 145.25,
+   "i": 1,
+   "end": 4.38,
+   "gap_after": 0
+  },
+  {
+   "t": 4.48,
+   "text": "Sous les néons d'Amsterdam je te promets qu'on verra qu'elle",
+   "song_t": 146.72,
+   "i": 2,
+   "end": 6.98,
+   "gap_after": 0
+  },
+  {
+   "t": 7.08,
+   "text": "C'est la seule étoile filante qu'on peut croiser à Bir Hakeim",
+   "song_t": 149.43,
+   "i": 3,
+   "end": 9.7,
+   "gap_after": 0
+  },
+  {
+   "t": 9.8,
+   "text": "Une fille aux moeurs légères mais c'est pas toi qui va la ken",
+   "song_t": 152.25,
+   "i": 4,
+   "end": 12.4,
+   "gap_after": 0
+  }
+ ],
+ "sound_clock": true
+}

@@ -1,0 +1,111 @@
+DIRECTION ARTISTIQUE — SDM « Cartier Santos »
+
+CONCEPT / NARRATION
+  Le refrain et le 2e couplet tournés comme un court-métrage d'animation nocturne : la rencontre, l'argent qui file, la chaîne invisible, la rupture. Chaque phrase est un plan différent, avec des personnages qui vivent (marche, respiration, regards, cheveux et vêtements qui suivent le mouvement).
+
+UNIVERS VISUEL
+  Animation 2D cinéma : rues mouillées de banlieue, néons, intérieurs intimes, toits à l'aube ; lumière soignée et profondeur de champ.
+
+PALETTE
+  nuit           #0b1226
+  bleu cité      #1b2a4a
+  sodium         #ffb35c
+  magenta        #ff4f9a
+  or             #e6c069
+  peau           #c98d6a
+  rouge signature #e10600
+
+TYPOGRAPHIE
+  Montserrat 800 en capitales, blanc, ombre douce, sur un voile sombre en haut de l'image ; mot rouge plus grand ; apparition mot à mot sur le flow.
+
+STYLE GRAPHIQUE
+  Aplats colorés éclairés (dégradés, halos, contre-jours), plans en couches avec flou de profondeur, pluie et éclaboussures, bokeh au premier plan, grain léger.
+
+PRINCIPES D'ANIMATION
+  Tout bouge en permanence : caméra portée subtile + travellings lents, personnages avec mains, chaussures, clignements, cheveux et manteaux qui suivent ; lumières qui vacillent ; aucun sujet coupé ni caché sous le texte (contrôle de cadrage automatique).
+
+TRANSITIONS & MONTAGE
+  Montage cinéma : fondus, passages au noir, coups de fouet sur les accélérations, flash blanc sur l'orage, poussées latérales.
+
+INFLUENCES
+  Courts-métrages d'animation 2D nocturnes ; personnages fictifs.
+
+DÉCOUPAGE (scène → image)
+  s00  0.00- 3.62s  La vie d'ma mère, bébé, ma tchop sans coco,
+       image : Rue mouillée de nuit au pied des tours : il pose un genou à terre et lui tient la main ; pluie, éclaboussures, halos de réverbères.
+       transition d'entrée : cut
+  s01  3.62- 6.14s  j'peux être ton bébé
+       image : Travelling latéral : leur voiture roule de nuit, les lumières des réverbères balaient l'habitacle.
+       transition d'entrée : fade
+  s02  6.14- 9.00s  Elle savait m'parler, au bout d'deux, trois dél',
+       image : Assis sur le capot de la voiture au-dessus de la ville floue, elle parle avec les mains, il rit.
+       transition d'entrée : push
+  s03  9.00-11.64s  j'me mets à rêver
+       image : Chambre de nuit : il est allongé sur le lit, nuages qui défilent à la fenêtre, lucioles de rêve qui montent.
+       transition d'entrée : fade
+  s04 11.64-13.97s  Que j'prends sur moi, dés l'début, elle,
+       image : Rue dans la brume : il marche lentement, tête basse, les réverbères passent.
+       transition d'entrée : dip
+  s05 13.97-16.34s  elle a seulement voulu prendre des sous sur me
+       image : Gros plan : un portefeuille s'ouvre, des billets passent de sa main à la main de la jeune femme.
+       transition d'entrée : whip
+  s06 16.34-17.74s  Quand j'avais pas one sur moi,
+       image : Cage d'escalier : il est assis sur les marches, un néon grésille, portefeuille vide à côté.
+       transition d'entrée : fade
+  s07 17.74-21.48s  pas d'souci pour elle, d'toute façon j'étais le huitième de tous ses mecs
+       image : Boîte de nuit : elle danse au centre, sept silhouettes d'hommes autour, faisceaux qui balaient la brume.
+       transition d'entrée : flash
+  s08 21.48-22.98s  Faudra d'la foi et du courage,
+       image : Toit à l'aube : il se tient au bord, le vent fait bouger sa capuche, oiseaux.
+       transition d'entrée : fade
+  s09 22.98-24.88s  une relation remplie de rage, j'vois jamais l'soleil,
+       image : Cuisine : ils se disputent, une lampe suspendue se balance, une assiette tombe et se brise.
+       transition d'entrée : whip
+  s10 24.88-26.46s  que l'orage
+       image : Orage sur les tours : éclairs, pluie battante, fenêtres qui s'éteignent.
+       transition d'entrée : flash
+  s11 26.46-28.02s  Elle veut son blase en tatouage,
+       image : Gros plan d'un avant-bras : la machine dessine un tatouage cœur, lampe d'atelier.
+       transition d'entrée : dip
+  s12 28.02-31.28s  que j'me sépare d'mon entourage, la dernière collection Courrèges
+       image : Boulevard illuminé : ses potes s'éloignent au fond, elle l'entraîne avec des sacs de luxe.
+       transition d'entrée : push
+  s13 31.28-33.20s  Mon Dieu, dans quel film on est?
+       image : Cinéma : faisceau du projecteur plein de poussière, leur couple à l'écran, il est assis de dos.
+       transition d'entrée : fade
+  s14 33.20-36.88s  Mais comment j'me suis attaché sans la connaître?
+       image : Gros plan : deux poignets liés par un fil doré lumineux qui pulse.
+       transition d'entrée : zoom
+  s15 36.88-38.89s  Que elle veut ci, elle veut ça, pourtant,
+       image : Vitrine de luxe : montre, sac, escarpins sur socles éclairés, elle pointe du doigt.
+       transition d'entrée : push
+  s16 38.89-40.65s  on m'a juré qu'le bonheur
+       image : Lever de soleil sur la banlieue, il est assis sur une colline, oiseaux, lumière dorée.
+       transition d'entrée : fade
+  s17 40.65-41.86s  s'trouvait pas dans la monnaie
+       image : Pièces et billets emportés par le vent dans une rue mouillée.
+       transition d'entrée : dip
+  s18 41.86-45.24s  J'l'élimine à ses vues, c'est qu'une tch', à ces,
+       image : Chambre sombre : il tient son téléphone, la lueur éclaire son visage, une fiche contact glisse hors de l'écran.
+       transition d'entrée : whip
+  s19 45.24-47.16s  j'l'assimile
+       image : Vitre striée de pluie : son profil derrière, gouttes qui coulent, bokeh de la ville.
+       transition d'entrée : fade
+  s20 47.16-48.58s  Oh là là, pas si vite,
+       image : Rue : il s'éloigne, elle le rattrape par le bras.
+       transition d'entrée : whip
+  s21 48.58-49.98s  elle me dit "tu bouges pas, ton sang,
+       image : Gros plan de profil : elle, regard intense, lumière rasante.
+       transition d'entrée : cut
+  s22 49.98-52.98s  j'ai pas assez bu"
+       image : Pleine lune : sa silhouette sur un toit, manteau au vent, chauves-souris.
+       transition d'entrée : flash
+  s23 52.98-54.68s  J'prends plus sur moi, c'est fini,
+       image : Longue rue en perspective : il s'éloigne et rapetisse sous les réverbères.
+       transition d'entrée : dip
+  s24 54.68-57.52s  j'y ai réfléchi toute la semaine
+       image : Quai de gare la nuit : il est assis sur un banc, des trains passent en traînées lumineuses, l'horloge tourne.
+       transition d'entrée : fade
+  s25 57.52-60.02s  Elle me répond "est-ce que t'es sûr?", me dit "dommage,
+       image : Gros plan d'un téléphone dans la main : sa bulle de message arrive, points de saisie.
+       transition d'entrée : zoom

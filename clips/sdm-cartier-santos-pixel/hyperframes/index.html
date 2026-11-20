@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #0d0d0d; }
+      /* yt-screen-warp (catalogue HyperFrames) : la vidéo lue sur un écran physique */
+      .yt-screen-warp3d { transform: perspective(1400px) rotateY(-3.5deg) rotateX(1.6deg) scale(1.07); }
+      .yt-screen-fx {
+        position: absolute; inset: 0; pointer-events: none; opacity: 0;
+        background:
+          linear-gradient(115deg, rgba(255, 255, 255, 0.09) 0%, transparent 30%),
+          repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0 1px, transparent 1px 3px),
+          repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.06) 0 1px, transparent 1px 4px);
+        box-shadow: inset 0 0 90px rgba(0, 0, 0, 0.4), inset 0 0 8px rgba(0, 0, 0, 0.5);
+      }
+      #screen { position: absolute; inset: 0; overflow: hidden; }
+      #grid-pixelate-overlay .grid-cell { background: #0d0d0d; transform-origin: center center; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="60.03" data-width="1080" data-height="1920">
+      <div id="screen" class="yt-screen-warp3d">
+        <video id="a-roll" class="clip" src="assets/sdm_pixel.mp4" playsinline muted
+               data-start="0" data-duration="60.03" data-track-index="0"
+               style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover"></video>
+        <div class="yt-screen-fx" id="crt-fx"></div>
+      </div>
+      <!-- grid-pixelate-wipe (catalogue HyperFrames), grille 9×16 pour le vertical -->
+      <div id="grid-pixelate-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; display: grid; grid-template-columns: repeat(9, 1fr); grid-template-rows: repeat(16, 1fr)"></div>
+      <!-- Son TikTok : pour un aperçu, déposer le son dans assets/sound.m4a et ajouter :
+      <audio id="music" class="clip" src="assets/sound.m4a" data-start="0" data-duration="60.03" data-track-index="2"></audio> -->
+    </div>
+    <script>
+      (function () { const o = document.getElementById("grid-pixelate-overlay"); for (let i = 0; i < 9 * 16; i++) { const c = document.createElement("div"); c.className = "grid-cell"; o.appendChild(c); } })();
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      // écran CRT : allumage rapide, reste allumé, s'éteint à la fin
+      tl.to("#crt-fx", { opacity: 1, duration: 0.5, ease: "power2.out" }, 0.1);
+      tl.to("#crt-fx", { opacity: 0, duration: 0.4, ease: "power2.in" }, 59.3);
+      // grille de pixels : révélation au début, recouvrement à la fin
+      tl.set("#grid-pixelate-overlay .grid-cell", { scale: 1 }, 0);
+      tl.to("#grid-pixelate-overlay .grid-cell", { scale: 0, duration: 0.5, stagger: { amount: 0.5, from: "center" }, ease: "power2.inOut" }, 0.0);
+      tl.to("#grid-pixelate-overlay .grid-cell", { scale: 1, duration: 0.45, stagger: { amount: 0.45, from: "edges" }, ease: "power2.inOut" }, 59.1);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

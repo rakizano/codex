@@ -1,0 +1,45 @@
+TITRE      : Peace, Haine, Love
+ARTISTE    : Josman
+VERSION    : M.A.N (2022) — durée de la version : 4:01 (241 s)
+
+SON TIKTOK UTILISÉ (clip calé dessus, de sa 1re à sa dernière seconde)
+  Source   : vidéo TikTok fournie par l'utilisateur
+  Durée    : 60.05 s  (= durée exacte de video_finale.mp4)
+  Passage de la chanson contenu dans le son : 0:48.070 → 1:48.115 (vitesse ×1.000)
+
+PLACER LA MUSIQUE
+  Dans le brouillon TikTok : « Ajouter un son » → choisir CE son (celui de la vidéo fournie) → ne pas couper : il démarre à 0:00 avec la vidéo → Publier.
+
+FIABILITÉ DES TIMESTAMPS
+  Méthode  : paroles synchronisées LRCLIB, médiane de 11 source(s) concordante(s)
+  Écart médian entre sources : 0.03 s — confiance : élevée
+  Note : Clip calé sur le son TikTok fourni (60.05 s) : passage de la chanson 48.1 s → 108.1 s, vitesse normale.
+  Note : Débuts de phrases pris sur les mots entendus (Whisper : 177 mots appariés, erreur d'ajustement 0.132 s).
+  Note : Écartés : « J'fais face à tous mes démons… » (commencée avant le son) et « J'me sens pas trop peace, haine, love » (coupée par la fin du son) ; ad-libs non affichés.
+  Synchronisation vérifiée sur l'audio du son TikTok (reconnaissance des paroles chantées).
+  Le timing mot par mot à l'intérieur d'une phrase est ESTIMÉ (répartition syllabique).
+
+PAROLES ET TIMESTAMPS (son TikTok | vidéo)
+  0:50.640 |   2.57s  [s01]  Putain encore un soir où je sais qu'j'dormirai pas   (mot rouge : soir)
+  0:53.020 |   4.95s  [s02]  Où j'm'endormirai à l'aube, relation tombée à l'eau   (mot rouge : relation)
+  0:55.670 |   7.60s  [s03]  J'réponds plus trop aux appels, quand c'est l'argent j'réponds "allô"   (mot rouge : appels)
+  0:58.110 |  10.04s  [s04]  Loyauté qui s'fait la belle et l'honneur qui s'fait la malle   (mot rouge : loyauté)
+  1:00.630 |  12.56s  [s05]  C'soir j'ai le blues qui fait mal,   (mot rouge : blues)
+  1:01.970 |  13.90s  [s05]  on dirait qu'j'ai perdu le goût   (mot rouge : goût)
+  1:03.310 |  15.24s  [s06]  J'sens plus les saveurs et arômes, j'fais ma route à contre sens   (mot rouge : saveurs)
+  1:05.730 |  17.66s  [s07]  T'façon tous les chemins mènent à Rome,   (mot rouge : Rome)
+  1:07.070 |  19.00s  [s07]  t'façon ils mènent tous à la mort   (mot rouge : mort)
+  1:08.410 |  20.34s  [s08]  T'façon ce monde est hardcore, que le ciel me laisse une chance   (mot rouge : chance)
+  1:11.190 |  23.12s  [s09]  J'la saisirai à bras l'corps, il faut encore que j'explore   (mot rouge : explore)
+  1:13.670 |  25.60s  [s10]  J'ai encore rien vu de la flore, j'ai encore rien vu de la faune   (mot rouge : flore)
+  1:16.150 |  28.08s  [s11]  J'ai longtemps crié ma haine, jusqu'à en devenir aphone   (mot rouge : haine)
+  1:18.790 |  30.72s  [s12]  J'ai gardé le cœur dans la paume, donc il est rempli d'hématomes   (mot rouge : cœur)
+  1:21.370 |  33.30s  [s13]  J'le ressens dans tous mes atomes   (mot rouge : atomes)
+  1:23.550 |  35.48s  [s14]  Personne viendra avec moi dans ma tombe   (mot rouge : tombe)
+  1:25.770 |  37.70s  [s15]  J'ai croqué mais j'ai pas avalé la pomme   (mot rouge : pomme)
+  1:28.390 |  40.32s  [s16]  Cercle fermé, je n'vais pas rentrer dans la ronde   (mot rouge : ronde)
+  1:31.530 |  43.46s  [s17]  Dans la vie comme sur le ring,   (mot rouge : ring)
+  1:33.950 |  45.88s  [s17]  j'suis tout seul, j'ai ma paire de gants   (mot rouge : gants)
+  1:36.710 |  48.64s  [s18]  J'me bats pour mes frères de sang   (mot rouge : sang)
+  1:39.190 |  51.12s  [s19]  J'suis baisé, j'peux pas perdre de temps   (mot rouge : temps)
+  1:41.490 |  53.42s  [s20]  Les sentiments qui s'envolent, les sentiments qui s'envolent   (mot rouge : sentiments)

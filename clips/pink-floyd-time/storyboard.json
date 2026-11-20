@@ -1,0 +1,348 @@
+{
+ "song": {
+  "artist": "Pink Floyd",
+  "title": "Time",
+  "album": "The Dark Side Of The Moon (Japan)",
+  "version_duration": 425.0,
+  "lrclib_ref_id": 7563200,
+  "sync_confidence": "élevée",
+  "sync_spread_median_s": 0.04,
+  "n_sources": 4
+ },
+ "passage": {
+  "start": 317.19,
+  "end": 356.0,
+  "duration": 38.81,
+  "start_fmt": "5:17.190",
+  "end_fmt": "5:56.000"
+ },
+ "fps": 30,
+ "width": 1080,
+ "height": 1920,
+ "direction": {
+  "concept": "Le dernier couplet de « Time » raconté comme la journée d'un seul homme : un Anglais au chapeau melon qui vieillit au rythme des horloges. Chaque phrase est un tableau surréaliste où le temps devient matière (sablier géant, pages de calendrier qui s'envolent, aiguille à laquelle on s'accroche, disque-horloge qui ralentit) jusqu'à la dernière image : l'homme minuscule s'éloigne dans le désert nocturne.",
+  "universe": "Surréalisme des pochettes de rock progressif des années 70 (influence Magritte/Dalí, peinture à plat), désert ocre aux perspectives impossibles, ciel indigo, objets du temps démesurés.",
+  "palette": {
+   "nuit indigo": "#0f0d24",
+   "indigo moyen": "#2a2452",
+   "ocre désert": "#c98b4a",
+   "sable clair": "#e7c28e",
+   "os / papier": "#efe6d2",
+   "laiton oxydé": "#a8834e",
+   "ombre sarcelle": "#1d3a42",
+   "rouge signature": "#e10600"
+  },
+  "typography": "DM Serif Display, capitales, couleur os (#efe6d2) avec ombre portée douce : un serif éditorial élégant et mélancolique, cohérent avec l'époque. Mot rouge dans la même fonte, plus grand (×1.3). Animations lentes : fondu flouté, montée, glissement ; le mot SHORTER rétrécit, DEATH et MORE arrivent en retard, SCRIBBLED tremble.",
+  "graphic_style": "Aplats vectoriels peints, dégradés de ciel, grain argentique (9 %), vignettage marqué, étalonnage chaud légèrement désaturé. Silhouettes noires sur fonds chauds ; distorsion progressive (plan qui se désagrège) pour l'échec des projets.",
+  "animation_principles": "Lenteur et poids : caméra qui oscille comme un pendule, travellings lents, parallaxe sur 3 à 5 plans. Les personnages respirent, marchent, se balancent. Les horloges tournent toujours — accélérées quand le temps « file », figées à la fin.",
+  "transitions": "Signature : balayage d'aiguille (transition radiale) aux moments-clés ; ailleurs encre, zoom à travers, stores, poussée latérale, bande rouge. Fondu au noir final sur la note tenue de « say ».",
+  "references": "Esthétique des pochettes surréalistes des années 70, sans reprendre la pochette de l'album."
+ },
+ "style": {
+  "fonts": [
+   "DM Serif Display"
+  ],
+  "typo": {
+   "font": "DM Serif Display",
+   "color": "#efe6d2",
+   "red": "#e10600",
+   "size": 120,
+   "redScale": 1.3,
+   "lineHeight": 0.98,
+   "enter": "rise",
+   "emphasis": "grow",
+   "exit": "blur",
+   "exitDur": 0.3,
+   "shadow": "0 6px 22px rgba(10,6,20,.55)",
+   "redShadow": "0 6px 26px rgba(40,0,0,.45)",
+   "wordIn": 0.42,
+   "sylDur": 0.24
+  },
+  "fx": {
+   "grain": 0.09,
+   "vignette": 0.55,
+   "grade": "sepia(.12) contrast(1.06) saturate(.92)"
+  },
+  "palette": {}
+ },
+ "beats": [],
+ "scenes": [
+  {
+   "id": "s00",
+   "start": 0.0,
+   "lyrics": [
+    {
+     "text": "Shorter / of breath,",
+     "red": "breath",
+     "start": 0.345,
+     "end": 1.83,
+     "song_t": 317.535,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 18,
+     "enter": "blur",
+     "emphasis": "breathe",
+     "pos": "upper",
+     "sing": 0.7,
+     "exitDur": 0.15
+    }
+   ],
+   "end": 1.785,
+   "transition": {
+    "type": "cut",
+    "dur": 0
+   },
+   "visual": "Gros plan : profil de l'homme au chapeau melon sur le désert au crépuscule, une horloge-soleil énorme derrière lui ; son souffle s'échappe en petite vapeur.",
+   "camera": "lente poussée avant",
+   "animation": "respiration du personnage, vapeur qui monte, aiguilles de l'horloge-soleil"
+  },
+  {
+   "id": "s01",
+   "start": 1.785,
+   "lyrics": [
+    {
+     "text": "and one day / closer to death",
+     "red": "death",
+     "start": 1.905,
+     "end": 7.3,
+     "song_t": 319.095,
+     "timing": "estimé (découpe intra-ligne)",
+     "src_line": 18,
+     "enter": "rise",
+     "emphasis": "late",
+     "pos": "top"
+    }
+   ],
+   "end": 7.44,
+   "transition": {
+    "type": "radial",
+    "dur": 0.7,
+    "color": "#efe6d2"
+   },
+   "visual": "Plan large : sablier géant planté dans les dunes ocre ; l'homme minuscule marche vers lui, le sable s'écoule.",
+   "camera": "travelling latéral + léger dézoom",
+   "animation": "marche, sable qui s'écoule, poussière"
+  },
+  {
+   "id": "s02",
+   "start": 7.44,
+   "lyrics": [
+    {
+     "text": "Every year / is getting / shorter",
+     "red": "shorter",
+     "start": 7.56,
+     "end": 10.91,
+     "song_t": 324.75,
+     "timing": "LRC",
+     "src_line": 19,
+     "enter": "slide",
+     "emphasis": "shrink",
+     "pos": "upper",
+     "align": "left"
+    }
+   ],
+   "end": 10.93,
+   "transition": {
+    "type": "ink",
+    "dur": 0.7
+   },
+   "visual": "Ciel indigo de nuit : des pages de calendrier (années) s'arrachent et s'envolent au vent au-dessus de l'homme assis sur un banc.",
+   "camera": "contre-plongée qui monte avec les pages",
+   "animation": "pages qui tourbillonnent, homme assis immobile, étoiles"
+  },
+  {
+   "id": "s03",
+   "start": 10.93,
+   "lyrics": [
+    {
+     "text": "Never seem / to find the time",
+     "red": "time",
+     "start": 11.05,
+     "end": 14.32,
+     "song_t": 328.24,
+     "timing": "LRC",
+     "src_line": 20,
+     "enter": "blur",
+     "emphasis": "glow",
+     "pos": "lower"
+    }
+   ],
+   "end": 14.34,
+   "transition": {
+    "type": "zoom",
+    "dur": 0.6
+   },
+   "visual": "Labyrinthe aérien d'horloges flottantes de toutes tailles, chacune à une heure différente ; l'homme les cherche avec une lanterne.",
+   "camera": "rotation lente façon pendule",
+   "animation": "horloges qui tournent à des vitesses différentes, lanterne qui vacille"
+  },
+  {
+   "id": "s04",
+   "start": 14.34,
+   "lyrics": [
+    {
+     "text": "Plans that / either come / to naught",
+     "red": "naught",
+     "start": 14.46,
+     "end": 18.4,
+     "song_t": 331.65,
+     "timing": "LRC",
+     "src_line": 21,
+     "enter": "rise",
+     "emphasis": "reveal",
+     "pos": "top",
+     "align": "left"
+    }
+   ],
+   "end": 18.42,
+   "transition": {
+    "type": "blinds",
+    "dur": 0.6,
+    "dir": "vertical",
+    "n": 9
+   },
+   "visual": "Plan d'architecte bleu (blueprint) d'une maison idéale qui se dessine puis se désagrège en poussière.",
+   "camera": "plongée zénithale, dérive",
+   "animation": "tracés qui apparaissent puis se dissolvent"
+  },
+  {
+   "id": "s05",
+   "start": 18.42,
+   "lyrics": [
+    {
+     "text": "Or half a page / of scribbled lines",
+     "red": "scribbled",
+     "start": 18.54,
+     "end": 22.655,
+     "song_t": 335.73,
+     "timing": "LRC",
+     "src_line": 22,
+     "enter": "type",
+     "emphasis": "shake",
+     "pos": "top"
+    }
+   ],
+   "end": 22.675,
+   "transition": {
+    "type": "push",
+    "dur": 0.55,
+    "dir": "left"
+   },
+   "visual": "Bureau vu de dessus à la bougie : une page à moitié couverte de lignes griffonnées qui s'écrivent toutes seules, plume en mouvement.",
+   "camera": "léger travelling vers le bas",
+   "animation": "lignes qui s'écrivent, flamme de bougie"
+  },
+  {
+   "id": "s06",
+   "start": 22.675,
+   "lyrics": [
+    {
+     "text": "Hanging on / in quiet / desperation",
+     "red": "desperation",
+     "start": 22.795,
+     "end": 25.825,
+     "song_t": 339.985,
+     "timing": "LRC",
+     "src_line": 23,
+     "enter": "drop",
+     "emphasis": "shake",
+     "pos": "bottom"
+    }
+   ],
+   "end": 25.845,
+   "transition": {
+    "type": "ink",
+    "dur": 0.6
+   },
+   "visual": "Nuit : l'homme suspendu à l'aiguille d'une immense horloge de tour au-dessus de la ville, jambes dans le vide.",
+   "camera": "contre-plongée vertigineuse, léger tremblement",
+   "animation": "balancement du corps, aiguille qui descend, fenêtres qui clignotent"
+  },
+  {
+   "id": "s07",
+   "start": 25.845,
+   "lyrics": [
+    {
+     "text": "Is the / English way",
+     "red": "english",
+     "start": 25.965,
+     "end": 30.41,
+     "song_t": 343.155,
+     "timing": "LRC",
+     "src_line": 24,
+     "enter": "rise",
+     "emphasis": "reveal",
+     "pos": "top"
+    }
+   ],
+   "end": 30.43,
+   "transition": {
+    "type": "bar",
+    "dur": 0.6,
+    "dir": "right",
+    "color": "#e10600"
+   },
+   "visual": "Rue grise sous la bruine : une file d'hommes identiques au chapeau melon et parapluie marchent au pas.",
+   "camera": "travelling latéral accompagnant la file",
+   "animation": "marche synchronisée, pluie"
+  },
+  {
+   "id": "s08",
+   "start": 30.43,
+   "lyrics": [
+    {
+     "text": "The time is gone, / the song is over",
+     "red": "gone",
+     "start": 30.55,
+     "end": 33.645,
+     "song_t": 347.74,
+     "timing": "LRC",
+     "src_line": 25,
+     "enter": "blur",
+     "emphasis": "late",
+     "pos": "upper"
+    }
+   ],
+   "end": 33.665,
+   "transition": {
+    "type": "radial",
+    "dur": 0.7,
+    "color": "#efe6d2"
+   },
+   "visual": "Disque vinyle-horloge sous un projecteur, qui ralentit et s'arrête ; le bras de lecture se relève.",
+   "camera": "lente rotation + zoom avant",
+   "animation": "rotation qui décélère, poussière dans le faisceau"
+  },
+  {
+   "id": "s09",
+   "start": 33.665,
+   "lyrics": [
+    {
+     "text": "Thought I'd / something / more to say",
+     "red": "more",
+     "start": 33.785,
+     "end": 38.55,
+     "song_t": 350.975,
+     "timing": "LRC",
+     "src_line": 26,
+     "enter": "drift",
+     "emphasis": "late",
+     "pos": "upper"
+    }
+   ],
+   "end": 38.81,
+   "transition": {
+    "type": "dip",
+    "dur": 0.7,
+    "color": "#05040c"
+   },
+   "visual": "Désert nocturne immense sous les étoiles et une lune pâle : l'homme minuscule s'éloigne vers l'horizon, ses traces derrière lui.",
+   "camera": "lent dézoom vers le très large",
+   "animation": "marche qui s'éloigne, étoiles qui s'allument"
+  }
+ ],
+ "outro": {
+  "dur": 1.1,
+  "color": "#05040c",
+  "text": true
+ }
+}

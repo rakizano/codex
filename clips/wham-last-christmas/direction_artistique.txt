@@ -1,0 +1,85 @@
+DIRECTION ARTISTIQUE — Wham! « Last Christmas »
+
+CONCEPT / NARRATION
+  Une carte de Noël en papier découpé qui raconte l'histoire du cœur : offert l'an dernier, donné à quelqu'un d'autre dès le lendemain, puis repris et confié cette année à « quelqu'un de spécial ». Le cœur rose est l'objet qui passe de scène en scène.
+
+UNIVERS VISUEL
+  Papier découpé façon carte pop-up et synth-pop des années 80 : village enneigé, patinoire, sapin, boule de Noël géante, aurore boréale, feux d'artifice du Nouvel An.
+
+PALETTE
+  nuit bleue     #10324a
+  neige          #f6f2ea
+  givre          #a9d3e6
+  menthe         #8fd3c1
+  rose poudré    #f2a7b8
+  or             #e9c46a
+  vert sapin     #1f5e4a
+  rouge signature #e10600
+
+TYPOGRAPHIE
+  Righteous (ronde, années 80), capitales, blanc neige avec ombre portée bleu nuit ; mot rouge plus grand, en retard, qui pulse ou qui brille selon la phrase ; entrées douces (rise, pop, drop, blur).
+
+STYLE GRAPHIQUE
+  Couches de papier aplaties avec ombres portées douces (effet pop-up), texture papier, grain léger ; personnages en silhouettes colorées : lui en vert sapin, elle en rose poudré ; aucune couleur rouge dans les décors.
+
+PRINCIPES D'ANIMATION
+  Tempo pop régulier et tendre : neige qui tombe en continu, couches qui glissent en parallaxe, balancements, objets qui tournent lentement ; plus de mouvement sur le refrain.
+
+TRANSITIONS & MONTAGE
+  Étoile dorée et cœur rose (formes), stores façon rubans de paquet cadeau, poussées latérales comme des pages de carte, flash blanc de neige, fondu final.
+
+INFLUENCES
+  Cartes de vœux pop-up et illustrations papier découpé ; aucune reprise du clip original.
+
+DÉCOUPAGE (scène → image)
+  s00  0.00- 3.86s  My God, I thought you were someone to rely on
+       image : Pont enneigé en papier découpé la nuit : elle et lui marchent main dans la main sous un réverbère.
+       transition d'entrée : cut
+  s01  3.86- 8.20s  Me? I guess I was a shoulder to cry on
+       image : Banc sous la neige : elle pose la tête sur son épaule, les flocons tombent comme des larmes.
+       transition d'entrée : push
+  s02  8.20-12.66s  A face on a lover with a fire in his heart
+       image : Intérieur chaleureux : silhouette devant une cheminée, un cœur lumineux qui brûle dans sa poitrine.
+       transition d'entrée : shape
+  s03 12.66-15.26s  A man undercover,
+       image : Rue enneigée : un homme col relevé et chapeau, caché derrière un journal sous un réverbère.
+       transition d'entrée : blinds
+  s04 15.26-19.96s  but you tore me apart
+       image : Gros plan : un cœur de papier rose qui se déchire en deux moitiés qui s'éloignent.
+       transition d'entrée : dip
+  s05 19.96-22.28s  Ooh-hoo
+       image : Aurore boréale menthe et rose au-dessus des collines enneigées, étoile filante.
+       transition d'entrée : iris
+  s06 22.28-24.50s  Now I've found a real love,
+       image : Patinoire gelée sous des guirlandes : un nouveau couple patine en glissant.
+       transition d'entrée : flash
+  s07 24.50-27.42s  you'll never fool me again
+       image : Boule à neige secouée : une petite silhouette à l'intérieur, la neige tourbillonne.
+       transition d'entrée : push
+  s08 27.42-31.42s  Last Christmas, I gave you my heart
+       image : Sapin en papier découpé avec étoile d'or : un paquet cadeau s'ouvre et un cœur rose s'envole.
+       transition d'entrée : shape
+  s09 31.42-34.18s  But the very next day,
+       image : Matin : une page de calendrier « 24 DÉC » qui s'arrache et laisse place au « 25 », soleil levant sur la neige.
+       transition d'entrée : wipe
+  s10 34.18-36.82s  you gave it away
+       image : Le paquet au cœur glisse sur une luge et dévale la colline enneigée, au loin.
+       transition d'entrée : push
+  s11 36.82-40.94s  This year, to save me from tears
+       image : Profil en papier découpé : une larme coule et se transforme en flocon.
+       transition d'entrée : fade
+  s12 40.94-45.92s  I'll give it to someone special
+       image : Pas de porte d'une maison illuminée, couronne de sapin : il tient un cadeau et frappe.
+       transition d'entrée : blinds
+  s13 45.92-50.72s  Last Christmas, I gave you my heart
+       image : Boule de Noël dorée géante qui tourne, un cœur rose en reflet, autres boules autour.
+       transition d'entrée : shape
+  s14 50.72-52.60s  But the very next day,
+       image : Réveil-matin à cloches qui sonne et tremble près d'une fenêtre enneigée.
+       transition d'entrée : flash
+  s15 52.60-55.62s  you gave it away
+       image : Un ballon en forme de cœur s'envole au-dessus des toits, une silhouette tend le bras.
+       transition d'entrée : slide
+  s16 55.62-60.02s  This year, to save me from tears
+       image : Feux d'artifice du Nouvel An dorés et roses au-dessus du village, elle lève les yeux, sourire.
+       transition d'entrée : iris

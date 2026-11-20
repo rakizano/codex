@@ -1,0 +1,13 @@
+{
+  "_doc": "Valeurs par défaut du générateur de clips TikTok (lues par Claude lors de l'écriture du storyboard).",
+  "video": { "width": 1080, "height": 1920, "fps": 30, "codec": "h264", "pix_fmt": "yuv420p", "crf": 20, "maxrate": "8M", "audio": false },
+  "passage": { "min_s": 15, "max_s": 45, "target_s": 30, "lead_in_s": [0.2, 0.5], "tail_s": 0.5 },
+  "tiktok_safe_zone": { "left": 70, "right": 900, "top": 230, "bottom": 1440 },
+  "red_signature": "#e10600",
+  "text": { "min_font_px": 64, "default_size_px": 120, "red_scale": 1.25 },
+  "transitions": { "default_dur_s": 0.5, "range_s": [0.3, 0.9] },
+  "sources": {
+    "synced_lyrics": "https://lrclib.net/api (gratuit, sans clé ; hôte autorisé dans l'environnement cloud « codex »)",
+    "fonts": "https://fonts.googleapis.com (Google Fonts, licences libres OFL/Apache)"
+  }
+}

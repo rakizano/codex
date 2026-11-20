@@ -1,0 +1,173 @@
+{
+ "artist": "Cherry Pie",
+ "title": "BIR HAKEIM",
+ "album": "BIR HAKEIM",
+ "duration": 37.477,
+ "lrclib_ref_id": 38952552,
+ "version_cluster_ids": [
+  38952552,
+  38987843,
+  38925078,
+  39873396
+ ],
+ "version_cluster_albums": [
+  "BIR HAKEIM",
+  "BIR HAKEIM - Single",
+  "Back to Bag #4",
+  "Cherry Pie"
+ ],
+ "other_versions": [
+  {
+   "duration": 240.0,
+   "n": 1,
+   "albums": [
+    "BIR HAKEIM"
+   ]
+  },
+  {
+   "duration": 244.0,
+   "n": 4,
+   "albums": [
+    "BIR HAKEIM",
+    "BIR HAKEIM - Single",
+    "Back to Bag #4",
+    "Cherry Pie"
+   ]
+  }
+ ],
+ "n_sources": 4,
+ "text_agreement": [
+  1.0,
+  1.0,
+  1.0
+ ],
+ "sources_disagreeing": [],
+ "sync_spread_median_s": 0.0,
+ "sync_spread_p90_s": 0.0,
+ "sync_confidence": "élevée",
+ "sync_method": "LRCLIB (paroles synchronisées ligne par ligne par la communauté), médiane multi-sources",
+ "lines": [
+  {
+   "i": 48,
+   "t": 0.0,
+   "t_ref": 141.99,
+   "text": "93 millions je vais pas te faire un croquis",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 2.641,
+   "gap_after": 2.641,
+   "song_t": 141.99,
+   "words_sound_t": {
+    "1": 0.32,
+    "3": 0.84,
+    "4": 0.96,
+    "5": 1.18,
+    "6": 1.34,
+    "7": 1.46
+   }
+  },
+  {
+   "i": 49,
+   "t": 2.641,
+   "t_ref": 145.25,
+   "text": "Et cette bitch elle sait que je l'aime",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 4.062,
+   "gap_after": 1.421,
+   "song_t": 145.25,
+   "words_sound_t": {
+    "0": 2.24,
+    "1": 3.54,
+    "8": 4.3
+   }
+  },
+  {
+   "i": 50,
+   "t": 4.062,
+   "t_ref": 146.72,
+   "text": "Sous les néons d'Amsterdam je te promets qu'on verra qu'elle",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 6.683,
+   "gap_after": 2.621,
+   "song_t": 146.72,
+   "words_sound_t": {
+    "1": 4.82,
+    "9": 5.16
+   }
+  },
+  {
+   "i": 51,
+   "t": 6.683,
+   "t_ref": 149.43,
+   "text": "C'est la seule étoile filante qu'on peut croiser à Bir Hakeim",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 9.411,
+   "gap_after": 2.728,
+   "song_t": 149.43,
+   "words_sound_t": {
+    "0": 7.16,
+    "1": 7.34,
+    "2": 7.44,
+    "3": 7.64,
+    "7": 10.36,
+    "8": 10.52
+   }
+  },
+  {
+   "i": 52,
+   "t": 9.411,
+   "t_ref": 152.25,
+   "text": "Une fille aux moeurs légères mais c'est pas toi qui va la ken",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 33.136,
+   "gap_after": 23.725,
+   "song_t": 152.25,
+   "words_sound_t": {
+    "6": 11.06,
+    "7": 11.26,
+    "8": 11.32,
+    "9": 11.46,
+    "10": 11.62
+   }
+  },
+  {
+   "i": 53,
+   "t": 33.136,
+   "t_ref": 176.78,
+   "text": "Et cette fille elle sait que je l'aime",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 35.332,
+   "gap_after": 2.196,
+   "song_t": 176.78,
+   "words_sound_t": {
+    "0": 33.06
+   }
+  },
+  {
+   "i": 54,
+   "t": 35.332,
+   "t_ref": 179.05,
+   "text": "Je te promets qu'on verra qu'elle, qu'on peut croiser à Bir Hakeim",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 37.477,
+   "gap_after": 2.145,
+   "song_t": 179.05,
+   "words_sound_t": {
+    "9": 34.46,
+    "10": 36.22
+   }
+  }
+ ],
+ "sound_clock": true,
+ "sound_mapping": {
+  "song_start_s": 142.52,
+  "speed": 1.0339,
+  "sound_duration_s": 37.477
+ }
+}

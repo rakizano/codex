@@ -1,0 +1,45 @@
+TITRE      : Cartier Santos
+ARTISTE    : SDM
+VERSION    : ALVALM (2024) — durée de la version : 3:03 (183 s)
+
+SON TIKTOK UTILISÉ (clip calé dessus, de sa 1re à sa dernière seconde)
+  Source   : vidéo TikTok fournie par l'utilisateur
+  Durée    : 60.02 s  (= durée exacte de video_finale.mp4)
+  Passage de la chanson contenu dans le son : 0:41.015 → 1:41.037 (vitesse ×1.000)
+
+PLACER LA MUSIQUE
+  Dans le brouillon TikTok : « Ajouter un son » → choisir CE son (celui de la vidéo fournie) → ne pas couper : il démarre à 0:00 avec la vidéo → Publier.
+
+FIABILITÉ DES TIMESTAMPS
+  Méthode  : paroles synchronisées LRCLIB, médiane de 16 source(s) concordante(s)
+  Écart médian entre sources : 0.08 s — confiance : élevée
+  Note : Clip calé sur le son TikTok fourni (60,02 s) : passage de la chanson 41.0 s → 101.0 s, vitesse normale.
+  Note : Débuts de phrases pris sur les mots entendus dans ce son (Whisper : 137 mots appariés aux paroles, erreur d'ajustement 0.161 s).
+  Note : Écartés : la fin de « Mon shit caché dans la veste… » (commencée avant le son) et « j'avais bloqué ma soirée… » (coupée par la fin du son). Ad-libs non affichés.
+  Synchronisation vérifiée sur l'audio du son TikTok (reconnaissance des paroles chantées).
+  Le timing mot par mot à l'intérieur d'une phrase est ESTIMÉ (répartition syllabique).
+
+PAROLES ET TIMESTAMPS (son TikTok | vidéo)
+  0:42.190 |   1.18s  [s00]  La vie d'ma mère, bébé, ma tchop sans coco,   (mot rouge : mère)
+  0:44.755 |   3.74s  [s00]  j'peux être ton bébé   (mot rouge : bébé)
+  0:47.280 |   6.26s  [s01]  Elle savait m'parler, au bout d'deux, trois dél',   (mot rouge : parler)
+  0:50.135 |   9.12s  [s01]  j'me mets à rêver   (mot rouge : rêver)
+  0:52.775 |  11.76s  [s02]  Que j'prends sur moi, dés l'début, elle,   (mot rouge : début)
+  0:55.102 |  14.09s  [s02]  elle a seulement voulu prendre des sous sur me   (mot rouge : sous)
+  0:57.475 |  16.46s  [s03]  Quand j'avais pas one sur moi,   (mot rouge : one)
+  0:58.875 |  17.86s  [s03]  pas d'souci pour elle, d'toute façon j'étais le huitième de tous ses mecs   (mot rouge : huitième)
+  1:02.615 |  21.60s  [s04]  Faudra d'la foi et du courage,   (mot rouge : courage)
+  1:04.115 |  23.10s  [s04]  une relation remplie de rage, j'vois jamais l'soleil, que l'orage   (mot rouge : orage)
+  1:07.595 |  26.58s  [s05]  Elle veut son blase en tatouage,   (mot rouge : tatouage)
+  1:09.155 |  28.14s  [s05]  que j'me sépare d'mon entourage, la dernière collection Courrèges   (mot rouge : entourage)
+  1:12.415 |  31.40s  [s06]  Mon Dieu, dans quel film on est?   (mot rouge : film)
+  1:14.335 |  33.32s  [s06]  Mais comment j'me suis attaché sans la connaître?   (mot rouge : attaché)
+  1:18.015 |  37.00s  [s07]  Que elle veut ci, elle veut ça, pourtant,   (mot rouge : ça)
+  1:20.025 |  39.01s  [s07]  on m'a juré qu'le bonheur s'trouvait pas dans la monnaie   (mot rouge : monnaie)
+  1:22.995 |  41.98s  [s08]  J'l'élimine à ses vues, c'est qu'une tch', à ces, j'l'assimile   (mot rouge : élimine)
+  1:28.290 |  47.27s  [s09]  Oh là là, pas si vite,   (mot rouge : vite)
+  1:29.715 |  48.70s  [s09]  elle me dit "tu bouges pas, ton sang,   (mot rouge : sang)
+  1:31.115 |  50.10s  [s09]  j'ai pas assez bu"   (mot rouge : bu)
+  1:34.115 |  53.10s  [s10]  J'prends plus sur moi, c'est fini,   (mot rouge : fini)
+  1:35.815 |  54.80s  [s10]  j'y ai réfléchi toute la semaine   (mot rouge : semaine)
+  1:38.660 |  57.65s  [s11]  Elle me répond "est-ce que t'es sûr?", me dit "dommage,   (mot rouge : sûr)

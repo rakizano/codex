@@ -1,0 +1,392 @@
+{
+ "artist": "Wham!",
+ "title": "Last Christmas",
+ "album": "German Top 100 Single Charts",
+ "duration": 60.022,
+ "lrclib_ref_id": 7518169,
+ "version_cluster_ids": [
+  25497699,
+  7518169,
+  7967784,
+  7967785,
+  7967776,
+  7069608,
+  4698186,
+  5086149,
+  169867
+ ],
+ "version_cluster_albums": [
+  "Die Hit Giganten: Weihnachten 2006",
+  "German Top 100 Single Charts",
+  "LAST CHRISTMAS",
+  "Nochevieja Música de Fiesta",
+  "Super Christmas Hits",
+  "Ultimate Christmas",
+  "Ultimate...Christmas Hits",
+  "VOX Christmas Classics 2006",
+  "Wham!"
+ ],
+ "other_versions": [
+  {
+   "duration": 263.0,
+   "n": 11,
+   "albums": [
+    "Die Hit Giganten: Weihnachten 2006",
+    "Essentials",
+    "German Top 100 Single Charts",
+    "LAST CHRISTMAS"
+   ]
+  },
+  {
+   "duration": 267.0,
+   "n": 7,
+   "albums": [
+    "Christmas Hits",
+    "Last Christmas",
+    "Last Christmas = ラスト・クリスマス",
+    "Now That's What I Call Christmas"
+   ]
+  },
+  {
+   "duration": 271.0,
+   "n": 1,
+   "albums": [
+    "Last Christmas"
+   ]
+  },
+  {
+   "duration": 278.0,
+   "n": 3,
+   "albums": [
+    "LAST CHRISTMAS",
+    "WHAM!",
+    "WhamVEVO"
+   ]
+  },
+  {
+   "duration": 409.0,
+   "n": 6,
+   "albums": [
+    "Christmas Music Compilation",
+    "Last Christmas",
+    "The Best Of Wham!",
+    "The Best of Wham! If You Were There…"
+   ]
+  }
+ ],
+ "n_sources": 9,
+ "text_agreement": [
+  0.874,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  0.991,
+  1.0,
+  0.874
+ ],
+ "sources_disagreeing": [
+  {
+   "id": 35884283,
+   "album": "Last christmas",
+   "offset_vs_consensus_s": -1.15
+  },
+  {
+   "id": 4652625,
+   "album": "Essentials",
+   "offset_vs_consensus_s": -1.13
+  }
+ ],
+ "sync_spread_median_s": 0.77,
+ "sync_spread_p90_s": 1.4,
+ "sync_confidence": "moyenne",
+ "sync_method": "LRCLIB (paroles synchronisées ligne par ligne par la communauté), médiane multi-sources",
+ "lines": [
+  {
+   "i": 32,
+   "t": 0.0,
+   "t_ref": 171.31,
+   "text": "My God, I thought you were someone to rely on",
+   "n_src": 9,
+   "spread": 0.84,
+   "end": 3.688,
+   "gap_after": 3.688,
+   "song_t": 171.31,
+   "words_sound_t": {
+    "0": 0.0,
+    "1": 0.32,
+    "2": 1.02,
+    "3": 1.02,
+    "4": 1.2,
+    "5": 1.5,
+    "6": 1.9,
+    "7": 2.54,
+    "8": 2.94,
+    "9": 3.44
+   }
+  },
+  {
+   "i": 33,
+   "t": 3.688,
+   "t_ref": 175.43,
+   "text": "Me? I guess I was a shoulder to cry on",
+   "n_src": 9,
+   "spread": 0.89,
+   "end": 8.35,
+   "gap_after": 4.662,
+   "song_t": 175.03,
+   "words_sound_t": {
+    "0": 3.98,
+    "1": 4.72,
+    "2": 5.5,
+    "3": 5.8,
+    "4": 6.22,
+    "5": 6.54,
+    "6": 6.78,
+    "7": 7.16,
+    "8": 7.54,
+    "9": 7.9
+   }
+  },
+  {
+   "i": 34,
+   "t": 8.35,
+   "t_ref": 179.51,
+   "text": "A face on a lover with a fire in his heart",
+   "n_src": 9,
+   "spread": 1.16,
+   "end": 13.096,
+   "gap_after": 4.746,
+   "song_t": 179.51,
+   "words_sound_t": {
+    "0": 8.32,
+    "2": 9.42,
+    "3": 10.06,
+    "4": 10.32,
+    "5": 10.72,
+    "6": 11.22,
+    "7": 11.4,
+    "8": 11.8,
+    "9": 12.1,
+    "10": 12.28
+   }
+  },
+  {
+   "i": 35,
+   "t": 13.096,
+   "t_ref": 184.07,
+   "text": "A man undercover, but you tore me apart",
+   "n_src": 9,
+   "spread": 1.35,
+   "end": 20.297,
+   "gap_after": 7.201,
+   "song_t": 184.07,
+   "words_sound_t": {
+    "0": 12.78,
+    "1": 13.68,
+    "3": 15.38,
+    "4": 15.78,
+    "6": 16.46
+   }
+  },
+  {
+   "i": 36,
+   "t": 20.297,
+   "t_ref": 191.39,
+   "text": "Ooh-hoo",
+   "n_src": 9,
+   "spread": 2.58,
+   "end": 22.743,
+   "gap_after": 2.446,
+   "song_t": 190.99,
+   "words_sound_t": {
+    "0": 20.08
+   }
+  },
+  {
+   "i": 37,
+   "t": 22.743,
+   "t_ref": 193.69,
+   "text": "Now I've found a real love, you'll never fool me again",
+   "n_src": 9,
+   "spread": 0.94,
+   "end": 27.373,
+   "gap_after": 4.63,
+   "song_t": 193.34,
+   "words_sound_t": {
+    "0": 22.4,
+    "1": 22.78,
+    "3": 23.0,
+    "5": 23.7,
+    "6": 24.06,
+    "7": 24.62,
+    "8": 24.62,
+    "9": 24.96,
+    "10": 25.24,
+    "11": 25.68,
+    "12": 26.04
+   }
+  },
+  {
+   "i": 38,
+   "t": 27.373,
+   "t_ref": 197.79,
+   "text": "Last Christmas, I gave you my heart",
+   "n_src": 9,
+   "spread": 0.48,
+   "end": 31.463,
+   "gap_after": 4.09,
+   "song_t": 197.79,
+   "words_sound_t": {
+    "0": 27.54,
+    "1": 28.3,
+    "2": 29.82,
+    "3": 29.96,
+    "4": 30.32,
+    "5": 30.64,
+    "6": 30.96
+   }
+  },
+  {
+   "i": 39,
+   "t": 31.463,
+   "t_ref": 201.72,
+   "text": "But the very next day, you gave it away (you gave it away)",
+   "n_src": 9,
+   "spread": 0.45,
+   "end": 36.75,
+   "gap_after": 5.287,
+   "song_t": 201.72,
+   "words_sound_t": {
+    "0": 31.54,
+    "1": 32.08,
+    "2": 32.36,
+    "3": 32.88,
+    "4": 33.44,
+    "5": 34.3,
+    "6": 34.7,
+    "7": 35.02,
+    "8": 36.62
+   }
+  },
+  {
+   "i": 40,
+   "t": 36.75,
+   "t_ref": 206.83,
+   "text": "This year, to save me from tears",
+   "n_src": 9,
+   "spread": 0.16,
+   "end": 41.1,
+   "gap_after": 4.35,
+   "song_t": 206.8,
+   "words_sound_t": {
+    "0": 36.94,
+    "1": 37.68,
+    "2": 39.0,
+    "3": 39.3,
+    "4": 39.66,
+    "5": 39.98,
+    "6": 40.2
+   }
+  },
+  {
+   "i": 41,
+   "t": 41.1,
+   "t_ref": 210.98,
+   "text": "I'll give it to someone special (special)",
+   "n_src": 9,
+   "spread": 0.04,
+   "end": 46.168,
+   "gap_after": 5.068,
+   "song_t": 210.98,
+   "words_sound_t": {
+    "0": 41.06,
+    "1": 41.06,
+    "2": 41.78,
+    "3": 42.0,
+    "4": 42.26,
+    "5": 42.54,
+    "6": 43.24
+   }
+  },
+  {
+   "i": 42,
+   "t": 46.168,
+   "t_ref": 215.85,
+   "text": "Last Christmas, I gave you my heart (I gave you my heart)",
+   "n_src": 9,
+   "spread": 0.27,
+   "end": 50.726,
+   "gap_after": 4.558,
+   "song_t": 215.85,
+   "words_sound_t": {
+    "0": 46.04,
+    "1": 47.0,
+    "2": 48.44,
+    "3": 48.8,
+    "4": 49.04,
+    "5": 49.58,
+    "6": 49.9
+   }
+  },
+  {
+   "i": 43,
+   "t": 50.726,
+   "t_ref": 220.94,
+   "text": "But the very next day, you gave it away (you gave it away)",
+   "n_src": 9,
+   "spread": 1.22,
+   "end": 55.69,
+   "gap_after": 4.964,
+   "song_t": 220.23,
+   "words_sound_t": {
+    "0": 50.84,
+    "1": 50.86,
+    "2": 51.58,
+    "3": 51.58,
+    "4": 52.1,
+    "5": 52.72,
+    "6": 53.14,
+    "7": 53.7,
+    "8": 55.16
+   }
+  },
+  {
+   "i": 44,
+   "t": 55.69,
+   "t_ref": 225.4,
+   "text": "This year, to save me from tears",
+   "n_src": 9,
+   "spread": 0.87,
+   "end": 59.738,
+   "gap_after": 4.048,
+   "song_t": 225.0,
+   "words_sound_t": {
+    "0": 55.74,
+    "1": 56.62,
+    "2": 57.06,
+    "3": 58.04,
+    "4": 58.26,
+    "5": 58.72,
+    "6": 59.1
+   }
+  },
+  {
+   "i": 45,
+   "t": 59.738,
+   "t_ref": 228.89,
+   "text": "I'll give it to someone special (special)",
+   "n_src": 9,
+   "spread": 0.51,
+   "end": 60.022,
+   "gap_after": 0.284,
+   "song_t": 228.89
+  }
+ ],
+ "sound_clock": true,
+ "sound_mapping": {
+  "song_start_s": 171.486,
+  "speed": 0.9609,
+  "sound_duration_s": 60.022
+ }
+}

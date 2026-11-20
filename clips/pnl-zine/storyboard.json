@@ -1,0 +1,991 @@
+{
+ "song": {
+  "artist": "PNL",
+  "title": "Différents",
+  "album": "Que la famille",
+  "version_duration": 34.296,
+  "lrclib_ref_id": 2485943,
+  "sync_confidence": "élevée",
+  "sync_spread_median_s": 0.03,
+  "n_sources": 5,
+  "notes": [
+   "Storyboard généré par director.py (choix des univers par le sens des paroles).",
+   "Phrases écartées (coupées par les bords du son) : [\"C'est limpide, ouais c'est deuss, c'est violent, c'est 9.1\"]"
+  ]
+ },
+ "passage": {
+  "start": 0.0,
+  "end": 23.9,
+  "duration": 23.9,
+  "start_fmt": "0:00.000",
+  "end_fmt": "0:23.900"
+ },
+ "fps": 30,
+ "width": 1080,
+ "height": 1920,
+ "direction": {
+  "concept": "Montage multi-univers : chaque phrase raconte son sens dans l'univers graphique qui lui correspond le mieux.",
+  "universes": [
+   "Zine collage N&B (style maison)"
+  ],
+  "engine": "gabarits engine/scenes/*.js + couche 3D Three.js"
+ },
+ "house": "zine",
+ "style": {
+  "fonts": [
+   "Anton",
+   "Oswald:700",
+   "Special Elite",
+   "Tinos:700"
+  ],
+  "typo": {
+   "font": "Anton",
+   "color": "#ffffff",
+   "red": "#e10600",
+   "lineHeight": 1.0,
+   "wordIn": 0.14,
+   "preroll": 0.02,
+   "maxHeight": 520,
+   "width": 830
+  },
+  "fx": {
+   "grain": 0.09,
+   "vignette": 0
+  },
+  "palette": {}
+ },
+ "beats": [
+  0.604,
+  1.068,
+  1.533,
+  1.997,
+  2.485,
+  2.949,
+  3.437,
+  3.901,
+  4.365,
+  4.83,
+  5.317,
+  5.805,
+  6.269,
+  6.757,
+  7.221,
+  7.686,
+  8.173,
+  8.661,
+  9.125,
+  9.613,
+  10.077,
+  10.565,
+  11.053,
+  11.517,
+  11.981,
+  12.469,
+  12.934,
+  13.398,
+  13.886,
+  14.373,
+  14.861,
+  15.348,
+  15.836,
+  16.3,
+  16.765,
+  17.229,
+  17.694,
+  18.181,
+  18.646,
+  19.11,
+  19.574,
+  20.039,
+  20.503,
+  20.968,
+  21.432,
+  21.896,
+  22.361,
+  22.825,
+  23.29,
+  23.754,
+  24.218,
+  24.683,
+  25.147,
+  25.612,
+  26.076,
+  26.54,
+  27.005,
+  27.469,
+  27.934,
+  28.398,
+  28.862,
+  29.304,
+  29.768,
+  30.232,
+  30.697,
+  31.161,
+  31.626,
+  32.09,
+  32.554,
+  33.019,
+  33.483
+ ],
+ "outro": {
+  "dur": 0.4,
+  "color": "#000000",
+  "text": true
+ },
+ "lyrics_file": "work/lyrics_sound_scenes.json",
+ "scenes": [
+  {
+   "id": "s00",
+   "start": 0.0,
+   "style_id": "Z",
+   "style_name": "Zine collage N&B (style maison)",
+   "template": "zine.door",
+   "params": {
+    "action": "breathe",
+    "treatment": "labels"
+   },
+   "typo": {
+    "case": "upper",
+    "align": "left",
+    "pos": "top",
+    "exit": "none",
+    "emphasis": "shake",
+    "step": 12,
+    "lineHeight": 1.02,
+    "shadow": "none",
+    "wordIn": 0.1,
+    "font": "Anton",
+    "size": 118,
+    "enter": "stamp",
+    "color": "#fff",
+    "red": "#0d0d0d",
+    "lineStyles": [
+     {
+      "bg": "#c8102e",
+      "color": "#fff",
+      "indent": 0,
+      "redBg": "#ffd400",
+      "redColor": "#0d0d0d"
+     },
+     {
+      "bg": "#0d0d0d",
+      "color": "#fff",
+      "indent": 110,
+      "size": 0.82,
+      "redBg": "#ffd400",
+      "redColor": "#0d0d0d"
+     },
+     {
+      "bg": "#ffd400",
+      "color": "#0d0d0d",
+      "indent": 30,
+      "size": 1.12,
+      "rotate": -2,
+      "redBg": "#c8102e",
+      "redColor": "#fff"
+     },
+     {
+      "bg": "#ffffff",
+      "color": "#0d0d0d",
+      "indent": 160,
+      "size": 0.9,
+      "redBg": "#c8102e",
+      "redColor": "#fff"
+     }
+    ]
+   },
+   "transition": {
+    "type": "cut",
+    "dur": 0
+   },
+   "lyrics": [
+    {
+     "text": "J'sais / qu'j'suis / pas intégré, / je perds de / mes intérêts",
+     "words": [
+      0.0,
+      0.0,
+      0.16,
+      0.2,
+      0.2,
+      0.32,
+      0.48,
+      0.8,
+      1.12
+     ],
+     "start": 0.0,
+     "red": "intégré",
+     "song_t": 60.58,
+     "timing": "mots entendus dans le son (reconnaissance vocale), texte de la source",
+     "end": 1.78
+    }
+   ],
+   "director": {
+    "categories": {
+     "solitude": 1
+    },
+    "dominant": "solitude",
+    "red_category": "solitude",
+    "style_scores": {
+     "A": 3.35,
+     "B": 0.35,
+     "C": 0.35,
+     "D": 0.35,
+     "E": 0.35,
+     "F": 0.35,
+     "G": 0.35,
+     "H": 0.35
+    }
+   },
+   "visual": "[Zine collage N&B (style maison)] gabarit zine.door — sens dominant : solitude ; mot-clé « intégré »",
+   "end": 1.8
+  },
+  {
+   "id": "s01",
+   "start": 1.8,
+   "style_id": "Z",
+   "style_name": "Zine collage N&B (style maison)",
+   "template": "zine.blank",
+   "params": {
+    "bars": false,
+    "treatment": "typewriter"
+   },
+   "typo": {
+    "case": "none",
+    "align": "left",
+    "pos": "upper",
+    "exit": "none",
+    "emphasis": "drop",
+    "step": 12,
+    "lineHeight": 1.02,
+    "shadow": "none",
+    "wordIn": 0.1,
+    "font": "Special Elite",
+    "size": 86,
+    "enter": "type",
+    "color": "#c8102e",
+    "red": "#c8102e",
+    "redFont": "Anton",
+    "redScale": 2.6,
+    "redShadow": "0.5px 0.9px 0 #3a0006, 1.0px 1.7px 0 #3a0006, 1.5px 2.6px 0 #3a0006, 2.0px 3.5px 0 #3a0006, 2.5px 4.3px 0 #3a0006, 3.0px 5.2px 0 #3a0006, 3.5px 6.1px 0 #3a0006, 4.0px 6.9px 0 #3a0006, 4.5px 7.8px 0 #3a0006, 5.0px 8.7px 0 #3a0006, 5.5px 9.5px 0 #3a0006, 6.0px 10.4px 0 #3a0006, 10.8px 22.9px 18px rgba(0,0,0,.35)"
+   },
+   "transition": {
+    "type": "cut",
+    "dur": 0
+   },
+   "lyrics": [
+    {
+     "text": "Les mains dans le / merde alors / qu'elles sont / faites pour les / enterrer",
+     "words": [
+      1.88,
+      2.08,
+      2.22,
+      2.33,
+      2.44,
+      2.58,
+      2.76,
+      2.82,
+      2.88,
+      3.0,
+      3.12,
+      3.24
+     ],
+     "start": 1.92,
+     "red": "enterrer",
+     "song_t": 62.78,
+     "timing": "mots entendus dans le son (reconnaissance vocale), texte de la source",
+     "end": 3.7
+    }
+   ],
+   "director": {
+    "categories": {
+     "humor": 2
+    },
+    "dominant": "humor",
+    "red_category": "humor",
+    "style_scores": {
+     "A": 0.35,
+     "B": 0.35,
+     "C": 3.55,
+     "D": 0.35,
+     "E": 0.35,
+     "F": 0.35,
+     "G": 0.35,
+     "H": 0.35
+    }
+   },
+   "visual": "[Zine collage N&B (style maison)] gabarit zine.blank — sens dominant : humor ; mot-clé « enterrer »",
+   "end": 3.72
+  },
+  {
+   "id": "s02",
+   "start": 3.72,
+   "style_id": "Z",
+   "style_name": "Zine collage N&B (style maison)",
+   "template": "zine.spot",
+   "params": {
+    "treatment": "ransom"
+   },
+   "typo": {
+    "case": "upper",
+    "align": "center",
+    "pos": "center",
+    "exit": "none",
+    "emphasis": "shake",
+    "step": 12,
+    "lineHeight": 1.12,
+    "shadow": "none",
+    "wordIn": 0.1,
+    "font": "Anton",
+    "size": 150,
+    "enter": "ransom",
+    "color": "#0d0d0d",
+    "red": "#c8102e",
+    "maxHeight": 900,
+    "ransomFonts": [
+     "Anton",
+     "Tinos",
+     "Special Elite",
+     "Oswald"
+    ]
+   },
+   "transition": {
+    "type": "dots",
+    "dur": 0.4
+   },
+   "lyrics": [
+    {
+     "text": "J'sais / combien tu / paierais / pour te / faire / opérer",
+     "words": [
+      3.84,
+      3.84,
+      4.1,
+      4.3,
+      4.61,
+      4.92,
+      5.0,
+      5.12
+     ],
+     "start": 3.84,
+     "red": "paierais",
+     "song_t": 64.7,
+     "timing": "mots entendus dans le son (reconnaissance vocale), texte de la source",
+     "end": 5.297
+    }
+   ],
+   "director": {
+    "categories": {
+     "money": 1,
+     "pain": 1
+    },
+    "dominant": "money",
+    "red_category": "money",
+    "style_scores": {
+     "A": 0.35,
+     "B": 3.95,
+     "C": 0.35,
+     "D": 0.35,
+     "E": 1.95,
+     "F": 0.95,
+     "G": 3.35,
+     "H": 1.15
+    }
+   },
+   "visual": "[Zine collage N&B (style maison)] gabarit zine.spot — sens dominant : money ; mot-clé « paierais »",
+   "end": 5.317
+  },
+  {
+   "id": "s03",
+   "start": 5.317,
+   "style_id": "Z",
+   "style_name": "Zine collage N&B (style maison)",
+   "template": "zine.door",
+   "params": {
+    "action": "sway",
+    "treatment": "typewriter"
+   },
+   "typo": {
+    "case": "none",
+    "align": "left",
+    "pos": "upper",
+    "exit": "none",
+    "emphasis": "drop",
+    "step": 12,
+    "lineHeight": 1.02,
+    "shadow": "none",
+    "wordIn": 0.1,
+    "font": "Special Elite",
+    "size": 86,
+    "enter": "type",
+    "color": "#c8102e",
+    "red": "#c8102e",
+    "redFont": "Anton",
+    "redScale": 2.6,
+    "redShadow": "0.5px 0.9px 0 #3a0006, 1.0px 1.7px 0 #3a0006, 1.5px 2.6px 0 #3a0006, 2.0px 3.5px 0 #3a0006, 2.5px 4.3px 0 #3a0006, 3.0px 5.2px 0 #3a0006, 3.5px 6.1px 0 #3a0006, 4.0px 6.9px 0 #3a0006, 4.5px 7.8px 0 #3a0006, 5.0px 8.7px 0 #3a0006, 5.5px 9.5px 0 #3a0006, 6.0px 10.4px 0 #3a0006, 10.8px 22.9px 18px rgba(0,0,0,.35)"
+   },
+   "transition": {
+    "type": "cut",
+    "dur": 0
+   },
+   "lyrics": [
+    {
+     "text": "De tout ce mal qui / paraît si fort et / qui semble empirer",
+     "words": [
+      5.66,
+      5.88,
+      5.98,
+      6.08,
+      6.16,
+      6.3,
+      6.44,
+      6.58,
+      6.72,
+      6.86,
+      7.02,
+      7.2
+     ],
+     "start": 5.45,
+     "red": "empirer",
+     "song_t": 66.31,
+     "timing": "mots entendus dans le son (reconnaissance vocale), texte de la source",
+     "end": 7.46
+    }
+   ],
+   "director": {
+    "categories": {
+     "pain": 3
+    },
+    "dominant": "pain",
+    "red_category": "pain",
+    "style_scores": {
+     "A": 0.35,
+     "B": 1.55,
+     "C": 0.35,
+     "D": 0.35,
+     "E": 0.35,
+     "F": 0.35,
+     "G": 3.35,
+     "H": 0.35
+    }
+   },
+   "visual": "[Zine collage N&B (style maison)] gabarit zine.door — sens dominant : pain ; mot-clé « empirer »",
+   "end": 7.48
+  },
+  {
+   "id": "s04",
+   "start": 7.48,
+   "style_id": "Z",
+   "style_name": "Zine collage N&B (style maison)",
+   "template": "zine.collage",
+   "params": {
+    "base": "paper",
+    "n": 7,
+    "treatment": "boxserif"
+   },
+   "typo": {
+    "case": "upper",
+    "align": "center",
+    "pos": "center",
+    "exit": "none",
+    "emphasis": "shake",
+    "step": 12,
+    "lineHeight": 1.02,
+    "shadow": "none",
+    "wordIn": 0.1,
+    "font": "Tinos",
+    "weight": 700,
+    "size": 128,
+    "enter": "pop",
+    "color": "#ffffff",
+    "box": "#c8102e",
+    "red": "#ffd400",
+    "redBox": "#0d0d0d",
+    "redOnBox": "#ffd400"
+   },
+   "transition": {
+    "type": "ink",
+    "dur": 0.45
+   },
+   "lyrics": [
+    {
+     "text": "Viens / m'voir et / j'te dirai / le prix / d'la / fonce-dé-dé-dé",
+     "words": [
+      7.68,
+      7.81,
+      7.94,
+      8.0,
+      8.1,
+      8.1,
+      8.4,
+      8.7,
+      8.78
+     ],
+     "start": 7.6,
+     "red": "prix",
+     "song_t": 68.46,
+     "timing": "mots entendus dans le son (reconnaissance vocale), texte de la source",
+     "end": 10.057
+    }
+   ],
+   "director": {
+    "categories": {
+     "retro": 4,
+     "money": 2
+    },
+    "dominant": "retro",
+    "red_category": "retro",
+    "style_scores": {
+     "A": 0.35,
+     "B": 3.15,
+     "C": 0.35,
+     "D": 0.35,
+     "E": 1.95,
+     "F": 3.55,
+     "G": 0.35,
+     "H": 1.15
+    }
+   },
+   "visual": "[Zine collage N&B (style maison)] gabarit zine.collage — sens dominant : retro ; mot-clé « prix »",
+   "end": 10.077
+  },
+  {
+   "id": "s05",
+   "start": 10.077,
+   "style_id": "Z",
+   "style_name": "Zine collage N&B (style maison)",
+   "template": "zine.spot",
+   "params": {
+    "treatment": "labels"
+   },
+   "typo": {
+    "case": "upper",
+    "align": "left",
+    "pos": "top",
+    "exit": "none",
+    "emphasis": "shake",
+    "step": 12,
+    "lineHeight": 1.02,
+    "shadow": "none",
+    "wordIn": 0.1,
+    "font": "Anton",
+    "size": 118,
+    "enter": "stamp",
+    "color": "#fff",
+    "red": "#0d0d0d",
+    "lineStyles": [
+     {
+      "bg": "#c8102e",
+      "color": "#fff",
+      "indent": 0,
+      "redBg": "#ffd400",
+      "redColor": "#0d0d0d"
+     },
+     {
+      "bg": "#0d0d0d",
+      "color": "#fff",
+      "indent": 110,
+      "size": 0.82,
+      "redBg": "#ffd400",
+      "redColor": "#0d0d0d"
+     },
+     {
+      "bg": "#ffd400",
+      "color": "#0d0d0d",
+      "indent": 30,
+      "size": 1.12,
+      "rotate": -2,
+      "redBg": "#c8102e",
+      "redColor": "#fff"
+     },
+     {
+      "bg": "#ffffff",
+      "color": "#0d0d0d",
+      "indent": 160,
+      "size": 0.9,
+      "redBg": "#c8102e",
+      "redColor": "#fff"
+     }
+    ]
+   },
+   "transition": {
+    "type": "bar",
+    "dur": 0.35,
+    "color": "#0d0d0d",
+    "slant": 0,
+    "width": 0.7,
+    "dir": "right"
+   },
+   "lyrics": [
+    {
+     "text": "Si t'as / appris à / compter-ter-ter, / on sera / amis, / enchanté-té-té",
+     "words": [
+      10.17,
+      10.34,
+      10.52,
+      10.7,
+      10.88,
+      11.15,
+      11.42,
+      11.69,
+      11.96
+     ],
+     "start": 10.17,
+     "red": "enchanté-té-té",
+     "song_t": 71.03,
+     "timing": "mots entendus dans le son (reconnaissance vocale), texte de la source",
+     "end": 13.866
+    }
+   ],
+   "director": {
+    "categories": {
+     "money": 1,
+     "social": 2
+    },
+    "dominant": "social",
+    "red_category": "social",
+    "style_scores": {
+     "A": 0.35,
+     "B": 2.75,
+     "C": 0.35,
+     "D": 3.75,
+     "E": 1.95,
+     "F": 0.95,
+     "G": 0.35,
+     "H": 1.15
+    }
+   },
+   "visual": "[Zine collage N&B (style maison)] gabarit zine.spot — sens dominant : social ; mot-clé « enchanté-té-té »",
+   "end": 13.886
+  },
+  {
+   "id": "s06",
+   "start": 13.886,
+   "style_id": "Z",
+   "style_name": "Zine collage N&B (style maison)",
+   "template": "zine.blank",
+   "params": {
+    "bars": true,
+    "treatment": "ransom"
+   },
+   "typo": {
+    "case": "upper",
+    "align": "center",
+    "pos": "center",
+    "exit": "none",
+    "emphasis": "shake",
+    "step": 12,
+    "lineHeight": 1.12,
+    "shadow": "none",
+    "wordIn": 0.1,
+    "font": "Anton",
+    "size": 150,
+    "enter": "ransom",
+    "color": "#0d0d0d",
+    "red": "#c8102e",
+    "maxHeight": 900,
+    "ransomFonts": [
+     "Anton",
+     "Tinos",
+     "Special Elite",
+     "Oswald"
+    ]
+   },
+   "transition": {
+    "type": "cut",
+    "dur": 0
+   },
+   "lyrics": [
+    {
+     "text": "Moi c'est / Ade', moi / c'est Ade' / khey",
+     "words": [
+      14.05,
+      14.2,
+      14.36,
+      14.73,
+      15.1,
+      15.24,
+      15.44
+     ],
+     "start": 14.1,
+     "red": "Ade'",
+     "song_t": 74.96,
+     "timing": "mots entendus dans le son (reconnaissance vocale), texte de la source",
+     "end": 16.12
+    }
+   ],
+   "director": {
+    "categories": {
+     "success": 4
+    },
+    "dominant": "success",
+    "red_category": "success",
+    "style_scores": {
+     "A": 0.35,
+     "B": 0.35,
+     "C": 0.35,
+     "D": 0.35,
+     "E": 0.35,
+     "F": 0.35,
+     "G": 0.35,
+     "H": 3.95
+    }
+   },
+   "visual": "[Zine collage N&B (style maison)] gabarit zine.blank — sens dominant : success ; mot-clé « Ade' »",
+   "end": 16.14
+  },
+  {
+   "id": "s07",
+   "start": 16.14,
+   "style_id": "Z",
+   "style_name": "Zine collage N&B (style maison)",
+   "template": "zine.collage",
+   "params": {
+    "base": "door",
+    "n": 7,
+    "treatment": "boxserif"
+   },
+   "typo": {
+    "case": "upper",
+    "align": "center",
+    "pos": "center",
+    "exit": "none",
+    "emphasis": "shake",
+    "step": 12,
+    "lineHeight": 1.02,
+    "shadow": "none",
+    "wordIn": 0.1,
+    "font": "Tinos",
+    "weight": 700,
+    "size": 128,
+    "enter": "pop",
+    "color": "#ffffff",
+    "box": "#c8102e",
+    "red": "#ffd400",
+    "redBox": "#0d0d0d",
+    "redOnBox": "#ffd400"
+   },
+   "transition": {
+    "type": "dots",
+    "dur": 0.4
+   },
+   "lyrics": [
+    {
+     "text": "Sors la / 'teille, / vas-y / claque le / jour de / paye",
+     "words": [
+      16.4,
+      16.58,
+      16.96,
+      17.22,
+      17.44,
+      17.54,
+      17.66,
+      17.86,
+      18.0
+     ],
+     "start": 16.26,
+     "red": "paye",
+     "song_t": 77.12,
+     "timing": "mots entendus dans le son (reconnaissance vocale), texte de la source",
+     "end": 18.161
+    }
+   ],
+   "director": {
+    "categories": {
+     "money": 2
+    },
+    "dominant": "money",
+    "red_category": "money",
+    "style_scores": {
+     "A": 0.35,
+     "B": 2.75,
+     "C": 0.35,
+     "D": 0.35,
+     "E": 1.95,
+     "F": 0.95,
+     "G": 0.35,
+     "H": 1.15
+    }
+   },
+   "visual": "[Zine collage N&B (style maison)] gabarit zine.collage — sens dominant : money ; mot-clé « paye »",
+   "end": 18.181
+  },
+  {
+   "id": "s08",
+   "start": 18.181,
+   "style_id": "Z",
+   "style_name": "Zine collage N&B (style maison)",
+   "template": "zine.door",
+   "params": {
+    "action": "breathe",
+    "treatment": "labels"
+   },
+   "typo": {
+    "case": "upper",
+    "align": "left",
+    "pos": "top",
+    "exit": "none",
+    "emphasis": "shake",
+    "step": 12,
+    "lineHeight": 1.02,
+    "shadow": "none",
+    "wordIn": 0.1,
+    "font": "Anton",
+    "size": 118,
+    "enter": "stamp",
+    "color": "#fff",
+    "red": "#0d0d0d",
+    "lineStyles": [
+     {
+      "bg": "#c8102e",
+      "color": "#fff",
+      "indent": 0,
+      "redBg": "#ffd400",
+      "redColor": "#0d0d0d"
+     },
+     {
+      "bg": "#0d0d0d",
+      "color": "#fff",
+      "indent": 110,
+      "size": 0.82,
+      "redBg": "#ffd400",
+      "redColor": "#0d0d0d"
+     },
+     {
+      "bg": "#ffd400",
+      "color": "#0d0d0d",
+      "indent": 30,
+      "size": 1.12,
+      "rotate": -2,
+      "redBg": "#c8102e",
+      "redColor": "#fff"
+     },
+     {
+      "bg": "#ffffff",
+      "color": "#0d0d0d",
+      "indent": 160,
+      "size": 0.9,
+      "redBg": "#c8102e",
+      "redColor": "#fff"
+     }
+    ]
+   },
+   "transition": {
+    "type": "cut",
+    "dur": 0
+   },
+   "lyrics": [
+    {
+     "text": "J'veux pas / d'ton / facebook, / rrht ptou",
+     "words": [
+      18.54,
+      18.54,
+      18.76,
+      18.85,
+      18.94,
+      19.14
+     ],
+     "start": 18.2,
+     "red": "facebook",
+     "song_t": 79.06,
+     "timing": "mots entendus dans le son (reconnaissance vocale), texte de la source",
+     "end": 20.948
+    }
+   ],
+   "director": {
+    "categories": {
+     "social": 1,
+     "humor": 2
+    },
+    "dominant": "social",
+    "red_category": "social",
+    "style_scores": {
+     "A": 0.35,
+     "B": 0.35,
+     "C": 3.55,
+     "D": 3.75,
+     "E": 0.35,
+     "F": 0.35,
+     "G": 0.35,
+     "H": 0.35
+    }
+   },
+   "visual": "[Zine collage N&B (style maison)] gabarit zine.door — sens dominant : social ; mot-clé « facebook »",
+   "end": 20.968
+  },
+  {
+   "id": "s09",
+   "start": 20.968,
+   "style_id": "Z",
+   "style_name": "Zine collage N&B (style maison)",
+   "template": "zine.blank",
+   "params": {
+    "bars": true,
+    "treatment": "ransom"
+   },
+   "typo": {
+    "case": "upper",
+    "align": "center",
+    "pos": "center",
+    "exit": "none",
+    "emphasis": "shake",
+    "step": 12,
+    "lineHeight": 1.12,
+    "shadow": "none",
+    "wordIn": 0.1,
+    "font": "Anton",
+    "size": 150,
+    "enter": "ransom",
+    "color": "#0d0d0d",
+    "red": "#c8102e",
+    "maxHeight": 900,
+    "ransomFonts": [
+     "Anton",
+     "Tinos",
+     "Special Elite",
+     "Oswald"
+    ]
+   },
+   "transition": {
+    "type": "ink",
+    "dur": 0.45
+   },
+   "lyrics": [
+    {
+     "text": "T'sais / qu'j'ai ma / main sur ta / fesse",
+     "words": [
+      21.09,
+      21.04,
+      21.18,
+      21.26,
+      21.34,
+      21.36,
+      21.48
+     ],
+     "start": 21.09,
+     "red": "fesse",
+     "song_t": 81.95,
+     "timing": "mots entendus dans le son (reconnaissance vocale), texte de la source",
+     "end": 22.72
+    }
+   ],
+   "director": {
+    "categories": {
+     "love": 2
+    },
+    "dominant": "love",
+    "red_category": "love",
+    "style_scores": {
+     "A": 2.95,
+     "B": 0.35,
+     "C": 0.35,
+     "D": 0.35,
+     "E": 0.35,
+     "F": 0.35,
+     "G": 0.35,
+     "H": 0.35
+    }
+   },
+   "visual": "[Zine collage N&B (style maison)] gabarit zine.blank — sens dominant : love ; mot-clé « fesse »",
+   "end": 23.9
+  }
+ ]
+}

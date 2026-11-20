@@ -1,0 +1,424 @@
+{
+ "artist": "Sdm",
+ "title": "Cartier Santos",
+ "album": "Hits Hits Hits 2026 Vol.2",
+ "duration": 183.0,
+ "lrclib_ref_id": 33605312,
+ "version_cluster_ids": [
+  33605312,
+  18484039,
+  16843883,
+  24872158,
+  23909753,
+  24327823,
+  33308289,
+  31988029,
+  16034255,
+  13420369,
+  14247850,
+  15756268,
+  13022509,
+  12627569,
+  37081018,
+  38410931
+ ],
+ "version_cluster_albums": [
+  "19M views",
+  "3:04",
+  "70 Hits 2025 Vol.2",
+  "70 Hits 2026",
+  "A LA VIE A LA MORT",
+  "CARTIER SANTOS",
+  "Hits Hits Hits 2025 Vol. 2",
+  "Hits Hits Hits 2026 Vol.2",
+  "Hits Hits Hits 2026, Vol.2, CD2",
+  "Hits Hits Hits été 2025",
+  "Playlist Summer Hits 2025",
+  "Playlist Winter Hits 2025",
+  "SDM",
+  "SDM Officiel",
+  "SDM Songs",
+  "SDM Videos"
+ ],
+ "other_versions": [
+  {
+   "duration": 184.0,
+   "n": 16,
+   "albums": [
+    "19M views",
+    "3:04",
+    "70 Hits 2025 Vol.2",
+    "70 Hits 2026"
+   ]
+  },
+  {
+   "duration": 186.3,
+   "n": 1,
+   "albums": [
+    "Rap Francais"
+   ]
+  },
+  {
+   "duration": 211.0,
+   "n": 5,
+   "albums": [
+    "Cartier Santos",
+    "Hits Hits Hits Été 2025",
+    "SDM Songs",
+    "SDM Videos"
+   ]
+  },
+  {
+   "duration": 235.0,
+   "n": 1,
+   "albums": [
+    "A LA VIE A LA MORT"
+   ]
+  }
+ ],
+ "n_sources": 16,
+ "text_agreement": [
+  0.954,
+  0.954,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  0.954,
+  0.985,
+  0.954,
+  0.954,
+  0.985,
+  1.0,
+  1.0,
+  1.0
+ ],
+ "sources_disagreeing": [],
+ "sync_spread_median_s": 0.08,
+ "sync_spread_p90_s": 0.24,
+ "sync_confidence": "élevée",
+ "sync_method": "LRCLIB (paroles synchronisées ligne par ligne par la communauté), médiane multi-sources",
+ "lines": [
+  {
+   "i": 0,
+   "t": 2.93,
+   "t_ref": 2.93,
+   "text": "Hein-hein, hein-hein, hein-hein, hein-hein",
+   "n_src": 16,
+   "spread": 0.01,
+   "end": 6.69,
+   "gap_after": 3.76
+  },
+  {
+   "i": 1,
+   "t": 6.69,
+   "t_ref": 6.69,
+   "text": "SDM, cent moins Ocho (I love you too)",
+   "n_src": 16,
+   "spread": 0.08,
+   "end": 9.69,
+   "gap_after": 3.0
+  },
+  {
+   "i": 2,
+   "t": 9.69,
+   "t_ref": 9.69,
+   "text": "Eh (eh)",
+   "n_src": 16,
+   "spread": 0.09,
+   "end": 11.41,
+   "gap_after": 1.72
+  },
+  {
+   "i": 3,
+   "t": 11.41,
+   "t_ref": 11.41,
+   "text": "Faudra d'la foi et du courage, une relation remplie de rage qui démarre sur des bases pourries",
+   "n_src": 16,
+   "spread": 0.08,
+   "end": 16.83,
+   "gap_after": 5.42
+  },
+  {
+   "i": 4,
+   "t": 16.83,
+   "t_ref": 16.83,
+   "text": "Elle m'a quitté, genre triste à mort, alors qu'son cœur criait \"hourra\" et que le mien cassé en mille",
+   "n_src": 16,
+   "spread": 0.15,
+   "end": 21.86,
+   "gap_after": 5.03
+  },
+  {
+   "i": 5,
+   "t": 21.86,
+   "t_ref": 21.86,
+   "text": "En bas du bâtiment, on t'surnomme \"la petite fe-meu des réseaux\"",
+   "n_src": 16,
+   "spread": 0.07,
+   "end": 26.97,
+   "gap_after": 5.11
+  },
+  {
+   "i": 6,
+   "t": 26.97,
+   "t_ref": 26.97,
+   "text": "J'ai longtemps cru qu'j'étais le seul, que c'était moi l'numéro un, en fait, j'avais v'là les rivaux (ocho)",
+   "n_src": 16,
+   "spread": 0.03,
+   "end": 32.3,
+   "gap_after": 5.33
+  },
+  {
+   "i": 7,
+   "t": 32.3,
+   "t_ref": 32.3,
+   "text": "Connu dans la ville, sans but précis dans la vie",
+   "n_src": 16,
+   "spread": 0.16,
+   "end": 36.83,
+   "gap_after": 4.53
+  },
+  {
+   "i": 8,
+   "t": 36.83,
+   "t_ref": 36.83,
+   "text": "Mon shit caché dans la veste, elle vient dans ma vie pour combler au vide (vide)",
+   "n_src": 16,
+   "spread": 0.08,
+   "end": 42.19,
+   "gap_after": 5.36
+  },
+  {
+   "i": 9,
+   "t": 42.19,
+   "t_ref": 42.19,
+   "text": "La vie d'ma mère, bébé, ma tchop sans coco, j'peux être ton bébé (vroum, vroum, vroum, vroum)",
+   "n_src": 16,
+   "spread": 0.09,
+   "end": 47.28,
+   "gap_after": 5.09
+  },
+  {
+   "i": 10,
+   "t": 47.28,
+   "t_ref": 47.28,
+   "text": "Elle savait m'parler, au bout d'deux, trois dél', j'me mets à rêver (eh, eh)",
+   "n_src": 16,
+   "spread": 0.07,
+   "end": 52.67,
+   "gap_after": 5.39
+  },
+  {
+   "i": 11,
+   "t": 52.67,
+   "t_ref": 52.67,
+   "text": "Que j'prends sur moi, dés l'début, elle, elle a seulement voulu prendre des sous sur me",
+   "n_src": 16,
+   "spread": 0.21,
+   "end": 57.43,
+   "gap_after": 4.76
+  },
+  {
+   "i": 12,
+   "t": 57.43,
+   "t_ref": 57.43,
+   "text": "Quand j'avais pas one sur moi, pas d'souci pour elle, d'toute façon j'étais le huitième de tous ses mecs (ocho)",
+   "n_src": 16,
+   "spread": 0.35,
+   "end": 62.54,
+   "gap_after": 5.11
+  },
+  {
+   "i": 13,
+   "t": 62.54,
+   "t_ref": 62.54,
+   "text": "Faudra d'la foi et du courage, une relation remplie de rage, j'vois jamais l'soleil, que l'orage",
+   "n_src": 16,
+   "spread": 0.08,
+   "end": 67.64,
+   "gap_after": 5.1
+  },
+  {
+   "i": 14,
+   "t": 67.64,
+   "t_ref": 67.64,
+   "text": "Elle veut son blase en tatouage, que j'me sépare d'mon entourage, la dernière collection Courrèges",
+   "n_src": 16,
+   "spread": 0.24,
+   "end": 72.48,
+   "gap_after": 4.84
+  },
+  {
+   "i": 15,
+   "t": 72.48,
+   "t_ref": 72.48,
+   "text": "Mon Dieu, dans quel film on est? Mais comment j'me suis attaché sans la connaître?",
+   "n_src": 16,
+   "spread": 0.08,
+   "end": 78.16,
+   "gap_after": 5.68
+  },
+  {
+   "i": 16,
+   "t": 78.16,
+   "t_ref": 78.16,
+   "text": "Que elle veut ci, elle veut ça, pourtant, on m'a juré qu'le bonheur s'trouvait pas dans la monnaie (dans la monnaie)",
+   "n_src": 16,
+   "spread": 0.03,
+   "end": 83.29,
+   "gap_after": 5.13
+  },
+  {
+   "i": 17,
+   "t": 83.29,
+   "t_ref": 83.29,
+   "text": "J'l'élimine à ses vues, c'est qu'une tch', à ces, j'l'assimile",
+   "n_src": 16,
+   "spread": 0.26,
+   "end": 88.29,
+   "gap_after": 5.0
+  },
+  {
+   "i": 18,
+   "t": 88.29,
+   "t_ref": 88.29,
+   "text": "Oh là là, pas si vite, elle me dit \"tu bouges pas, ton sang, j'ai pas assez bu\"",
+   "n_src": 16,
+   "spread": 0.08,
+   "end": 93.84,
+   "gap_after": 5.55
+  },
+  {
+   "i": 19,
+   "t": 93.84,
+   "t_ref": 93.84,
+   "text": "J'prends plus sur moi, c'est fini, j'y ai réfléchi toute la semaine",
+   "n_src": 16,
+   "spread": 0.05,
+   "end": 98.66,
+   "gap_after": 4.82
+  },
+  {
+   "i": 20,
+   "t": 98.66,
+   "t_ref": 98.66,
+   "text": "Elle me répond \"est-ce que t'es sûr?\", me dit \"dommage, j'avais bloqué ma soirée pour qu'tu montes sur moi\"",
+   "n_src": 16,
+   "spread": 0.24,
+   "end": 103.7,
+   "gap_after": 5.04
+  },
+  {
+   "i": 21,
+   "t": 103.7,
+   "t_ref": 103.7,
+   "text": "D'un coup, mon cœur est navré, elle sait pile-poil où toucher pour que j'retourne ma veste (eh, eh)",
+   "n_src": 16,
+   "spread": 0.06,
+   "end": 108.78,
+   "gap_after": 5.08
+  },
+  {
+   "i": 22,
+   "t": 108.78,
+   "t_ref": 108.78,
+   "text": "C'est ma bouche qui a dit non, alors qu'mon cœur voulait dire oui et mon cerveau qui s'demande c'que j'fais",
+   "n_src": 16,
+   "spread": 0.1,
+   "end": 113.59,
+   "gap_after": 4.81
+  },
+  {
+   "i": 23,
+   "t": 113.59,
+   "t_ref": 113.59,
+   "text": "Faudra d'la foi et du courage, une relation remplie de rage, à la fin, j'm'en suis pas remis",
+   "n_src": 16,
+   "spread": 0.24,
+   "end": 119.12,
+   "gap_after": 5.53
+  },
+  {
+   "i": 24,
+   "t": 119.12,
+   "t_ref": 119.12,
+   "text": "Vivre sans elle, j'y arrive pas, j'trouve plus l'sommeil quand j'suis seul, j'm'endors après plusieurs res-ve (Oocho, ocho)",
+   "n_src": 11,
+   "spread": 0.07,
+   "end": 123.67,
+   "gap_after": 4.55
+  },
+  {
+   "i": 25,
+   "t": 123.67,
+   "t_ref": 123.67,
+   "text": "Elle, elle fait genre tout va bien, nouvelle relation, elle vit la vie qu'elle rêvait (la vie de rêve)",
+   "n_src": 16,
+   "spread": 0.02,
+   "end": 129.0,
+   "gap_after": 5.33
+  },
+  {
+   "i": 26,
+   "t": 129.0,
+   "t_ref": 129.0,
+   "text": "Pour elle, j'étais pas l'homme capable, un homme capable, c'est celui qui déboule en bas d'chez elle en Féfé'",
+   "n_src": 16,
+   "spread": 0.06,
+   "end": 143.46,
+   "gap_after": 14.46
+  },
+  {
+   "i": 27,
+   "t": 143.46,
+   "t_ref": 143.46,
+   "text": "J'lui dis \"j'peux pas vivre sans toi\", elle m'a dit \"que si tu m'payes une Cartier Santos\" (mmh, mmh)",
+   "n_src": 16,
+   "spread": 0.52,
+   "end": 148.75,
+   "gap_after": 5.29
+  },
+  {
+   "i": 28,
+   "t": 148.75,
+   "t_ref": 148.75,
+   "text": "Même avec tout le temps qu'on passe, tu veux pas mettre un peu plus de sérieux sur l'dossier",
+   "n_src": 16,
+   "spread": 0.45,
+   "end": 154.15,
+   "gap_after": 5.4
+  },
+  {
+   "i": 29,
+   "t": 154.15,
+   "t_ref": 154.15,
+   "text": "Tu sais qu'l'argent ça compte pas, tu t'en rendras compte un jour à quel point j't'ai aimée",
+   "n_src": 16,
+   "spread": 0.03,
+   "end": 159.27,
+   "gap_after": 5.12
+  },
+  {
+   "i": 30,
+   "t": 159.27,
+   "t_ref": 159.27,
+   "text": "J'lui dis que j'lui souhaite le meilleur, elle m'a dit \"souhaite-moi la richesse, moi, fuck la santé\"",
+   "n_src": 16,
+   "spread": 0.03,
+   "end": 165.47,
+   "gap_after": 6.2
+  },
+  {
+   "i": 31,
+   "t": 165.47,
+   "t_ref": 165.47,
+   "text": "",
+   "n_src": 1,
+   "spread": null,
+   "end": 183.0,
+   "gap_after": 17.53
+  }
+ ]
+}

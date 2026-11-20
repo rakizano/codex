@@ -1,0 +1,894 @@
+{
+ "song": {
+  "artist": "PNL",
+  "title": "Différents",
+  "album": "Que la famille",
+  "version_duration": 34.296,
+  "lrclib_ref_id": 2485943,
+  "sync_confidence": "élevée",
+  "sync_spread_median_s": 0.03,
+  "n_sources": 5,
+  "notes": [
+   "Storyboard généré par director.py (choix des univers par le sens des paroles).",
+   "Phrases écartées (coupées par les bords du son) : [\"C'est limpide, ouais c'est deuss, c'est violent, c'est 9.1\"]"
+  ]
+ },
+ "passage": {
+  "start": 0.0,
+  "end": 23.9,
+  "duration": 23.9,
+  "start_fmt": "0:00.000",
+  "end_fmt": "0:23.900"
+ },
+ "fps": 30,
+ "width": 1080,
+ "height": 1920,
+ "direction": {
+  "concept": "Montage multi-univers : chaque phrase raconte son sens dans l'univers graphique qui lui correspond le mieux.",
+  "universes": [
+   "3D cinématographique",
+   "Cartoon dessiné à la main",
+   "Dessin pastel",
+   "Low-poly 3D",
+   "Motion design éditorial",
+   "Néon / interface sociale",
+   "Objets rétro animés",
+   "Voxel cinématographique"
+  ],
+  "engine": "gabarits engine/scenes/*.js + couche 3D Three.js"
+ },
+ "style": {
+  "fonts": [
+   "Anton",
+   "Archivo Black",
+   "Bebas Neue",
+   "Caveat Brush",
+   "Cinzel",
+   "Permanent Marker",
+   "Russo One",
+   "VT323"
+  ],
+  "typo": {
+   "font": "Anton",
+   "color": "#ffffff",
+   "red": "#e10600",
+   "lineHeight": 1.0,
+   "wordIn": 0.14,
+   "preroll": 0.02,
+   "maxHeight": 520,
+   "width": 830
+  },
+  "fx": {
+   "grain": 0.05,
+   "vignette": 0.3
+  },
+  "palette": {}
+ },
+ "beats": [
+  0.604,
+  1.068,
+  1.533,
+  1.997,
+  2.485,
+  2.949,
+  3.437,
+  3.901,
+  4.365,
+  4.83,
+  5.317,
+  5.805,
+  6.269,
+  6.757,
+  7.221,
+  7.686,
+  8.173,
+  8.661,
+  9.125,
+  9.613,
+  10.077,
+  10.565,
+  11.053,
+  11.517,
+  11.981,
+  12.469,
+  12.934,
+  13.398,
+  13.886,
+  14.373,
+  14.861,
+  15.348,
+  15.836,
+  16.3,
+  16.765,
+  17.229,
+  17.694,
+  18.181,
+  18.646,
+  19.11,
+  19.574,
+  20.039,
+  20.503,
+  20.968,
+  21.432,
+  21.896,
+  22.361,
+  22.825,
+  23.29,
+  23.754,
+  24.218,
+  24.683,
+  25.147,
+  25.612,
+  26.076,
+  26.54,
+  27.005,
+  27.469,
+  27.934,
+  28.398,
+  28.862,
+  29.304,
+  29.768,
+  30.232,
+  30.697,
+  31.161,
+  31.626,
+  32.09,
+  32.554,
+  33.019,
+  33.483
+ ],
+ "outro": {
+  "dur": 0.4,
+  "color": "#000000",
+  "text": true
+ },
+ "lyrics_file": "work/lyrics_sound_scenes.json",
+ "scenes": [
+  {
+   "id": "s00",
+   "start": 0.0,
+   "style_id": "A",
+   "style_name": "3D cinématographique",
+   "template": "cinematic.spotlight_crowd",
+   "params": {
+    "category": "solitude",
+    "keywords": [
+     "intégré,"
+    ],
+    "accent": "#ffe2b8"
+   },
+   "typo": {
+    "font": "Anton",
+    "color": "#f4f2ee",
+    "size": 118,
+    "enter": "zoomin",
+    "emphasis": "glow",
+    "pos": "top",
+    "align": "left",
+    "exit": "blur",
+    "shadow": "0 6px 24px rgba(0,0,0,0.6)",
+    "red": "#9fb8ff"
+   },
+   "transition": {
+    "type": "cut",
+    "dur": 0
+   },
+   "lyrics": [
+    {
+     "text": "J'sais / qu'j'suis pas / intégré, je / perds de mes / intérêts",
+     "words": [
+      0.0,
+      0.0,
+      0.16,
+      0.2,
+      0.2,
+      0.32,
+      0.48,
+      0.8,
+      1.12
+     ],
+     "start": 0.0,
+     "red": "intégré",
+     "song_t": 60.58,
+     "timing": "mots entendus dans le son (reconnaissance vocale), texte de la source",
+     "end": 1.78
+    }
+   ],
+   "director": {
+    "categories": {
+     "solitude": 1
+    },
+    "dominant": "solitude",
+    "red_category": "solitude",
+    "style_scores": {
+     "A": 3.35,
+     "B": 0.35,
+     "C": 0.35,
+     "D": 0.35,
+     "E": 0.35,
+     "F": 0.35,
+     "G": 0.35,
+     "H": 0.35
+    }
+   },
+   "visual": "[3D cinématographique] gabarit cinematic.spotlight_crowd — sens dominant : solitude ; mot-clé « intégré »",
+   "end": 1.8
+  },
+  {
+   "id": "s01",
+   "start": 1.8,
+   "style_id": "C",
+   "style_name": "Cartoon dessiné à la main",
+   "template": "cartoon.dig",
+   "params": {
+    "category": "humor",
+    "keywords": [
+     "merde",
+     "enterrer"
+    ]
+   },
+   "typo": {
+    "font": "Permanent Marker",
+    "color": "#22180f",
+    "size": 108,
+    "enter": "bounce",
+    "emphasis": "wave",
+    "pos": "top",
+    "align": "left",
+    "exit": "down",
+    "shadow": "4px 4px 0 #e8d2a6",
+    "rotate": -3,
+    "lineHeight": 1.18,
+    "red": "#e85d2a"
+   },
+   "transition": {
+    "type": "tear",
+    "dur": 0.5
+   },
+   "lyrics": [
+    {
+     "text": "Les mains / dans le merde / alors / qu'elles sont / faites pour / les enterrer",
+     "words": [
+      1.88,
+      2.08,
+      2.22,
+      2.33,
+      2.44,
+      2.58,
+      2.76,
+      2.82,
+      2.88,
+      3.0,
+      3.12,
+      3.24
+     ],
+     "start": 1.92,
+     "red": "enterrer",
+     "song_t": 62.78,
+     "timing": "mots entendus dans le son (reconnaissance vocale), texte de la source",
+     "end": 3.7
+    }
+   ],
+   "director": {
+    "categories": {
+     "humor": 2
+    },
+    "dominant": "humor",
+    "red_category": "humor",
+    "style_scores": {
+     "A": -3.6,
+     "B": 0.35,
+     "C": 3.55,
+     "D": 0.35,
+     "E": 0.35,
+     "F": 0.35,
+     "G": 0.35,
+     "H": 0.35
+    }
+   },
+   "visual": "[Cartoon dessiné à la main] gabarit cartoon.dig — sens dominant : humor ; mot-clé « enterrer »",
+   "end": 3.72
+  },
+  {
+   "id": "s02",
+   "start": 3.72,
+   "style_id": "B",
+   "style_name": "Motion design éditorial",
+   "template": "editorial.chart",
+   "params": {
+    "category": "money",
+    "keywords": [
+     "paierais",
+     "opérer"
+    ],
+    "motif": "ecg"
+   },
+   "typo": {
+    "font": "Archivo Black",
+    "color": "#1b1a17",
+    "size": 104,
+    "enter": "slide",
+    "emphasis": "highlight",
+    "pos": "top",
+    "align": "left",
+    "exit": "up",
+    "case": "upper",
+    "shadow": "none",
+    "marker": "#ffd23f",
+    "red": "#b26b00"
+   },
+   "transition": {
+    "type": "slices",
+    "dur": 0.45,
+    "n": 8
+   },
+   "lyrics": [
+    {
+     "text": "J'sais / combien tu / paierais pour / te faire / opérer",
+     "words": [
+      3.84,
+      3.84,
+      4.1,
+      4.3,
+      4.61,
+      4.92,
+      5.0,
+      5.12
+     ],
+     "start": 3.84,
+     "red": "paierais",
+     "song_t": 64.7,
+     "timing": "mots entendus dans le son (reconnaissance vocale), texte de la source",
+     "end": 5.297
+    }
+   ],
+   "director": {
+    "categories": {
+     "money": 1,
+     "pain": 1
+    },
+    "dominant": "money",
+    "red_category": "money",
+    "style_scores": {
+     "A": -1.4,
+     "B": 3.95,
+     "C": -3.6,
+     "D": 0.35,
+     "E": 1.95,
+     "F": 0.95,
+     "G": 3.35,
+     "H": 1.15
+    }
+   },
+   "visual": "[Motion design éditorial] gabarit editorial.chart — sens dominant : money ; mot-clé « paierais »",
+   "end": 5.317
+  },
+  {
+   "id": "s03",
+   "start": 5.317,
+   "style_id": "G",
+   "style_name": "Dessin pastel",
+   "template": "pastel.storm",
+   "params": {
+    "category": "pain",
+    "keywords": [
+     "mal",
+     "fort",
+     "empirer"
+    ]
+   },
+   "typo": {
+    "font": "Caveat Brush",
+    "color": "#2a2630",
+    "size": 150,
+    "enter": "build",
+    "emphasis": "colorshift",
+    "pos": "top",
+    "align": "left",
+    "exit": "fade",
+    "case": "none",
+    "shadow": "none",
+    "lineHeight": 1.0,
+    "red": "#5a8dee"
+   },
+   "transition": {
+    "type": "ink",
+    "dur": 0.55
+   },
+   "lyrics": [
+    {
+     "text": "De tout ce mal / qui paraît si / fort et qui / semble empirer",
+     "words": [
+      5.66,
+      5.88,
+      5.98,
+      6.08,
+      6.16,
+      6.3,
+      6.44,
+      6.58,
+      6.72,
+      6.86,
+      7.02,
+      7.2
+     ],
+     "start": 5.45,
+     "red": "empirer",
+     "song_t": 66.31,
+     "timing": "mots entendus dans le son (reconnaissance vocale), texte de la source",
+     "end": 7.46
+    }
+   ],
+   "director": {
+    "categories": {
+     "pain": 3
+    },
+    "dominant": "pain",
+    "red_category": "pain",
+    "style_scores": {
+     "A": -1.4,
+     "B": -2.4,
+     "C": -1.4,
+     "D": 0.35,
+     "E": 0.35,
+     "F": 0.35,
+     "G": 3.35,
+     "H": 0.35
+    }
+   },
+   "visual": "[Dessin pastel] gabarit pastel.storm — sens dominant : pain ; mot-clé « empirer »",
+   "end": 7.48
+  },
+  {
+   "id": "s04",
+   "start": 7.48,
+   "style_id": "F",
+   "style_name": "Objets rétro animés",
+   "template": "retro.toy",
+   "params": {
+    "category": "retro",
+    "keywords": [
+     "Viens",
+     "m'voir",
+     "dirai",
+     "prix",
+     "prix",
+     "fonce-dé-dé-dé"
+    ],
+    "icon": "tag"
+   },
+   "typo": {
+    "font": "VT323",
+    "color": "#22301a",
+    "size": 110,
+    "enter": "type",
+    "emphasis": "none",
+    "pos": [
+     270,
+     815
+    ],
+    "align": "left",
+    "exit": "none",
+    "shadow": "none",
+    "width": 540,
+    "maxHeight": 300,
+    "case": "upper",
+    "red": "#7a1630"
+   },
+   "transition": {
+    "type": "iris",
+    "dur": 0.45
+   },
+   "lyrics": [
+    {
+     "text": "Viens m'voir / et j'te dirai / le prix d'la / fonce-dé-dé-dé",
+     "words": [
+      7.68,
+      7.81,
+      7.94,
+      8.0,
+      8.1,
+      8.1,
+      8.4,
+      8.7,
+      8.78
+     ],
+     "start": 7.6,
+     "red": "prix",
+     "song_t": 68.46,
+     "timing": "mots entendus dans le son (reconnaissance vocale), texte de la source",
+     "end": 10.057
+    }
+   ],
+   "director": {
+    "categories": {
+     "retro": 4,
+     "money": 2
+    },
+    "dominant": "retro",
+    "red_category": "retro",
+    "style_scores": {
+     "A": -1.4,
+     "B": 1.4,
+     "C": -1.4,
+     "D": 0.35,
+     "E": 1.95,
+     "F": 3.55,
+     "G": -3.6,
+     "H": 1.15
+    }
+   },
+   "visual": "[Objets rétro animés] gabarit retro.toy — sens dominant : retro ; mot-clé « prix »",
+   "end": 10.077
+  },
+  {
+   "id": "s05",
+   "start": 10.077,
+   "style_id": "D",
+   "style_name": "Néon / interface sociale",
+   "template": "neon.live",
+   "params": {
+    "category": "social",
+    "keywords": [
+     "compter-ter-ter,",
+     "amis,",
+     "enchanté-té-té"
+    ]
+   },
+   "typo": {
+    "font": "Russo One",
+    "color": "#e9fdff",
+    "size": 100,
+    "enter": "pop",
+    "emphasis": "jelly",
+    "pos": "top",
+    "align": "left",
+    "exit": "zoom",
+    "shadow": "0 0 18px rgba(63,240,255,0.75)",
+    "redShadow": "0 0 22px rgba(63,240,255,0.9)",
+    "red": "#ff3fb4"
+   },
+   "transition": {
+    "type": "glitch",
+    "dur": 0.35
+   },
+   "lyrics": [
+    {
+     "text": "Si t'as / appris à / compter-ter-ter, / on sera amis, / enchanté-té-té",
+     "words": [
+      10.17,
+      10.34,
+      10.52,
+      10.7,
+      10.88,
+      11.15,
+      11.42,
+      11.69,
+      11.96
+     ],
+     "start": 10.17,
+     "red": "enchanté-té-té",
+     "song_t": 71.03,
+     "timing": "mots entendus dans le son (reconnaissance vocale), texte de la source",
+     "end": 13.866
+    }
+   ],
+   "director": {
+    "categories": {
+     "money": 1,
+     "social": 2
+    },
+    "dominant": "social",
+    "red_category": "social",
+    "style_scores": {
+     "A": -1.4,
+     "B": 1.0,
+     "C": -1.4,
+     "D": 3.75,
+     "E": 1.95,
+     "F": -3.0,
+     "G": -1.4,
+     "H": 1.15
+    }
+   },
+   "visual": "[Néon / interface sociale] gabarit neon.live — sens dominant : social ; mot-clé « enchanté-té-té »",
+   "end": 13.886
+  },
+  {
+   "id": "s06",
+   "start": 13.886,
+   "style_id": "H",
+   "style_name": "Voxel cinématographique",
+   "template": "voxel.red_carpet",
+   "params": {
+    "category": "success",
+    "keywords": [
+     "Moi",
+     "Ade',",
+     "moi",
+     "Ade'"
+    ],
+    "word3d": "Ade"
+   },
+   "typo": {
+    "font": "Cinzel",
+    "color": "#f6e7b8",
+    "size": 112,
+    "enter": "rise",
+    "emphasis": "grow",
+    "pos": "top",
+    "align": "left",
+    "exit": "fade",
+    "case": "upper",
+    "shadow": "0 4px 20px rgba(0,0,0,0.7)",
+    "redShadow": "0 0 24px rgba(233,185,73,0.8)",
+    "red": "#e9b949"
+   },
+   "transition": {
+    "type": "radial",
+    "dur": 0.5,
+    "color": "#e9b949"
+   },
+   "lyrics": [
+    {
+     "text": "Moi c'est / Ade', moi / c'est Ade' / khey",
+     "words": [
+      14.05,
+      14.2,
+      14.36,
+      14.73,
+      15.1,
+      15.24,
+      15.44
+     ],
+     "start": 14.1,
+     "red": "Ade'",
+     "song_t": 74.96,
+     "timing": "mots entendus dans le son (reconnaissance vocale), texte de la source",
+     "end": 16.12
+    }
+   ],
+   "director": {
+    "categories": {
+     "success": 4
+    },
+    "dominant": "success",
+    "red_category": "success",
+    "style_scores": {
+     "A": -1.4,
+     "B": -1.4,
+     "C": -1.4,
+     "D": -3.6,
+     "E": 0.35,
+     "F": -1.4,
+     "G": -1.4,
+     "H": 3.95
+    }
+   },
+   "visual": "[Voxel cinématographique] gabarit voxel.red_carpet — sens dominant : success ; mot-clé « Ade' »",
+   "end": 16.14
+  },
+  {
+   "id": "s07",
+   "start": 16.14,
+   "style_id": "E",
+   "style_name": "Low-poly 3D",
+   "template": "lowpoly.night_drive",
+   "params": {
+    "category": "money",
+    "keywords": [
+     "'teille,",
+     "paye"
+    ],
+    "word3d": "paye",
+    "props": [
+     "bills"
+    ]
+   },
+   "typo": {
+    "font": "Bebas Neue",
+    "color": "#ffffff",
+    "size": 170,
+    "enter": "flip",
+    "emphasis": "outline",
+    "pos": "top",
+    "align": "left",
+    "exit": "zoom",
+    "outlineColor": "#120c1c",
+    "perspective": {
+     "rx": 14,
+     "ry": -8,
+     "d": 1400
+    },
+    "shadow": "0 8px 0 rgba(0,0,0,0.45)",
+    "maxHeight": 600,
+    "red": "#ffc93c"
+   },
+   "transition": {
+    "type": "whip",
+    "dur": 0.35,
+    "dir": "left"
+   },
+   "lyrics": [
+    {
+     "text": "Sors la / 'teille, / vas-y claque / le jour de / paye",
+     "words": [
+      16.4,
+      16.58,
+      16.96,
+      17.22,
+      17.44,
+      17.54,
+      17.66,
+      17.86,
+      18.0
+     ],
+     "start": 16.26,
+     "red": "paye",
+     "song_t": 77.12,
+     "timing": "mots entendus dans le son (reconnaissance vocale), texte de la source",
+     "end": 18.161
+    }
+   ],
+   "director": {
+    "categories": {
+     "money": 2
+    },
+    "dominant": "money",
+    "red_category": "money",
+    "style_scores": {
+     "A": -1.4,
+     "B": 1.0,
+     "C": -1.4,
+     "D": -1.4,
+     "E": 1.95,
+     "F": -0.8,
+     "G": -1.4,
+     "H": -2.8
+    }
+   },
+   "visual": "[Low-poly 3D] gabarit lowpoly.night_drive — sens dominant : money ; mot-clé « paye »",
+   "end": 18.181
+  },
+  {
+   "id": "s08",
+   "start": 18.181,
+   "style_id": "D",
+   "style_name": "Néon / interface sociale",
+   "template": "neon.reject",
+   "params": {
+    "category": "social",
+    "keywords": [
+     "facebook,",
+     "rrht",
+     "ptou"
+    ]
+   },
+   "typo": {
+    "font": "Russo One",
+    "color": "#e9fdff",
+    "size": 100,
+    "enter": "pop",
+    "emphasis": "jelly",
+    "pos": "top",
+    "align": "left",
+    "exit": "zoom",
+    "shadow": "0 0 18px rgba(63,240,255,0.75)",
+    "redShadow": "0 0 22px rgba(63,240,255,0.9)",
+    "red": "#ff3fb4"
+   },
+   "transition": {
+    "type": "glitch",
+    "dur": 0.35
+   },
+   "lyrics": [
+    {
+     "text": "J'veux pas / d'ton / facebook, / rrht ptou",
+     "words": [
+      18.54,
+      18.54,
+      18.76,
+      18.85,
+      18.94,
+      19.14
+     ],
+     "start": 18.2,
+     "red": "facebook",
+     "song_t": 79.06,
+     "timing": "mots entendus dans le son (reconnaissance vocale), texte de la source",
+     "end": 20.948
+    }
+   ],
+   "director": {
+    "categories": {
+     "social": 1,
+     "humor": 2
+    },
+    "dominant": "social",
+    "red_category": "social",
+    "style_scores": {
+     "A": -1.4,
+     "B": -1.4,
+     "C": 1.8,
+     "D": 2.0,
+     "E": -3.6,
+     "F": -1.4,
+     "G": -1.4,
+     "H": -1.4
+    }
+   },
+   "visual": "[Néon / interface sociale] gabarit neon.reject — sens dominant : social ; mot-clé « facebook »",
+   "end": 20.968
+  },
+  {
+   "id": "s09",
+   "start": 20.968,
+   "style_id": "A",
+   "style_name": "3D cinématographique",
+   "template": "cinematic.duo_night",
+   "params": {
+    "category": "love",
+    "keywords": [
+     "main",
+     "fesse"
+    ],
+    "accent": "#ff6aa8"
+   },
+   "typo": {
+    "font": "Anton",
+    "color": "#f4f2ee",
+    "size": 118,
+    "enter": "zoomin",
+    "emphasis": "glow",
+    "pos": "top",
+    "align": "left",
+    "exit": "blur",
+    "shadow": "0 6px 24px rgba(0,0,0,0.6)",
+    "red": "#ff4f8b"
+   },
+   "transition": {
+    "type": "dip",
+    "dur": 0.4,
+    "color": "#000000"
+   },
+   "lyrics": [
+    {
+     "text": "T'sais / qu'j'ai ma / main sur ta / fesse",
+     "words": [
+      21.09,
+      21.04,
+      21.18,
+      21.26,
+      21.34,
+      21.36,
+      21.48
+     ],
+     "start": 21.09,
+     "red": "fesse",
+     "song_t": 81.95,
+     "timing": "mots entendus dans le son (reconnaissance vocale), texte de la source",
+     "end": 22.72
+    }
+   ],
+   "director": {
+    "categories": {
+     "love": 2
+    },
+    "dominant": "love",
+    "red_category": "love",
+    "style_scores": {
+     "A": 1.2,
+     "B": -1.4,
+     "C": -1.4,
+     "D": -5.0,
+     "E": -1.4,
+     "F": -1.4,
+     "G": -1.4,
+     "H": -1.4
+    }
+   },
+   "visual": "[3D cinématographique] gabarit cinematic.duo_night — sens dominant : love ; mot-clé « fesse »",
+   "end": 23.9
+  }
+ ]
+}

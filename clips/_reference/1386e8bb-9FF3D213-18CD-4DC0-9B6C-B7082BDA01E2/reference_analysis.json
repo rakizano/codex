@@ -1,0 +1,38 @@
+{
+ "duration": 17.426667,
+ "timeline_every_s": 0.5,
+ "n_shots": 7,
+ "shot_len_mean": 2.49,
+ "shot_len_median": 1.8,
+ "cuts_per_10s": 4.02,
+ "shots": [
+  {
+   "start": 0.0,
+   "end": 0.82
+  },
+  {
+   "start": 0.82,
+   "end": 1.89
+  },
+  {
+   "start": 1.89,
+   "end": 8.22
+  },
+  {
+   "start": 8.22,
+   "end": 10.06
+  },
+  {
+   "start": 10.06,
+   "end": 11.86
+  },
+  {
+   "start": 11.86,
+   "end": 11.96
+  },
+  {
+   "start": 11.96,
+   "end": 17.43
+  }
+ ]
+}

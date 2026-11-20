@@ -1,0 +1,558 @@
+{
+ "_doc": "Univers graphiques du moteur (lus par scripts/director.py). Chaque style : gabarits disponibles, typographie, transitions d'entrée, catégories de sens qu'il raconte le mieux (poids).",
+ "categories": {
+  "solitude": [
+   "seul",
+   "seule",
+   "solitude",
+   "isolé",
+   "intégré",
+   "integre",
+   "personne",
+   "foule",
+   "différent",
+   "differents",
+   "étranger",
+   "exclu",
+   "loin",
+   "vide",
+   "ombre"
+  ],
+  "love": [
+   "aime",
+   "amour",
+   "cœur",
+   "coeur",
+   "bébé",
+   "bebe",
+   "chérie",
+   "elle",
+   "fesse",
+   "main",
+   "bisou",
+   "embrasse",
+   "toi",
+   "nous",
+   "couple",
+   "câlin"
+  ],
+  "money": [
+   "argent",
+   "prix",
+   "paye",
+   "paie",
+   "payer",
+   "paierais",
+   "billet",
+   "billets",
+   "euros",
+   "million",
+   "millions",
+   "cash",
+   "fric",
+   "oseille",
+   "thune",
+   "riche",
+   "banque",
+   "compter",
+   "compte",
+   "liasse",
+   "fonce",
+   "teille",
+   "bouteille",
+   "salaire"
+  ],
+  "vehicle": [
+   "voiture",
+   "volant",
+   "rouler",
+   "route",
+   "bolide",
+   "gamos",
+   "caisse",
+   "moteur",
+   "autoroute",
+   "phares",
+   "pneus",
+   "conduire",
+   "garé",
+   "tôle",
+   "tole"
+  ],
+  "success": [
+   "star",
+   "gloire",
+   "réussite",
+   "reussite",
+   "tapis",
+   "trône",
+   "trone",
+   "roi",
+   "légende",
+   "legende",
+   "couronne",
+   "nom",
+   "ade",
+   "moi",
+   "célèbre",
+   "top",
+   "sommet",
+   "victoire"
+  ],
+  "social": [
+   "facebook",
+   "insta",
+   "instagram",
+   "snap",
+   "likes",
+   "like",
+   "abonnés",
+   "abonnes",
+   "ami",
+   "amis",
+   "enchanté",
+   "enchante",
+   "téléphone",
+   "telephone",
+   "message",
+   "story",
+   "vues",
+   "réseau",
+   "reseaux",
+   "dm",
+   "live"
+  ],
+  "humor": [
+   "merde",
+   "ptou",
+   "rrht",
+   "crado",
+   "bouffon",
+   "mdr",
+   "lol",
+   "blague",
+   "rigole",
+   "clown",
+   "salir",
+   "sale",
+   "boue",
+   "pelle",
+   "enterrer"
+  ],
+  "pain": [
+   "mal",
+   "douleur",
+   "pire",
+   "empirer",
+   "pleurer",
+   "triste",
+   "pluie",
+   "nuage",
+   "orage",
+   "opérer",
+   "operer",
+   "hôpital",
+   "malade",
+   "blessure",
+   "fort",
+   "peur",
+   "souffre"
+  ],
+  "retro": [
+   "jeu",
+   "console",
+   "écran",
+   "ecran",
+   "souvenir",
+   "enfance",
+   "dirai",
+   "dire",
+   "viens",
+   "voir",
+   "appelle",
+   "prix",
+   "rétro"
+  ],
+  "anger": [
+   "haine",
+   "rage",
+   "colère",
+   "colere",
+   "guerre",
+   "violent",
+   "frappe",
+   "tue",
+   "sang",
+   "brûle",
+   "feu"
+  ],
+  "night": [
+   "nuit",
+   "soir",
+   "ville",
+   "rue",
+   "lune",
+   "néons",
+   "neons",
+   "lumière",
+   "étoile"
+  ],
+  "place": [
+   "cité",
+   "cite",
+   "tess",
+   "bat",
+   "bâtiment",
+   "batiment",
+   "hall",
+   "quartier",
+   "ville",
+   "rue",
+   "tour",
+   "béton",
+   "beton",
+   "immeuble",
+   "banlieue",
+   "zone"
+  ]
+ },
+ "category_colors": {
+  "solitude": "#9fb8ff",
+  "love": "#ff4f8b",
+  "money": "#ffc93c",
+  "vehicle": "#ff3b3b",
+  "success": "#e9b949",
+  "social": "#3ff0ff",
+  "humor": "#e85d2a",
+  "pain": "#5a8dee",
+  "retro": "#2f6b2a",
+  "anger": "#e10600",
+  "night": "#ffb35c",
+  "place": "#c8102e"
+ },
+ "styles": {
+  "A": {
+   "name": "3D cinématographique",
+   "templates": {
+    "default": "cinematic.spotlight_crowd",
+    "love": "cinematic.duo_night"
+   },
+   "weights": {
+    "solitude": 3,
+    "love": 2.6,
+    "anger": 1.5,
+    "night": 1.2
+   },
+   "fonts": [
+    "Anton"
+   ],
+   "typo": {
+    "font": "Anton",
+    "color": "#f4f2ee",
+    "size": 118,
+    "enter": "zoomin",
+    "emphasis": "glow",
+    "pos": "top",
+    "align": "left",
+    "exit": "blur",
+    "shadow": "0 6px 24px rgba(0,0,0,0.6)"
+   },
+   "transitions": [
+    {
+     "type": "zoom",
+     "dur": 0.45,
+     "x": 540,
+     "y": 900,
+     "scale": 2.4
+    },
+    {
+     "type": "dip",
+     "dur": 0.4,
+     "color": "#000000"
+    }
+   ],
+   "red": null
+  },
+  "B": {
+   "name": "Motion design éditorial",
+   "templates": {
+    "default": "editorial.chart"
+   },
+   "weights": {
+    "money": 2.4,
+    "pain": 1.2,
+    "retro": 0.4
+   },
+   "fonts": [
+    "Archivo Black"
+   ],
+   "typo": {
+    "font": "Archivo Black",
+    "color": "#1b1a17",
+    "size": 104,
+    "enter": "slide",
+    "emphasis": "highlight",
+    "pos": "top",
+    "align": "left",
+    "exit": "up",
+    "case": "upper",
+    "shadow": "none",
+    "marker": "#ffd23f"
+   },
+   "transitions": [
+    {
+     "type": "slices",
+     "dur": 0.45,
+     "n": 8
+    },
+    {
+     "type": "wipe",
+     "dur": 0.4,
+     "dir": "left"
+    }
+   ],
+   "red": null
+  },
+  "C": {
+   "name": "Cartoon dessiné à la main",
+   "templates": {
+    "default": "cartoon.dig"
+   },
+   "weights": {
+    "humor": 3.2
+   },
+   "fonts": [
+    "Permanent Marker"
+   ],
+   "typo": {
+    "font": "Permanent Marker",
+    "color": "#22180f",
+    "size": 108,
+    "enter": "bounce",
+    "emphasis": "wave",
+    "pos": "top",
+    "align": "left",
+    "exit": "down",
+    "shadow": "4px 4px 0 #e8d2a6",
+    "rotate": -3,
+    "lineHeight": 1.18
+   },
+   "transitions": [
+    {
+     "type": "tear",
+     "dur": 0.5
+    },
+    {
+     "type": "ink",
+     "dur": 0.5
+    }
+   ],
+   "red": null
+  },
+  "D": {
+   "name": "Néon / interface sociale",
+   "templates": {
+    "default": "neon.live",
+    "reject": "neon.reject"
+   },
+   "weights": {
+    "social": 3.4,
+    "night": 1
+   },
+   "fonts": [
+    "Russo One"
+   ],
+   "typo": {
+    "font": "Russo One",
+    "color": "#e9fdff",
+    "size": 100,
+    "enter": "pop",
+    "emphasis": "jelly",
+    "pos": "top",
+    "align": "left",
+    "exit": "zoom",
+    "shadow": "0 0 18px rgba(63,240,255,0.75)",
+    "redShadow": "0 0 22px rgba(63,240,255,0.9)"
+   },
+   "transitions": [
+    {
+     "type": "glitch",
+     "dur": 0.35
+    },
+    {
+     "type": "dots",
+     "dur": 0.45
+    }
+   ],
+   "red": "#ff3fb4"
+  },
+  "E": {
+   "name": "Low-poly 3D",
+   "templates": {
+    "default": "lowpoly.night_drive"
+   },
+   "weights": {
+    "vehicle": 3.4,
+    "money": 1.6,
+    "night": 1.2
+   },
+   "fonts": [
+    "Bebas Neue"
+   ],
+   "typo": {
+    "font": "Bebas Neue",
+    "color": "#ffffff",
+    "size": 170,
+    "enter": "flip",
+    "emphasis": "outline",
+    "pos": "top",
+    "align": "left",
+    "exit": "zoom",
+    "outlineColor": "#120c1c",
+    "perspective": {
+     "rx": 14,
+     "ry": -8,
+     "d": 1400
+    },
+    "shadow": "0 8px 0 rgba(0,0,0,0.45)",
+    "maxHeight": 600
+   },
+   "transitions": [
+    {
+     "type": "whip",
+     "dur": 0.35,
+     "dir": "left"
+    },
+    {
+     "type": "bar",
+     "dur": 0.45,
+     "glow": true,
+     "color": "#ffd23f"
+    }
+   ],
+   "red": null
+  },
+  "F": {
+   "name": "Objets rétro animés",
+   "templates": {
+    "default": "retro.toy"
+   },
+   "weights": {
+    "retro": 2.6,
+    "money": 0.6
+   },
+   "fonts": [
+    "VT323"
+   ],
+   "typo": {
+    "font": "VT323",
+    "color": "#22301a",
+    "size": 110,
+    "enter": "type",
+    "emphasis": "none",
+    "pos": [
+     270,
+     815
+    ],
+    "align": "left",
+    "exit": "none",
+    "shadow": "none",
+    "width": 540,
+    "maxHeight": 300,
+    "case": "upper"
+   },
+   "transitions": [
+    {
+     "type": "iris",
+     "dur": 0.45
+    },
+    {
+     "type": "blinds",
+     "dur": 0.45,
+     "n": 8
+    }
+   ],
+   "red": null
+  },
+  "G": {
+   "name": "Dessin pastel",
+   "templates": {
+    "default": "pastel.storm"
+   },
+   "weights": {
+    "pain": 3,
+    "night": 0.4
+   },
+   "fonts": [
+    "Caveat Brush"
+   ],
+   "typo": {
+    "font": "Caveat Brush",
+    "color": "#2a2630",
+    "size": 150,
+    "enter": "build",
+    "emphasis": "colorshift",
+    "pos": "top",
+    "align": "left",
+    "exit": "fade",
+    "case": "none",
+    "shadow": "none",
+    "lineHeight": 1.0
+   },
+   "transitions": [
+    {
+     "type": "ink",
+     "dur": 0.55
+    },
+    {
+     "type": "fade",
+     "dur": 0.5
+    }
+   ],
+   "red": null
+  },
+  "H": {
+   "name": "Voxel cinématographique",
+   "templates": {
+    "default": "voxel.red_carpet"
+   },
+   "weights": {
+    "success": 3.6,
+    "money": 0.8
+   },
+   "fonts": [
+    "Cinzel"
+   ],
+   "typo": {
+    "font": "Cinzel",
+    "color": "#f6e7b8",
+    "size": 112,
+    "enter": "rise",
+    "emphasis": "grow",
+    "pos": "top",
+    "align": "left",
+    "exit": "fade",
+    "case": "upper",
+    "shadow": "0 4px 20px rgba(0,0,0,0.7)",
+    "redShadow": "0 0 24px rgba(233,185,73,0.8)"
+   },
+   "transitions": [
+    {
+     "type": "radial",
+     "dur": 0.5,
+     "color": "#e9b949"
+    },
+    {
+     "type": "zoom",
+     "dur": 0.45,
+     "x": 540,
+     "y": 700,
+     "scale": 2.2
+    }
+   ],
+   "red": null
+  }
+ },
+ "house": "zine",
+ "_house_doc": "Style maison appliqué par défaut par director.py (--house zine). --house multi = sélection parmi les 8 univers A–H."
+}

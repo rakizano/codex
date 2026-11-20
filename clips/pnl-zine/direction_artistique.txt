@@ -1,0 +1,36 @@
+DIRECTION ARTISTIQUE — PNL « Différents »
+
+CONCEPT / NARRATION
+  Montage multi-univers : chaque phrase raconte son sens dans l'univers graphique qui lui correspond le mieux.
+
+DÉCOUPAGE (scène → image)
+  s00  0.00- 1.80s  J'sais qu'j'suis pas intégré, je perds de mes intérêts
+       image : [Zine collage N&B (style maison)] gabarit zine.door — sens dominant : solitude ; mot-clé « intégré »
+       transition d'entrée : cut
+  s01  1.80- 3.72s  Les mains dans le merde alors qu'elles sont faites pour les enterrer
+       image : [Zine collage N&B (style maison)] gabarit zine.blank — sens dominant : humor ; mot-clé « enterrer »
+       transition d'entrée : cut
+  s02  3.72- 5.32s  J'sais combien tu paierais pour te faire opérer
+       image : [Zine collage N&B (style maison)] gabarit zine.spot — sens dominant : money ; mot-clé « paierais »
+       transition d'entrée : dots
+  s03  5.32- 7.48s  De tout ce mal qui paraît si fort et qui semble empirer
+       image : [Zine collage N&B (style maison)] gabarit zine.door — sens dominant : pain ; mot-clé « empirer »
+       transition d'entrée : cut
+  s04  7.48-10.08s  Viens m'voir et j'te dirai le prix d'la fonce-dé-dé-dé
+       image : [Zine collage N&B (style maison)] gabarit zine.collage — sens dominant : retro ; mot-clé « prix »
+       transition d'entrée : ink
+  s05 10.08-13.89s  Si t'as appris à compter-ter-ter, on sera amis, enchanté-té-té
+       image : [Zine collage N&B (style maison)] gabarit zine.spot — sens dominant : social ; mot-clé « enchanté-té-té »
+       transition d'entrée : bar
+  s06 13.89-16.14s  Moi c'est Ade', moi c'est Ade' khey
+       image : [Zine collage N&B (style maison)] gabarit zine.blank — sens dominant : success ; mot-clé « Ade' »
+       transition d'entrée : cut
+  s07 16.14-18.18s  Sors la 'teille, vas-y claque le jour de paye
+       image : [Zine collage N&B (style maison)] gabarit zine.collage — sens dominant : money ; mot-clé « paye »
+       transition d'entrée : dots
+  s08 18.18-20.97s  J'veux pas d'ton facebook, rrht ptou
+       image : [Zine collage N&B (style maison)] gabarit zine.door — sens dominant : social ; mot-clé « facebook »
+       transition d'entrée : cut
+  s09 20.97-23.90s  T'sais qu'j'ai ma main sur ta fesse
+       image : [Zine collage N&B (style maison)] gabarit zine.blank — sens dominant : love ; mot-clé « fesse »
+       transition d'entrée : ink

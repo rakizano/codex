@@ -1,0 +1,327 @@
+{
+ "artist": "Josman",
+ "title": "Peace, Haine, Love",
+ "album": "M.A.N",
+ "duration": 60.045,
+ "lrclib_ref_id": 5316943,
+ "version_cluster_ids": [
+  5316943,
+  5316942,
+  8792053,
+  31156778,
+  16451994,
+  33382558,
+  24879634,
+  31266490,
+  17193326,
+  35984814,
+  34147054
+ ],
+ "version_cluster_albums": [
+  "Fav to fav",
+  "Josman Songs",
+  "M.A.N",
+  "M.A.N (Black Roses",
+  "M.A.N (Black Roses & Lost Feelings)",
+  "M.A.N (Black Roses & Lost Feelings) [Bonus]",
+  "MAN (Black Roses & Lost Feelings)",
+  "MAN (Black Roses & Lost Feelings) (Bonus)",
+  "Paroles Françaises",
+  "man"
+ ],
+ "other_versions": [
+  {
+   "duration": 226.0,
+   "n": 1,
+   "albums": [
+    "MAN (Black Roses & Lost Feelings)"
+   ]
+  },
+  {
+   "duration": 241.0,
+   "n": 11,
+   "albums": [
+    "Fav to fav",
+    "Josman Songs",
+    "M.A.N",
+    "M.A.N (Black Roses"
+   ]
+  }
+ ],
+ "n_sources": 11,
+ "text_agreement": [
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  0.993,
+  1.0,
+  1.0,
+  1.0,
+  1.0
+ ],
+ "sources_disagreeing": [],
+ "sync_spread_median_s": 0.03,
+ "sync_spread_p90_s": 0.07,
+ "sync_confidence": "élevée",
+ "sync_method": "LRCLIB (paroles synchronisées ligne par ligne par la communauté), médiane multi-sources",
+ "lines": [
+  {
+   "t": 2.57,
+   "text": "Putain encore un soir où je sais qu'j'dormirai pas",
+   "song_t": 50.64,
+   "timing_source": "LRC recalé",
+   "src_line": 11,
+   "i": 0,
+   "end": 4.95,
+   "gap_after": 2.38
+  },
+  {
+   "t": 4.95,
+   "text": "Où j'm'endormirai à l'aube, relation tombée à l'eau",
+   "song_t": 53.02,
+   "timing_source": "LRC recalé",
+   "src_line": 12,
+   "i": 1,
+   "end": 7.6,
+   "gap_after": 2.65
+  },
+  {
+   "t": 7.6,
+   "text": "J'réponds plus trop aux appels, quand c'est l'argent j'réponds \"allô\"",
+   "song_t": 55.67,
+   "timing_source": "LRC recalé",
+   "src_line": 13,
+   "i": 2,
+   "end": 10.04,
+   "gap_after": 2.44
+  },
+  {
+   "t": 10.04,
+   "text": "Loyauté qui s'fait la belle",
+   "song_t": 58.11,
+   "timing_source": "LRC recalé",
+   "src_line": 14,
+   "i": 3,
+   "end": 11.4,
+   "gap_after": 1.36
+  },
+  {
+   "t": 11.4,
+   "text": "et l'honneur qui s'fait la malle",
+   "song_t": 59.47,
+   "timing_source": "mot entendu",
+   "src_line": 14,
+   "i": 4,
+   "end": 12.56,
+   "gap_after": 1.16
+  },
+  {
+   "t": 12.56,
+   "text": "C'soir j'ai le blues qui fait mal,",
+   "song_t": 60.63,
+   "timing_source": "LRC recalé",
+   "src_line": 15,
+   "i": 5,
+   "end": 13.9,
+   "gap_after": 1.34
+  },
+  {
+   "t": 13.9,
+   "text": "on dirait qu'j'ai perdu le goût",
+   "song_t": 61.97,
+   "timing_source": "mot entendu",
+   "src_line": 15,
+   "i": 6,
+   "end": 15.24,
+   "gap_after": 1.34
+  },
+  {
+   "t": 15.24,
+   "text": "J'sens plus les saveurs et arômes,",
+   "song_t": 63.31,
+   "timing_source": "mot entendu",
+   "src_line": 16,
+   "i": 7,
+   "end": 16.58,
+   "gap_after": 1.34
+  },
+  {
+   "t": 16.58,
+   "text": "j'fais ma route à contre sens",
+   "song_t": 64.65,
+   "timing_source": "mot entendu",
+   "src_line": 16,
+   "i": 8,
+   "end": 17.66,
+   "gap_after": 1.08
+  },
+  {
+   "t": 17.66,
+   "text": "T'façon tous les chemins mènent à Rome,",
+   "song_t": 65.73,
+   "timing_source": "LRC recalé",
+   "src_line": 17,
+   "i": 9,
+   "end": 19.0,
+   "gap_after": 1.34
+  },
+  {
+   "t": 19.0,
+   "text": "t'façon ils mènent tous à la mort",
+   "song_t": 67.07,
+   "timing_source": "estimé",
+   "src_line": 17,
+   "i": 10,
+   "end": 20.34,
+   "gap_after": 1.34
+  },
+  {
+   "t": 20.34,
+   "text": "T'façon ce monde est hardcore, que le ciel me laisse une chance",
+   "song_t": 68.41,
+   "timing_source": "LRC recalé",
+   "src_line": 18,
+   "i": 11,
+   "end": 23.12,
+   "gap_after": 2.78
+  },
+  {
+   "t": 23.12,
+   "text": "J'la saisirai à bras l'corps, il faut encore que j'explore",
+   "song_t": 71.19,
+   "timing_source": "mot entendu",
+   "src_line": 19,
+   "i": 12,
+   "end": 25.6,
+   "gap_after": 2.48
+  },
+  {
+   "t": 25.6,
+   "text": "J'ai encore rien vu de la flore, j'ai encore rien vu de la faune",
+   "song_t": 73.67,
+   "timing_source": "mot entendu",
+   "src_line": 20,
+   "i": 13,
+   "end": 28.08,
+   "gap_after": 2.48
+  },
+  {
+   "t": 28.08,
+   "text": "J'ai longtemps crié ma haine, jusqu'à en devenir aphone",
+   "song_t": 76.15,
+   "timing_source": "mot entendu",
+   "src_line": 21,
+   "i": 14,
+   "end": 30.72,
+   "gap_after": 2.64
+  },
+  {
+   "t": 30.72,
+   "text": "J'ai gardé le cœur dans la paume, donc il est rempli d'hématomes",
+   "song_t": 78.79,
+   "timing_source": "mot entendu",
+   "src_line": 22,
+   "i": 15,
+   "end": 33.3,
+   "gap_after": 2.58
+  },
+  {
+   "t": 33.3,
+   "text": "J'le ressens dans tous mes atomes",
+   "song_t": 81.37,
+   "timing_source": "mot entendu",
+   "src_line": 23,
+   "i": 16,
+   "end": 35.48,
+   "gap_after": 2.18
+  },
+  {
+   "t": 35.48,
+   "text": "Personne viendra avec moi dans ma tombe",
+   "song_t": 83.55,
+   "timing_source": "LRC recalé",
+   "src_line": 24,
+   "i": 17,
+   "end": 37.7,
+   "gap_after": 2.22
+  },
+  {
+   "t": 37.7,
+   "text": "J'ai croqué mais j'ai pas avalé la pomme",
+   "song_t": 85.77,
+   "timing_source": "mot entendu",
+   "src_line": 25,
+   "i": 18,
+   "end": 40.32,
+   "gap_after": 2.62
+  },
+  {
+   "t": 40.32,
+   "text": "Cercle fermé, je n'vais pas rentrer dans la ronde",
+   "song_t": 88.39,
+   "timing_source": "LRC recalé",
+   "src_line": 26,
+   "i": 19,
+   "end": 43.46,
+   "gap_after": 3.14
+  },
+  {
+   "t": 43.46,
+   "text": "Dans la vie comme sur le ring,",
+   "song_t": 91.53,
+   "timing_source": "mot entendu",
+   "src_line": 27,
+   "i": 20,
+   "end": 45.88,
+   "gap_after": 2.42
+  },
+  {
+   "t": 45.88,
+   "text": "j'suis tout seul, j'ai ma paire de gants",
+   "song_t": 93.95,
+   "timing_source": "mot entendu",
+   "src_line": 27,
+   "i": 21,
+   "end": 48.64,
+   "gap_after": 2.76
+  },
+  {
+   "t": 48.64,
+   "text": "J'me bats pour mes frères de sang",
+   "song_t": 96.71,
+   "timing_source": "mot entendu",
+   "src_line": 28,
+   "i": 22,
+   "end": 51.12,
+   "gap_after": 2.48
+  },
+  {
+   "t": 51.12,
+   "text": "J'suis baisé, j'peux pas perdre de temps",
+   "song_t": 99.19,
+   "timing_source": "mot entendu",
+   "src_line": 29,
+   "i": 23,
+   "end": 53.42,
+   "gap_after": 2.3
+  },
+  {
+   "t": 53.42,
+   "text": "Les sentiments qui s'envolent, les sentiments qui s'envolent",
+   "song_t": 101.49,
+   "timing_source": "mot entendu",
+   "src_line": 30,
+   "i": 24,
+   "end": 60.045,
+   "gap_after": 6.625
+  }
+ ],
+ "sound_clock": true,
+ "sound_mapping": {
+  "song_start_s": 48.07,
+  "speed": 1.0,
+  "sound_duration_s": 60.045
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "file": "tiktok_sound_source.mp4",
+ "language": "fr",
+ "sound_duration_s": 34.296,
+ "song_start_s": 60.86,
+ "song_end_s": 95.156,
+ "speed": 1.0,
+ "speed_note": "vitesse normale",
+ "recognized_words": 156,
+ "matched_words": 114,
+ "anchors_used": 9,
+ "anchor_type": "débuts de lignes",
+ "fit_rms_s": 0.176,
+ "confidence": "élevée",
+ "first_lines_in_sound": [
+  "  0.00s  J'sais qu'j'suis pas intégré, je perds de mes intérêts",
+  "  1.92s  Les mains dans le merde alors qu'elles sont faites pour les enterrer",
+  "  3.84s  J'sais combien tu paierais pour te faire opérer",
+  "  5.45s  De tout ce mal qui paraît si fort et qui semble empirer"
+ ]
+}

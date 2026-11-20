@@ -1,0 +1,621 @@
+{
+ "artist": "Cherry Pie",
+ "title": "BIR HAKEIM",
+ "album": "BIR HAKEIM",
+ "duration": 243.0,
+ "lrclib_ref_id": 38952552,
+ "version_cluster_ids": [
+  38952552,
+  38987843,
+  38925078,
+  39873396
+ ],
+ "version_cluster_albums": [
+  "BIR HAKEIM",
+  "BIR HAKEIM - Single",
+  "Back to Bag #4",
+  "Cherry Pie"
+ ],
+ "other_versions": [
+  {
+   "duration": 240.0,
+   "n": 1,
+   "albums": [
+    "BIR HAKEIM"
+   ]
+  },
+  {
+   "duration": 244.0,
+   "n": 4,
+   "albums": [
+    "BIR HAKEIM",
+    "BIR HAKEIM - Single",
+    "Back to Bag #4",
+    "Cherry Pie"
+   ]
+  }
+ ],
+ "n_sources": 4,
+ "text_agreement": [
+  1.0,
+  1.0,
+  1.0
+ ],
+ "sources_disagreeing": [],
+ "sync_spread_median_s": 0.0,
+ "sync_spread_p90_s": 0.0,
+ "sync_confidence": "élevée",
+ "sync_method": "LRCLIB (paroles synchronisées ligne par ligne par la communauté), médiane multi-sources",
+ "lines": [
+  {
+   "i": 0,
+   "t": 40.48,
+   "t_ref": 40.48,
+   "text": "Parents analphabètes",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 41.56,
+   "gap_after": 1.08
+  },
+  {
+   "i": 1,
+   "t": 41.56,
+   "t_ref": 41.56,
+   "text": "J'bicrave 3 lettres de l'alphabet",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 42.87,
+   "gap_after": 1.31
+  },
+  {
+   "i": 2,
+   "t": 42.87,
+   "t_ref": 42.87,
+   "text": "La prof disait toi t'es pas bête",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 44.41,
+   "gap_after": 1.54
+  },
+  {
+   "i": 3,
+   "t": 44.41,
+   "t_ref": 44.41,
+   "text": "Tu seras journaliste ou médecin",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 46.64,
+   "gap_after": 2.23
+  },
+  {
+   "i": 4,
+   "t": 46.64,
+   "t_ref": 46.64,
+   "text": "Tu seras djihadiste ou mesquin",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 50.93,
+   "gap_after": 4.29
+  },
+  {
+   "i": 5,
+   "t": 50.93,
+   "t_ref": 50.93,
+   "text": "Israël Palestine, inchAllah ça sera mieux après demain",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 53.37,
+   "gap_after": 2.44
+  },
+  {
+   "i": 6,
+   "t": 53.37,
+   "t_ref": 53.37,
+   "text": "J'veux m'endormir millionnaire",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 54.62,
+   "gap_after": 1.25
+  },
+  {
+   "i": 7,
+   "t": 54.62,
+   "t_ref": 54.62,
+   "text": "J'me lève et j'cours derrière mon destin",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 56.05,
+   "gap_after": 1.43
+  },
+  {
+   "i": 8,
+   "t": 56.05,
+   "t_ref": 56.05,
+   "text": "Casse ton cou sur sa sœur, il va viser près des intestins",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 58.88,
+   "gap_after": 2.83
+  },
+  {
+   "i": 9,
+   "t": 58.88,
+   "t_ref": 58.88,
+   "text": "Vide la Belvedere deux heures après la nuit du destin",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 61.33,
+   "gap_after": 2.45
+  },
+  {
+   "i": 10,
+   "t": 61.33,
+   "t_ref": 61.33,
+   "text": "9321 La Plaine Avenue Wilson si tu veux test hein",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 63.8,
+   "gap_after": 2.47
+  },
+  {
+   "i": 11,
+   "t": 63.8,
+   "t_ref": 63.8,
+   "text": "Dans la 2, la 3, la 1 j'avais la zaza qui empeste",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 66.25,
+   "gap_after": 2.45
+  },
+  {
+   "i": 12,
+   "t": 66.25,
+   "t_ref": 66.25,
+   "text": "De l'or dans les pieds comme Kyky de Bondy",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 67.56,
+   "gap_after": 1.31
+  },
+  {
+   "i": 13,
+   "t": 67.56,
+   "t_ref": 67.56,
+   "text": "C'est dans le 93 qu'on a grandi",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 68.91,
+   "gap_after": 1.35
+  },
+  {
+   "i": 14,
+   "t": 68.91,
+   "t_ref": 68.91,
+   "text": "Et nique la grand mère à Gandhi",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 70.39,
+   "gap_after": 1.48
+  },
+  {
+   "i": 15,
+   "t": 70.39,
+   "t_ref": 70.39,
+   "text": "Drapeau pirate, on a brandi",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 71.57,
+   "gap_after": 1.18
+  },
+  {
+   "i": 16,
+   "t": 71.57,
+   "t_ref": 71.57,
+   "text": "J'attends qu'on me book à DKR",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 72.7,
+   "gap_after": 1.13
+  },
+  {
+   "i": 17,
+   "t": 72.7,
+   "t_ref": 72.7,
+   "text": "J'déboulerai dans un Double R",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 74.11,
+   "gap_after": 1.41
+  },
+  {
+   "i": 18,
+   "t": 74.11,
+   "t_ref": 74.11,
+   "text": "Paternel m'mettait TKO",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 75.3,
+   "gap_after": 1.19
+  },
+  {
+   "i": 19,
+   "t": 75.3,
+   "t_ref": 75.3,
+   "text": "Quand le baceux tombait sur ma R",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 76.83,
+   "gap_after": 1.53
+  },
+  {
+   "i": 20,
+   "t": 76.83,
+   "t_ref": 76.83,
+   "text": "Je sais plus vraiment qui je suis",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 77.99,
+   "gap_after": 1.16
+  },
+  {
+   "i": 21,
+   "t": 77.99,
+   "t_ref": 77.99,
+   "text": "Des problèmes j'en ai plein la tête",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 79.27,
+   "gap_after": 1.28
+  },
+  {
+   "i": 22,
+   "t": 79.27,
+   "t_ref": 79.27,
+   "text": "La vingtaine et la calvitie",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 80.42,
+   "gap_after": 1.15
+  },
+  {
+   "i": 23,
+   "t": 80.42,
+   "t_ref": 80.42,
+   "text": "Des problèmes j'en ai plein la tête",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 81.74,
+   "gap_after": 1.32
+  },
+  {
+   "i": 24,
+   "t": 81.74,
+   "t_ref": 81.74,
+   "text": "Mais ma sœur elle est magnifique",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 83.15,
+   "gap_after": 1.41
+  },
+  {
+   "i": 25,
+   "t": 83.15,
+   "t_ref": 83.15,
+   "text": "Et cette bitch elle sait que je l'aime",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 84.5,
+   "gap_after": 1.35
+  },
+  {
+   "i": 26,
+   "t": 84.5,
+   "t_ref": 84.5,
+   "text": "Sous les néons d'Amsterdam je te promets qu'on verra qu'elle",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 87.12,
+   "gap_after": 2.62
+  },
+  {
+   "i": 27,
+   "t": 87.12,
+   "t_ref": 87.12,
+   "text": "C'est la seule étoile filante qu'on peut croiser à Bir Hakeim",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 89.84,
+   "gap_after": 2.72
+  },
+  {
+   "i": 28,
+   "t": 89.84,
+   "t_ref": 89.84,
+   "text": "Une fille aux moeurs légères mais c'est pas toi qui va la ken",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 92.3,
+   "gap_after": 2.46
+  },
+  {
+   "i": 29,
+   "t": 92.3,
+   "t_ref": 92.3,
+   "text": "Je m'éloigne de la pauvreté",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 93.34,
+   "gap_after": 1.04
+  },
+  {
+   "i": 30,
+   "t": 93.34,
+   "t_ref": 93.34,
+   "text": "Je me rapproche de la psychiatrie",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 94.93,
+   "gap_after": 1.59
+  },
+  {
+   "i": 31,
+   "t": 94.93,
+   "t_ref": 94.93,
+   "text": "Un semblant de liberté pour colmater mes cicatrices",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 97.57,
+   "gap_after": 2.64
+  },
+  {
+   "i": 32,
+   "t": 97.57,
+   "t_ref": 97.57,
+   "text": "L'amour c'est ma passion la musique c'est ma thérapie",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 100.12,
+   "gap_after": 2.55
+  },
+  {
+   "i": 33,
+   "t": 100.12,
+   "t_ref": 100.12,
+   "text": "L'amour c'est ma passion la musique c'est ma thérapie",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 104.04,
+   "gap_after": 3.92
+  },
+  {
+   "i": 34,
+   "t": 104.04,
+   "t_ref": 104.04,
+   "text": "Et cette bitch elle sait que je l'aime",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 105.32,
+   "gap_after": 1.28
+  },
+  {
+   "i": 35,
+   "t": 105.32,
+   "t_ref": 105.32,
+   "text": "Sous les néons d'Amsterdam je te promets qu'on verra qu'elle",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 107.83,
+   "gap_after": 2.51
+  },
+  {
+   "i": 36,
+   "t": 107.83,
+   "t_ref": 107.83,
+   "text": "C'est la seule étoile filante qu'on peut croiser à Bir Hakeim",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 110.62,
+   "gap_after": 2.79
+  },
+  {
+   "i": 37,
+   "t": 110.62,
+   "t_ref": 110.62,
+   "text": "Une fille aux moeurs légères mais c'est pas toi qui va la ken",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 114.15,
+   "gap_after": 3.53
+  },
+  {
+   "i": 38,
+   "t": 114.15,
+   "t_ref": 114.15,
+   "text": "Et cette fille elle sait que je l'aime",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 116.88,
+   "gap_after": 2.73
+  },
+  {
+   "i": 39,
+   "t": 116.88,
+   "t_ref": 116.88,
+   "text": "Je te promets qu'on verra qu'elle, qu'on peut croiser à Bir Hakeim",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 121.7,
+   "gap_after": 4.82
+  },
+  {
+   "i": 40,
+   "t": 121.7,
+   "t_ref": 121.7,
+   "text": "Et c'est pas toi qui va la ken",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 124.99,
+   "gap_after": 3.29
+  },
+  {
+   "i": 41,
+   "t": 124.99,
+   "t_ref": 124.99,
+   "text": "Lâche moi la grappe bâtard",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 126.79,
+   "gap_after": 1.8
+  },
+  {
+   "i": 42,
+   "t": 126.79,
+   "t_ref": 126.79,
+   "text": "J'ai d'la rime qui fait mal au crâne bâtard",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 129.45,
+   "gap_after": 2.66
+  },
+  {
+   "i": 43,
+   "t": 129.45,
+   "t_ref": 129.45,
+   "text": "J'suis top 1 comme un mélodrame bâtard",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 132.05,
+   "gap_after": 2.6
+  },
+  {
+   "i": 44,
+   "t": 132.05,
+   "t_ref": 132.05,
+   "text": "J'suis top 1 jusqu'au dernier gramme",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 134.5,
+   "gap_after": 2.45
+  },
+  {
+   "i": 45,
+   "t": 134.5,
+   "t_ref": 134.5,
+   "text": "Je fais pas du rap, je fais de la musique",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 136.64,
+   "gap_after": 2.14
+  },
+  {
+   "i": 46,
+   "t": 136.64,
+   "t_ref": 136.64,
+   "text": "Je suis au studio comme à l'usine, Babylone a gagné",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 139.71,
+   "gap_after": 3.07
+  },
+  {
+   "i": 47,
+   "t": 139.71,
+   "t_ref": 139.71,
+   "text": "93 grammes sur la pookie",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 141.99,
+   "gap_after": 2.28
+  },
+  {
+   "i": 48,
+   "t": 141.99,
+   "t_ref": 141.99,
+   "text": "93 millions je vais pas te faire un croquis",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 145.25,
+   "gap_after": 3.26
+  },
+  {
+   "i": 49,
+   "t": 145.25,
+   "t_ref": 145.25,
+   "text": "Et cette bitch elle sait que je l'aime",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 146.72,
+   "gap_after": 1.47
+  },
+  {
+   "i": 50,
+   "t": 146.72,
+   "t_ref": 146.72,
+   "text": "Sous les néons d'Amsterdam je te promets qu'on verra qu'elle",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 149.43,
+   "gap_after": 2.71
+  },
+  {
+   "i": 51,
+   "t": 149.43,
+   "t_ref": 149.43,
+   "text": "C'est la seule étoile filante qu'on peut croiser à Bir Hakeim",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 152.25,
+   "gap_after": 2.82
+  },
+  {
+   "i": 52,
+   "t": 152.25,
+   "t_ref": 152.25,
+   "text": "Une fille aux moeurs légères mais c'est pas toi qui va la ken",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 176.78,
+   "gap_after": 24.53
+  },
+  {
+   "i": 53,
+   "t": 176.78,
+   "t_ref": 176.78,
+   "text": "Et cette fille elle sait que je l'aime",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 179.05,
+   "gap_after": 2.27
+  },
+  {
+   "i": 54,
+   "t": 179.05,
+   "t_ref": 179.05,
+   "text": "Je te promets qu'on verra qu'elle, qu'on peut croiser à Bir Hakeim",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 184.38,
+   "gap_after": 5.33
+  },
+  {
+   "i": 55,
+   "t": 184.38,
+   "t_ref": 184.38,
+   "text": "Et c'est pas toi qui va la ken",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 190.25,
+   "gap_after": 5.87
+  },
+  {
+   "i": 56,
+   "t": 190.25,
+   "t_ref": 190.25,
+   "text": "",
+   "n_src": 1,
+   "spread": null,
+   "end": 243.0,
+   "gap_after": 52.75
+  }
+ ]
+}

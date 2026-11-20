@@ -1,0 +1,124 @@
+DIRECTION ARTISTIQUE — Sdm « Cartier Santos »
+
+CONCEPT / NARRATION
+  Le roman-photo nocturne d'une rupture toxique dans une cité de banlieue : lui, en bleu nuit, qui « prend plus sur lui » puis rechute ; elle, en rose néon, qui ne rêve que d'or. Le break instrumental révèle l'objet du désir — une montre carrée en or — et la fin oppose son monde bleu à son monde doré.
+
+UNIVERS VISUEL
+  Roman graphique urbain / BD nocturne : tours HLM, toits, cages d'escalier, réverbères au sodium, néons, écrans de téléphone ; inserts symboliques (cœur, cerveau, marionnette, pluie de billets).
+
+PALETTE
+  nuit pétrole   #0b1626
+  bleu cité      #13304a
+  béton          #5b6470
+  sodium         #ff8a2a
+  rose néon      #ff3d8b
+  or             #d4af37
+  blanc cassé    #f4f1ea
+  rouge signature #e10600
+
+TYPOGRAPHIE
+  Bebas Neue (condensée, capitales), blanc cassé, ombre portée dure noire décalée façon impression BD ; mot rouge plus grand (×1.3). Entrées sèches (stamp, pop, slide, drop) calées sur le flow ; emphases variées : shake, late, slidein, pulse, scramble, glow.
+
+STYLE GRAPHIQUE
+  Aplats francs, silhouettes sombres découpées sur éclairages colorés, trame demi-teinte d'impression (halftone), grain léger, contraste et saturation renforcés. Lui = bleu nuit, elle = silhouette à cheveux longs rétroéclairée de rose, l'argent = or.
+
+PRINCIPES D'ANIMATION
+  Montage nerveux au rythme du rap (une image toutes les 1 à 3 s) ; caméra qui pousse, tremble sur les tensions, glisse en travelling ; éléments toujours vivants (pluie, néons qui grésillent, phares, fenêtres, battements de cœur). Le break instrumental ralentit : rotation lente de la montre en or.
+
+TRANSITIONS & MONTAGE
+  Coups de fouet (whip), poussées, glitch sur la « rage », flashs sur les punchlines, bande dorée qui traverse l'écran pour l'argent, losange doré pour la montre, encre et iris pour les moments de rêve ; fondu au noir final.
+
+INFLUENCES
+  Esthétique des clips et pochettes de rap français nocturnes, BD urbaine, affiches sérigraphiées.
+
+DÉCOUPAGE (scène → image)
+  s00  0.00- 2.29s  J'prends plus sur moi, c'est fini,
+       image : Toit d'une tour HLM la nuit : lui, de dos, au bord, la ville en contrebas ; il laisse tomber son téléphone.
+       transition d'entrée : cut
+  s01  2.29- 5.00s  j'y ai réfléchi toute la semaine
+       image : Mur de sa chambre : un calendrier de 7 jours que des croix rouges barrent un à un ; lui assis tête dans les mains sous la lampe.
+       transition d'entrée : push
+  s02  5.00- 6.62s  Elle me répond "est-ce que t'es sûr?",
+       image : Gros plan sur un téléphone tenu en main : bulles de conversation qui apparaissent, indicateur « en train d'écrire ».
+       transition d'entrée : zoom
+  s03  6.62- 7.52s  me dit "dommage,
+       image : Elle à sa fenêtre éclairée de rose, silhouette qui hausse les épaules, rideau qui ondule.
+       transition d'entrée : cut
+  s04  7.52-10.04s  j'avais bloqué ma soirée pour qu'tu montes sur moi"
+       image : Façade de tour la nuit, la caméra monte étage par étage jusqu'à une seule fenêtre rose allumée tout en haut.
+       transition d'entrée : push
+  s05 10.04-11.26s  D'un coup, mon cœur est navré,
+       image : Radiographie de sa silhouette : un cœur lumineux dans la poitrine qui bat puis se fissure.
+       transition d'entrée : flash
+  s06 11.26-15.12s  elle sait pile-poil où toucher pour que j'retourne ma veste
+       image : Lui en marionnette : des fils tirés par une immense main rose depuis le haut ; il pivote sur lui-même.
+       transition d'entrée : ink
+  s07 15.12-16.49s  C'est ma bouche qui a dit non,
+       image : Profil géant de son visage en ombre chinoise, bouche qui bouge, néon bleu en contre-jour.
+       transition d'entrée : whip
+  s08 16.49-18.21s  alors qu'mon cœur voulait dire oui
+       image : Plan serré sur la poitrine : cœur rose énorme qui bat très fort, ondes de choc.
+       transition d'entrée : shape
+  s09 18.21-19.93s  et mon cerveau qui s'demande c'que j'fais
+       image : Sa tête en coupe : des engrenages qui tournent en tous sens et des points d'interrogation qui flottent.
+       transition d'entrée : spin
+  s10 19.93-23.82s  Faudra d'la foi et du courage, une relation remplie de rage,
+       image : Orage sur la cité : éclairs, pluie battante, deux silhouettes face à face qui se disputent sur un balcon.
+       transition d'entrée : glitch
+  s11 23.82-25.46s  à la fin, j'm'en suis pas remis
+       image : Vue de dessus : lui allongé au sol d'une pièce vide, le rectangle de lumière de la fenêtre qui glisse.
+       transition d'entrée : dip
+  s12 25.46-28.28s  Vivre sans elle, j'y arrive pas, j'trouve plus l'sommeil quand j'suis seul,
+       image : Chambre de nuit : lui assis au bord du lit, réveil numérique qui affiche 03:47, rayures de lumière des stores.
+       transition d'entrée : blinds
+  s13 28.28-30.01s  j'm'endors après plusieurs res-ve
+       image : Rêve : lui qui flotte en apesanteur dans un ciel violet étoilé, parmi des oreillers et des étoiles.
+       transition d'entrée : iris
+  s14 30.01-31.85s  Elle, elle fait genre tout va bien,
+       image : Écran de story : elle en silhouette rose, étincelles et cœurs de réactions qui montent.
+       transition d'entrée : push
+  s15 31.85-33.87s  nouvelle relation, elle vit la vie
+       image : Boulevard illuminé : elle et un nouvel homme marchent main dans la main sous les guirlandes.
+       transition d'entrée : slide
+  s16 33.87-35.34s  qu'elle rêvait
+       image : La vie de rêve : coucher de soleil rose et orange, palmiers, mer scintillante, un yacht au loin.
+       transition d'entrée : wipe
+  s17 35.34-37.23s  Pour elle, j'étais pas l'homme capable,
+       image : Arrêt de bus sous la pluie : lui seul, capuche, un bus de nuit qui passe sans s'arrêter.
+       transition d'entrée : diagonal
+  s18 37.23-39.51s  un homme capable, c'est celui qui déboule
+       image : Route en perspective : des phares qui foncent vers la caméra, traînées de lumière.
+       transition d'entrée : whip
+  s19 39.51-42.60s  en bas d'chez elle en Féfé'
+       image : Pied de sa tour : une voiture de sport noire aux reflets dorés surgit et freine, phares éblouissants ; elle à la fenêtre.
+       transition d'entrée : flash
+  s19b 42.60-49.80s  (instrumental)
+       image : Break : écrin qui s'ouvre au ralenti sur une montre carrée en or qui tourne dans un faisceau de lumière, paillettes.
+       transition d'entrée : iris
+  s20 49.80-51.56s  J'lui dis "j'peux pas vivre sans toi",
+       image : Sous un réverbère, pluie fine : lui à genoux devant elle, debout, qui détourne la tête.
+       transition d'entrée : flash
+  s21 51.56-53.11s  elle m'a dit "que si tu
+       image : Contre-jour rose : sa silhouette de dos qui lève un doigt, cheveux qui bougent.
+       transition d'entrée : cut
+  s22 53.11-55.09s  m'payes une Cartier Santos"
+       image : La montre carrée en or, immense, au centre, rayons dorés et étiquette de prix qui se balance.
+       transition d'entrée : shape
+  s23 55.09-57.44s  Même avec tout le temps qu'on passe,
+       image : Le banc du quartier : eux deux assis, le ciel passe du jour à la nuit en accéléré, les ombres tournent.
+       transition d'entrée : fade
+  s24 57.44-60.49s  tu veux pas mettre un peu plus de sérieux sur l'dossier
+       image : Bureau : une pile de dossiers, un tampon qui s'abat, des feuilles qui s'envolent.
+       transition d'entrée : push
+  s25 60.49-62.49s  Tu sais qu'l'argent ça compte pas,
+       image : Pluie de billets dorés sur lui, immobile sous un parapluie.
+       transition d'entrée : bar
+  s26 62.49-65.61s  tu t'en rendras compte un jour à quel point j't'ai aimée
+       image : Un polaroid d'eux deux, épinglé, qui se décolore et tombe en tournoyant.
+       transition d'entrée : zoom
+  s27 65.61-68.00s  J'lui dis que j'lui souhaite le meilleur,
+       image : Aube bleue : lui qui s'éloigne de la tour, mains dans les poches ; une seule fenêtre encore allumée.
+       transition d'entrée : fade
+  s28 68.00-72.26s  elle m'a dit "souhaite-moi la richesse, moi, fuck la santé"
+       image : Elle, silhouette rétroéclairée d'or, la montre au poignet levé, pluie de pièces d'or ; tout devient doré.
+       transition d'entrée : flash

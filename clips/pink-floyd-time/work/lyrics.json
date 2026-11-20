@@ -1,0 +1,517 @@
+{
+ "artist": "Pink Floyd",
+ "title": "Time",
+ "album": "The Dark Side Of The Moon (Japan)",
+ "duration": 425.0,
+ "lrclib_ref_id": 7563200,
+ "version_cluster_ids": [
+  7563200,
+  4831460,
+  7481151,
+  7481146
+ ],
+ "version_cluster_albums": [
+  "(1973) Dark Side Of The Moon",
+  "The Dark Side Of The Moon (Japan)",
+  "The Dark Side of the Moon (20th Anniversary Limited Edition)",
+  "The Dark Side of the Moon [2023 Remaster]"
+ ],
+ "other_versions": [
+  {
+   "duration": 205.0,
+   "n": 1,
+   "albums": [
+    "Pink Floyd"
+   ]
+  },
+  {
+   "duration": 380.0,
+   "n": 2,
+   "albums": [
+    "A Foot In The Door",
+    "The Best Of Pink Floyd: A Foot In The Door (Remastered)"
+   ]
+  },
+  {
+   "duration": 392.0,
+   "n": 1,
+   "albums": [
+    "The Dark Side of the Moon"
+   ]
+  },
+  {
+   "duration": 408.2,
+   "n": 4,
+   "albums": [
+    "Echoes: The Best of Pink Floyd CD2",
+    "Pink Floyd",
+    "Pink Floyd - Pulse",
+    "Pink Floyd Echoes"
+   ]
+  },
+  {
+   "duration": 410.0,
+   "n": 1,
+   "albums": [
+    "Pink Floyd best"
+   ]
+  },
+  {
+   "duration": 414.0,
+   "n": 6,
+   "albums": [
+    "Arrow Rock 500 Editie 2015",
+    "Pink Floyd",
+    "The Dark Side Of The Moon CD1. The Original Album (2011, 3CD+2DVD+Blu-ray, 5099902943121)",
+    "The Dark Side of the Moon"
+   ]
+  },
+  {
+   "duration": 417.0,
+   "n": 1,
+   "albums": [
+    "Pink Floyd Songs"
+   ]
+  },
+  {
+   "duration": 422.5,
+   "n": 4,
+   "albums": [
+    "100 Greatest Guitar Solos",
+    "Pink Floyd",
+    "The Dark Side Of The Moon (2011 Remaster)",
+    "The Dark Side Of The Moon [Toshiba-EMI Black Triangle CP35-3017]"
+   ]
+  },
+  {
+   "duration": 426.0,
+   "n": 7,
+   "albums": [
+    "(1973) Dark Side Of The Moon",
+    "100 Greatest Guitar Solos",
+    "Pink Floyd",
+    "The Dark Side Of The Moon\u0000﻿The Dark Side of the Moon"
+   ]
+  },
+  {
+   "duration": 438.0,
+   "n": 1,
+   "albums": [
+    "Pink Floyd"
+   ]
+  }
+ ],
+ "n_sources": 4,
+ "text_agreement": [
+  1.0,
+  0.975,
+  0.975
+ ],
+ "sources_disagreeing": [],
+ "sync_spread_median_s": 0.04,
+ "sync_spread_p90_s": 0.29,
+ "sync_confidence": "élevée",
+ "sync_method": "LRCLIB (paroles synchronisées ligne par ligne par la communauté), médiane multi-sources",
+ "lines": [
+  {
+   "i": 0,
+   "t": 150.035,
+   "t_ref": 150.06,
+   "text": "Ticking away the moments that make up a dull day",
+   "n_src": 4,
+   "spread": 0.05,
+   "end": 157.055,
+   "gap_after": 7.02
+  },
+  {
+   "i": 1,
+   "t": 157.055,
+   "t_ref": 157.07,
+   "text": "You fritter and waste the hours in an offhand way",
+   "n_src": 4,
+   "spread": 0.03,
+   "end": 164.45,
+   "gap_after": 7.395
+  },
+  {
+   "i": 2,
+   "t": 164.45,
+   "t_ref": 164.47,
+   "text": "Kicking around on a piece of ground in your hometown",
+   "n_src": 4,
+   "spread": 0.04,
+   "end": 171.93,
+   "gap_after": 7.48
+  },
+  {
+   "i": 3,
+   "t": 171.93,
+   "t_ref": 171.93,
+   "text": "Waiting for someone or something to show you the way",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 179.46,
+   "gap_after": 7.53
+  },
+  {
+   "i": 4,
+   "t": 179.46,
+   "t_ref": 179.5,
+   "text": "Tired of lying in the sunshine",
+   "n_src": 4,
+   "spread": 0.08,
+   "end": 182.985,
+   "gap_after": 3.525
+  },
+  {
+   "i": 5,
+   "t": 182.985,
+   "t_ref": 183.13,
+   "text": "Staying home to watch the rain",
+   "n_src": 4,
+   "spread": 0.29,
+   "end": 187.09,
+   "gap_after": 4.105
+  },
+  {
+   "i": 6,
+   "t": 187.09,
+   "t_ref": 187.3,
+   "text": "And you are young and life is long",
+   "n_src": 4,
+   "spread": 0.42,
+   "end": 190.515,
+   "gap_after": 3.425
+  },
+  {
+   "i": 7,
+   "t": 190.515,
+   "t_ref": 190.42,
+   "text": "And there is time to kill today",
+   "n_src": 4,
+   "spread": 0.19,
+   "end": 194.81,
+   "gap_after": 4.295
+  },
+  {
+   "i": 8,
+   "t": 194.81,
+   "t_ref": 195.43,
+   "text": "And then one day you find",
+   "n_src": 4,
+   "spread": 1.24,
+   "end": 198.165,
+   "gap_after": 3.355
+  },
+  {
+   "i": 9,
+   "t": 198.165,
+   "t_ref": 198.74,
+   "text": "Ten years have got behind you",
+   "n_src": 4,
+   "spread": 1.15,
+   "end": 202.45,
+   "gap_after": 4.285
+  },
+  {
+   "i": 10,
+   "t": 202.45,
+   "t_ref": 202.54,
+   "text": "No one told you when to run",
+   "n_src": 4,
+   "spread": 0.18,
+   "end": 205.775,
+   "gap_after": 3.325
+  },
+  {
+   "i": 11,
+   "t": 205.775,
+   "t_ref": 206.51,
+   "text": "You missed the starting gun",
+   "n_src": 4,
+   "spread": 1.47,
+   "end": 209.88,
+   "gap_after": 4.105
+  },
+  {
+   "i": 12,
+   "t": 209.88,
+   "t_ref": 209.86,
+   "text": "And you run, and you run to catch up with the sun",
+   "n_src": 4,
+   "spread": 0.04,
+   "end": 215.03,
+   "gap_after": 5.15
+  },
+  {
+   "i": 13,
+   "t": 215.03,
+   "t_ref": 215.03,
+   "text": "",
+   "n_src": 1,
+   "spread": null,
+   "end": 299.67,
+   "gap_after": 84.64
+  },
+  {
+   "i": 14,
+   "t": 299.67,
+   "t_ref": 299.69,
+   "text": "But it's sinking",
+   "n_src": 4,
+   "spread": 0.04,
+   "end": 303.14,
+   "gap_after": 3.47
+  },
+  {
+   "i": 15,
+   "t": 303.14,
+   "t_ref": 303.16,
+   "text": "Racing around to come up behind you again",
+   "n_src": 4,
+   "spread": 0.04,
+   "end": 310.695,
+   "gap_after": 7.555
+  },
+  {
+   "i": 16,
+   "t": 310.695,
+   "t_ref": 310.7,
+   "text": "The sun is the same in a relative way",
+   "n_src": 4,
+   "spread": 0.01,
+   "end": 313.865,
+   "gap_after": 3.17
+  },
+  {
+   "i": 17,
+   "t": 313.865,
+   "t_ref": 313.87,
+   "text": "But you're older",
+   "n_src": 4,
+   "spread": 0.01,
+   "end": 317.535,
+   "gap_after": 3.67
+  },
+  {
+   "i": 18,
+   "t": 317.535,
+   "t_ref": 317.55,
+   "text": "Shorter of breath, and one day closer to death",
+   "n_src": 4,
+   "spread": 0.03,
+   "end": 324.75,
+   "gap_after": 7.215
+  },
+  {
+   "i": 19,
+   "t": 324.75,
+   "t_ref": 324.78,
+   "text": "Every year is getting shorter",
+   "n_src": 4,
+   "spread": 0.06,
+   "end": 328.24,
+   "gap_after": 3.49
+  },
+  {
+   "i": 20,
+   "t": 328.24,
+   "t_ref": 328.24,
+   "text": "Never seem to find the time",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 331.65,
+   "gap_after": 3.41
+  },
+  {
+   "i": 21,
+   "t": 331.65,
+   "t_ref": 331.62,
+   "text": "Plans that either come to naught",
+   "n_src": 4,
+   "spread": 0.06,
+   "end": 335.73,
+   "gap_after": 4.08
+  },
+  {
+   "i": 22,
+   "t": 335.73,
+   "t_ref": 335.72,
+   "text": "Or half a page of scribbled lines",
+   "n_src": 4,
+   "spread": 0.02,
+   "end": 339.985,
+   "gap_after": 4.255
+  },
+  {
+   "i": 23,
+   "t": 339.985,
+   "t_ref": 339.98,
+   "text": "Hanging on in quiet desperation",
+   "n_src": 4,
+   "spread": 0.01,
+   "end": 343.155,
+   "gap_after": 3.17
+  },
+  {
+   "i": 24,
+   "t": 343.155,
+   "t_ref": 343.17,
+   "text": "Is the English way",
+   "n_src": 4,
+   "spread": 0.03,
+   "end": 347.74,
+   "gap_after": 4.585
+  },
+  {
+   "i": 25,
+   "t": 347.74,
+   "t_ref": 347.74,
+   "text": "The time is gone, the song is over",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 350.975,
+   "gap_after": 3.235
+  },
+  {
+   "i": 26,
+   "t": 350.975,
+   "t_ref": 350.96,
+   "text": "Thought I'd something more to say",
+   "n_src": 4,
+   "spread": 0.03,
+   "end": 355.39,
+   "gap_after": 4.415
+  },
+  {
+   "i": 27,
+   "t": 355.39,
+   "t_ref": 355.39,
+   "text": "",
+   "n_src": 1,
+   "spread": null,
+   "end": 372.275,
+   "gap_after": 16.885
+  },
+  {
+   "i": 28,
+   "t": 372.275,
+   "t_ref": 372.25,
+   "text": "Home, home again",
+   "n_src": 4,
+   "spread": 0.05,
+   "end": 377.06,
+   "gap_after": 4.785
+  },
+  {
+   "i": 29,
+   "t": 377.06,
+   "t_ref": 377.06,
+   "text": "",
+   "n_src": 1,
+   "spread": null,
+   "end": 379.745,
+   "gap_after": 2.685
+  },
+  {
+   "i": 30,
+   "t": 379.745,
+   "t_ref": 379.74,
+   "text": "I like to be here when I can",
+   "n_src": 4,
+   "spread": 0.01,
+   "end": 385.27,
+   "gap_after": 5.525
+  },
+  {
+   "i": 31,
+   "t": 385.27,
+   "t_ref": 385.27,
+   "text": "",
+   "n_src": 1,
+   "spread": null,
+   "end": 387.725,
+   "gap_after": 2.455
+  },
+  {
+   "i": 32,
+   "t": 387.725,
+   "t_ref": 387.7,
+   "text": "When I come home cold and tired",
+   "n_src": 4,
+   "spread": 0.05,
+   "end": 392.92,
+   "gap_after": 5.195
+  },
+  {
+   "i": 33,
+   "t": 392.92,
+   "t_ref": 392.92,
+   "text": "",
+   "n_src": 1,
+   "spread": null,
+   "end": 394.94,
+   "gap_after": 2.02
+  },
+  {
+   "i": 34,
+   "t": 394.94,
+   "t_ref": 394.96,
+   "text": "It's good to warm my bones beside the fire",
+   "n_src": 4,
+   "spread": 0.04,
+   "end": 402.62,
+   "gap_after": 7.68
+  },
+  {
+   "i": 35,
+   "t": 402.62,
+   "t_ref": 402.61,
+   "text": "Far away, across the field",
+   "n_src": 4,
+   "spread": 0.02,
+   "end": 405.87,
+   "gap_after": 3.25
+  },
+  {
+   "i": 36,
+   "t": 405.87,
+   "t_ref": 405.87,
+   "text": "The tolling of the iron bell",
+   "n_src": 4,
+   "spread": 0.0,
+   "end": 410.14,
+   "gap_after": 4.27
+  },
+  {
+   "i": 37,
+   "t": 410.14,
+   "t_ref": 410.13,
+   "text": "Calls the faithful to their knees",
+   "n_src": 4,
+   "spread": 0.02,
+   "end": 414.465,
+   "gap_after": 4.325
+  },
+  {
+   "i": 38,
+   "t": 414.465,
+   "t_ref": 414.48,
+   "text": "To hear the softly spoken magic spells",
+   "n_src": 4,
+   "spread": 0.03,
+   "end": 418.47,
+   "gap_after": 4.005
+  },
+  {
+   "i": 39,
+   "t": 418.47,
+   "t_ref": 418.47,
+   "text": "",
+   "n_src": 1,
+   "spread": null,
+   "end": 425.0,
+   "gap_after": 6.53
+  }
+ ]
+}

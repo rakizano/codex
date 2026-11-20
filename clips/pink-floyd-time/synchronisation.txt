@@ -1,0 +1,37 @@
+TITRE      : Time
+ARTISTE    : Pink Floyd
+VERSION    : The Dark Side Of The Moon (Japan) — durée de la version : 7:05 (425 s)
+
+PASSAGE UTILISÉ DANS LA CHANSON ORIGINALE
+  Début    : 5:17.190   (317.19 s)
+  Fin      : 5:56.000   (356.00 s)
+  Durée    : 38.81 s  (= durée exacte de video_finale.mp4)
+
+PLACER LA MUSIQUE
+  TikTok : importer video_finale.mp4 > « Ajouter un son » > chercher « Time Pink Floyd »
+           (version album, durée 7:05) > icône ciseaux « Couper »
+           > faire glisser l'onde pour que le son démarre à 5:17.19 (317.19 s).
+  CapCut : piste audio sous la vidéo à 0:00, puis couper le début du morceau à 5:17.190 ;
+           la vidéo et la musique se terminent ensemble à 5:56.000.
+  Repère d'écoute : la 1re phrase chantée « Shorter of breath, »
+           commence à 5:17.535 dans la chanson = 0.34 s dans la vidéo.
+  Attention : TikTok propose parfois des versions raccourcies/accélérées ; choisir la version album.
+
+FIABILITÉ DES TIMESTAMPS
+  Méthode  : paroles synchronisées LRCLIB, médiane de 4 source(s) concordante(s)
+  Écart médian entre sources : 0.04 s — confiance : élevée
+  Aucun fichier audio fourni : les timestamps n'ont PAS été vérifiés sur le signal audio.
+  Si la synchro semble décalée dans TikTok, décaler le son de ±0,2 s suffit en général.
+  Le timing mot par mot à l'intérieur d'une phrase est ESTIMÉ (répartition syllabique).
+
+PAROLES ET TIMESTAMPS (chanson | vidéo)
+  5:17.535 |   0.34s  [s00]  Shorter of breath,   (mot rouge : breath)
+  5:19.095 |   1.91s  [s01]  and one day closer to death   (mot rouge : death)
+  5:24.750 |   7.56s  [s02]  Every year is getting shorter   (mot rouge : shorter)
+  5:28.240 |  11.05s  [s03]  Never seem to find the time   (mot rouge : time)
+  5:31.650 |  14.46s  [s04]  Plans that either come to naught   (mot rouge : naught)
+  5:35.730 |  18.54s  [s05]  Or half a page of scribbled lines   (mot rouge : scribbled)
+  5:39.985 |  22.80s  [s06]  Hanging on in quiet desperation   (mot rouge : desperation)
+  5:43.155 |  25.96s  [s07]  Is the English way   (mot rouge : english)
+  5:47.740 |  30.55s  [s08]  The time is gone, the song is over   (mot rouge : gone)
+  5:50.975 |  33.78s  [s09]  Thought I'd something more to say   (mot rouge : more)

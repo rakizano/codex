@@ -1,0 +1,84 @@
+{
+ "pass": true,
+ "failures": [],
+ "warnings": [
+  "bord haut entièrement noir sur une image (bande noire ?)",
+  "bord bas entièrement noir sur une image (bande noire ?)"
+ ],
+ "info": {
+  "format": "h264 1080x1920 30.00fps yuv420p profil=High",
+  "duration": 33.4,
+  "size_mb": 17.46,
+  "scenes": [
+   {
+    "id": "s00",
+    "motion": 35.74
+   },
+   {
+    "id": "s01",
+    "motion": 13.5,
+    "change_vs_prev": 66.01
+   },
+   {
+    "id": "s02",
+    "motion": 44.6,
+    "change_vs_prev": 65.48
+   },
+   {
+    "id": "s03",
+    "motion": 24.38,
+    "change_vs_prev": 69.74
+   },
+   {
+    "id": "s04",
+    "motion": 18.48,
+    "change_vs_prev": 55.39
+   },
+   {
+    "id": "s05",
+    "motion": 20.05,
+    "change_vs_prev": 51.44
+   },
+   {
+    "id": "s06",
+    "motion": 15.94,
+    "change_vs_prev": 44.3
+   },
+   {
+    "id": "s07",
+    "motion": 4.46,
+    "change_vs_prev": 26.34
+   },
+   {
+    "id": "s08",
+    "motion": 3.51,
+    "change_vs_prev": 26.36
+   },
+   {
+    "id": "s09",
+    "motion": 51.58,
+    "change_vs_prev": 48.9
+   },
+   {
+    "id": "s10",
+    "motion": 4.31,
+    "change_vs_prev": 60.72
+   },
+   {
+    "id": "s11",
+    "motion": 2.56,
+    "change_vs_prev": 18.91
+   },
+   {
+    "id": "s12",
+    "motion": 26.94,
+    "change_vs_prev": 24.78
+   },
+   {
+    "id": "s13",
+    "motion": 9.25,
+    "change_vs_prev": 31.94
+   }
+  ]
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "file": "tiktok_sound_source.mp4",
+ "language": "fr",
+ "sound_duration_s": 60.022,
+ "song_start_s": 41.015,
+ "song_end_s": 101.037,
+ "speed": 1.0,
+ "speed_note": "vitesse normale",
+ "recognized_words": 205,
+ "matched_words": 137,
+ "anchors_used": 8,
+ "anchor_type": "débuts de lignes",
+ "fit_rms_s": 0.161,
+ "confidence": "élevée",
+ "first_lines_in_sound": [
+  "  0.00s  Mon shit caché dans la veste, elle vient dans ma vie pour combler au vide (vide)",
+  "  1.18s  La vie d'ma mère, bébé, ma tchop sans coco, j'peux être ton bébé (vroum, vroum, vroum, vroum)",
+  "  6.26s  Elle savait m'parler, au bout d'deux, trois dél', j'me mets à rêver (eh, eh)",
+  " 11.65s  Que j'prends sur moi, dés l'début, elle, elle a seulement voulu prendre des sous sur me"
+ ]
+}

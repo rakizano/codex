@@ -1,0 +1,38 @@
+TITRE      : Différents
+ARTISTE    : PNL
+VERSION    : Que la famille — durée de la version : 0:34 (34 s)
+
+PASSAGE UTILISÉ DANS LA CHANSON ORIGINALE
+  Début    : 0:00.000   (0.00 s)
+  Fin      : 0:23.900   (23.90 s)
+  Durée    : 23.90 s  (= durée exacte de video_finale.mp4)
+
+PLACER LA MUSIQUE
+  TikTok : importer video_finale.mp4 > « Ajouter un son » > chercher « Différents PNL »
+           (version album, durée 0:34) > icône ciseaux « Couper »
+           > faire glisser l'onde pour que le son démarre à 0:00.00 (0.00 s).
+  CapCut : piste audio sous la vidéo à 0:00, puis couper le début du morceau à 0:00.000 ;
+           la vidéo et la musique se terminent ensemble à 0:23.900.
+  Repère d'écoute : la 1re phrase chantée « J'sais qu'j'suis pas intégré, je perds de mes intérêts »
+           commence à 1:00.580 dans la chanson = 0.00 s dans la vidéo.
+  Attention : TikTok propose parfois des versions raccourcies/accélérées ; choisir la version album.
+
+FIABILITÉ DES TIMESTAMPS
+  Méthode  : paroles synchronisées LRCLIB, médiane de 5 source(s) concordante(s)
+  Écart médian entre sources : 0.03 s — confiance : élevée
+  Note : Storyboard généré par director.py (choix des univers par le sens des paroles).
+  Note : Phrases écartées (coupées par les bords du son) : ["C'est limpide, ouais c'est deuss, c'est violent, c'est 9.1"]
+  Audio analysé : tiktok_sound_source.mp4 (durée 34.30 s, écart vs version None s)
+  Le timing mot par mot à l'intérieur d'une phrase est ESTIMÉ (répartition syllabique).
+
+PAROLES ET TIMESTAMPS (chanson | vidéo)
+  1:00.580 |   0.00s  [s00]  J'sais qu'j'suis pas intégré, je perds de mes intérêts   (mot rouge : intégré)
+  1:02.780 |   1.92s  [s01]  Les mains dans le merde alors qu'elles sont faites pour les enterrer   (mot rouge : enterrer)
+  1:04.700 |   3.84s  [s02]  J'sais combien tu paierais pour te faire opérer   (mot rouge : paierais)
+  1:06.310 |   5.45s  [s03]  De tout ce mal qui paraît si fort et qui semble empirer   (mot rouge : empirer)
+  1:08.460 |   7.60s  [s04]  Viens m'voir et j'te dirai le prix d'la fonce-dé-dé-dé   (mot rouge : prix)
+  1:11.030 |  10.17s  [s05]  Si t'as appris à compter-ter-ter, on sera amis, enchanté-té-té   (mot rouge : enchanté-té-té)
+  1:14.960 |  14.10s  [s06]  Moi c'est Ade', moi c'est Ade' khey   (mot rouge : Ade')
+  1:17.120 |  16.26s  [s07]  Sors la 'teille, vas-y claque le jour de paye   (mot rouge : paye)
+  1:19.060 |  18.20s  [s08]  J'veux pas d'ton facebook, rrht ptou   (mot rouge : facebook)
+  1:21.950 |  21.09s  [s09]  T'sais qu'j'ai ma main sur ta fesse   (mot rouge : fesse)
