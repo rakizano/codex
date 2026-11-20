@@ -915,11 +915,32 @@
       boil(layer, kind = 'rough', fps = 8) { layer.boil = { kind, fps }; },
       beat(t, decay = 6) { return beatPulse(S.start + t, decay); },
       // marque un sujet principal pour le contrôle de cadrage ; allow : 'cut' (débord voulu), 'text', 'ui'
+      halftone(cell = 10, target) { (target || inner).setAttribute('filter', `url(#${halftoneFilter(cell)})`); },
       key(it, name = 'objet', allow = '') { const el = it.el || it; el.setAttribute('data-key', name); if (allow) el.setAttribute('data-key-allow', allow); return it; },
     };
     return S;
   }
   const blurCache = {};
+  // relief 3D par empilement d'ombres (lettres extrudées) : {color, depth, angle, shadow}
+  function extrudeShadow(o) { const d = o.depth || 10, c = o.color || '#5a0000', a = (o.angle ?? 45) * Math.PI / 180, out = [];
+    for (let i = 1; i <= d; i++) out.push(`${(Math.cos(a) * i).toFixed(1)}px ${(Math.sin(a) * i).toFixed(1)}px 0 ${c}`);
+    out.push(`${(Math.cos(a) * d * 1.8).toFixed(1)}px ${(Math.sin(a) * d * 2.2).toFixed(1)}px ${o.blur ?? 18}px ${o.shadow || 'rgba(0,0,0,.35)'}`); return out.join(','); }
+  // trame de points (halftone) : seuillage de la luminance contre une grille de points ; S.halftone(cell)
+  const htCache = {};
+  function halftoneFilter(cell = 10, angle = 0) {
+    const id = 'ht' + cell + '_' + angle; if (htCache[id]) return id;
+    const gid = id + 'g', cid = id + 'c';
+    defs.appendChild(h('radialGradient', { id: gid, cx: .5, cy: .5, r: .71 }, [h('stop', { offset: 0, 'stop-color': '#000' }), h('stop', { offset: 1, 'stop-color': '#fff' })]));
+    defs.appendChild(h('rect', { id: cid, x: 0, y: 0, width: cell, height: cell, fill: `url(#${gid})` }));
+    defs.appendChild(h('filter', { id, x: -400, y: -400, width: W + 800, height: H + 800, filterUnits: 'userSpaceOnUse', 'color-interpolation-filters': 'sRGB' }, [
+      h('feColorMatrix', { in: 'SourceGraphic', type: 'matrix', values: '.3 .59 .11 0 0 .3 .59 .11 0 0 .3 .59 .11 0 0 0 0 0 1 0', result: 'g' }),
+      h('feImage', { href: '#' + cid, x: 0, y: 0, width: cell, height: cell, result: 'dot' }),
+      h('feTile', { in: 'dot', result: 'dots' }),
+      h('feComposite', { in: 'g', in2: 'dots', operator: 'arithmetic', k1: 0, k2: 1, k3: 1, k4: -.5, result: 'sum' }),
+      h('feComponentTransfer', { in: 'sum', result: 'bw' }, ['R', 'G', 'B'].map(c => h('feFunc' + c, { type: 'discrete', tableValues: '0 1' }))),
+      h('feComposite', { in: 'bw', in2: 'SourceGraphic', operator: 'in' })]));
+    htCache[id] = 1; return id;
+  }
   function blurFilter(px) { const id = 'dof' + String(px).replace('.', '_'); if (!blurCache[id]) { defs.appendChild(h('filter', { id, x: '-10%', y: '-10%', width: '120%', height: '120%' }, [h('feGaussianBlur', { stdDeviation: px })])); blurCache[id] = 1; } return id; }
   function beatPulse(T, decay) { if (!beats.length) return 0; let lo = 0, hi = beats.length - 1, b = -1; while (lo <= hi) { const m = (lo + hi) >> 1; if (beats[m] <= T) { b = m; lo = m + 1; } else hi = m - 1; } if (b < 0) return 0; return Math.exp(-(T - beats[b]) * decay); }
 
@@ -1150,8 +1171,12 @@
     if (ty.shadow) box.style.textShadow = ty.shadow;
     if (ty.stroke) box.style.webkitTextStroke = ty.stroke;
     let redFound = false;
+    const LS = ty.lineStyles || null;
+    if (ty.extrude) box.style.textShadow = extrudeShadow(ty.extrude);
     lines.forEach((ln, li) => {
       const L = document.createElement('div'); L.className = 'line'; box.appendChild(L);
+      const ls = LS ? LS[li % LS.length] : null;
+      if (ls) { if (ls.indent != null) L.style.marginLeft = ls.indent + 'px'; if (ls.rotate) { L.style.transform = `rotate(${ls.rotate}deg)`; L.style.transformOrigin = 'left center'; } if (ls.size) L.style.fontSize = ls.size + 'em'; if (ls.font) L.style.fontFamily = `'${ls.font}', sans-serif`; L.style.marginTop = (ls.gap ?? .06) + 'em'; }
       const toks = [];
       ln.split(/\s+/).forEach(tok => {
         // élision (l'sommeil, qu'l'argent) : seul le mot plein peut passer en rouge
@@ -1163,10 +1188,16 @@
         const w = document.createElement('span'); w.className = 'word';
         const isRed = !glued && !redFound && redTargets.length && redTargets.includes(norm(wtxt));
         if (isRed) { w.classList.add('red'); w.style.color = ty.red || '#e10600'; w.style.fontSize = (ty.redScale || 1.25) + 'em'; if (ty.redFont) w.style.fontFamily = `'${ty.redFont}'`; if (ty.redShadow) w.style.textShadow = ty.redShadow; if (ty.redStroke) w.style.webkitTextStroke = ty.redStroke; }
+        if (ls) { if (ls.bg) { w.style.background = ls.bg; w.style.padding = '0.0em 0.14em'; w.style.marginRight = '0.08em'; w.style.display = 'inline-block'; w.style.lineHeight = '1.05'; } if (ls.color && !isRed) w.style.color = ls.color; if (isRed && ls.redBg) { w.style.background = ls.redBg; w.style.color = ls.redColor || '#fff'; } }
         if (ty.box) { w.style.background = ty.box; w.style.padding = '0.02em 0.18em'; w.style.margin = '0.04em'; if (isRed && ty.redBox) { w.style.background = ty.redBox; w.style.color = ty.redOnBox || '#fff'; } }
         const chars = [];
-        if (['type', 'split', 'build'].includes(ch.enter || ty.enter) || (isRed && (ch.emphasis || ty.emphasis) === 'scramble')) {
+        if (['type', 'split', 'build', 'ransom'].includes(ch.enter || ty.enter) || (isRed && (ch.emphasis || ty.emphasis) === 'scramble')) {
           for (const c of wtxt) { const s = document.createElement('span'); s.className = 'ch'; s.textContent = c; w.appendChild(s); chars.push(s); }
+          if ((ch.enter || ty.enter) === 'ransom') {   // lettres découpées façon lettre anonyme : fond, police et angle propres à chaque lettre
+            const PAL = ty.ransomPalette || [['#ffd400', '#111'], ['#111', '#fff'], ['#ffffff', '#111'], ['#c8102e', '#fff']], FON = ty.ransomFonts || [ty.font];
+            chars.forEach((c, j) => { const k = (j * 7 + wtxt.length * 3 + li) % PAL.length; c.style.background = isRed ? (j % 2 ? '#0d0d0d' : (ty.red || '#c8102e')) : PAL[k][0]; c.style.color = isRed ? (j % 2 ? (ty.red === '#0d0d0d' ? '#fff' : '#ffd400') : '#ffffff') : PAL[k][1];
+              c.style.fontFamily = `'${FON[(j * 5 + li) % FON.length]}', sans-serif`; c.style.padding = '0 .06em'; c.style.margin = '0 .02em'; c.style.display = 'inline-block'; c.dataset.rot = ((j * 37 + li * 11) % 17) - 8; c.style.boxShadow = '2px 3px 0 rgba(0,0,0,.25)'; });
+          }
         } else w.textContent = wtxt;
         L.appendChild(w); if (!glued) L.appendChild(document.createTextNode(' '));
         words.push({ el: w, txt: wtxt, red: isRed, line: li, chars, syl: vowelsCount(wtxt) });
@@ -1224,13 +1255,14 @@
       case 'swing': o = clamp(u / .1); r = u < 0 ? -50 : (1 - Ease.outBack(clamp(u / .4))) * -50; y = (1 - Ease.outCubic(k)) * 30; break;
       case 'warp': { o = clamp(u / .08); const kk = clamp(u / .45), el = u < 0 ? 1 : Math.exp(-kk * 5) * Math.cos(kk * 14); sk = -28 * el; sx = 1 + .45 * el; sy = 1 - .3 * el; break; }
       case 'flip': o = clamp(u / .1); rx = u < 0 ? 90 : (1 - Ease.outBack(clamp(u / .4))) * 90; break;
-      case 'build': o = u >= 0 ? 1 : 0; break;
+      case 'build': case 'ransom': o = u >= 0 ? 1 : 0; break;
       case 'line': default: o = Ease.outQuad(k); y = (1 - Ease.outCubic(k)) * 40;
     }
     return { o, x, y, s, r, blur, clip, u, sk, sx, sy, rx };
   }
 
   function renderChunk(C, t, S) {
+    if (C.ty.step) t = Math.floor(t * C.ty.step) / C.ty.step;   // animation saccadée (stop-motion)
     const ch = C.ch;
     const pre = C.ty.preroll ?? .12;
     const visible = t >= ch.start - pre - .3 && t <= ch.end + .02;
@@ -1287,6 +1319,10 @@
         if (C.ty.redTilt) st.r += C.ty.redTilt;
       }
       // apparition caractère par caractère
+      if (w.chars.length && C.enter === 'ransom') {
+        w.chars.forEach((c, j) => { const uu = st.u - j * .03, k = Ease.outBack(clamp(uu / .3)), a = (j * 2.39 + i * 1.3) % 6.28, rot = +c.dataset.rot;
+          c.style.opacity = uu >= 0 ? 1 : 0; c.style.transform = `translate(${(1 - k) * Math.cos(a) * 260}px,${(1 - k) * Math.sin(a) * 260}px) rotate(${rot + (1 - k) * 160}deg) scale(${.5 + .5 * clamp(k)})`; });
+      }
       if (w.chars.length && C.enter === 'build') {   // lettres qui se construisent : chaque lettre vole depuis une position éparse
         w.chars.forEach((c, j) => { const uu = st.u - j * .035, k = Ease.outBack(clamp(uu / .38)), a = (j * 2.39 + i) % 6.28;
           c.style.display = 'inline-block'; c.style.opacity = clamp(uu / .12); c.style.transform = `translate(${(1 - k) * Math.cos(a) * 160}px,${(1 - k) * Math.sin(a) * 160}px) rotate(${(1 - k) * (j % 2 ? 90 : -90)}deg) scale(${.4 + .6 * clamp(k)})`; });

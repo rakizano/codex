@@ -202,3 +202,23 @@ l'univers graphique le plus juste (3D cinématographique, éditorial, cartoon, n
 pastel, voxel), le mot coloré (couleur selon le sens, harmonisée avec l'univers), la typographie cinétique, la
 transition et les paramètres du gabarit. Le storyboard produit se rend sans `scenes.js` (gabarits
 `engine/scenes/*.js`) et reste modifiable à la main. Test : `bash tests/selftest.sh`.
+
+
+## 17. STYLE MAISON PAR DÉFAUT : « zine » collage noir & blanc (préférence de l'utilisateur)
+
+L'utilisateur a demandé d'appliquer **par défaut** le style graphique de sa vidéo de référence
+(`clips/_reference/f7b955f2/` : analyse + planches). Sauf demande contraire explicite :
+`director.py` utilise `--house zine` (valeur de `config/styles.json` → `"house"`). `--house multi` = 8 univers A–H.
+
+Caractéristiques à respecter (gabarits `engine/scenes/ZineScene.js`) :
+- fond papier blanc, **forte vignette grise tramée en points** (halftone : `S.halftone(cell, groupe)`), grain ;
+- images **N&B tramées** : silhouette noire devant une porte (contre-jour), cité en 3D N&B, projecteur tramé ;
+- **collage** d'éléments découpés (billets génériques, jamais de vraie monnaie reproduite) qui tombent en **stop-motion**
+  (12 i/s, ombres portées), barres noires/grises qui balaient l'écran ;
+- typographie **rouge #c8102e / noir / jaune #ffd400 / blanc**, 5 traitements tournants :
+  1. étiquettes en escalier (mots dans des boîtes rouge/noir/jaune/blanc, décalées, `typo.lineStyles`),
+  2. lettres de rançon (chaque lettre sur son carré, polices mélangées, `enter: 'ransom'`),
+  3. sérif rouge en relief 3D (Tinos 700, `typo.extrude`, `enter: 'flip'`),
+  4. machine à écrire rouge (Special Elite, `enter: 'type'`) + mot-clé en condensé géant (Anton) en relief,
+  5. sérif blanc dans une boîte rouge (FRIGO) ;
+- mouvement **saccadé** (`typo.step: 12`), coupes rapides, transitions : barre noire, trame de points, encre, cut.

@@ -196,6 +196,24 @@
    "neons",
    "lumière",
    "étoile"
+  ],
+  "place": [
+   "cité",
+   "cite",
+   "tess",
+   "bat",
+   "bâtiment",
+   "batiment",
+   "hall",
+   "quartier",
+   "ville",
+   "rue",
+   "tour",
+   "béton",
+   "beton",
+   "immeuble",
+   "banlieue",
+   "zone"
   ]
  },
  "category_colors": {
@@ -209,7 +227,8 @@
   "pain": "#5a8dee",
   "retro": "#2f6b2a",
   "anger": "#e10600",
-  "night": "#ffb35c"
+  "night": "#ffb35c",
+  "place": "#c8102e"
  },
  "styles": {
   "A": {
@@ -533,5 +552,7 @@
    ],
    "red": null
   }
- }
+ },
+ "house": "zine",
+ "_house_doc": "Style maison appliqué par défaut par director.py (--house zine). --house multi = sélection parmi les 8 univers A–H."
 }
