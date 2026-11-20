@@ -59,8 +59,8 @@
       S.set(ring, { cx: 540, cy: 1200, r: 20 + hit * 260, opacity: hit > 0 && hit < 1 ? (1 - hit) * .8 : 0 });
       bub.forEach((g, i) => { const k = S.Ease.outBack(C.clamp((t - .15 - i * .38) / .35)), y = 1240 - i * 0 - (t - .15 - i * .38) * 60; g.setAttribute('transform', `translate(${80},${1300 - (bub.length - i) * 0 - Math.max(0, (t - .15 - i * .38)) * 0 + (i - (Math.floor((t - .15) / .38))) * 86}) scale(${Math.max(0, k)})`); g.setAttribute('opacity', k > 0 ? 1 : 0); });
       rx.forEach(([g, ph, xr]) => { const u = (t * .6 + ph) % 1; g.setAttribute('transform', `translate(${830 + xr * 60 + Math.sin(u * 9 + xr * 6) * 26},${1420 - u * 900}) scale(${.6 + u * .6})`); g.setAttribute('opacity', (1 - u) * (t > .2 ? 1 : 0)); });
-      const val = Math.floor(9900 * S.Ease.inOutCubic(C.clamp(t / D))) + Math.floor(t * 7); const str = String(val % 10000).padStart(4, '0');
-      digits.forEach((d, i) => { d.innerHTML = ''; seg(h, +str[i]).forEach(p => d.appendChild(p)); });
+      const val = Math.max(0, Math.floor(9900 * S.Ease.inOutCubic(C.clamp(t / D))) + Math.floor(Math.max(0, t) * 7)); const str = String(val % 10000).padStart(4, '0');
+      digits.forEach((d, i) => { d.innerHTML = ''; seg(h, (+str[i]) || 0).forEach(p => d.appendChild(p)); });
       counter.setAttribute('transform', `translate(540,1180) scale(${1 + S.beat(t, 10) * .08})`); counter.setAttribute('opacity', 1 - hit);
       ui.setAttribute('opacity', .9 + .1 * Math.sin(t * 6));
     });

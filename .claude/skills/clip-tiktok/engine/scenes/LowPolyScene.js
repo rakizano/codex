@@ -27,7 +27,7 @@
       car.userData.wheels.forEach(w => { w.rotation.x = -t * 25; });
       bills.forEach((b, i) => { const u = ((t * b.userData.sp + b.userData.ph) % 1.6); b.position.set(car.position.x + b.userData.sx * 2 + Math.sin(u * 6 + i) * .6 * u, 1.1 + u * 2.4, z + 1.8 + u * 7); b.rotation.set(u * 9 + i, u * 7, u * 5); });
     });
-    X.camMove('follow', { subject: t => new T.Vector3(0, 0, zAt(t)), offset: [P.side ?? 3.4, 3.4, 11], look: [0, .8, -8], ease: 'linear', handheld: .3 });
+    X.camMove('follow', { subject: t => new T.Vector3(0, 0, zAt(t)), offset: [P.side ?? 1.6, 3.2, 10.5], look: [-.6, .8, -8], ease: 'linear', handheld: .3 });
     S.key(X.el, 'scène 3D', 'cut,ui,text');
   });
 })();

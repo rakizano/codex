@@ -383,7 +383,7 @@
    "typo": {
     "font": "Bebas Neue",
     "color": "#ffffff",
-    "size": 150,
+    "size": 170,
     "enter": "flip",
     "emphasis": "outline",
     "pos": "top",
@@ -391,10 +391,12 @@
     "exit": "zoom",
     "outlineColor": "#120c1c",
     "perspective": {
-     "rx": 24,
-     "d": 1100
+     "rx": 14,
+     "ry": -8,
+     "d": 1400
     },
-    "shadow": "0 8px 0 rgba(0,0,0,0.45)"
+    "shadow": "0 8px 0 rgba(0,0,0,0.45)",
+    "maxHeight": 600
    },
    "transitions": [
     {
