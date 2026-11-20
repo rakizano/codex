@@ -1,0 +1,1375 @@
+{
+ "artist": "PNL",
+ "title": "Différents",
+ "album": "Que la famille",
+ "duration": 372.0,
+ "lrclib_ref_id": 2485943,
+ "version_cluster_ids": [
+  2485943,
+  34492711,
+  34720633,
+  40237181,
+  33540399
+ ],
+ "version_cluster_albums": [
+  "Différents",
+  "PNL",
+  "Pnl album",
+  "Que la famille"
+ ],
+ "other_versions": [
+  {
+   "duration": 372.0,
+   "n": 5,
+   "albums": [
+    "Différents",
+    "PNL",
+    "Pnl album",
+    "Que la famille"
+   ]
+  },
+  {
+   "duration": 375.0,
+   "n": 3,
+   "albums": [
+    "PNL",
+    "PNL Videos",
+    "Que la famille"
+   ]
+  }
+ ],
+ "n_sources": 5,
+ "text_agreement": [
+  1.0,
+  1.0,
+  1.0,
+  1.0
+ ],
+ "sources_disagreeing": [],
+ "sync_spread_median_s": 0.03,
+ "sync_spread_p90_s": 0.06,
+ "sync_confidence": "élevée",
+ "sync_method": "LRCLIB (paroles synchronisées ligne par ligne par la communauté), médiane multi-sources",
+ "lines": [
+  {
+   "i": 0,
+   "t": 15.09,
+   "t_ref": 15.09,
+   "text": "Hey pédé, j'viens t'péter, rien laisser, la baiser, n'pas rêver, RDV sur saturne",
+   "n_src": 5,
+   "spread": 0.01,
+   "end": 18.55,
+   "gap_after": 3.46
+  },
+  {
+   "i": 1,
+   "t": 18.55,
+   "t_ref": 18.55,
+   "text": "La fierté, l'honnêteté, l'amitié, éviter la pitié, j'vends la mort à la pub",
+   "n_src": 5,
+   "spread": 0.04,
+   "end": 22.48,
+   "gap_after": 3.93
+  },
+  {
+   "i": 2,
+   "t": 22.48,
+   "t_ref": 22.48,
+   "text": "Elle est bonne, faut qu'elle paye en nature",
+   "n_src": 5,
+   "spread": 0.04,
+   "end": 24.49,
+   "gap_after": 2.01
+  },
+  {
+   "i": 3,
+   "t": 24.49,
+   "t_ref": 24.49,
+   "text": "Elle est pure, la feuille est sans ratures",
+   "n_src": 5,
+   "spread": 0.07,
+   "end": 26.25,
+   "gap_after": 1.76
+  },
+  {
+   "i": 4,
+   "t": 26.25,
+   "t_ref": 26.25,
+   "text": "Pas majeure mais sa bouche est mature",
+   "n_src": 5,
+   "spread": 0.04,
+   "end": 28.24,
+   "gap_after": 1.99
+  },
+  {
+   "i": 5,
+   "t": 28.24,
+   "t_ref": 28.24,
+   "text": "Le shit bulle, les pouces collent, on m'accule",
+   "n_src": 5,
+   "spread": 0.02,
+   "end": 30.24,
+   "gap_after": 2.0
+  },
+  {
+   "i": 6,
+   "t": 30.24,
+   "t_ref": 30.24,
+   "text": "Wesh l'alien écailleux, t'es faya, t'es die",
+   "n_src": 5,
+   "spread": 0.02,
+   "end": 32.25,
+   "gap_after": 2.01
+  },
+  {
+   "i": 7,
+   "t": 32.25,
+   "t_ref": 32.25,
+   "text": "Dis-moi c'est quand tu sors le Cayenne",
+   "n_src": 5,
+   "spread": 0.01,
+   "end": 33.84,
+   "gap_after": 1.59
+  },
+  {
+   "i": 8,
+   "t": 33.84,
+   "t_ref": 33.84,
+   "text": "Ouais la hyène se lâche, fait la chienne, se cache",
+   "n_src": 5,
+   "spread": 0.03,
+   "end": 36.18,
+   "gap_after": 2.34
+  },
+  {
+   "i": 9,
+   "t": 36.18,
+   "t_ref": 36.18,
+   "text": "Et plus tard se range comme Ayem",
+   "n_src": 5,
+   "spread": 0.01,
+   "end": 37.74,
+   "gap_after": 1.56
+  },
+  {
+   "i": 10,
+   "t": 37.74,
+   "t_ref": 37.74,
+   "text": "Deux talons qui sortent de la gova",
+   "n_src": 5,
+   "spread": 0.02,
+   "end": 39.61,
+   "gap_after": 1.87
+  },
+  {
+   "i": 11,
+   "t": 39.61,
+   "t_ref": 39.61,
+   "text": "Des bras maigres qui manient le cobra",
+   "n_src": 5,
+   "spread": 0.08,
+   "end": 41.67,
+   "gap_after": 2.06
+  },
+  {
+   "i": 12,
+   "t": 41.67,
+   "t_ref": 41.67,
+   "text": "Igo on sort la langue comme Manny",
+   "n_src": 5,
+   "spread": 0.04,
+   "end": 43.02,
+   "gap_after": 1.35
+  },
+  {
+   "i": 13,
+   "t": 43.02,
+   "t_ref": 43.02,
+   "text": "Love sosa, oui ma connasse",
+   "n_src": 5,
+   "spread": 0.0,
+   "end": 45.62,
+   "gap_after": 2.6
+  },
+  {
+   "i": 14,
+   "t": 45.62,
+   "t_ref": 45.62,
+   "text": "Tiens goûte la teub à Adama",
+   "n_src": 5,
+   "spread": 0.05,
+   "end": 47.44,
+   "gap_after": 1.82
+  },
+  {
+   "i": 15,
+   "t": 47.44,
+   "t_ref": 47.44,
+   "text": "Gros j'lance mon taga jusqu'en Alabama",
+   "n_src": 5,
+   "spread": 0.05,
+   "end": 49.36,
+   "gap_after": 1.92
+  },
+  {
+   "i": 16,
+   "t": 49.36,
+   "t_ref": 49.36,
+   "text": "Ma punch sur ta gorge, la gorge à ta femme",
+   "n_src": 5,
+   "spread": 0.06,
+   "end": 51.37,
+   "gap_after": 2.01
+  },
+  {
+   "i": 17,
+   "t": 51.37,
+   "t_ref": 51.37,
+   "text": "Viens voir la souffrance te dire wallah pas mal",
+   "n_src": 5,
+   "spread": 0.06,
+   "end": 53.19,
+   "gap_after": 1.82
+  },
+  {
+   "i": 18,
+   "t": 53.19,
+   "t_ref": 53.19,
+   "text": "Igo j'suis sauvage et j'crie ounga wawa",
+   "n_src": 5,
+   "spread": 0.07,
+   "end": 55.08,
+   "gap_after": 1.89
+  },
+  {
+   "i": 19,
+   "t": 55.08,
+   "t_ref": 55.08,
+   "text": "Ounga ounga, le G sur la poucave",
+   "n_src": 5,
+   "spread": 0.06,
+   "end": 56.92,
+   "gap_after": 1.84
+  },
+  {
+   "i": 20,
+   "t": 56.92,
+   "t_ref": 56.92,
+   "text": "Ounga ounga, nigga wawawawa",
+   "n_src": 5,
+   "spread": 0.02,
+   "end": 58.92,
+   "gap_after": 2.0
+  },
+  {
+   "i": 21,
+   "t": 58.92,
+   "t_ref": 58.92,
+   "text": "Ounga ounga, tant qu'on fout pas l'dawa",
+   "n_src": 5,
+   "spread": 0.07,
+   "end": 60.58,
+   "gap_after": 1.66
+  },
+  {
+   "i": 22,
+   "t": 60.58,
+   "t_ref": 60.58,
+   "text": "J'sais qu'j'suis pas intégré, je perds de mes intérêts",
+   "n_src": 5,
+   "spread": 0.02,
+   "end": 62.78,
+   "gap_after": 2.2
+  },
+  {
+   "i": 23,
+   "t": 62.78,
+   "t_ref": 62.78,
+   "text": "Les mains dans le merde alors qu'elles sont faites pour les enterrer",
+   "n_src": 5,
+   "spread": 0.02,
+   "end": 64.7,
+   "gap_after": 1.92
+  },
+  {
+   "i": 24,
+   "t": 64.7,
+   "t_ref": 64.7,
+   "text": "J'sais combien tu paierais pour te faire opérer",
+   "n_src": 5,
+   "spread": 0.04,
+   "end": 66.31,
+   "gap_after": 1.61
+  },
+  {
+   "i": 25,
+   "t": 66.31,
+   "t_ref": 66.31,
+   "text": "De tout ce mal qui paraît si fort et qui semble empirer",
+   "n_src": 5,
+   "spread": 0.01,
+   "end": 68.46,
+   "gap_after": 2.15
+  },
+  {
+   "i": 26,
+   "t": 68.46,
+   "t_ref": 68.46,
+   "text": "Viens m'voir et j'te dirai le prix d'la fonce-dé-dé-dé",
+   "n_src": 5,
+   "spread": 0.01,
+   "end": 71.03,
+   "gap_after": 2.57
+  },
+  {
+   "i": 27,
+   "t": 71.03,
+   "t_ref": 71.03,
+   "text": "Si t'as appris à compter-ter-ter, on sera amis, enchanté-té-té",
+   "n_src": 5,
+   "spread": 0.02,
+   "end": 74.96,
+   "gap_after": 3.93
+  },
+  {
+   "i": 28,
+   "t": 74.96,
+   "t_ref": 74.96,
+   "text": "Moi c'est Ade', moi c'est Ade' khey",
+   "n_src": 5,
+   "spread": 0.04,
+   "end": 77.12,
+   "gap_after": 2.16
+  },
+  {
+   "i": 29,
+   "t": 77.12,
+   "t_ref": 77.12,
+   "text": "Sors la 'teille, vas-y claque le jour de paye",
+   "n_src": 5,
+   "spread": 0.02,
+   "end": 79.06,
+   "gap_after": 1.94
+  },
+  {
+   "i": 30,
+   "t": 79.06,
+   "t_ref": 79.06,
+   "text": "J'veux pas d'ton facebook, rrht ptou",
+   "n_src": 5,
+   "spread": 0.01,
+   "end": 81.95,
+   "gap_after": 2.89
+  },
+  {
+   "i": 31,
+   "t": 81.95,
+   "t_ref": 81.95,
+   "text": "T'sais qu'j'ai ma main sur ta fesse",
+   "n_src": 5,
+   "spread": 0.04,
+   "end": 83.58,
+   "gap_after": 1.63
+  },
+  {
+   "i": 32,
+   "t": 83.58,
+   "t_ref": 83.58,
+   "text": "C'est limpide, ouais c'est deuss, c'est violent, c'est 9.1",
+   "n_src": 5,
+   "spread": 0.03,
+   "end": 85.57,
+   "gap_after": 1.99
+  },
+  {
+   "i": 33,
+   "t": 85.57,
+   "t_ref": 85.57,
+   "text": "On arrive y'a d'la peuf' au volant, y'a d'la meuf",
+   "n_src": 5,
+   "spread": 0.01,
+   "end": 87.46,
+   "gap_after": 1.89
+  },
+  {
+   "i": 34,
+   "t": 87.46,
+   "t_ref": 87.46,
+   "text": "Elle t'a brisé le cœur, fallait briser sa chatte",
+   "n_src": 5,
+   "spread": 0.03,
+   "end": 89.17,
+   "gap_after": 1.71
+  },
+  {
+   "i": 35,
+   "t": 89.17,
+   "t_ref": 89.17,
+   "text": "Dire au gosse à sa reus' fais la bise à papa",
+   "n_src": 5,
+   "spread": 0.01,
+   "end": 91.16,
+   "gap_after": 1.99
+  },
+  {
+   "i": 36,
+   "t": 91.16,
+   "t_ref": 91.16,
+   "text": "Pah, pah, pah, pah, ma haine qui te quen', j'suis en polo, la rage s'voit aux triceps",
+   "n_src": 5,
+   "spread": 0.01,
+   "end": 94.72,
+   "gap_after": 3.56
+  },
+  {
+   "i": 37,
+   "t": 94.72,
+   "t_ref": 94.72,
+   "text": "Blablablabla, tu t'écartes tu te perds en direction du hall les cas soc' te visser",
+   "n_src": 5,
+   "spread": 0.07,
+   "end": 98.21,
+   "gap_after": 3.49
+  },
+  {
+   "i": 38,
+   "t": 98.21,
+   "t_ref": 98.21,
+   "text": "L'espoir dans le coffre, la chance dans la cava",
+   "n_src": 5,
+   "spread": 0.01,
+   "end": 100.35,
+   "gap_after": 2.14
+  },
+  {
+   "i": 39,
+   "t": 100.35,
+   "t_ref": 100.35,
+   "text": "Pardonnez-moi mais nos sorts sont macabres",
+   "n_src": 5,
+   "spread": 0.01,
+   "end": 102.34,
+   "gap_after": 1.99
+  },
+  {
+   "i": 40,
+   "t": 102.34,
+   "t_ref": 102.34,
+   "text": "Dis-moi si j'ai tort ou si j'rappe la tate-pa",
+   "n_src": 5,
+   "spread": 0.03,
+   "end": 104.18,
+   "gap_after": 1.84
+  },
+  {
+   "i": 41,
+   "t": 104.18,
+   "t_ref": 104.18,
+   "text": "Obscure est la force, le jedi est khabat",
+   "n_src": 5,
+   "spread": 0.03,
+   "end": 105.75,
+   "gap_after": 1.57
+  },
+  {
+   "i": 42,
+   "t": 105.75,
+   "t_ref": 105.75,
+   "text": "9.4 c'est l'Barça, 9.1 c'est l'Brésil",
+   "n_src": 5,
+   "spread": 0.01,
+   "end": 108.49,
+   "gap_after": 2.74
+  },
+  {
+   "i": 43,
+   "t": 108.49,
+   "t_ref": 108.49,
+   "text": "Ouais connard, va l'dire à Kery",
+   "n_src": 5,
+   "spread": 0.09,
+   "end": 109.82,
+   "gap_after": 1.33
+  },
+  {
+   "i": 44,
+   "t": 109.82,
+   "t_ref": 109.82,
+   "text": "Sinon à part ça, bien t'es pressé?",
+   "n_src": 5,
+   "spread": 0.05,
+   "end": 112.38,
+   "gap_after": 2.56
+  },
+  {
+   "i": 45,
+   "t": 112.38,
+   "t_ref": 112.38,
+   "text": "Non parce que ça va pas terrible",
+   "n_src": 5,
+   "spread": 0.05,
+   "end": 113.73,
+   "gap_after": 1.35
+  },
+  {
+   "i": 46,
+   "t": 113.73,
+   "t_ref": 113.73,
+   "text": "Parce que j'suis seul dans ma tête",
+   "n_src": 5,
+   "spread": 0.03,
+   "end": 115.98,
+   "gap_after": 2.25
+  },
+  {
+   "i": 47,
+   "t": 115.98,
+   "t_ref": 115.98,
+   "text": "C'est la rage qui m'a élevé",
+   "n_src": 5,
+   "spread": 0.01,
+   "end": 117.35,
+   "gap_after": 1.37
+  },
+  {
+   "i": 48,
+   "t": 117.35,
+   "t_ref": 117.35,
+   "text": "Que j'ai bicrave dans la tess'",
+   "n_src": 5,
+   "spread": 0.0,
+   "end": 119.53,
+   "gap_after": 2.18
+  },
+  {
+   "i": 49,
+   "t": 119.53,
+   "t_ref": 119.53,
+   "text": "Et qu'mon caleçon n'est pas en LV",
+   "n_src": 5,
+   "spread": 0.01,
+   "end": 121.67,
+   "gap_after": 2.14
+  },
+  {
+   "i": 50,
+   "t": 121.67,
+   "t_ref": 121.67,
+   "text": "Faut du liquide, j'laisse pas couler une larme",
+   "n_src": 5,
+   "spread": 0.07,
+   "end": 123.57,
+   "gap_after": 1.9
+  },
+  {
+   "i": 51,
+   "t": 123.57,
+   "t_ref": 123.57,
+   "text": "Pas une, pas une, pas une",
+   "n_src": 5,
+   "spread": 0.02,
+   "end": 125.25,
+   "gap_after": 1.68
+  },
+  {
+   "i": 52,
+   "t": 125.25,
+   "t_ref": 125.25,
+   "text": "Fais bellek aux femmes, fais bellek aux putes",
+   "n_src": 5,
+   "spread": 0.04,
+   "end": 127.16,
+   "gap_after": 1.91
+  },
+  {
+   "i": 53,
+   "t": 127.16,
+   "t_ref": 127.16,
+   "text": "Fais bellek aux paluches, paluches, paluches",
+   "n_src": 5,
+   "spread": 0.01,
+   "end": 129.06,
+   "gap_after": 1.9
+  },
+  {
+   "i": 54,
+   "t": 129.06,
+   "t_ref": 129.06,
+   "text": "Check on est vifs donc fais pas l'imbécile",
+   "n_src": 5,
+   "spread": 0.05,
+   "end": 130.75,
+   "gap_after": 1.69
+  },
+  {
+   "i": 55,
+   "t": 130.75,
+   "t_ref": 130.75,
+   "text": "On s'vide pas la vessie un meug dans les WC",
+   "n_src": 5,
+   "spread": 0.01,
+   "end": 132.56,
+   "gap_after": 1.81
+  },
+  {
+   "i": 56,
+   "t": 132.56,
+   "t_ref": 132.56,
+   "text": "Oui on veut la belle vie, embarquer sur l'ferry",
+   "n_src": 5,
+   "spread": 0.02,
+   "end": 134.42,
+   "gap_after": 1.86
+  },
+  {
+   "i": 57,
+   "t": 134.42,
+   "t_ref": 134.42,
+   "text": "Si t'as ché-tou des litres, vas-y mon gars fais signe",
+   "n_src": 5,
+   "spread": 0.07,
+   "end": 136.39,
+   "gap_after": 1.97
+  },
+  {
+   "i": 58,
+   "t": 136.39,
+   "t_ref": 136.39,
+   "text": "Tu décolles, j'atterris, bientôt j'côtoie des riches",
+   "n_src": 5,
+   "spread": 0.02,
+   "end": 138.33,
+   "gap_after": 1.94
+  },
+  {
+   "i": 59,
+   "t": 138.33,
+   "t_ref": 138.33,
+   "text": "La poudre dans la narine, César fait l'AVC",
+   "n_src": 5,
+   "spread": 0.03,
+   "end": 140.15,
+   "gap_after": 1.82
+  },
+  {
+   "i": 60,
+   "t": 140.15,
+   "t_ref": 140.15,
+   "text": "J'l'ai quen' un mercredi, l'amène pas à la mairie",
+   "n_src": 5,
+   "spread": 0.02,
+   "end": 142.04,
+   "gap_after": 1.89
+  },
+  {
+   "i": 61,
+   "t": 142.04,
+   "t_ref": 142.04,
+   "text": "Tu l'appelles ma chérie, j'lui mettais la fessée",
+   "n_src": 5,
+   "spread": 0.03,
+   "end": 143.98,
+   "gap_after": 1.94
+  },
+  {
+   "i": 62,
+   "t": 143.98,
+   "t_ref": 143.98,
+   "text": "Viens j'te donne RDV, j'suis d'Paris j'suis pressé",
+   "n_src": 5,
+   "spread": 0.07,
+   "end": 146.03,
+   "gap_after": 2.05
+  },
+  {
+   "i": 63,
+   "t": 146.03,
+   "t_ref": 146.03,
+   "text": "Igo j'vois tellement d'chiennes, j'mets une laisse sur l'PC",
+   "n_src": 5,
+   "spread": 0.05,
+   "end": 147.72,
+   "gap_after": 1.69
+  },
+  {
+   "i": 64,
+   "t": 147.72,
+   "t_ref": 147.72,
+   "text": "J'mets une laisse sur l'PC, j'prends le game en PV",
+   "n_src": 5,
+   "spread": 0.02,
+   "end": 149.65,
+   "gap_after": 1.93
+  },
+  {
+   "i": 65,
+   "t": 149.65,
+   "t_ref": 149.65,
+   "text": "Le rap est mort, je le déterre pour le ré-enterrer",
+   "n_src": 5,
+   "spread": 0.01,
+   "end": 152.67,
+   "gap_after": 3.02
+  },
+  {
+   "i": 66,
+   "t": 152.67,
+   "t_ref": 152.67,
+   "text": "",
+   "n_src": 1,
+   "spread": null,
+   "end": 154.71,
+   "gap_after": 2.04
+  },
+  {
+   "i": 67,
+   "t": 154.71,
+   "t_ref": 154.71,
+   "text": "Ma drogue dans l'Gabbana",
+   "n_src": 5,
+   "spread": 0.05,
+   "end": 157.38,
+   "gap_after": 2.67
+  },
+  {
+   "i": 68,
+   "t": 157.38,
+   "t_ref": 157.38,
+   "text": "Aux arrivants avec mon Gabbana",
+   "n_src": 5,
+   "spread": 0.03,
+   "end": 161.27,
+   "gap_after": 3.89
+  },
+  {
+   "i": 69,
+   "t": 161.27,
+   "t_ref": 161.27,
+   "text": "J'sors ma- de mon Gabbana",
+   "n_src": 5,
+   "spread": 0.02,
+   "end": 164.72,
+   "gap_after": 3.45
+  },
+  {
+   "i": 70,
+   "t": 164.72,
+   "t_ref": 164.72,
+   "text": "Ton oseille dans la poche de mon Gabbana",
+   "n_src": 5,
+   "spread": 0.06,
+   "end": 169.22,
+   "gap_after": 4.5
+  },
+  {
+   "i": 71,
+   "t": 169.22,
+   "t_ref": 169.22,
+   "text": "",
+   "n_src": 1,
+   "spread": null,
+   "end": 177.53,
+   "gap_after": 8.31
+  },
+  {
+   "i": 72,
+   "t": 177.53,
+   "t_ref": 177.53,
+   "text": "J'fais l'amour à la hess' dans l'allée",
+   "n_src": 5,
+   "spread": 0.01,
+   "end": 179.52,
+   "gap_after": 1.99
+  },
+  {
+   "i": 73,
+   "t": 179.52,
+   "t_ref": 179.52,
+   "text": "Elle se rhabille, j'me retourne",
+   "n_src": 5,
+   "spread": 0.0,
+   "end": 181.41,
+   "gap_after": 1.89
+  },
+  {
+   "i": 74,
+   "t": 181.41,
+   "t_ref": 181.41,
+   "text": "Bismillah à l'aller, bismillah au retour",
+   "n_src": 5,
+   "spread": 0.02,
+   "end": 185.59,
+   "gap_after": 4.18
+  },
+  {
+   "i": 75,
+   "t": 185.59,
+   "t_ref": 185.59,
+   "text": "Sers le trou d'balle à la douane, on déballe et taille-dé redwa",
+   "n_src": 5,
+   "spread": 0.01,
+   "end": 189.01,
+   "gap_after": 3.42
+  },
+  {
+   "i": 76,
+   "t": 189.01,
+   "t_ref": 189.01,
+   "text": "Dans mes yeux c'est le vide, mon âme est perchée sur le toit",
+   "n_src": 5,
+   "spread": 0.02,
+   "end": 192.93,
+   "gap_after": 3.92
+  },
+  {
+   "i": 77,
+   "t": 192.93,
+   "t_ref": 192.93,
+   "text": "J'vois l'espoir dans les yeux des p'tits, mashallah ça sent l'rêve",
+   "n_src": 5,
+   "spread": 0.03,
+   "end": 196.47,
+   "gap_after": 3.54
+  },
+  {
+   "i": 78,
+   "t": 196.47,
+   "t_ref": 196.47,
+   "text": "Une sale envie d'décharger, on vit, on s'égare, on crève",
+   "n_src": 5,
+   "spread": 0.05,
+   "end": 200.45,
+   "gap_after": 3.98
+  },
+  {
+   "i": 79,
+   "t": 200.45,
+   "t_ref": 200.45,
+   "text": "Ouais pas d'vie sociale, juste une vie d'cas social",
+   "n_src": 5,
+   "spread": 0.02,
+   "end": 204.22,
+   "gap_after": 3.77
+  },
+  {
+   "i": 80,
+   "t": 204.22,
+   "t_ref": 204.22,
+   "text": "Le rap dans un local, va foutre ta schneck au sale",
+   "n_src": 5,
+   "spread": 0.06,
+   "end": 208.32,
+   "gap_after": 4.1
+  },
+  {
+   "i": 81,
+   "t": 208.32,
+   "t_ref": 208.32,
+   "text": "Tantôt j'tue l'temps tant, tantôt c'est l'temps qui m'kill",
+   "n_src": 5,
+   "spread": 0.05,
+   "end": 212.28,
+   "gap_after": 3.96
+  },
+  {
+   "i": 82,
+   "t": 212.28,
+   "t_ref": 212.28,
+   "text": "J'me sens mutant, tant différent dans la file",
+   "n_src": 5,
+   "spread": 0.03,
+   "end": 215.79,
+   "gap_after": 3.51
+  },
+  {
+   "i": 83,
+   "t": 215.79,
+   "t_ref": 215.79,
+   "text": "Ouais j'suis bon qu'à compter, un joint d'beuh sur les lèvres",
+   "n_src": 5,
+   "spread": 0.0,
+   "end": 219.5,
+   "gap_after": 3.71
+  },
+  {
+   "i": 84,
+   "t": 219.5,
+   "t_ref": 219.5,
+   "text": "Allez fuck ma bonté, et avec ça fuck mes rêves",
+   "n_src": 5,
+   "spread": 0.03,
+   "end": 223.23,
+   "gap_after": 3.73
+  },
+  {
+   "i": 85,
+   "t": 223.23,
+   "t_ref": 223.23,
+   "text": "Tout c'que j'fais charbonner, tous les mêmes, tous clonés",
+   "n_src": 5,
+   "spread": 0.04,
+   "end": 227.46,
+   "gap_after": 4.23
+  },
+  {
+   "i": 86,
+   "t": 227.46,
+   "t_ref": 227.46,
+   "text": "Six du mat' détrôné à r'dessiner c'qui est gommé",
+   "n_src": 5,
+   "spread": 0.0,
+   "end": 230.66,
+   "gap_after": 3.2
+  },
+  {
+   "i": 87,
+   "t": 230.66,
+   "t_ref": 230.66,
+   "text": "Combien de sacs à pâtes ne savent plus sur quel genou danser",
+   "n_src": 5,
+   "spread": 0.01,
+   "end": 235.09,
+   "gap_after": 4.43
+  },
+  {
+   "i": 88,
+   "t": 235.09,
+   "t_ref": 235.09,
+   "text": "Sur quel genou danser",
+   "n_src": 5,
+   "spread": 0.06,
+   "end": 236.62,
+   "gap_after": 1.53
+  },
+  {
+   "i": 89,
+   "t": 236.62,
+   "t_ref": 236.62,
+   "text": "Ademo, Ladif",
+   "n_src": 5,
+   "spread": 0.03,
+   "end": 240.78,
+   "gap_after": 4.16
+  },
+  {
+   "i": 90,
+   "t": 240.78,
+   "t_ref": 240.78,
+   "text": "Peace and love et kiff",
+   "n_src": 5,
+   "spread": 0.04,
+   "end": 244.78,
+   "gap_after": 4.0
+  },
+  {
+   "i": 91,
+   "t": 244.78,
+   "t_ref": 244.78,
+   "text": "Tout pour la mif'",
+   "n_src": 5,
+   "spread": 0.08,
+   "end": 248.46,
+   "gap_after": 3.68
+  },
+  {
+   "i": 92,
+   "t": 248.46,
+   "t_ref": 248.46,
+   "text": "Tout pour le bif'",
+   "n_src": 5,
+   "spread": 0.0,
+   "end": 252.73,
+   "gap_after": 4.27
+  },
+  {
+   "i": 93,
+   "t": 252.73,
+   "t_ref": 252.73,
+   "text": "Les sentiments ça ralentit",
+   "n_src": 5,
+   "spread": 0.04,
+   "end": 254.83,
+   "gap_after": 2.1
+  },
+  {
+   "i": 94,
+   "t": 254.83,
+   "t_ref": 254.83,
+   "text": "Le cœur fermé, là j'suis à fond",
+   "n_src": 5,
+   "spread": 0.02,
+   "end": 256.64,
+   "gap_after": 1.81
+  },
+  {
+   "i": 95,
+   "t": 256.64,
+   "t_ref": 256.64,
+   "text": "Tu pètes plus haut que ton cul, on",
+   "n_src": 5,
+   "spread": 0.04,
+   "end": 258.37,
+   "gap_after": 1.73
+  },
+  {
+   "i": 96,
+   "t": 258.37,
+   "t_ref": 258.37,
+   "text": "T'monte ton cul touches, touches le plafond",
+   "n_src": 5,
+   "spread": 0.02,
+   "end": 260.55,
+   "gap_after": 2.18
+  },
+  {
+   "i": 97,
+   "t": 260.55,
+   "t_ref": 260.55,
+   "text": "On tire sur la laisse, t'aboies",
+   "n_src": 5,
+   "spread": 0.04,
+   "end": 262.3,
+   "gap_after": 1.75
+  },
+  {
+   "i": 98,
+   "t": 262.3,
+   "t_ref": 262.3,
+   "text": "On t'détache, tu perds la voix",
+   "n_src": 5,
+   "spread": 0.06,
+   "end": 264.38,
+   "gap_after": 2.08
+  },
+  {
+   "i": 99,
+   "t": 264.38,
+   "t_ref": 264.38,
+   "text": "Nous c'est les gentils armés cramés conscients qu'on perd la foi",
+   "n_src": 5,
+   "spread": 0.07,
+   "end": 268.53,
+   "gap_after": 4.15
+  },
+  {
+   "i": 100,
+   "t": 268.53,
+   "t_ref": 268.53,
+   "text": "Wesh à quand l'dernier kil'? Pas demain, pas maintenant",
+   "n_src": 5,
+   "spread": 0.04,
+   "end": 272.07,
+   "gap_after": 3.54
+  },
+  {
+   "i": 101,
+   "t": 272.07,
+   "t_ref": 272.07,
+   "text": "J'te fais danser avec l'oseille, à chaque billet un nouveau battement",
+   "n_src": 5,
+   "spread": 0.03,
+   "end": 275.7,
+   "gap_after": 3.63
+  },
+  {
+   "i": 102,
+   "t": 275.7,
+   "t_ref": 275.7,
+   "text": "J'tacle junkie potentiel, j'en fais -ient-ient fidèle",
+   "n_src": 5,
+   "spread": 0.09,
+   "end": 279.77,
+   "gap_after": 4.07
+  },
+  {
+   "i": 103,
+   "t": 279.77,
+   "t_ref": 279.77,
+   "text": "Des loups qui fixent la lune, moi être meilleur ami d'elle",
+   "n_src": 5,
+   "spread": 0.02,
+   "end": 283.48,
+   "gap_after": 3.71
+  },
+  {
+   "i": 104,
+   "t": 283.48,
+   "t_ref": 283.48,
+   "text": "Chez nous on partage la hess'",
+   "n_src": 5,
+   "spread": 0.06,
+   "end": 285.21,
+   "gap_after": 1.73
+  },
+  {
+   "i": 105,
+   "t": 285.21,
+   "t_ref": 285.21,
+   "text": "Le cul d'la hôte dans la caisse",
+   "n_src": 5,
+   "spread": 0.02,
+   "end": 287.47,
+   "gap_after": 2.26
+  },
+  {
+   "i": 106,
+   "t": 287.47,
+   "t_ref": 287.47,
+   "text": "400, tourne, on gue-lar, laisse",
+   "n_src": 5,
+   "spread": 0.01,
+   "end": 289.4,
+   "gap_after": 1.93
+  },
+  {
+   "i": 107,
+   "t": 289.4,
+   "t_ref": 289.4,
+   "text": "Mon arche tu connais l'adresse",
+   "n_src": 5,
+   "spread": 0.05,
+   "end": 291.35,
+   "gap_after": 1.95
+  },
+  {
+   "i": 108,
+   "t": 291.35,
+   "t_ref": 291.35,
+   "text": "Le temps d'un climat les gens changent",
+   "n_src": 5,
+   "spread": 0.01,
+   "end": 292.75,
+   "gap_after": 1.4
+  },
+  {
+   "i": 109,
+   "t": 292.75,
+   "t_ref": 292.75,
+   "text": "Moi je change en retrouvant la vue",
+   "n_src": 5,
+   "spread": 0.04,
+   "end": 294.65,
+   "gap_after": 1.9
+  },
+  {
+   "i": 110,
+   "t": 294.65,
+   "t_ref": 294.65,
+   "text": "D'aucune poche on est dépendants",
+   "n_src": 5,
+   "spread": 0.04,
+   "end": 296.58,
+   "gap_after": 1.93
+  },
+  {
+   "i": 111,
+   "t": 296.58,
+   "t_ref": 296.58,
+   "text": "Là j'suis fonce' en retrouvant la fum'",
+   "n_src": 5,
+   "spread": 0.05,
+   "end": 298.57,
+   "gap_after": 1.99
+  },
+  {
+   "i": 112,
+   "t": 298.57,
+   "t_ref": 298.57,
+   "text": "Elles ont les photos puis les souvenirs",
+   "n_src": 5,
+   "spread": 0.01,
+   "end": 300.34,
+   "gap_after": 1.77
+  },
+  {
+   "i": 113,
+   "t": 300.34,
+   "t_ref": 300.34,
+   "text": "On a les souvenirs puis les photos",
+   "n_src": 5,
+   "spread": 0.01,
+   "end": 302.17,
+   "gap_after": 1.83
+  },
+  {
+   "i": 114,
+   "t": 302.17,
+   "t_ref": 302.17,
+   "text": "Ouais on a même plus les potos",
+   "n_src": 5,
+   "spread": 0.05,
+   "end": 303.97,
+   "gap_after": 1.8
+  },
+  {
+   "i": 115,
+   "t": 303.97,
+   "t_ref": 303.97,
+   "text": "C'est chacun son bénéf', son auto",
+   "n_src": 5,
+   "spread": 0.06,
+   "end": 306.08,
+   "gap_after": 2.11
+  },
+  {
+   "i": 116,
+   "t": 306.08,
+   "t_ref": 306.08,
+   "text": "Un gros fer sa mère",
+   "n_src": 5,
+   "spread": 0.06,
+   "end": 307.63,
+   "gap_after": 1.55
+  },
+  {
+   "i": 117,
+   "t": 307.63,
+   "t_ref": 307.63,
+   "text": "J'emmène la misère en balade",
+   "n_src": 5,
+   "spread": 0.06,
+   "end": 309.83,
+   "gap_after": 2.2
+  },
+  {
+   "i": 118,
+   "t": 309.83,
+   "t_ref": 309.83,
+   "text": "Une balle pour chaque ennemi de mon frère",
+   "n_src": 5,
+   "spread": 0.04,
+   "end": 311.88,
+   "gap_after": 2.05
+  },
+  {
+   "i": 119,
+   "t": 311.88,
+   "t_ref": 311.88,
+   "text": "Ça fait click, gala, gala",
+   "n_src": 5,
+   "spread": 0.03,
+   "end": 313.77,
+   "gap_after": 1.89
+  },
+  {
+   "i": 120,
+   "t": 313.77,
+   "t_ref": 313.77,
+   "text": "Un putain d'biff, la mif', une ride en moins sur l'front de mon père",
+   "n_src": 5,
+   "spread": 0.02,
+   "end": 317.42,
+   "gap_after": 3.65
+  },
+  {
+   "i": 121,
+   "t": 317.42,
+   "t_ref": 317.42,
+   "text": "Un putain d'biff, la mif', un sourire en plus sur l'visage de mon frère",
+   "n_src": 5,
+   "spread": 0.01,
+   "end": 321.47,
+   "gap_after": 4.05
+  },
+  {
+   "i": 122,
+   "t": 321.47,
+   "t_ref": 321.47,
+   "text": "Le dos large, le coeur étroit",
+   "n_src": 5,
+   "spread": 0.02,
+   "end": 325.12,
+   "gap_after": 3.65
+  },
+  {
+   "i": 123,
+   "t": 325.12,
+   "t_ref": 325.12,
+   "text": "Ta relation sur une pesette",
+   "n_src": 5,
+   "spread": 0.02,
+   "end": 326.96,
+   "gap_after": 1.84
+  },
+  {
+   "i": 124,
+   "t": 326.96,
+   "t_ref": 326.96,
+   "text": "Si t'écoules pas, madame est froide",
+   "n_src": 5,
+   "spread": 0.02,
+   "end": 328.9,
+   "gap_after": 1.94
+  },
+  {
+   "i": 125,
+   "t": 328.9,
+   "t_ref": 328.9,
+   "text": "Ce soir j'rentre pas à la maison",
+   "n_src": 5,
+   "spread": 0.06,
+   "end": 332.67,
+   "gap_after": 3.77
+  },
+  {
+   "i": 126,
+   "t": 332.67,
+   "t_ref": 332.67,
+   "text": "Les portes se ferment",
+   "n_src": 5,
+   "spread": 0.01,
+   "end": 333.83,
+   "gap_after": 1.16
+  },
+  {
+   "i": 127,
+   "t": 333.83,
+   "t_ref": 333.83,
+   "text": "Et puis ne s'ouvriront qu'à la prochaine saison",
+   "n_src": 5,
+   "spread": 0.01,
+   "end": 336.66,
+   "gap_after": 2.83
+  },
+  {
+   "i": 128,
+   "t": 336.66,
+   "t_ref": 336.66,
+   "text": "La misère dans un SLR",
+   "n_src": 5,
+   "spread": 0.02,
+   "end": 338.56,
+   "gap_after": 1.9
+  },
+  {
+   "i": 129,
+   "t": 338.56,
+   "t_ref": 338.56,
+   "text": "Rentrer, tourner, sortir célèbre",
+   "n_src": 5,
+   "spread": 0.04,
+   "end": 340.41,
+   "gap_after": 1.85
+  },
+  {
+   "i": 130,
+   "t": 340.41,
+   "t_ref": 340.41,
+   "text": "La vie me donne son cul, j'connais pas l'goût d'ses lèvres",
+   "n_src": 5,
+   "spread": 0.04,
+   "end": 343.41,
+   "gap_after": 3.0
+  },
+  {
+   "i": 131,
+   "t": 343.41,
+   "t_ref": 343.41,
+   "text": "",
+   "n_src": 1,
+   "spread": null,
+   "end": 372.0,
+   "gap_after": 28.59
+  }
+ ]
+}

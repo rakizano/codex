@@ -1,0 +1,111 @@
+{
+ "artist": "PNL",
+ "title": "Différents",
+ "album": "Que la famille",
+ "duration": 23.9,
+ "lrclib_ref_id": 2485943,
+ "version_cluster_ids": [
+  2485943,
+  34492711,
+  34720633,
+  40237181,
+  33540399
+ ],
+ "version_cluster_albums": [
+  "Différents",
+  "PNL",
+  "Pnl album",
+  "Que la famille"
+ ],
+ "other_versions": [
+  {
+   "duration": 372.0,
+   "n": 5,
+   "albums": [
+    "Différents",
+    "PNL",
+    "Pnl album",
+    "Que la famille"
+   ]
+  },
+  {
+   "duration": 375.0,
+   "n": 3,
+   "albums": [
+    "PNL",
+    "PNL Videos",
+    "Que la famille"
+   ]
+  }
+ ],
+ "n_sources": 5,
+ "text_agreement": [
+  1.0,
+  1.0,
+  1.0,
+  1.0
+ ],
+ "sources_disagreeing": [],
+ "sync_spread_median_s": 0.03,
+ "sync_spread_p90_s": 0.06,
+ "sync_confidence": "élevée",
+ "sync_method": "LRCLIB (paroles synchronisées ligne par ligne par la communauté), médiane multi-sources",
+ "sound_clock": true,
+ "sound_mapping": {
+  "song_start_s": 60.86,
+  "speed": 1.0,
+  "sound_duration_s": 34.296
+ },
+ "lines": [
+  {
+   "t": 0.0,
+   "text": "J'sais qu'j'suis pas intégré, je perds de mes intérêts",
+   "end": 1.92
+  },
+  {
+   "t": 1.92,
+   "text": "Les mains dans le merde alors qu'elles sont faites pour les enterrer",
+   "end": 3.84
+  },
+  {
+   "t": 3.84,
+   "text": "J'sais combien tu paierais pour te faire opérer",
+   "end": 5.45
+  },
+  {
+   "t": 5.45,
+   "text": "De tout ce mal qui paraît si fort et qui semble empirer",
+   "end": 7.6
+  },
+  {
+   "t": 7.6,
+   "text": "Viens m'voir et j'te dirai le prix d'la fonce-dé-dé-dé",
+   "end": 10.17
+  },
+  {
+   "t": 10.17,
+   "text": "Si t'as appris à compter-ter-ter, on sera amis, enchanté-té-té",
+   "end": 14.1
+  },
+  {
+   "t": 14.1,
+   "text": "Moi c'est Ade', moi c'est Ade' khey",
+   "end": 16.26
+  },
+  {
+   "t": 16.26,
+   "text": "Sors la 'teille, vas-y claque le jour de paye",
+   "end": 18.2
+  },
+  {
+   "t": 18.2,
+   "text": "J'veux pas d'ton facebook, rrht ptou",
+   "end": 21.09
+  },
+  {
+   "t": 21.09,
+   "text": "T'sais qu'j'ai ma main sur ta fesse",
+   "end": 22.72
+  }
+ ]
+}
