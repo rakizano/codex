@@ -1,0 +1,42 @@
+<template>
+  <style>__FONTS__
+    #root { position: absolute; inset: 0; overflow: hidden; background: #1a1416; }
+    #__ID__-stage, #__ID__-stage .lay { position: absolute; inset: 0; }
+    #__ID__-stage svg { overflow: visible; }
+    #__ID__-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+  </style>
+  <div id="root" data-composition-id="__ID__" data-width="1080" data-height="1920">
+    <div id="__ID__-stage">
+      <svg id="__ID__-wall" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="__ID__-doors" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <canvas id="__ID__-fx" class="lay" width="1080" height="1920"></canvas>
+      <div id="__ID__-txt"></div>
+    </div>
+  </div>
+  <script>
+    /* SceneTemplate « elevator » — aplats : cabine d'ascenseur, l'indicateur d'étage file vers le bas, lueur rouge de l'enfer qui monte par les portes ; ou ascenseur coincé (voyant PANNE qui clignote) côté paradis. */
+    (function () {
+      const CFG = __CFG__;
+      HFS.boot('__ID__', CFG, (sc, ctx) => {
+        const P = ctx.P, sv = HFS.svg, m = HFS.m, E = HFS.ease;
+
+        const Wl = ctx.layer('wall'), Dr = ctx.layer('doors'), hell = P.mode !== 'stuck';
+        sv('rect', { width: 1080, height: 1920, fill: hell ? '#1a1416' : '#dfe9f5' }, Wl);
+        const glow = sv('rect', { x: 240, y: 500, width: 600, height: 1100, fill: hell ? '#ff3b1f' : '#ffffff', opacity: .0 }, Wl);
+        const panel = sv('g', {}, Wl); sv('rect', { x: 430, y: 300, width: 220, height: 130, rx: 16, fill: '#0b0b0e', stroke: '#8a8a92', 'stroke-width': 6 }, panel);
+        const floorTxt = sv('text', { x: 540, y: 395, 'text-anchor': 'middle', 'font-family': 'VT323', 'font-size': 100, fill: hell ? '#ff5a3c' : '#3ddc97' }, panel);
+        const arrow = sv('path', { d: 'M 0 -26 L 20 0 L 8 0 L 8 26 L -8 26 L -8 0 L -20 0 Z', fill: hell ? '#ff5a3c' : '#9aa3b5' }, panel);
+        const L1 = sv('rect', { y: 500, width: 300, height: 1100, fill: '#b9bcc6', stroke: '#6a6d78', 'stroke-width': 6 }, Dr), R1 = sv('rect', { y: 500, width: 300, height: 1100, fill: '#c5c8d2', stroke: '#6a6d78', 'stroke-width': 6 }, Dr);
+        sv('rect', { x: 220, y: 480, width: 640, height: 1140, fill: 'none', stroke: '#4a4d58', 'stroke-width': 40 }, Dr);
+        const fx = HFS.fx.particles(ctx.layer('fx'), hell ? { kind: 'sparks', n: 80, colors: ['#ff5a3c', '#ffb03a'], at: sc.dur * .45, x: 540, y: 1500, seed: 4, size: 6 } : { kind: 'dust', n: 50, colors: ['#ffffff'], seed: 4 });
+        sc.update(t => {
+          const open = hell ? E.inOut(m.clamp((t - sc.dur * .4) / .6)) : m.clamp((t - .3) / .25) * .18 * (1 + Math.sin(t * 30) * .3);
+          L1.setAttribute('x', 240 - open * 300); R1.setAttribute('x', 540 + open * 300); glow.setAttribute('opacity', hell ? open * .9 : .25);
+          const fl = hell ? Math.max(-9, -Math.floor(t * 6)) : 99; floorTxt.textContent = hell ? (fl <= -9 ? '-∞' : String(fl)) : (Math.floor(t * 3) % 2 ? 'PANNE' : ''); floorTxt.setAttribute('font-size', hell ? 100 : 64);
+          arrow.setAttribute('transform', `translate(600,${hell ? 365 + (t * 60 % 20) : 365}) rotate(${hell ? 180 : 0})`); fx(t);
+        });
+        HFS.camera(sc, [{ el: Wl, depth: .6 }, { el: Dr, depth: 1 }, { el: ctx.layer('fx'), depth: 1 }], Object.assign({ preset: hell ? 'pedestalDown' : 'dollyIn', amount: .5, shake: t => hell ? m.clamp((t - sc.dur * .4) * 2) * 4 : 0 }, CFG.camera || {}));
+      });
+    })();
+  </script>
+</template>

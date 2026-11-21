@@ -1,0 +1,37 @@
+<template>
+  <style>__FONTS__
+    #root { position: absolute; inset: 0; overflow: hidden; background: #2b2633; }
+    #__ID__-stage, #__ID__-stage .lay { position: absolute; inset: 0; }
+    #__ID__-stage svg { overflow: visible; }
+    #__ID__-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+  </style>
+  <div id="root" data-composition-id="__ID__" data-width="1080" data-height="1920">
+    <div id="__ID__-stage">
+      <svg id="__ID__-room" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="__ID__-mid" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <div id="__ID__-txt"></div>
+    </div>
+  </div>
+  <script>
+    /* SceneTemplate « kitchen_clock » — aplats : cuisine de nuit, frigo qui s'ouvre sur des étagères vides (lumière froide), assiette vide, horloge dont les aiguilles s'emballent (pas le temps). */
+    (function () {
+      const CFG = __CFG__;
+      HFS.boot('__ID__', CFG, (sc, ctx) => {
+        const P = ctx.P, sv = HFS.svg, m = HFS.m, E = HFS.ease;
+
+        const R = ctx.layer('room'), M = ctx.layer('mid');
+        sv('rect', { width: 1080, height: 1920, fill: '#2b2633' }, R); sv('rect', { y: 1350, width: 1080, height: 570, fill: '#1f1b26' }, R);
+        const clock = sv('g', { transform: 'translate(820,520)' }, R); sv('circle', { r: 130, fill: '#f4f1ea', stroke: '#111', 'stroke-width': 12 }, clock); for (let i = 0; i < 12; i++) sv('line', { x1: 0, y1: -105, x2: 0, y2: -88, stroke: '#111', 'stroke-width': 6, transform: `rotate(${i * 30})` }, clock);
+        const hH = sv('line', { x1: 0, y1: 0, x2: 0, y2: -60, stroke: '#111', 'stroke-width': 12, 'stroke-linecap': 'round' }, clock), mH = sv('line', { x1: 0, y1: 0, x2: 0, y2: -100, stroke: '#e8452c', 'stroke-width': 7, 'stroke-linecap': 'round' }, clock);
+        const fr = sv('g', { transform: 'translate(170,700)' }, M); sv('rect', { width: 360, height: 700, rx: 24, fill: '#dfe3ea', stroke: '#6a6d78', 'stroke-width': 6 }, fr); const inside = sv('rect', { x: 14, y: 14, width: 332, height: 672, fill: '#bfe4ff' }, fr);
+        for (let i = 1; i < 4; i++) sv('line', { x1: 20, y1: i * 170, x2: 340, y2: i * 170, stroke: '#8fb0cc', 'stroke-width': 8 }, fr);
+        const door = sv('rect', { width: 360, height: 700, rx: 24, fill: '#eef0f4', stroke: '#6a6d78', 'stroke-width': 6 }, fr);
+        const cold = sv('path', { d: 'M 170 700 L 530 700 L 760 1500 L 0 1500 Z', fill: '#bfe4ff', opacity: 0 }, M);
+        const plate = sv('ellipse', { cx: 740, cy: 1330, rx: 150, ry: 36, fill: '#f4f1ea', stroke: '#9aa3b5', 'stroke-width': 6 }, M);
+        sc.update(t => { const o = E.inOut(m.clamp((t - .3) / .6)); door.setAttribute('transform', `translate(${o * 330},0) scale(${1 - o * .85},1)`); cold.setAttribute('opacity', o * .25);
+          const sp = 1 + Math.pow(m.clamp(t / sc.dur), 2) * 40; mH.setAttribute('transform', `rotate(${t * 60 * sp})`); hH.setAttribute('transform', `rotate(${t * 5 * sp})`); plate.setAttribute('transform', `translate(0,${Math.sin(t * 30) * (t > sc.dur * .6 ? 3 : 0)})`); });
+        HFS.camera(sc, [{ el: R, depth: .6 }, { el: M, depth: 1 }], Object.assign({ preset: 'pan', amount: .6 }, CFG.camera || {}));
+      });
+    })();
+  </script>
+</template>

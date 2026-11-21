@@ -10,41 +10,45 @@
     @font-face { font-family: 'Tinos'; src: url('assets/fonts/Tinos-700.ttf'); font-display: block; }
     @font-face { font-family: 'Archivo Black'; src: url('assets/fonts/ArchivoBlack-400.ttf'); font-display: block; }
     
-    #root { position: absolute; inset: 0; overflow: hidden; background: #071226; }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #05060c; }
     #s06-stage, #s06-stage .lay { position: absolute; inset: 0; }
+    #s06-stage svg { overflow: visible; }
+    #s06-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+    #s06-grain { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, transparent 55%, rgba(0,0,0,.55) 100%); }
   </style>
   <div id="root" data-composition-id="s06" data-width="1080" data-height="1920">
     <div id="s06-stage">
-      <canvas id="s06-bokeh" class="lay" width="1080" height="1920"></canvas>
-      <svg id="s06-ui" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
-      <canvas id="s06-fx" class="lay" width="1080" height="1920"></canvas>
+      <canvas id="s06-gl" width="1080" height="1920"></canvas>
+      <div id="s06-grain"></div>
       <div id="s06-txt"></div>
     </div>
   </div>
   <script>
-    /* SceneTemplate « phone_ui » — à l'intérieur de l'écran : interface sociale néon (bulles qui poppent, réactions
-       qui montent, compteur à rouleaux qui « compte » sur les kicks), deux avatars qui se rejoignent → étincelles. */
+    /* SceneTemplate « city3d » — 3D : une foule grise parfaitement alignée (« intégrée ») ; le héros lumineux
+       la traverse à contre-sens, se retourne ; lampadaires volumétriques, brouillard, caméra en orbite + dolly. */
     (function () {
-      const CFG = {"fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s06", "dur": 1.775, "t0": 9.7, "text": {"font": "Russo One", "color": "#e9fdff", "accent": "#ff3fb4", "pos": "top", "shadow": "0 0 22px rgba(63,240,255,.8)", "text": "Si t'as / appris à / compter-ter-ter, / on", "words": [10.17, 10.37, 10.57, 10.77, 10.88, 11.15], "important": "compter-ter-ter", "impact": 10.93, "preset": "beatJelly", "intensity": 1.33, "why": "les échos « -ter-ter » rebondissent sur les kicks", "outAt": 10.995}, "params": {}, "camera": null, "tin": {"kind": "zoomOut", "from": 1.25, "delay": 0.62, "dur": 0.7}, "tout": {"kind": "whip", "dir": "left", "dur": 0.32}};
+      const CFG = {"fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s06", "dur": 3.461, "t0": 11.06, "text": null, "params": {}, "camera": null, "tin": {"kind": "flash", "color": "#ffffff", "delay": 0.15, "dur": 0.3}, "tout": {"kind": "zoomThrough", "to": 10, "dur": 0.55}};
       HFS.boot('s06', CFG, (sc, ctx) => {
-        const P = ctx.P, sv = HFS.svg, U = ctx.layer('ui'), CY = P.accent || '#3ff0ff', MG = P.accent2 || '#ff3fb4';
-        const bok = HFS.fx.particles(ctx.layer('bokeh'), { kind: 'bokeh', n: 22, colors: [CY, MG, '#6a5cff'], seed: 3 });
-        const bubbles = [0, 1, 2, 3].map(i => { const g = sv('g', {}, U); sv('rect', { x: 0, y: -40, width: 520, height: 80, rx: 40, fill: 'rgba(15,35,70,.85)', stroke: i % 2 ? MG : CY, 'stroke-width': 3 }, g); sv('circle', { cx: 40, cy: 0, r: 26, fill: i % 2 ? MG : CY }, g); sv('rect', { x: 84, y: -16, width: 220 + (i * 41) % 120, height: 14, rx: 7, fill: '#fff', opacity: .8 }, g); sv('rect', { x: 84, y: 8, width: 120 + (i * 53) % 90, height: 10, rx: 5, fill: '#fff', opacity: .4 }, g); return g; });
-        const counter = sv('g', {}, U), digits = [0, 1, 2, 3].map(i => { const tx = sv('text', { x: 330 + i * 110, y: 1150, 'font-family': 'Russo One', 'font-size': 150, fill: CY, 'text-anchor': 'middle' }, counter); return tx; });
-        const av = [CY, MG].map((c, i) => { const g = sv('g', {}, U); sv('circle', { r: 70, fill: '#0b1a33', stroke: c, 'stroke-width': 8 }, g); sv('circle', { cy: -14, r: 24, fill: c }, g); sv('path', { d: 'M -40 40 Q 0 0 40 40 Z', fill: c }, g); return g; });
-        const sparks = HFS.fx.particles(ctx.layer('fx'), { kind: 'sparks', n: 60, colors: [CY, MG, '#ffffff'], seed: 8, at: sc.dur * .62, x: 540, y: 1520, size: 6 });
-        const hearts = [...Array(12)].map((_, i) => sv('path', { d: 'M 0 18 C -30 -4 -18 -30 0 -14 C 18 -30 30 -4 0 18 Z', fill: i % 2 ? MG : '#ff5a7a' }, U));
-        sc.update(t => {
-          bok(t); sparks(t);
-          bubbles.forEach((g, i) => { const k = HFS.ease.outBack(HFS.m.clamp((t - .15 - i * .35) / .3)), n = Math.floor((t - .15) / .35); g.setAttribute('transform', `translate(120,${1500 - (Math.min(n, 3) - i) * 100}) scale(${Math.max(0, k)})`); g.setAttribute('opacity', k > 0 ? 1 : 0); });
-          // compteur : avance d'un cran à chaque kick (synchro musicale)
-          const kicks = (HFS.audio.data.kicks || []).filter(x => x >= sc.t0 && x <= sc.t0 + t).length; const val = String(1000 + kicks * 37 + Math.floor(t * 3)).slice(-4);
-          digits.forEach((d, i) => { d.textContent = val[i]; d.setAttribute('transform', `translate(0,${-sc.beat(t, 'kicks', 14) * 20})`); });
-          counter.setAttribute('opacity', 1 - HFS.m.clamp((t - sc.dur * .55) / .2));
-          const meet = HFS.ease.inOutCubic(HFS.m.clamp(t / (sc.dur * .62))); av[0].setAttribute('transform', `translate(${180 + meet * 270},1520)`); av[1].setAttribute('transform', `translate(${900 - meet * 270},1520)`);
-          hearts.forEach((h, i) => { const u = ((t * .7 + i / 12) % 1); h.setAttribute('transform', `translate(${940 + Math.sin(u * 8 + i) * 30},${1450 - u * 700}) scale(${.8 + u})`); h.setAttribute('opacity', 1 - u); });
+        const P = ctx.P, accent = parseInt((P.accent || '#ffd27a').replace('#', ''), 16);
+        const X = HFS.three(sc, document.getElementById('s06-gl'), { bg: 0x05060c, fog: [0x05060c, 8, 38], exposure: 1.15 });
+        const T = X.T, K = HFS.K3;
+        const floor = new T.Mesh(new T.PlaneGeometry(80, 120), new T.MeshStandardMaterial({ color: 0x0d0e14, roughness: .3, metalness: .55 })); floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; X.add(floor);
+        X.add(new T.HemisphereLight(0x2a3354, 0x000000, .35), K.backdrop(T, { color: '#24305a', rim: 0x8fa8ff, rimPower: 1.5 }));
+        for (let z = -2; z > -40; z -= 6) [-1, 1].forEach(sg => { const l = K.streetLight(T, { dir: -sg, light: z > -14 }); l.position.set(sg * 5.5, 0, z); X.add(l); });
+        const crowd = [], r = HFS.m.rng('s06');
+        for (let row = 0; row < 6; row++) for (let col = -3; col <= 3; col++) { if (col === 0) continue; const h = K.human(T, { color: 0x26272e, roughness: .8 }); h.position.set(col * 1.05, 0, -1 - row * 1.5); h.userData.ph = r() * 9; X.add(h); crowd.push(h); }
+        const hero = K.human(T, { color: 0xffffff, emissive: accent, emissiveIntensity: 1.3, roughness: .3 }); X.add(hero);
+        const glow = new T.PointLight(accent, 2.2, 5, 2); glow.position.y = 1.2; hero.add(glow);
+        const spot = K.volumetric(T, { color: accent, length: 9, radius: 1.8, intensity: .5, power: 4 }); X.add(spot);
+        const D = sc.dur, heroZ = t => -9 + Math.min(1, t / (D * .7)) * 8.5;
+        X.update(t => {
+          const z = heroZ(t), walking = t < D * .7, turn = HFS.m.clamp((t - D * .72) / .45);
+          hero.position.set(0, 0, z);
+          hero.pose({ walk: t * 7, amt: walking ? 1 : 0, yaw: Math.PI * turn, headYaw: walking ? Math.sin(t * 2) * .25 : 0 });
+          spot.position.set(0, 9, z);
+          crowd.forEach((h, i) => h.pose({ yaw: Math.PI, headYaw: HFS.m.clamp((t - .4 - (i % 5) * .1) / .6) * (h.position.x > 0 ? -.7 : .7) * (Math.abs(h.position.z - z) < 3 ? 1 : .3), lean: Math.sin(t * 1.2 + h.userData.ph) * .015 }));
         });
-        HFS.camera(sc, [{ el: ctx.layer('bokeh'), depth: .3 }, { el: U, depth: 1 }, { el: ctx.layer('fx'), depth: 1 }], Object.assign({ preset: 'dollyOut', amount: .7, handheld: .4 }, CFG.camera || {}));
+        X.camMove('orbit', { center: [0, 1.1, -3], a0: -.55, a1: .35, r: t => 9 - t * .9, y: t => 1.4 + t * .25, target: t => new T.Vector3(0, 1.2, heroZ(t)), fov0: 44, fov1: 36 });
       });
     })();
   </script>

@@ -90,10 +90,12 @@ def main():
         if end_sung > D + .1:
             continue                                     # phrase coupée par la fin du son : écartée
         segs = [(0, len(toks))]
-        if l['end'] - l['t'] > 3.3 and len(toks) >= 6:   # plusieurs plans pour une même phrase
-            mid = (l['t'] + l['end']) / 2
-            cut = min(range(2, len(toks) - 2), key=lambda i: abs(times[i] - mid))
-            segs = [(0, cut), (cut, len(toks))]
+        sung = times[-1] - times[0] + .35
+        if (sung > 3.4 and len(toks) >= 6) or (sung > 2.9 and len(toks) >= 10):               # plusieurs plans pour une même phrase (chacun ≥ 1,3 s)
+            mid = (times[0] + times[-1]) / 2
+            ok = [i for i in range(2, len(toks) - 2) if times[i] - times[0] >= 1.3 and times[-1] + .35 - times[i] >= 1.3]
+            if ok:
+                cut = min(ok, key=lambda i: abs(times[i] - mid)); segs = [(0, cut), (cut, len(toks))]
         for (s0, s1) in segs:
             shots.append({'toks': toks[s0:s1], 'times': [round(x, 3) for x in times[s0:s1]], 'line': l['text'], 'part': segs.index((s0, s1)), 'nparts': len(segs), 'song_t': l.get('song_t')})
 
@@ -113,9 +115,15 @@ def main():
         intensity = round(sum(seg) / len(seg), 3)
         # scène
         cands = []
+        same_line = k > 0 and sh['part'] > 0
+        NEUTRAL = ['club', 'color_split', 'crew_beats', 'phone_ui', 'editorial', 'city3d', 'duo_walk', 'bubble', 'night_drive']
+        strong = {c: n for c, n in sense.items() if c not in ('refuse', 'reject', 'two', 'ego')}
         for name, T in VP['templates'].items():
+            if not strong and name not in NEUTRAL:
+                continue                                   # phrase sans sens clair : un monde « neutre » (graphique, néon, ville)
             s = sum(T['tags'].get(c, 0) * min(2, n) for c, n in sense.items())
-            s -= 4 if name == prev_tpl else 0
+            s -= 4 if (name == prev_tpl and not same_line) else 0
+            s += 2.5 if (name == prev_tpl and same_line) else 0   # 2e plan de la même phrase : même monde, autre cadrage
             s -= 3.2 * used_tpl.get(name, 0)
             if prev_tpl and VP['templates'][prev_tpl].get('exitObject') and 'phone' in T['tags']:
                 s += 3                                     # on sort de la scène PAR l'écran du téléphone : la suivante est dedans
@@ -162,6 +170,10 @@ def main():
         if preset == 'stackPile':
             tx.update({'pos': 'upper', 'align': 'center'})
         params = {}
+        if tpl == 'elevator':
+            params['mode'] = 'stuck' if ('paradise' in sense or 'stuck' in sense) else 'hell'
+        if same_line and tpl == prev_tpl:
+            params['shot'] = 2
         if tpl == 'stage3d_name':
             params['word3d'] = imp_word.strip("'")
         if tpl == 'night_drive':
@@ -176,10 +188,27 @@ def main():
         used_tpl[tpl] = used_tpl.get(tpl, 0) + 1
         used_family, prev_tpl = T['family'], tpl
 
+    # 2b) respirations : si un silence vocal de plus de 1,8 s suit une phrase, un plan instrumental sans texte
+    out = []
+    for i, s_ in enumerate(scenes):
+        out.append(s_)
+        nxt = scenes[i + 1]['t_first_word'] if i + 1 < len(scenes) else D
+        last = s_['text']['words'][-1] + .45
+        if nxt - last > 1.8:
+            used_here = {s_['template']} | ({scenes[i + 1]['template']} if i + 1 < len(scenes) else set())
+            pool = [n for n in ['club', 'color_split', 'city3d', 'bubble', 'duo_walk', 'crew_beats', 'night_drive'] if n not in used_here]
+            tname = min(pool, key=lambda n: used_tpl.get(n, 0)) if i + 1 < len(scenes) else s_['template']   # fin du clip : on reste dans le dernier monde
+            used_tpl[tname] = used_tpl.get(tname, 0) + 1; TT = VP['templates'][tname]
+            out.append({'id': None, 'start': None, 'end': None, 'lyrics': '', 'line': '(instrumental)', 'part': '-', 'template': tname, 'style': TT['family'], 'reading': TT['reading'],
+                        'description': f"respiration instrumentale — {TT['main']}", 'characters': TT['characters'], 'objects': TT['objects'], 'decor': TT['decor'], 'camera': {'label': TT['camera']},
+                        'animations': {'main': TT['main'], 'secondary': TT['secondary']}, 'text': None, 'params': {}, 'sfx': [], 'analysis': {'sense': {}, 'instrumental': True}, 't_first_word': round(last + .1, 3)})
+    scenes = out
+    for i, s_ in enumerate(scenes):
+        s_['id'] = f's{i + 1:02d}'
     # 3) Timeline : coupes juste avant le 1er mot, recalées sur le temps le plus proche (±0,1 s)
     beats = AU.get('beats', [])
     for i, s in enumerate(scenes):
-        t = 0.0 if i == 0 else max(0.0, s['t_first_word'] - .12)
+        t = 0.0 if i == 0 else max(0.0, s['t_first_word'] - (.12 if s['text'] else 0))
         if i and beats:
             b = min(beats, key=lambda x: abs(x - t))
             if abs(b - t) <= .1 and b < s['t_first_word']:
@@ -187,7 +216,8 @@ def main():
         s['start'] = round(t, 3)
     for i, s in enumerate(scenes):
         s['end'] = round(scenes[i + 1]['start'] if i + 1 < len(scenes) else D, 3)
-        s['text']['outAt'] = round(s['end'] - .32, 3)
+        if s['text']:
+            s['text']['outAt'] = round(s['end'] - .32, 3)
         del s['t_first_word']
     # 4) transitions provoquées par le contenu
     for i, s in enumerate(scenes[:-1]):
@@ -196,7 +226,7 @@ def main():
             tr = 'objectFillScreen'
         elif s['template'] == n['template']:
             tr = 'whipPan'                                 # même monde, plan suivant de la même phrase
-        elif s['text']['preset'] in ('heavySentence', 'stackPile', 'impactScatter'):
+        elif s['text'] and s['text']['preset'] in ('heavySentence', 'stackPile', 'impactScatter'):
             tr = 'impactFlash'
         elif (Ts['family'] == '3d') != (Tn['family'] == '3d'):
             tr = 'zoomThroughObject' if used_trans.get('zoomThroughObject', 0) < 2 else 'flyThrough'
@@ -217,7 +247,7 @@ def main():
           'duration': D, 'scenes': scenes}
     json.dump(sb, open(a.out, 'w'), indent=1, ensure_ascii=False)
     for s in scenes:
-        print(f"{s['id']} {s['start']:5.2f}-{s['end']:5.2f} {s['template']:14s} {s['text']['preset']:14s} imp={s['text']['important']!r:12s} → {s['transition_out']['preset']}")
+        print(f"{s['id']} {s['start']:5.2f}-{s['end']:5.2f} {s['template']:14s} {(s['text'] or {}).get('preset', '—'):14s} imp={(s['text'] or {}).get('important', '')!r:12s} {s['lyrics'][:40]!r} → {s['transition_out']['preset']}")
 
 
 if __name__ == '__main__':

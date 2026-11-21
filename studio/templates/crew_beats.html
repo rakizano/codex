@@ -1,0 +1,33 @@
+<template>
+  <style>__FONTS__
+    #root { position: absolute; inset: 0; overflow: hidden; background: #0c0c12; }
+    #__ID__-stage, #__ID__-stage .lay { position: absolute; inset: 0; }
+    #__ID__-stage svg { overflow: visible; }
+    #__ID__-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+  </style>
+  <div id="root" data-composition-id="__ID__" data-width="1080" data-height="1920">
+    <div id="__ID__-stage">
+      <svg id="__ID__-bg" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="__ID__-crew" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <div id="__ID__-txt"></div>
+    </div>
+  </div>
+  <script>
+    /* SceneTemplate « crew_beats » — aplats : trois silhouettes apparaissent une à une, chacune sur un kick, sous leur projecteur ; la dernière s'avance (zoom). */
+    (function () {
+      const CFG = __CFG__;
+      HFS.boot('__ID__', CFG, (sc, ctx) => {
+        const P = ctx.P, sv = HFS.svg, m = HFS.m, E = HFS.ease;
+
+        const B = ctx.layer('bg'), Cw = ctx.layer('crew');
+        sv('rect', { width: 1080, height: 1920, fill: '#0c0c12' }, B); sv('rect', { y: 1480, width: 1080, height: 440, fill: '#16161e' }, B);
+        const ks = (HFS.audio.data.impacts || []).filter(x => x > sc.t0 + .2 && x < sc.t0 + sc.dur - .4).map(x => x - sc.t0);
+        const times = [ks[0] ?? .3, ks[1] ?? .9, ks[2] ?? 1.5];
+        const cones = [], guys = [270, 540, 810].map((x, i) => { const cone = sv('path', { d: `M ${x - 30} 200 L ${x + 30} 200 L ${x + 230} 1500 L ${x - 230} 1500 Z`, fill: '#fff2d8', opacity: 0 }, B); cones.push(cone);
+          const g = sv('g', {}, Cw); const C = HFS.char(g, { style: i === 1 ? 'flat' : 'silhouette', scale: 1.05, track: [{ t: 0, act: i === 2 ? 'wave' : 'idle', x, y: 1490 }] }); return [g, C]; });
+        sc.update(t => guys.forEach(([g, C], i) => { const u = t - times[i], k = E.outBack(m.clamp(u / .25), 2.5); g.setAttribute('opacity', u >= 0 ? 1 : 0); C.render(t); g.style.transform = `translateY(${(1 - k) * 60}px)`; cones[i].setAttribute('opacity', u >= 0 ? .16 + .1 * Math.exp(-u * 6) : 0); }));
+        HFS.camera(sc, [{ el: B, depth: .5 }, { el: Cw, depth: 1 }], Object.assign({ preset: 'crashZoom', at: .75 }, CFG.camera || {}));
+      });
+    })();
+  </script>
+</template>

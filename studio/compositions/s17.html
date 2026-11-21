@@ -1,0 +1,44 @@
+<template>
+  <style>@font-face { font-family: 'Anton'; src: url('assets/fonts/Anton-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Bebas Neue'; src: url('assets/fonts/BebasNeue-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Permanent Marker'; src: url('assets/fonts/PermanentMarker-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Special Elite'; src: url('assets/fonts/SpecialElite-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Caveat Brush'; src: url('assets/fonts/CaveatBrush-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Russo One'; src: url('assets/fonts/RussoOne-400.ttf'); font-display: block; }
+    @font-face { font-family: 'VT323'; src: url('assets/fonts/VT323-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Cinzel'; src: url('assets/fonts/Cinzel-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Tinos'; src: url('assets/fonts/Tinos-700.ttf'); font-display: block; }
+    @font-face { font-family: 'Archivo Black'; src: url('assets/fonts/ArchivoBlack-400.ttf'); font-display: block; }
+    
+    #root { position: absolute; inset: 0; overflow: hidden; background: #120e26; }
+    #s17-stage, #s17-stage .lay { position: absolute; inset: 0; }
+    #s17-stage svg { overflow: visible; }
+    #s17-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+  </style>
+  <div id="root" data-composition-id="s17" data-width="1080" data-height="1920">
+    <div id="s17-stage">
+      <svg id="s17-sky" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="s17-house" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="s17-front" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <div id="s17-txt"></div>
+    </div>
+  </div>
+  <script>
+    /* SceneTemplate « balcony » — aplats nuit : balcon façon Roméo ; une rose est lancée vers le balcon, le personnage se retourne et croise les bras (refus), la rose retombe ; lune, étoiles. */
+    (function () {
+      const CFG = {"fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s17", "dur": 2.31, "t0": 37.91, "text": {"font": "Cinzel", "color": "#f6e7b8", "accent": "#e8253c", "pos": "top", "text": "Elle m'a pris / pour qui, / pour Romeo?", "words": [38.28, 38.66, 38.82, 38.94, 39.04, 39.26, 39.42], "important": "Romeo", "impact": 39.47, "preset": "elastic", "intensity": 1.07, "why": "la question rebondit, ironique", "outAt": 39.65}, "params": {}, "camera": null, "tin": {"kind": "iris", "dur": 0.5, "delay": 0.0}, "tout": {"kind": "perspective", "dur": 0.5}};
+      HFS.boot('s17', CFG, (sc, ctx) => {
+        const P = ctx.P, sv = HFS.svg, m = HFS.m, E = HFS.ease;
+
+        const S = ctx.layer('sky'), Hs = ctx.layer('house'), Fr = ctx.layer('front');
+        sv('rect', { width: 1080, height: 1920, fill: '#120e26' }, S); sv('circle', { cx: 820, cy: 420, r: 110, fill: '#f4f1e1' }, S); for (let i = 0; i < 60; i++) sv('circle', { cx: (i * 137) % 1080, cy: (i * 89) % 900, r: 2 + i % 3, fill: '#fff', opacity: .7 }, S);
+        sv('rect', { x: 260, y: 700, width: 560, height: 1300, fill: '#3a2a3e' }, Hs); sv('rect', { x: 380, y: 760, width: 320, height: 380, fill: '#ffcf7a' }, Hs);
+        sv('rect', { x: 300, y: 1140, width: 480, height: 30, fill: '#1a1220' }, Hs); for (let x = 310; x < 780; x += 34) sv('rect', { x, y: 1170, width: 10, height: 110, fill: '#1a1220' }, Hs); sv('rect', { x: 300, y: 1280, width: 480, height: 20, fill: '#1a1220' }, Hs);
+        const ch = sv('g', {}, Hs); const C = HFS.char(ch, { style: 'silhouette', scale: .62, track: [{ t: 0, act: 'idle', x: 540, y: 1140, facing: 1 }, { t: sc.dur * .45, act: 'turn', from: 1, dur: .35 }, { t: sc.dur * .45 + .35, act: 'idle', facing: -1 }] });
+        const rose = sv('g', {}, Fr); sv('path', { d: 'M 0 0 L 0 120', stroke: '#2f6b3a', 'stroke-width': 8 }, rose); sv('circle', { r: 26, fill: '#e8253c' }, rose); sv('path', { d: 'M -14 -6 Q 0 -30 14 -6', fill: '#b0182c' }, rose);
+        sc.update(t => { C.render(t); const u = t - .2, T1 = sc.dur * .45 - .2; let x, y, r; if (u < T1) { const k = m.clamp(u / T1); x = 140 + k * 360; y = 1800 - Math.sin(k * Math.PI * .9) * 700 - k * 100; r = k * 540; } else { const v = u - T1; x = 500 + v * 80; y = 1060 + 0.5 * 4200 * v * v; r = 540 + v * 600; } rose.setAttribute('transform', `translate(${x},${y}) rotate(${r})`); });
+        HFS.camera(sc, [{ el: S, depth: .2 }, { el: Hs, depth: 1 }, { el: Fr, depth: 1.2 }], Object.assign({ preset: 'pedestalUp', amount: .5 }, CFG.camera || {}));
+      });
+    })();
+  </script>
+</template>

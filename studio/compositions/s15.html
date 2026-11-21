@@ -1,0 +1,41 @@
+<template>
+  <style>@font-face { font-family: 'Anton'; src: url('assets/fonts/Anton-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Bebas Neue'; src: url('assets/fonts/BebasNeue-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Permanent Marker'; src: url('assets/fonts/PermanentMarker-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Special Elite'; src: url('assets/fonts/SpecialElite-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Caveat Brush'; src: url('assets/fonts/CaveatBrush-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Russo One'; src: url('assets/fonts/RussoOne-400.ttf'); font-display: block; }
+    @font-face { font-family: 'VT323'; src: url('assets/fonts/VT323-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Cinzel'; src: url('assets/fonts/Cinzel-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Tinos'; src: url('assets/fonts/Tinos-700.ttf'); font-display: block; }
+    @font-face { font-family: 'Archivo Black'; src: url('assets/fonts/ArchivoBlack-400.ttf'); font-display: block; }
+    
+    #root { position: absolute; inset: 0; overflow: hidden; background: #ffd23f; }
+    #s15-stage, #s15-stage .lay { position: absolute; inset: 0; }
+    #s15-stage svg { overflow: visible; }
+    #s15-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+  </style>
+  <div id="root" data-composition-id="s15" data-width="1080" data-height="1920">
+    <div id="s15-stage">
+      <svg id="s15-split" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <div id="s15-txt"></div>
+    </div>
+  </div>
+  <script>
+    /* SceneTemplate « color_split » — graphique : l'écran se coupe en jaune / vert, la frontière ondule et bascule à chaque kick, formes qui roulent ; aplats francs. */
+    (function () {
+      const CFG = {"fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s15", "dur": 3.011, "t0": 34.1, "text": null, "params": {}, "camera": null, "tin": {"kind": "particles", "color": "#ffffff", "delay": 0.35, "dur": 0.7}, "tout": {"kind": "rotate", "angle": 90, "dur": 0.45}};
+      HFS.boot('s15', CFG, (sc, ctx) => {
+        const P = ctx.P, sv = HFS.svg, m = HFS.m, E = HFS.ease;
+
+        const S = ctx.layer('split'), Y = P.c1 || '#ffd23f', G = P.c2 || '#2ecc71';
+        const a = sv('path', { fill: Y }, S), b = sv('path', { fill: G }, S), dots = [...Array(10)].map((_, i) => sv('circle', { r: 30 + (i % 3) * 20, fill: i % 2 ? Y : G, stroke: '#111', 'stroke-width': 8 }, S));
+        sc.update(t => { const k = sc.beat(t, 'kicks', 7), ang = Math.sin(t * 1.5) * 18 + k * 14, mid = 960 + Math.sin(t * 2) * 120; let d = 'M -100 -100 L 1180 -100 L 1180 ';
+          const pts = []; for (let x = 1180; x >= -100; x -= 40) pts.push(`${x} ${mid + Math.tan(ang * Math.PI / 180) * (x - 540) + Math.sin(x / 90 + t * 6) * 30 * (1 + k)}`);
+          a.setAttribute('d', d + pts.join(' L ') + ' Z'); b.setAttribute('d', 'M -100 2020 L 1180 2020 L ' + pts.join(' L ') + ' Z');
+          dots.forEach((c, i) => { const x = ((i * 230 + t * (i % 2 ? 300 : -300)) % 1400 + 1400) % 1400 - 160; c.setAttribute('cx', x); c.setAttribute('cy', i % 2 ? 600 : 1400); }); });
+        HFS.camera(sc, [{ el: S, depth: 1 }], Object.assign({ preset: 'roll', amount: .8 }, CFG.camera || {}));
+      });
+    })();
+  </script>
+</template>

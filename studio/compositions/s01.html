@@ -10,44 +10,38 @@
     @font-face { font-family: 'Tinos'; src: url('assets/fonts/Tinos-700.ttf'); font-display: block; }
     @font-face { font-family: 'Archivo Black'; src: url('assets/fonts/ArchivoBlack-400.ttf'); font-display: block; }
     
-    #root { position: absolute; inset: 0; overflow: hidden; background: #05060c; }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #0b0a10; }
     #s01-stage, #s01-stage .lay { position: absolute; inset: 0; }
+    #s01-stage svg { overflow: visible; }
     #s01-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
-    #s01-grain { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, transparent 55%, rgba(0,0,0,.55) 100%); }
   </style>
   <div id="root" data-composition-id="s01" data-width="1080" data-height="1920">
     <div id="s01-stage">
       <canvas id="s01-gl" width="1080" height="1920"></canvas>
-      <div id="s01-grain"></div>
+      <canvas id="s01-dust" class="lay" width="1080" height="1920"></canvas>
       <div id="s01-txt"></div>
     </div>
   </div>
   <script>
-    /* SceneTemplate « city3d » — 3D : une foule grise parfaitement alignée (« intégrée ») ; le héros lumineux
-       la traverse à contre-sens, se retourne ; lampadaires volumétriques, brouillard, caméra en orbite + dolly. */
+    /* SceneTemplate « luxe_window » — 3D : vitrine de luxe la nuit, trois lettres (les mots désirés) en relief chromé tournent sur des socles, projecteurs, reflets de vitre ; la caméra glisse le long de la vitrine. */
     (function () {
-      const CFG = {"fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s01", "dur": 2.095, "t0": 0.0, "text": {"font": "Anton", "color": "#ffffff", "accent": "#ffd27a", "pos": "top", "text": "J'sais / qu'j'suis pas / intégré, je / perds de mes / intérêts", "words": [0.0, 0.0, 0.16, 0.2, 0.2, 0.32, 0.48, 0.8, 1.12], "important": "intégré", "impact": 0.116, "preset": "progressive", "intensity": 1.26, "why": "le mot se construit lettre par lettre, isolé", "outAt": 1.475}, "params": {}, "camera": null, "tin": null, "tout": {"kind": "zoomThrough", "to": 16, "dur": 0.6}};
+      const CFG = {"fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s01", "dur": 2.68, "t0": 0.0, "text": {"font": "Bebas Neue", "color": "#ffffff", "accent": "#e9b949", "pos": "top", "text": "J'veux du L, / j'veux du V, / j'veux du G", "words": [0.0, 0.0, 0.34, 0.58, 0.78, 0.78, 0.96, 1.2, 1.32], "important": "veux", "impact": 1.01, "preset": "rebuild", "intensity": 1.01, "why": "les lettres désirées se reconstruisent comme des logos", "outAt": 2.06}, "params": {}, "camera": null, "tin": null, "tout": {"kind": "zoomThrough", "to": 16, "dur": 0.6}};
       HFS.boot('s01', CFG, (sc, ctx) => {
-        const P = ctx.P, accent = parseInt((P.accent || '#ffd27a').replace('#', ''), 16);
-        const X = HFS.three(sc, document.getElementById('s01-gl'), { bg: 0x05060c, fog: [0x05060c, 8, 38], exposure: 1.15 });
-        const T = X.T, K = HFS.K3;
-        const floor = new T.Mesh(new T.PlaneGeometry(80, 120), new T.MeshStandardMaterial({ color: 0x0d0e14, roughness: .3, metalness: .55 })); floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; X.add(floor);
-        X.add(new T.HemisphereLight(0x2a3354, 0x000000, .35), K.backdrop(T, { color: '#24305a', rim: 0x8fa8ff, rimPower: 1.5 }));
-        for (let z = -2; z > -40; z -= 6) [-1, 1].forEach(sg => { const l = K.streetLight(T, { dir: -sg, light: z > -14 }); l.position.set(sg * 5.5, 0, z); X.add(l); });
-        const crowd = [], r = HFS.m.rng('s01');
-        for (let row = 0; row < 6; row++) for (let col = -3; col <= 3; col++) { if (col === 0) continue; const h = K.human(T, { color: 0x26272e, roughness: .8 }); h.position.set(col * 1.05, 0, -1 - row * 1.5); h.userData.ph = r() * 9; X.add(h); crowd.push(h); }
-        const hero = K.human(T, { color: 0xffffff, emissive: accent, emissiveIntensity: 1.3, roughness: .3 }); X.add(hero);
-        const glow = new T.PointLight(accent, 2.2, 5, 2); glow.position.y = 1.2; hero.add(glow);
-        const spot = K.volumetric(T, { color: accent, length: 9, radius: 1.8, intensity: .5, power: 4 }); X.add(spot);
-        const D = sc.dur, heroZ = t => -9 + Math.min(1, t / (D * .7)) * 8.5;
-        X.update(t => {
-          const z = heroZ(t), walking = t < D * .7, turn = HFS.m.clamp((t - D * .72) / .45);
-          hero.position.set(0, 0, z);
-          hero.pose({ walk: t * 7, amt: walking ? 1 : 0, yaw: Math.PI * turn, headYaw: walking ? Math.sin(t * 2) * .25 : 0 });
-          spot.position.set(0, 9, z);
-          crowd.forEach((h, i) => h.pose({ yaw: Math.PI, headYaw: HFS.m.clamp((t - .4 - (i % 5) * .1) / .6) * (h.position.x > 0 ? -.7 : .7) * (Math.abs(h.position.z - z) < 3 ? 1 : .3), lean: Math.sin(t * 1.2 + h.userData.ph) * .015 }));
-        });
-        X.camMove('orbit', { center: [0, 1.1, -3], a0: -.55, a1: .35, r: t => 9 - t * .9, y: t => 1.4 + t * .25, target: t => new T.Vector3(0, 1.2, heroZ(t)), fov0: 44, fov1: 36 });
+        const P = ctx.P, sv = HFS.svg, m = HFS.m, E = HFS.ease;
+
+        const X = HFS.three(sc, document.getElementById('s01-gl'), { bg: 0x0b0a10, fog: [0x0b0a10, 8, 30], exposure: 1.2 }), T = X.T, K = HFS.K3;
+        X.add(new T.HemisphereLight(0x40384f, 0x000000, .5));
+        const floor = new T.Mesh(new T.PlaneGeometry(40, 40), new T.MeshStandardMaterial({ color: 0x1a1720, roughness: .15, metalness: .8 })); floor.rotation.x = -Math.PI / 2; X.add(floor);
+        const wall = new T.Mesh(new T.PlaneGeometry(40, 20), new T.MeshStandardMaterial({ color: 0x2a2230, roughness: .9 })); wall.position.set(0, 10, -4); X.add(wall);
+        const letters = (P.letters || 'L V G').split(' ').filter(Boolean), items = [];
+        letters.forEach((ch, i) => { const x = (i - (letters.length - 1) / 2) * 2.4;
+          const ped = new T.Mesh(new T.CylinderGeometry(.75, .85, 1.2, 40), new T.MeshStandardMaterial({ color: 0xf2efe8, roughness: .4 })); ped.position.set(x, .6, 0); ped.castShadow = ped.receiveShadow = true; X.add(ped);
+          const t3 = K.text3D(T, ch, { size: 1.3, depth: .4, color: i % 2 ? 0xd9b34a : 0xe8e8ee, side: 0x5a4a30, metalness: .9, roughness: .2 }); t3.position.set(x, 1.25, 0); X.add(t3); items.push(t3);
+          const v = K.volumetric(T, { color: 0xfff2d8, length: 7, radius: 1.1, intensity: .45, power: 4 }); v.position.set(x, 7.4, 0); X.add(v); });
+        const glass = new T.Mesh(new T.PlaneGeometry(14, 9), new T.MeshStandardMaterial({ color: 0x8fb0ff, transparent: true, opacity: .07, roughness: 0, metalness: 1 })); glass.position.set(0, 4, 3.2); X.add(glass);
+        X.update(t => items.forEach((it, i) => { const k = E.outBack(m.clamp((t - .15 - i * .35) / .5)); it.scale.setScalar(Math.max(.01, k)); it.rotation.y = t * 1.2 + i; it.position.y = 1.25 + sc.beat(t, 'kicks', 9) * .15; }));
+        X.camMove('truck', { from: [-4.5, 3.2, 14], to: [4.5, 3.4, 12.5], target: t => new T.Vector3(-1 + t * .8, 1.8, 0), fov0: 42, fov1: 36, ease: 'inOut' });
+        const dust = HFS.fx.particles(ctx.layer('dust'), { n: 60, colors: ['#fff2d8'], seed: 3, size: 3 }); sc.update(t => dust(t));
       });
     })();
   </script>

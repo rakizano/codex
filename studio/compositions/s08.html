@@ -10,37 +10,36 @@
     @font-face { font-family: 'Tinos'; src: url('assets/fonts/Tinos-700.ttf'); font-display: block; }
     @font-face { font-family: 'Archivo Black'; src: url('assets/fonts/ArchivoBlack-400.ttf'); font-display: block; }
     
-    #root { position: absolute; inset: 0; overflow: hidden; background: #06050b; }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #14321f; }
     #s08-stage, #s08-stage .lay { position: absolute; inset: 0; }
+    #s08-stage svg { overflow: visible; }
     #s08-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
   </style>
   <div id="root" data-composition-id="s08" data-width="1080" data-height="1920">
     <div id="s08-stage">
-      <canvas id="s08-gl" width="1080" height="1920"></canvas>
-      <canvas id="s08-conf" class="lay" width="1080" height="1920"></canvas>
+      <svg id="s08-leaves" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="s08-mid" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="s08-front" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
       <div id="s08-txt"></div>
     </div>
   </div>
   <script>
-    /* SceneTemplate « stage3d_name » — 3D : le mot-clé (souvent un nom) en VRAIES lettres extrudées dorées sur une
-       scène, projecteurs volumétriques qui balaient, personnage voxel qui salue ; la caméra tourne autour puis plonge. */
+    /* SceneTemplate « jungle_beat » — cartoon : jungle aux feuilles qui rebondissent sur les kicks, tambours frappés, personnage cartoon qui danse ; premier plan de feuilles flou. */
     (function () {
-      const CFG = {"fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s08", "dur": 2.785, "t0": 13.54, "text": {"font": "Cinzel", "color": "#f6e7b8", "accent": "#ffd23f", "pos": "top", "text": "Moi c'est / Ade', moi / c'est Ade' / khey", "words": [13.96, 14.2, 14.36, 14.73, 15.1, 15.24, 15.44], "important": "Ade'", "impact": 15.859, "preset": "materialize3D", "intensity": 1.25, "why": "le nom se matérialise en profondeur", "outAt": 15.755}, "params": {"word3d": "Ade"}, "camera": null, "tin": {"kind": "zoomOut", "from": 0.4, "delay": 0.34, "dur": 0.6}, "tout": {"kind": "perspective", "dur": 0.5}};
+      const CFG = {"fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s08", "dur": 3.45, "t0": 16.7, "text": {"font": "Permanent Marker", "color": "#fff4d6", "accent": "#ffd23f", "pos": "top", "shadow": "5px 6px 0 #0c2414", "text": "Ounga, ounga, / ounga, ouais", "words": [17.12, 18.42, 18.74, 19.24], "important": "ounga", "impact": 18.855, "preset": "squashStretch", "intensity": 0.95, "why": "les mots rebondissent comme des tambours", "outAt": 19.58}, "params": {}, "camera": null, "tin": {"kind": "liquid", "x": 540, "y": 1900, "dur": 0.6, "delay": 0.0}, "tout": {"kind": "perspective", "dur": 0.5}};
       HFS.boot('s08', CFG, (sc, ctx) => {
-        const P = ctx.P, X = HFS.three(sc, document.getElementById('s08-gl'), { bg: 0x06050b, fog: [0x06050b, 10, 40], exposure: 1.2 }), T = X.T, K = HFS.K3;
-        X.add(new T.HemisphereLight(0x3a3060, 0x000000, .5));
-        const floor = new T.Mesh(new T.CylinderGeometry(7, 7.4, .5, 48), new T.MeshStandardMaterial({ color: 0x15131f, roughness: .25, metalness: .6 })); floor.position.y = -.25; floor.receiveShadow = true; X.add(floor);
-        const word = K.text3D(T, P.word3d || 'STAR', { size: 1.25, depth: .45, color: 0xffcf4a, side: 0x7a4a10, metalness: .75, roughness: .28 }); word.position.set(0, 1.0, -1.2); X.add(word);
-        const key = new T.SpotLight(0xffffff, 3, 30, .5, .5, 1.2); key.position.set(3, 8, 6); key.target = word; key.castShadow = true; X.add(key);
-        const rim = new T.DirectionalLight(0x8fb0ff, 1.2); rim.position.set(-6, 4, -8); X.add(rim);
-        const spots = [-1, 1].map(s => { const v = K.volumetric(T, { color: 0xfff0c8, length: 16, radius: 2.4, intensity: .32, power: 2.2, shadow: false }); v.position.set(s * 5, 12, -3); X.add(v); return v; });
-        const vx = K.voxelHuman(T, { color: 0xf2efe6, headMaterial: new T.MeshStandardMaterial({ color: 0x8a5a3a, flatShading: true }), hair: 0x15100c }); vx.position.set(2.2, 0, .6); vx.rotation.y = -.5; X.add(vx);
-        const conf = HFS.fx.particles(ctx.layer('conf'), { kind: 'confetti', n: 70, colors: ['#ffd23f', '#ff5a7a', '#ffffff'], seed: 5, size: 7 });
-        X.update(t => { const pop = HFS.ease.outBack(HFS.m.clamp(t / .5)); word.scale.setScalar(Math.max(.01, pop)); word.rotation.y = Math.sin(t * .8) * .25; word.position.y = 1 + sc.beat(t, 'kicks', 10) * .12;
-          spots.forEach((v, i) => { v.rotation.z = Math.sin(t * 1.1 + i * 2) * .5; v.rotation.x = -.25; });
-          vx.pose({ wave: t * 10, raiseR: .85, headYaw: Math.sin(t) * .3 }); });
-        sc.update(t => { conf(t); ctx.layer('conf').style.opacity = HFS.m.clamp((t - .4) * 2); });
-        X.camMove('orbit', { center: [0, 1.2, -1], a0: -.7, a1: .5, r: t => 8 - t * .8, y: t => 2.4 - t * .3, fov0: 40, fov1: 32 });
+        const P = ctx.P, sv = HFS.svg, m = HFS.m, E = HFS.ease;
+
+        const Lv = ctx.layer('leaves'), Md = ctx.layer('mid'), Fr = ctx.layer('front'), boil = HFS.fx.boil(Md);
+        sv('rect', { width: 1080, height: 1920, fill: '#14321f' }, Lv); sv('rect', { y: 1400, width: 1080, height: 520, fill: '#5a3a1e' }, Lv);
+        const leaf = (p, x, y, s, r, c) => sv('path', { d: 'M 0 0 Q 120 -70 260 0 Q 120 70 0 0 Z', fill: c, stroke: '#0c1f12', 'stroke-width': 6, transform: `translate(${x},${y}) rotate(${r}) scale(${s})` }, p);
+        const back = [...Array(14)].map((_, i) => leaf(Lv, (i * 97) % 1100 - 60, 500 + (i * 151) % 800, 1.4, (i * 47) % 360, ['#2f6b3a', '#3d8a49'][i % 2]));
+        const drums = [-1, 1].map(s => { const g = sv('g', {}, Md); sv('rect', { x: -90, y: -160, width: 180, height: 240, rx: 30, fill: '#c9753a', stroke: '#2a1408', 'stroke-width': 8 }, g); const skin = sv('ellipse', { cy: -160, rx: 90, ry: 26, fill: '#f3e2b8', stroke: '#2a1408', 'stroke-width': 8 }, g); g.dataset.s = s; return [g, skin]; });
+        const C = HFS.char(Md, { style: 'cartoon', scale: 1.1, track: [{ t: 0, act: 'dance', x: 540, y: 1440, speed: 1.3 }] });
+        const front = [...Array(6)].map((_, i) => leaf(Fr, i * 220 - 80, i % 2 ? 1700 : 260, 3.2, i % 2 ? -30 : 160, '#0c2414'));
+        sc.update(t => { const b = sc.beat(t, 'kicks', 10); drums.forEach(([g, skin], i) => { g.setAttribute('transform', `translate(${540 + (i ? 300 : -300)},${1420}) scale(${1 + b * .06},${1 - b * .08})`); skin.setAttribute('ry', 26 - b * 10); });
+          back.forEach((e, i) => e.style.transform = `translateY(${-b * 10 * (i % 3)}px)`); C.render(t); boil(t); });
+        HFS.camera(sc, [{ el: Lv, depth: .3 }, { el: Md, depth: 1 }, { el: Fr, depth: 1.5, blur: 6 }], Object.assign({ preset: 'dollyIn', amount: .6, shake: t => sc.beat(t, 'kicks', 12) * 6 }, CFG.camera || {}));
       });
     })();
   </script>

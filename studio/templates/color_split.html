@@ -1,0 +1,31 @@
+<template>
+  <style>__FONTS__
+    #root { position: absolute; inset: 0; overflow: hidden; background: #ffd23f; }
+    #__ID__-stage, #__ID__-stage .lay { position: absolute; inset: 0; }
+    #__ID__-stage svg { overflow: visible; }
+    #__ID__-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+  </style>
+  <div id="root" data-composition-id="__ID__" data-width="1080" data-height="1920">
+    <div id="__ID__-stage">
+      <svg id="__ID__-split" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <div id="__ID__-txt"></div>
+    </div>
+  </div>
+  <script>
+    /* SceneTemplate « color_split » — graphique : l'écran se coupe en jaune / vert, la frontière ondule et bascule à chaque kick, formes qui roulent ; aplats francs. */
+    (function () {
+      const CFG = __CFG__;
+      HFS.boot('__ID__', CFG, (sc, ctx) => {
+        const P = ctx.P, sv = HFS.svg, m = HFS.m, E = HFS.ease;
+
+        const S = ctx.layer('split'), Y = P.c1 || '#ffd23f', G = P.c2 || '#2ecc71';
+        const a = sv('path', { fill: Y }, S), b = sv('path', { fill: G }, S), dots = [...Array(10)].map((_, i) => sv('circle', { r: 30 + (i % 3) * 20, fill: i % 2 ? Y : G, stroke: '#111', 'stroke-width': 8 }, S));
+        sc.update(t => { const k = sc.beat(t, 'kicks', 7), ang = Math.sin(t * 1.5) * 18 + k * 14, mid = 960 + Math.sin(t * 2) * 120; let d = 'M -100 -100 L 1180 -100 L 1180 ';
+          const pts = []; for (let x = 1180; x >= -100; x -= 40) pts.push(`${x} ${mid + Math.tan(ang * Math.PI / 180) * (x - 540) + Math.sin(x / 90 + t * 6) * 30 * (1 + k)}`);
+          a.setAttribute('d', d + pts.join(' L ') + ' Z'); b.setAttribute('d', 'M -100 2020 L 1180 2020 L ' + pts.join(' L ') + ' Z');
+          dots.forEach((c, i) => { const x = ((i * 230 + t * (i % 2 ? 300 : -300)) % 1400 + 1400) % 1400 - 160; c.setAttribute('cx', x); c.setAttribute('cy', i % 2 ? 600 : 1400); }); });
+        HFS.camera(sc, [{ el: S, depth: 1 }], Object.assign({ preset: 'roll', amount: .8 }, CFG.camera || {}));
+      });
+    })();
+  </script>
+</template>

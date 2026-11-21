@@ -1,0 +1,34 @@
+<template>
+  <style>__FONTS__
+    #root { position: absolute; inset: 0; overflow: hidden; background: #f2e8d5; }
+    #__ID__-stage, #__ID__-stage .lay { position: absolute; inset: 0; }
+    #__ID__-stage svg { overflow: visible; }
+    #__ID__-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+  </style>
+  <div id="root" data-composition-id="__ID__" data-width="1080" data-height="1920">
+    <div id="__ID__-stage">
+      <svg id="__ID__-bg" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="__ID__-fg" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <div id="__ID__-txt"></div>
+    </div>
+  </div>
+  <script>
+    /* SceneTemplate « ballot » — éditorial : urne transparente, des bulletins BLANCS tombent au ralenti et s'empilent, le compteur reste à zéro, tampon rouge ; formes géométriques. */
+    (function () {
+      const CFG = __CFG__;
+      HFS.boot('__ID__', CFG, (sc, ctx) => {
+        const P = ctx.P, sv = HFS.svg, m = HFS.m, E = HFS.ease;
+
+        const B = ctx.layer('bg'), F = ctx.layer('fg'), ink = '#1b1a17', acc = P.accent || '#e8452c';
+        for (let y = 760; y < 1500; y += 70) sv('line', { x1: 80, y1: y, x2: 1000, y2: y, stroke: ink, 'stroke-width': 1.5, opacity: .1 }, B);
+        sv('path', { d: 'M 300 1000 L 780 1000 L 760 1500 L 320 1500 Z', fill: '#cfe3ff', opacity: .55, stroke: ink, 'stroke-width': 6 }, F); sv('rect', { x: 460, y: 990, width: 160, height: 18, fill: ink }, F);
+        const ballots = [...Array(14)].map((_, i) => { const g = sv('g', {}, F); sv('rect', { x: -60, y: -40, width: 120, height: 80, fill: '#ffffff', stroke: '#c9c0aa', 'stroke-width': 3 }, g); return g; });
+        const cnt = sv('text', { x: 860, y: 900, 'text-anchor': 'middle', 'font-family': 'Archivo Black', 'font-size': 160, fill: ink }, F); cnt.textContent = '0';
+        const stamp = sv('g', {}, F); sv('rect', { x: -170, y: -60, width: 340, height: 120, rx: 10, fill: 'none', stroke: acc, 'stroke-width': 12 }, stamp); const st = sv('text', { 'text-anchor': 'middle', y: 30, 'font-family': 'Archivo Black', 'font-size': 84, fill: acc }, stamp); st.textContent = 'BLANC';
+        sc.update(t => { ballots.forEach((g, i) => { const t0 = .1 + i * .18, u = t - t0; if (u < 0) { g.setAttribute('opacity', 0); return; } const land = 1460 - Math.floor(i / 3) * 22; const y = Math.min(land, 300 + u * 520); g.setAttribute('opacity', 1); g.setAttribute('transform', `translate(${540 + Math.sin(u * 3 + i) * (y < land ? 90 : 0) + (i % 3 - 1) * 70},${y}) rotate(${y < land ? Math.sin(u * 4 + i) * 30 : (i * 17 % 20) - 10})`); });
+          const ks = E.outBack(m.clamp((t - sc.dur * .55) / .25), 3); stamp.setAttribute('transform', `translate(540,1700) rotate(-12) scale(${ks > 0 ? 2.4 - ks * 1.4 : 0})`); stamp.setAttribute('opacity', ks > 0 ? 1 : 0); });
+        HFS.camera(sc, [{ el: B, depth: .4 }, { el: F, depth: 1 }], Object.assign({ preset: 'slowZoom' }, CFG.camera || {}));
+      });
+    })();
+  </script>
+</template>

@@ -1,0 +1,46 @@
+<template>
+  <style>@font-face { font-family: 'Anton'; src: url('assets/fonts/Anton-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Bebas Neue'; src: url('assets/fonts/BebasNeue-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Permanent Marker'; src: url('assets/fonts/PermanentMarker-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Special Elite'; src: url('assets/fonts/SpecialElite-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Caveat Brush'; src: url('assets/fonts/CaveatBrush-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Russo One'; src: url('assets/fonts/RussoOne-400.ttf'); font-display: block; }
+    @font-face { font-family: 'VT323'; src: url('assets/fonts/VT323-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Cinzel'; src: url('assets/fonts/Cinzel-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Tinos'; src: url('assets/fonts/Tinos-700.ttf'); font-display: block; }
+    @font-face { font-family: 'Archivo Black'; src: url('assets/fonts/ArchivoBlack-400.ttf'); font-display: block; }
+    
+    #root { position: absolute; inset: 0; overflow: hidden; background: #1a2a5a; }
+    #s25-stage, #s25-stage .lay { position: absolute; inset: 0; }
+    #s25-stage svg { overflow: visible; }
+    #s25-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+  </style>
+  <div id="root" data-composition-id="s25" data-width="1080" data-height="1920">
+    <div id="s25-stage">
+      <svg id="s25-bg" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <canvas id="s25-bub" class="lay" width="1080" height="1920"></canvas>
+      <svg id="s25-mid" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <div id="s25-txt"></div>
+    </div>
+  </div>
+  <script>
+    /* SceneTemplate « bubble » — aplats rêveurs : le personnage flotte dans une grande bulle irisée, des bulles éclatent sur chaque kick, la ville en dessous s'éloigne ; caméra qui monte. */
+    (function () {
+      const CFG = {"fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s25", "dur": 3.04, "t0": 56.91, "text": null, "params": {}, "camera": null, "tin": {"kind": "whip", "dir": "left", "dur": 0.32, "delay": 0.0}, "tout": null};
+      HFS.boot('s25', CFG, (sc, ctx) => {
+        const P = ctx.P, sv = HFS.svg, m = HFS.m, E = HFS.ease;
+
+        const B = ctx.layer('bg'), M = ctx.layer('mid');
+        const gr = sv('linearGradient', { id: 's25-g', x1: 0, y1: 0, x2: 0, y2: 1 }, B); [['0', '#1a2a5a'], ['1', '#c86a9a']].forEach(([o, c]) => sv('stop', { offset: o, 'stop-color': c }, gr)); sv('rect', { width: 1080, height: 1920, fill: 'url(#s25-g)' }, B);
+        const city = sv('g', {}, B); for (let i = 0; i < 16; i++) { const hh = 160 + (i * 89) % 300; sv('rect', { x: i * 70, y: 1920 - hh, width: 64, height: hh, fill: '#2a1d40' }, city); }
+        const bub = sv('g', {}, M); sv('circle', { r: 300, fill: '#bfe8ff', opacity: .12, stroke: '#ffffff', 'stroke-width': 6 }, bub); sv('path', { d: 'M -200 -150 A 250 250 0 0 1 -60 -260', fill: 'none', stroke: '#fff', 'stroke-width': 14, 'stroke-linecap': 'round', opacity: .8 }, bub);
+        const inn = sv('g', {}, bub); const C = HFS.char(inn, { style: 'flat', scale: .7, look: { top: '#ff6aa8', top2: '#d84a88' }, track: [{ t: 0, act: 'sit', x: 0, y: 160 }] });
+        const ctx2 = ctx.layer('bub').getContext('2d'), r = HFS.m.rng('bs25'), bs = [...Array(26)].map(() => [r() * 1080, 1900 + r() * 400, 20 + r() * 60, .5 + r()]);
+        sc.update(t => { C.render(t); bub.setAttribute('transform', `translate(${540 + Math.sin(t) * 40},${980 - t * 40 + Math.sin(t * 1.7) * 20}) scale(${1 + sc.beat(t, 'kicks', 8) * .03})`); city.setAttribute('transform', `translate(0,${t * 60})`);
+          ctx2.clearRect(0, 0, 1080, 1920); const n = (HFS.audio.data.kicks || []).filter(x => x <= sc.t0 + t).length;
+          bs.forEach(([x, y0, rad, sp], i) => { const y = y0 - t * 300 * sp; const pop = (i + n) % 7 === 0; ctx2.globalAlpha = pop ? .9 : .35; ctx2.strokeStyle = '#ffffff'; ctx2.lineWidth = 4; ctx2.beginPath(); if (pop) { for (let k = 0; k < 8; k++) { const a = k / 8 * 6.28; ctx2.moveTo(x + Math.cos(a) * rad * .6, y + Math.sin(a) * rad * .6); ctx2.lineTo(x + Math.cos(a) * rad, y + Math.sin(a) * rad); } } else ctx2.arc(x, y, rad, 0, 6.28); ctx2.stroke(); }); });
+        HFS.camera(sc, [{ el: B, depth: .4 }, { el: ctx.layer('bub'), depth: .8 }, { el: M, depth: 1 }], Object.assign({ preset: 'pedestalUp', amount: .6 }, CFG.camera || {}));
+      });
+    })();
+  </script>
+</template>

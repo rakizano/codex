@@ -1,0 +1,48 @@
+<template>
+  <style>@font-face { font-family: 'Anton'; src: url('assets/fonts/Anton-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Bebas Neue'; src: url('assets/fonts/BebasNeue-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Permanent Marker'; src: url('assets/fonts/PermanentMarker-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Special Elite'; src: url('assets/fonts/SpecialElite-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Caveat Brush'; src: url('assets/fonts/CaveatBrush-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Russo One'; src: url('assets/fonts/RussoOne-400.ttf'); font-display: block; }
+    @font-face { font-family: 'VT323'; src: url('assets/fonts/VT323-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Cinzel'; src: url('assets/fonts/Cinzel-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Tinos'; src: url('assets/fonts/Tinos-700.ttf'); font-display: block; }
+    @font-face { font-family: 'Archivo Black'; src: url('assets/fonts/ArchivoBlack-400.ttf'); font-display: block; }
+    
+    #root { position: absolute; inset: 0; overflow: hidden; background: #f2c94c; }
+    #s19-stage, #s19-stage .lay { position: absolute; inset: 0; }
+    #s19-stage svg { overflow: visible; }
+    #s19-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+  </style>
+  <div id="root" data-composition-id="s19" data-width="1080" data-height="1920">
+    <div id="s19-stage">
+      <svg id="s19-bg" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="s19-ph" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <div id="s19-txt"></div>
+    </div>
+  </div>
+  <script>
+    /* SceneTemplate « retro_phone » — cartoon : vieux téléphone à cadran qui sonne en sautillant (squash & stretch), une main décroche le combiné, ondes sonores à chaque « allô ». */
+    (function () {
+      const CFG = {"fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s19", "dur": 5.305, "t0": 41.465, "text": {"font": "Permanent Marker", "color": "#1b1a17", "accent": "#e8253c", "pos": "top", "shadow": "none", "text": "Non mais / allô? Non / mais allô?", "words": [41.86, 41.96, 42.28, 44.12, 44.3, 44.5], "important": "allô", "impact": 44.489, "preset": "growTiny", "intensity": 1.11, "why": "chaque « allô » grossit comme une sonnerie", "outAt": 46.2}, "params": {}, "camera": null, "tin": {"kind": "shape", "points": 5, "dur": 0.55, "delay": 0.0}, "tout": {"kind": "cut", "dur": 0.5}};
+      HFS.boot('s19', CFG, (sc, ctx) => {
+        const P = ctx.P, sv = HFS.svg, m = HFS.m, E = HFS.ease;
+
+        const B = ctx.layer('bg'), Ph = ctx.layer('ph'), ink = '#1b1a17', boil = HFS.fx.boil(Ph);
+        sv('rect', { width: 1080, height: 1920, fill: P.bg || '#f2c94c' }, B); for (let i = 0; i < 12; i++) sv('circle', { cx: 540, cy: 1150, r: 120 + i * 90, fill: 'none', stroke: '#e0b23a', 'stroke-width': 30 }, B);
+        const body = sv('g', {}, Ph); sv('path', { d: 'M -190 120 L 190 120 L 150 -60 L -150 -60 Z', fill: '#e8253c', stroke: ink, 'stroke-width': 10 }, body); sv('circle', { cy: 40, r: 80, fill: '#f4f1ea', stroke: ink, 'stroke-width': 8 }, body);
+        for (let i = 0; i < 10; i++) { const a = i / 10 * 5.3 + .5; sv('circle', { cx: Math.cos(a) * 52, cy: 40 + Math.sin(a) * 52, r: 12, fill: ink }, body); }
+        const hs = sv('g', {}, Ph); sv('path', { d: 'M -200 -90 Q 0 -150 200 -90 L 220 -40 Q 160 -60 120 -50 L 100 -80 Q 0 -100 -100 -80 L -120 -50 Q -160 -60 -220 -40 Z', fill: '#e8253c', stroke: ink, 'stroke-width': 10 }, hs);
+        const waves = [0, 1, 2].map(i => sv('path', { fill: 'none', stroke: ink, 'stroke-width': 10, 'stroke-linecap': 'round' }, Ph));
+        const pick = P.pickAt ?? sc.dur * .35;
+        sc.update(t => { const ring = t < pick, hop = ring ? Math.abs(Math.sin(t * 16)) : 0, sq = ring ? 1 - Math.max(0, Math.cos(t * 16)) * .12 : 1;
+          body.setAttribute('transform', `translate(540,${1200 - hop * 40}) scale(${2 - sq + .0},${sq}) rotate(${ring ? Math.sin(t * 32) * 6 : 0})`);
+          const k = E.outBack(m.clamp((t - pick) / .4)); hs.setAttribute('transform', `translate(${540 + k * 140},${1140 - hop * 40 - k * 360}) rotate(${-k * 35})`);
+          waves.forEach((w, i) => { const u = ((t * 1.6 + i / 3) % 1), r = 60 + u * 240, cx = 540 + k * 300, cy = 760 - k * 0; w.setAttribute('d', `M ${cx - r} ${cy + 1180 - 760 - (k ? 400 : 0)} A ${r} ${r} 0 0 1 ${cx + r} ${cy + 1180 - 760 - (k ? 400 : 0)}`); w.setAttribute('opacity', (1 - u) * (ring || k > .9 ? 1 : 0)); });
+          boil(t); });
+        HFS.camera(sc, [{ el: B, depth: .3 }, { el: Ph, depth: 1 }], Object.assign({ preset: 'dollyIn', amount: .7, shake: t => (t < pick ? 3 : 0) }, CFG.camera || {}));
+      });
+    })();
+  </script>
+</template>

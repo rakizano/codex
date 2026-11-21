@@ -10,44 +10,34 @@
     @font-face { font-family: 'Tinos'; src: url('assets/fonts/Tinos-700.ttf'); font-display: block; }
     @font-face { font-family: 'Archivo Black'; src: url('assets/fonts/ArchivoBlack-400.ttf'); font-display: block; }
     
-    #root { position: absolute; inset: 0; overflow: hidden; background: #1b1d2b; }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #101218; }
     #s05-stage, #s05-stage .lay { position: absolute; inset: 0; }
+    #s05-stage svg { overflow: visible; }
+    #s05-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
   </style>
   <div id="root" data-composition-id="s05" data-width="1080" data-height="1920">
     <div id="s05-stage">
-      <svg id="s05-wall" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
-      <svg id="s05-mid" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <canvas id="s05-gl" width="1080" height="1920"></canvas>
       <div id="s05-txt"></div>
     </div>
   </div>
   <script>
-    /* SceneTemplate « room_phone » — chambre de nuit en aplats : le téléphone vibre et s'allume sur la table ;
-       le personnage entre, marche jusqu'à la table, ATTRAPE le téléphone (l'objet suit sa main), le regarde.
-       Sortie : l'écran du téléphone grandit jusqu'à remplir l'image (transition objectFill) → scène suivante DANS l'écran. */
+    /* SceneTemplate « stairwell3d » — 3D : cage d'escalier de tour, un personnage monte les marches en colimaçon, la caméra s'élève au centre (crane) en tournant, néon qui grésille. */
     (function () {
-      const CFG = {"fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s05", "dur": 3.053, "t0": 7.347, "text": {"font": "Bebas Neue", "color": "#ffffff", "accent": "#3ff0ff", "pos": "top", "text": "Viens m'voir / et j'te dirai / le prix d'la / fonce-dé-dé-dé", "words": [7.68, 7.81, 7.94, 8.0, 8.1, 8.1, 8.4, 8.7, 8.78], "important": "dirai", "impact": 8.15, "preset": "sideSweep", "intensity": 1.21, "why": "les mots entrent comme une conversation", "outAt": 9.73}, "params": {}, "camera": null, "tin": {"kind": "whip", "dir": "left", "dur": 0.32, "delay": 0.0}, "tout": {"kind": "objectFill", "dur": 0.7, "color": "#071226"}};
+      const CFG = {"fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s05", "dur": 2.638, "t0": 8.722, "text": {"font": "Bebas Neue", "color": "#ffffff", "accent": "#3ff0ff", "pos": "upper", "text": "C'est bloqué? / Ah bon? Bah / j'vais / bicrave dans / l'escalier", "words": [9.16, 9.5, 9.62, 9.98, 10.22, 10.34, 10.44, 10.56, 10.66], "important": "Bah", "impact": 10.286, "preset": "stackPile", "intensity": 0.93, "why": "les mots s'empilent comme des marches", "align": "center", "outAt": 10.89}, "params": {}, "camera": null, "tin": {"kind": "zoomOut", "from": 0.4, "delay": 0.34, "dur": 0.6}, "tout": {"kind": "flash", "color": "#ffffff", "dur": 0.3}};
       HFS.boot('s05', CFG, (sc, ctx) => {
-        const P = ctx.P, sv = HFS.svg, Wl = ctx.layer('wall'), M = ctx.layer('mid'), screenCol = P.screen || '#3ff0ff';
-        sv('rect', { width: 1080, height: 1920, fill: '#22253a' }, Wl); sv('rect', { y: 1380, width: 1080, height: 540, fill: '#161722' }, Wl);
-        const win = sv('g', {}, Wl); sv('rect', { x: 620, y: 420, width: 330, height: 460, fill: '#0b1030', stroke: '#3a3e58', 'stroke-width': 18 }, win); sv('circle', { cx: 860, cy: 520, r: 46, fill: '#f4f1e1' }, win);
-        for (let i = 0; i < 14; i++) sv('rect', { x: 640 + (i * 53) % 290, y: 760 - (i * 37) % 120, width: 18, height: 26, fill: i % 3 ? '#ffcf7a' : '#2b2f48' }, win);
-        sv('line', { x1: 785, y1: 420, x2: 785, y2: 880, stroke: '#3a3e58', 'stroke-width': 10 }, win);
-        const lamp = sv('ellipse', { cx: 250, cy: 1050, rx: 360, ry: 420, fill: '#ffcf7a', opacity: .12 }, Wl);
-        sv('rect', { x: 560, y: 1180, width: 420, height: 34, rx: 8, fill: '#5a3e2c' }, M); sv('rect', { x: 600, y: 1214, width: 26, height: 200, fill: '#4a3222' }, M); sv('rect', { x: 915, y: 1214, width: 26, height: 200, fill: '#4a3222' }, M);
-        const ch = sv('g', {}, M);
-        const tw = P.walkTo ?? 640, tp = P.pickAt ?? 1.5, D = sc.dur;
-        const C = HFS.char(ch, { style: 'flat', scale: 1.05, look: P.look, track: [{ t: 0, act: 'walk', x: -120, y: 1500 }, { t: tp - .05, act: 'reach', x: tw }, { t: tp + .35, act: 'hold' }] });
-        const phone = sv('g', {}, M), pb = sv('rect', { x: -34, y: -62, width: 68, height: 124, rx: 12, fill: '#0d0f18', stroke: '#454a66', 'stroke-width': 4 }, phone), ps = sv('rect', { x: -27, y: -52, width: 54, height: 104, rx: 6, fill: screenCol }, phone);
-        const halo = sv('circle', { r: 120, fill: screenCol, opacity: .15 }, M);
-        const pos = t => { if (t < tp + .1) return [800, 1170, 90]; C.render(t); const [hx, hy] = C.handPos; const k = HFS.m.clamp((t - tp - .1) / .3); return [HFS.m.lerp(800, hx + 10, HFS.ease.outCubic(k)), HFS.m.lerp(1170, hy - 70, HFS.ease.outCubic(k)), HFS.m.lerp(90, -12, k)]; };
-        sc.update(t => {
-          C.render(t); const [x, y, r] = pos(t), buzz = t < tp ? Math.sin(t * 70) * 5 * (Math.floor(t * 2.5) % 2) : 0;
-          phone.setAttribute('transform', `translate(${x + buzz},${y}) rotate(${r})`); halo.setAttribute('cx', x); halo.setAttribute('cy', y); halo.setAttribute('opacity', .12 + .1 * Math.abs(Math.sin(t * 6)));
-          ps.setAttribute('fill', Math.floor(t * 2.5) % 2 && t < tp ? '#ffffff' : screenCol); lamp.setAttribute('opacity', .1 + .02 * Math.sin(t * 3));
-        });
-        // la sortie zoome DANS l'écran du téléphone : rectangle d'écran à l'instant où la transition commence
-        ctx.outTarget = () => { const d = (CFG.tout && CFG.tout.dur) || .6, t = D - d; const [x, y] = pos(t); return { rect: [x - 27 * 1.0, y - 52, 54, 104], color: CFG.tout.color || screenCol, radius: 8, x, y }; };
-        HFS.camera(sc, [{ el: Wl, depth: .5 }, { el: M, depth: 1 }], Object.assign({ preset: 'dollyIn', amount: .8, handheld: .5, follow: t => ({ x: -(C.x - 540) * .25 }) }, CFG.camera || {}));
+        const P = ctx.P, sv = HFS.svg, m = HFS.m, E = HFS.ease;
+
+        const X = HFS.three(sc, document.getElementById('s05-gl'), { bg: 0x101218, fog: [0x101218, 6, 26], exposure: 1.15 }), T = X.T, K = HFS.K3;
+        X.add(new T.HemisphereLight(0x8090a0, 0x101010, .55));
+        const mat = new T.MeshStandardMaterial({ color: 0x8a8d96, roughness: .9 }), N = 64;
+        for (let i = 0; i < N; i++) { const a = i * .38, s = new T.Mesh(new T.BoxGeometry(2.2, .18, .7), mat); s.position.set(Math.cos(a) * 1.9, i * .22, Math.sin(a) * 1.9); s.rotation.y = -a; s.castShadow = s.receiveShadow = true; X.add(s); }
+        const core = new T.Mesh(new T.CylinderGeometry(.45, .45, 16, 20), new T.MeshStandardMaterial({ color: 0x5a5d66 })); core.position.y = 7; X.add(core);
+        const neon = new T.PointLight(0xbfe0ff, 2, 10, 2); X.add(neon);
+        const hero = K.human(T, { color: 0x1d1922, emissive: 0x220a0a }); X.add(hero);
+        X.update(t => { const k = t / sc.dur, i = 4 + k * 22, a = i * .38; hero.position.set(Math.cos(a) * 1.9, i * .22 + .1, Math.sin(a) * 1.9); hero.rotation.y = -a - Math.PI / 2; hero.pose({ walk: t * 8, amt: 1, lean: .12 });
+          neon.position.set(0, i * .22 + 2, 0); neon.intensity = HFS.m.noise(t * 10, 3) > -.6 ? 2 : .3; });
+        X.camMove('orbit', { center: [0, 2, 0], a0: 0, a1: 1.6, r: () => .25, y: t => (4 + t / sc.dur * 22) * .22 + 5.5, target: t => { const i = 4 + t / sc.dur * 22, a = i * .38; return new T.Vector3(Math.cos(a) * 1.9, i * .22, Math.sin(a) * 1.9); }, fov0: 62, fov1: 52 });   // vue plongeante au centre de la cage
       });
     })();
   </script>

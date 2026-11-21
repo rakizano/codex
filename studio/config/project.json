@@ -1,10 +1,10 @@
 {
- "title": "PNL — Différents (démo du studio)",
+ "title": "PNL — Le monde ou rien",
  "width": 1080,
  "height": 1920,
  "fps": 30,
  "audio": "assets/audio/sound.m4a",
- "duration": 23.9,
+ "duration": 59.95,
  "lyrics": "input/lyrics_sound.json",
  "analysis": "config/audio.json",
  "fonts": {

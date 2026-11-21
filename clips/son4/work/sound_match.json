@@ -1,0 +1,21 @@
+{
+ "file": "tiktok_sound_source.mp4",
+ "language": "fr",
+ "sound_duration_s": 64.041,
+ "song_start_s": 18.743,
+ "song_end_s": 81.646,
+ "speed": 0.9822,
+ "speed_note": "ralenti",
+ "recognized_words": 158,
+ "matched_words": 149,
+ "anchors_used": 10,
+ "anchor_type": "débuts de lignes",
+ "fit_rms_s": 0.246,
+ "confidence": "élevée",
+ "first_lines_in_sound": [
+  "  0.00s  J'veux du L, j'veux du V, j'veux du G",
+  "  2.56s  Pour dessaper ta racli",
+  "  4.88s  Igo, on est voué à l'enfer, l'ascenseur est en panne au paradis",
+  "  9.01s  C'est bloqué? Ah bon? Bah j'vais bicrave dans l'escalier"
+ ]
+}

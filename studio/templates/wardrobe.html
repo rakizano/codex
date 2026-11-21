@@ -1,0 +1,35 @@
+<template>
+  <style>__FONTS__
+    #root { position: absolute; inset: 0; overflow: hidden; background: #f4e9e2; }
+    #__ID__-stage, #__ID__-stage .lay { position: absolute; inset: 0; }
+    #__ID__-stage svg { overflow: visible; }
+    #__ID__-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+  </style>
+  <div id="root" data-composition-id="__ID__" data-width="1080" data-height="1920">
+    <div id="__ID__-stage">
+      <svg id="__ID__-back" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="__ID__-rail" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <div id="__ID__-txt"></div>
+    </div>
+  </div>
+  <script>
+    /* SceneTemplate « wardrobe » — aplats : une penderie, les vêtements glissent sur la tringle, les cintres se balancent, une veste s'envole (physique) ; travelling latéral. */
+    (function () {
+      const CFG = __CFG__;
+      HFS.boot('__ID__', CFG, (sc, ctx) => {
+        const P = ctx.P, sv = HFS.svg, m = HFS.m, E = HFS.ease;
+
+        const B = ctx.layer('back'), R = ctx.layer('rail'), cols = ['#e8452c', '#2b4c9a', '#f2c94c', '#1b1a17', '#ff6aa8', '#3ddc97'];
+        sv('rect', { width: 1080, height: 1920, fill: '#f4e9e2' }, B); for (let x = 0; x < 1080; x += 90) sv('rect', { x, width: 45, height: 1920, fill: '#efe1d8' }, B);
+        sv('rect', { x: -200, y: 700, width: 1500, height: 16, rx: 8, fill: '#8a8a92' }, R);
+        const hang = []; for (let i = 0; i < 9; i++) { const g = sv('g', {}, R); sv('path', { d: 'M 0 0 q 0 -26 18 -26 M 0 0 L -80 50 L 80 50 Z', fill: 'none', stroke: '#6a6a72', 'stroke-width': 6 }, g);
+          sv('path', { d: 'M -80 50 L 80 50 L 95 380 L -95 380 Z', fill: cols[i % cols.length] }, g); sv('path', { d: 'M -80 50 L -120 200 L -95 210 M 80 50 L 120 200 L 95 210', stroke: cols[i % cols.length], 'stroke-width': 34, 'stroke-linecap': 'round' }, g); hang.push(g); }
+        const fly = 4;
+        sc.update(t => hang.forEach((g, i) => { const slide = -t * 240, x = 120 + i * 220 + slide, sw = Math.sin(t * 4 + i) * 6 + (i === fly ? 0 : 0);
+          if (i === fly && t > sc.dur * .35) { const u = t - sc.dur * .35, b = HFS.phys.ballistic(u, 500, -1400, 3600); g.setAttribute('transform', `translate(${x + b.x},${700 + b.y}) rotate(${u * 420})`); }
+          else g.setAttribute('transform', `translate(${x},${700}) rotate(${sw})`); }));
+        HFS.camera(sc, [{ el: B, depth: .4 }, { el: R, depth: 1 }], Object.assign({ preset: 'truckLeft', amount: .5 }, CFG.camera || {}));
+      });
+    })();
+  </script>
+</template>

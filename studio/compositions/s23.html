@@ -1,0 +1,46 @@
+<template>
+  <style>@font-face { font-family: 'Anton'; src: url('assets/fonts/Anton-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Bebas Neue'; src: url('assets/fonts/BebasNeue-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Permanent Marker'; src: url('assets/fonts/PermanentMarker-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Special Elite'; src: url('assets/fonts/SpecialElite-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Caveat Brush'; src: url('assets/fonts/CaveatBrush-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Russo One'; src: url('assets/fonts/RussoOne-400.ttf'); font-display: block; }
+    @font-face { font-family: 'VT323'; src: url('assets/fonts/VT323-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Cinzel'; src: url('assets/fonts/Cinzel-400.ttf'); font-display: block; }
+    @font-face { font-family: 'Tinos'; src: url('assets/fonts/Tinos-700.ttf'); font-display: block; }
+    @font-face { font-family: 'Archivo Black'; src: url('assets/fonts/ArchivoBlack-400.ttf'); font-display: block; }
+    
+    #root { position: absolute; inset: 0; overflow: hidden; background: #ffd9a8; }
+    #s23-stage, #s23-stage .lay { position: absolute; inset: 0; }
+    #s23-stage svg { overflow: visible; }
+    #s23-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+  </style>
+  <div id="root" data-composition-id="s23" data-width="1080" data-height="1920">
+    <div id="s23-stage">
+      <svg id="s23-sky" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="s23-street" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="s23-front" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <div id="s23-txt"></div>
+    </div>
+  </div>
+  <script>
+    /* SceneTemplate « school » — aplats matin : petit frère avec son cartable marche vers l'école, le bus scolaire passe, soleil qui se lève ; travelling qui le suit. */
+    (function () {
+      const CFG = {"fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s23", "dur": 2.127, "t0": 53.585, "text": {"font": "Anton", "color": "#1b1a17", "accent": "#e8452c", "pos": "top", "shadow": "none", "text": "Quand p'tit / frère part à / l'école", "words": [53.955, 54.0, 54.0, 54.28, 54.65, 55.02], "important": "école", "impact": 55.07, "preset": "sideSweep", "intensity": 1.29, "why": "les mots traversent comme le bus", "outAt": 55.142}, "params": {}, "camera": null, "tin": {"kind": "zoomIn", "from": 1.5, "delay": 0.2, "dur": 0.5}, "tout": {"kind": "cut", "dur": 0.5}};
+      HFS.boot('s23', CFG, (sc, ctx) => {
+        const P = ctx.P, sv = HFS.svg, m = HFS.m, E = HFS.ease;
+
+        const S = ctx.layer('sky'), St = ctx.layer('street'), Fr = ctx.layer('front');
+        sv('rect', { width: 1080, height: 1920, fill: '#ffd9a8' }, S); const sun = sv('circle', { cx: 760, r: 130, fill: '#ffb03a' }, S);
+        const sch = sv('g', {}, St); sv('rect', { x: 1300, y: 800, width: 900, height: 600, fill: '#e8a77a' }, sch); sv('path', { d: 'M 1250 800 L 1750 560 L 2250 800 Z', fill: '#b4553a' }, sch); for (let i = 0; i < 6; i++) sv('rect', { x: 1360 + i * 140, y: 900, width: 80, height: 110, fill: '#bfe4ff' }, sch); sv('rect', { x: 1700, y: 1180, width: 120, height: 220, fill: '#6a3a28' }, sch);
+        sv('rect', { x: -500, y: 1400, width: 3500, height: 520, fill: '#8a8d96' }, St); sv('rect', { x: -500, y: 1400, width: 3500, height: 26, fill: '#c9ccd4' }, St);
+        const kid = sv('g', {}, St); const C = HFS.char(kid, { style: 'flat', scale: .7, look: { top: '#3ddc97', top2: '#2bb37a', bottom: '#2b4c9a' }, track: [{ t: 0, act: 'walk', x: 200, y: 1410, speed: 1.3 }, { t: sc.dur, act: 'walk', x: 1500 }] });
+        const bag = sv('rect', { width: 70, height: 90, rx: 14, fill: '#e8452c', stroke: '#8a1a10', 'stroke-width': 5 }, St);
+        const bus = sv('g', {}, Fr); sv('rect', { x: 0, y: -260, width: 700, height: 260, rx: 30, fill: '#ffd23f', stroke: '#1b1a17', 'stroke-width': 8 }, bus); for (let i = 0; i < 5; i++) sv('rect', { x: 40 + i * 130, y: -220, width: 100, height: 90, rx: 10, fill: '#bfe4ff' }, bus); [130, 570].forEach(x => sv('circle', { cx: x, cy: 0, r: 56, fill: '#1b1a17' }, bus));
+        sc.update(t => { C.render(t); const [hx] = [C.x]; bag.setAttribute('x', C.x - 75); bag.setAttribute('y', C.y - 330 * .7 + Math.sin(t * 8) * 4); sun.setAttribute('cy', 700 - t * 60);
+          bus.setAttribute("transform", `translate(${2200 - t * 900},${1830})`); });
+        HFS.camera(sc, [{ el: S, depth: .2 }, { el: St, depth: 1 }, { el: Fr, depth: 1.2 }], Object.assign({ preset: 'static', follow: t => ({ x: -(C.x - 420) }) }, CFG.camera || {}));
+      });
+    })();
+  </script>
+</template>

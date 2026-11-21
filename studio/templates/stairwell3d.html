@@ -1,0 +1,34 @@
+<template>
+  <style>__FONTS__
+    #root { position: absolute; inset: 0; overflow: hidden; background: #101218; }
+    #__ID__-stage, #__ID__-stage .lay { position: absolute; inset: 0; }
+    #__ID__-stage svg { overflow: visible; }
+    #__ID__-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+  </style>
+  <div id="root" data-composition-id="__ID__" data-width="1080" data-height="1920">
+    <div id="__ID__-stage">
+      <canvas id="__ID__-gl" width="1080" height="1920"></canvas>
+      <div id="__ID__-txt"></div>
+    </div>
+  </div>
+  <script>
+    /* SceneTemplate « stairwell3d » — 3D : cage d'escalier de tour, un personnage monte les marches en colimaçon, la caméra s'élève au centre (crane) en tournant, néon qui grésille. */
+    (function () {
+      const CFG = __CFG__;
+      HFS.boot('__ID__', CFG, (sc, ctx) => {
+        const P = ctx.P, sv = HFS.svg, m = HFS.m, E = HFS.ease;
+
+        const X = HFS.three(sc, document.getElementById('__ID__-gl'), { bg: 0x101218, fog: [0x101218, 6, 26], exposure: 1.15 }), T = X.T, K = HFS.K3;
+        X.add(new T.HemisphereLight(0x8090a0, 0x101010, .55));
+        const mat = new T.MeshStandardMaterial({ color: 0x8a8d96, roughness: .9 }), N = 64;
+        for (let i = 0; i < N; i++) { const a = i * .38, s = new T.Mesh(new T.BoxGeometry(2.2, .18, .7), mat); s.position.set(Math.cos(a) * 1.9, i * .22, Math.sin(a) * 1.9); s.rotation.y = -a; s.castShadow = s.receiveShadow = true; X.add(s); }
+        const core = new T.Mesh(new T.CylinderGeometry(.45, .45, 16, 20), new T.MeshStandardMaterial({ color: 0x5a5d66 })); core.position.y = 7; X.add(core);
+        const neon = new T.PointLight(0xbfe0ff, 2, 10, 2); X.add(neon);
+        const hero = K.human(T, { color: 0x1d1922, emissive: 0x220a0a }); X.add(hero);
+        X.update(t => { const k = t / sc.dur, i = 4 + k * 22, a = i * .38; hero.position.set(Math.cos(a) * 1.9, i * .22 + .1, Math.sin(a) * 1.9); hero.rotation.y = -a - Math.PI / 2; hero.pose({ walk: t * 8, amt: 1, lean: .12 });
+          neon.position.set(0, i * .22 + 2, 0); neon.intensity = HFS.m.noise(t * 10, 3) > -.6 ? 2 : .3; });
+        X.camMove('orbit', { center: [0, 2, 0], a0: 0, a1: 1.6, r: () => .25, y: t => (4 + t / sc.dur * 22) * .22 + 5.5, target: t => { const i = 4 + t / sc.dur * 22, a = i * .38; return new T.Vector3(Math.cos(a) * 1.9, i * .22, Math.sin(a) * 1.9); }, fov0: 62, fov1: 52 });   // vue plongeante au centre de la cage
+      });
+    })();
+  </script>
+</template>
