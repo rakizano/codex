@@ -130,7 +130,7 @@ T['color_split'] = dict(bg='#ffd23f', layers=L('split'), doc="graphique : l'écr
         S.appendChild(crack);
         sc.update(t => { const k = sc.beat(t, 'kicks', 7), ty = ctx.cue('yellow', 0, null), tg = ctx.cue('green', 0, null), ang = Math.sin(t * 1.5) * 12 + k * 10;
           const tc = ctx.cue('crack', 0, 1e9), mid = ty == null ? 960 + Math.sin(t * 2) * 120 : (t < ty ? 960 + Math.sin(t * 2) * 80 : t < tg ? HFS.m.lerp(960, 2100, E.outExpo(m.clamp((t - ty) / .3))) : t < tc ? HFS.m.lerp(2100, -200, E.outExpo(m.clamp((t - tg) / .3))) : HFS.m.lerp(-200, 960, E.outBack(m.clamp((t - tc) / .35))));
-          crack.setAttribute('opacity', t >= ctx.cue('crack', 0, 1e9) ? 1 : 0); crack.setAttribute('stroke-dasharray', '3000'); crack.setAttribute('stroke-dashoffset', 3000 * (1 - m.clamp((t - ctx.cue('crack', 0, 1e9)) / .25))); let d = 'M -100 -100 L 1180 -100 L 1180 ';
+          crack.setAttribute('opacity', t >= ctx.cue('crack', 0, 1e9) ? 1 : 0); crack.setAttribute('stroke-dasharray', '3000'); crack.setAttribute('stroke-dashoffset', 3000 * (1 - m.clamp((t - ctx.cue('crack', 0, 1e9)) / .25))); let d = 'M -100 -100 L 1180 -100 L ';
           const pts = []; for (let x = 1180; x >= -100; x -= 40) pts.push(`${x} ${mid + Math.tan(ang * Math.PI / 180) * (x - 540) + Math.sin(x / 90 + t * 6) * 30 * (1 + k)}`);
           a.setAttribute('d', d + pts.join(' L ') + ' Z'); b.setAttribute('d', 'M -100 2020 L 1180 2020 L ' + pts.join(' L ') + ' Z');
           dots.forEach((c, i) => { const x = ((i * 230 + t * (i % 2 ? 300 : -300)) % 1400 + 1400) % 1400 - 160; c.setAttribute('cx', x); c.setAttribute('cy', i % 2 ? 600 : 1400); }); });
