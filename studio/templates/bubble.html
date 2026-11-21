@@ -1,7 +1,8 @@
 <template>
   <style>__FONTS__
-    #root { position: absolute; inset: 0; overflow: hidden; background: #1a2a5a; }
+    #root { position: absolute; inset: 0; overflow: hidden; }
     #__ID__-stage, #__ID__-stage .lay { position: absolute; inset: 0; }
+    #__ID__-stage { background: #1a2a5a; }
     #__ID__-stage svg { overflow: visible; }
     #__ID__-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
   </style>
@@ -28,7 +29,7 @@
         const ctx2 = ctx.layer('bub').getContext('2d'), r = HFS.m.rng('b__ID__'), bs = [...Array(26)].map(() => [r() * 1080, 1900 + r() * 400, 20 + r() * 60, .5 + r()]);
         sc.update(t => { C.render(t); bub.setAttribute('transform', `translate(${540 + Math.sin(t) * 40},${980 - t * 40 + Math.sin(t * 1.7) * 20}) scale(${1 + sc.beat(t, 'kicks', 8) * .03})`); city.setAttribute('transform', `translate(0,${t * 60})`);
           ctx2.clearRect(0, 0, 1080, 1920); const n = (HFS.audio.data.kicks || []).filter(x => x <= sc.t0 + t).length;
-          bs.forEach(([x, y0, rad, sp], i) => { const y = y0 - t * 300 * sp; const pop = (i + n) % 7 === 0; ctx2.globalAlpha = pop ? .9 : .35; ctx2.strokeStyle = '#ffffff'; ctx2.lineWidth = 4; ctx2.beginPath(); if (pop) { for (let k = 0; k < 8; k++) { const a = k / 8 * 6.28; ctx2.moveTo(x + Math.cos(a) * rad * .6, y + Math.sin(a) * rad * .6); ctx2.lineTo(x + Math.cos(a) * rad, y + Math.sin(a) * rad); } } else ctx2.arc(x, y, rad, 0, 6.28); ctx2.stroke(); }); });
+          bs.forEach(([x, y0, rad, sp], i) => { const y = y0 - t * 300 * sp; const pop = (i + n) % 7 === 0 || (ctx.since(t, 'pops') >= 0 && ctx.since(t, 'pops') < .25 && i % 3 === ctx.count(t, 'pops') % 3); ctx2.globalAlpha = pop ? .9 : .35; ctx2.strokeStyle = '#ffffff'; ctx2.lineWidth = 4; ctx2.beginPath(); if (pop) { for (let k = 0; k < 8; k++) { const a = k / 8 * 6.28; ctx2.moveTo(x + Math.cos(a) * rad * .6, y + Math.sin(a) * rad * .6); ctx2.lineTo(x + Math.cos(a) * rad, y + Math.sin(a) * rad); } } else ctx2.arc(x, y, rad, 0, 6.28); ctx2.stroke(); }); });
         HFS.camera(sc, [{ el: B, depth: .4 }, { el: ctx.layer('bub'), depth: .8 }, { el: M, depth: 1 }], Object.assign({ preset: 'pedestalUp', amount: .6 }, CFG.camera || {}));
       });
     })();

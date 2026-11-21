@@ -695,6 +695,137 @@
     "pos": "top",
     "case": "none"
    }
+  },
+  "stairwell_2d": {
+   "family": "flat2d",
+   "reading": "literal",
+   "tags": {
+    "stairs": 3,
+    "stuck": 3,
+    "sell": 1.5,
+    "elevator": 1.5
+   },
+   "characters": [
+    "personnage en sweat noir"
+   ],
+   "objects": [
+    "porte d'ascenseur",
+    "rubalise EN PANNE",
+    "bouton",
+    "escalier"
+   ],
+   "decor": "palier d'immeuble de cité",
+   "camera": "suivi du personnage",
+   "main": "il trouve l'ascenseur en panne et prend l'escalier",
+   "secondary": "bouton qui clignote, rubalise qui bouge",
+   "text": {
+    "font": "Bebas Neue",
+    "color": "#ffffff",
+    "accent": "#ffd23f",
+    "pos": "top"
+   }
+  },
+  "hug_refuse": {
+   "family": "flat2d",
+   "reading": "literal",
+   "tags": {
+    "hug": 3,
+    "refuse": 2,
+    "cold": 1.5
+   },
+   "characters": [
+    "elle (rose)",
+    "lui (sweat noir)"
+   ],
+   "objects": [
+    "givre"
+   ],
+   "decor": "pièce bleue froide",
+   "camera": "dolly avant",
+   "main": "elle ouvre les bras, il recule et lève la main",
+   "secondary": "l'air se refroidit, givre",
+   "text": {
+    "font": "Anton",
+    "color": "#ffffff",
+    "accent": "#7fb8ff",
+    "pos": "top"
+   }
+  },
+  "drunk_walk": {
+   "family": "flat2d",
+   "reading": "literal",
+   "tags": {
+    "drunk": 3,
+    "luxury": 1.5,
+    "night": 1
+   },
+   "characters": [
+    "personnage en veste dorée"
+   ],
+   "objects": [
+    "sac monogrammé",
+    "lampadaires"
+   ],
+   "decor": "rue de nuit",
+   "camera": "roulis + suivi",
+   "main": "il titube",
+   "secondary": "vision dédoublée sur « pété »",
+   "text": {
+    "font": "Anton",
+    "color": "#ffffff",
+    "accent": "#e9b949",
+    "pos": "top"
+   }
+  },
+  "walk_home": {
+   "family": "flat2d",
+   "reading": "symbolic",
+   "tags": {
+    "home": 3,
+    "pockets": 2,
+    "night": 1
+   },
+   "characters": [
+    "personnage en sweat noir"
+   ],
+   "objects": [
+    "porte du hall",
+    "fenêtres"
+   ],
+   "decor": "immeuble de nuit",
+   "camera": "dolly + suivi",
+   "main": "il rentre, la porte du hall s'ouvre",
+   "secondary": "lumière du hall",
+   "text": {
+    "font": "Bebas Neue",
+    "color": "#ffffff",
+    "accent": "#ffcf7a",
+    "pos": "top"
+   }
+  },
+  "speaker": {
+   "family": "graphic",
+   "reading": "symbolic",
+   "tags": {
+    "beat": 3,
+    "repeat": 2
+   },
+   "characters": [],
+   "objects": [
+    "enceinte géante",
+    "ondes de choc"
+   ],
+   "decor": "mur sombre néon vert",
+   "camera": "dolly + secousses",
+   "main": "l'enceinte pompe sur chaque « taga »",
+   "secondary": "ondes, poussière qui saute",
+   "text": {
+    "font": "Russo One",
+    "color": "#e9fff0",
+    "accent": "#2ecc71",
+    "pos": "top",
+    "shadow": "0 0 22px rgba(46,204,113,.7)"
+   }
   }
  },
  "lexicon": {

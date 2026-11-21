@@ -11,7 +11,13 @@
       HFS.ensureDefs();
       const sc = HFS.scene(id, { dur: CFG.dur, t0: CFG.t0 });
       const stage = document.getElementById(id + '-stage'), txt = document.getElementById(id + '-txt');
-      const ctx = { stage, txt, cfg: CFG, P: CFG.params || {}, layer: n => document.getElementById(id + '-' + n) };
+      const Q = CFG.cues || {};
+      const ctx = { stage, txt, cfg: CFG, P: CFG.params || {}, Q, layer: n => document.getElementById(id + '-' + n),
+        // repères synchronisés sur les mots chantés (temps locaux) : ctx.cue('panne', 0, repli) ; ctx.since(t, 'gars') ; ctx.count(t, 'bulle')
+        cue: (name, i = 0, fb = null) => (Q[name] && Q[name][i] != null ? Q[name][i] : fb),
+        since: (t, name) => { const a = (Q[name] || []).filter(x => x <= t); return a.length ? t - a[a.length - 1] : -1; },
+        count: (t, name) => (Q[name] || []).filter(x => x <= t).length,
+        pulse: (t, name, decay = 8) => { const a = (Q[name] || []).filter(x => x <= t); return a.length ? Math.exp(-(t - a[a.length - 1]) * decay) : 0; } };
       build(sc, ctx);
       ctx.kt = HFS.sceneText(sc, txt, CFG.text);
       if (CFG.tin && CFG.tin.kind && CFG.tin.kind !== 'cut') HFS.transitions.apply(sc, 'in', CFG.tin.kind, CFG.tin);

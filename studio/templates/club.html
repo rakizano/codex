@@ -1,7 +1,8 @@
 <template>
   <style>__FONTS__
-    #root { position: absolute; inset: 0; overflow: hidden; background: #07040f; }
+    #root { position: absolute; inset: 0; overflow: hidden; }
     #__ID__-stage, #__ID__-stage .lay { position: absolute; inset: 0; }
+    #__ID__-stage { background: #07040f; }
     #__ID__-stage svg { overflow: visible; }
     #__ID__-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
   </style>
@@ -28,7 +29,7 @@
         sc.update(t => { const n = (HFS.audio.data.kicks || []).filter(x => x <= sc.t0 + t).length, b = sc.beat(t, 'kicks', 10);
           tiles.forEach((e, i) => e.setAttribute('opacity', ((i + n) % 3 === 0) ? .55 + b * .4 : .12));
           lz.clearRect(0, 0, 1080, 1920); lz.globalCompositeOperation = 'lighter'; for (let i = 0; i < 6; i++) { const a = Math.sin(t * 1.3 + i) * .6 + (i - 2.5) * .25; lz.strokeStyle = cols[i % 4]; lz.globalAlpha = .55; lz.lineWidth = 6; lz.beginPath(); lz.moveTo(540, 120); lz.lineTo(540 + Math.sin(a) * 2400, 120 + Math.cos(a) * 2400); lz.stroke(); }
-          lz.globalAlpha = 1; dancers.forEach((C, i) => { const tt = i % 2 ? t : (t % .5); C.render(tt); }); Fl.style.filter = b > .8 ? 'brightness(1.8)' : ''; });
+          lz.globalAlpha = 1; dancers.forEach((C, i) => { const tt = i % 2 ? t : (t % .5); C.render(tt); }); const st = ctx.since(t, 'strobe'); Fl.style.filter = (b > .8 || (st >= 0 && st < .6 && Math.floor(t * 16) % 2)) ? 'brightness(2.2)' : ''; });
         HFS.camera(sc, [{ el: Fl, depth: .7 }, { el: ctx.layer('laser'), depth: .5 }, { el: Cr, depth: 1 }], Object.assign({ preset: 'roll', amount: 1.4, shake: t => sc.beat(t, 'kicks', 12) * 8 }, CFG.camera || {}));
       });
     })();

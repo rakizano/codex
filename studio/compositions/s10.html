@@ -10,42 +10,36 @@
     @font-face { font-family: 'Tinos'; src: url('assets/fonts/Tinos-700.ttf'); font-display: block; }
     @font-face { font-family: 'Archivo Black'; src: url('assets/fonts/ArchivoBlack-400.ttf'); font-display: block; }
     
-    #root { position: absolute; inset: 0; overflow: hidden; background: #071226; }
+    #root { position: absolute; inset: 0; overflow: hidden; }
     #s10-stage, #s10-stage .lay { position: absolute; inset: 0; }
+    #s10-stage { background: #ffd23f; }
     #s10-stage svg { overflow: visible; }
+    #s10-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
   </style>
   <div id="root" data-composition-id="s10" data-width="1080" data-height="1920">
     <div id="s10-stage">
-      <canvas id="s10-bokeh" class="lay" width="1080" height="1920"></canvas>
-      <svg id="s10-ui" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
-      <canvas id="s10-fx" class="lay" width="1080" height="1920"></canvas>
+      <svg id="s10-split" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
       <div id="s10-txt"></div>
     </div>
   </div>
   <script>
-    /* SceneTemplate « phone_ui » — à l'intérieur de l'écran : interface sociale néon (bulles qui poppent, réactions
-       qui montent, compteur à rouleaux qui « compte » sur les kicks), deux avatars qui se rejoignent → étincelles. */
+    /* SceneTemplate « color_split » — graphique : l'écran se coupe en jaune / vert, la frontière ondule et bascule à chaque kick, formes qui roulent ; aplats francs. */
     (function () {
-      const CFG = {"fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s10", "dur": 2.29, "t0": 21.885, "text": {"font": "Russo One", "color": "#e9fdff", "accent": "#ff3fb4", "pos": "top", "shadow": "0 0 22px rgba(63,240,255,.8)", "text": "Du taga taga / à vé-Her", "words": [22.18, 22.6, 22.98, 23.42, 23.64], "important": "taga", "impact": 22.825, "preset": "progressive", "intensity": 1.01, "why": "variation (aucune règle du lexique)", "outAt": 23.68}, "params": {}, "camera": null, "tin": {"kind": "glitch", "dur": 0.35, "delay": 0.0}, "tout": {"kind": "glitch", "dur": 0.35}};
+      const CFG = {"cues": {"yellow": [0.55], "green": [1.37], "crack": [2.01]}, "fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s10", "dur": 3.29, "t0": 24.45, "text": {"font": "Anton", "color": "#111111", "accent": "#ffffff", "pos": "top", "shadow": "none", "extrude": {"color": "#ffffff", "depth": 6, "angle": 60}, "text": "En jaune ou / en vert, / nique sa mère", "words": [24.82, 25, 25.46, 25.64, 25.82, 26.46, 26.95, 27.1], "important": "vert", "impact": 25.867, "preset": "stretchX", "intensity": 1.1, "outAt": 32.49}, "params": {}, "camera": null, "tin": {"kind": "iris", "dur": 0.5, "delay": 0.0}, "tout": {"kind": "fall", "dur": 0.5}};
       HFS.boot('s10', CFG, (sc, ctx) => {
-        const P = ctx.P, sv = HFS.svg, U = ctx.layer('ui'), CY = P.accent || '#3ff0ff', MG = P.accent2 || '#ff3fb4';
-        const bok = HFS.fx.particles(ctx.layer('bokeh'), { kind: 'bokeh', n: 22, colors: [CY, MG, '#6a5cff'], seed: 3 });
-        const bubbles = [0, 1, 2, 3].map(i => { const g = sv('g', {}, U); sv('rect', { x: 0, y: -40, width: 520, height: 80, rx: 40, fill: 'rgba(15,35,70,.85)', stroke: i % 2 ? MG : CY, 'stroke-width': 3 }, g); sv('circle', { cx: 40, cy: 0, r: 26, fill: i % 2 ? MG : CY }, g); sv('rect', { x: 84, y: -16, width: 220 + (i * 41) % 120, height: 14, rx: 7, fill: '#fff', opacity: .8 }, g); sv('rect', { x: 84, y: 8, width: 120 + (i * 53) % 90, height: 10, rx: 5, fill: '#fff', opacity: .4 }, g); return g; });
-        const counter = sv('g', {}, U), digits = [0, 1, 2, 3].map(i => { const tx = sv('text', { x: 330 + i * 110, y: 1150, 'font-family': 'Russo One', 'font-size': 150, fill: CY, 'text-anchor': 'middle' }, counter); return tx; });
-        const av = [CY, MG].map((c, i) => { const g = sv('g', {}, U); sv('circle', { r: 70, fill: '#0b1a33', stroke: c, 'stroke-width': 8 }, g); sv('circle', { cy: -14, r: 24, fill: c }, g); sv('path', { d: 'M -40 40 Q 0 0 40 40 Z', fill: c }, g); return g; });
-        const sparks = HFS.fx.particles(ctx.layer('fx'), { kind: 'sparks', n: 60, colors: [CY, MG, '#ffffff'], seed: 8, at: sc.dur * .62, x: 540, y: 1520, size: 6 });
-        const hearts = [...Array(12)].map((_, i) => sv('path', { d: 'M 0 18 C -30 -4 -18 -30 0 -14 C 18 -30 30 -4 0 18 Z', fill: i % 2 ? MG : '#ff5a7a' }, U));
-        sc.update(t => {
-          bok(t); sparks(t);
-          bubbles.forEach((g, i) => { const k = HFS.ease.outBack(HFS.m.clamp((t - .15 - i * .35) / .3)), n = Math.floor((t - .15) / .35); g.setAttribute('transform', `translate(120,${1500 - (Math.min(n, 3) - i) * 100}) scale(${Math.max(0, k)})`); g.setAttribute('opacity', k > 0 ? 1 : 0); });
-          // compteur : avance d'un cran à chaque kick (synchro musicale)
-          const kicks = (HFS.audio.data.kicks || []).filter(x => x >= sc.t0 && x <= sc.t0 + t).length; const val = String(1000 + kicks * 37 + Math.floor(t * 3)).slice(-4);
-          digits.forEach((d, i) => { d.textContent = val[i]; d.setAttribute('transform', `translate(0,${-sc.beat(t, 'kicks', 14) * 20})`); });
-          counter.setAttribute('opacity', 1 - HFS.m.clamp((t - sc.dur * .55) / .2));
-          const meet = HFS.ease.inOutCubic(HFS.m.clamp(t / (sc.dur * .62))); av[0].setAttribute('transform', `translate(${180 + meet * 270},1520)`); av[1].setAttribute('transform', `translate(${900 - meet * 270},1520)`);
-          hearts.forEach((h, i) => { const u = ((t * .7 + i / 12) % 1); h.setAttribute('transform', `translate(${940 + Math.sin(u * 8 + i) * 30},${1450 - u * 700}) scale(${.8 + u})`); h.setAttribute('opacity', 1 - u); });
-        });
-        HFS.camera(sc, [{ el: ctx.layer('bokeh'), depth: .3 }, { el: U, depth: 1 }, { el: ctx.layer('fx'), depth: 1 }], Object.assign({ preset: 'dollyOut', amount: .7, handheld: .4 }, CFG.camera || {}));
+        const P = ctx.P, sv = HFS.svg, m = HFS.m, E = HFS.ease;
+
+        const S = ctx.layer('split'), Y = P.c1 || '#ffd23f', G = P.c2 || '#2ecc71';
+        const crack = sv('path', { d: 'M 540 -50 L 500 400 L 600 700 L 470 1100 L 580 1500 L 520 1980', fill: 'none', stroke: '#111', 'stroke-width': 14, opacity: 0 }, S);
+        const a = sv('path', { fill: Y }, S), b = sv('path', { fill: G }, S), dots = [...Array(10)].map((_, i) => sv('circle', { r: 30 + (i % 3) * 20, fill: i % 2 ? Y : G, stroke: '#111', 'stroke-width': 8 }, S));
+        S.appendChild(crack);
+        sc.update(t => { const k = sc.beat(t, 'kicks', 7), ty = ctx.cue('yellow', 0, null), tg = ctx.cue('green', 0, null), ang = Math.sin(t * 1.5) * 12 + k * 10;
+          const tc = ctx.cue('crack', 0, 1e9), mid = ty == null ? 960 + Math.sin(t * 2) * 120 : (t < ty ? 960 + Math.sin(t * 2) * 80 : t < tg ? HFS.m.lerp(960, 2100, E.outExpo(m.clamp((t - ty) / .3))) : t < tc ? HFS.m.lerp(2100, -200, E.outExpo(m.clamp((t - tg) / .3))) : HFS.m.lerp(-200, 960, E.outBack(m.clamp((t - tc) / .35))));
+          crack.setAttribute('opacity', t >= ctx.cue('crack', 0, 1e9) ? 1 : 0); crack.setAttribute('stroke-dasharray', '3000'); crack.setAttribute('stroke-dashoffset', 3000 * (1 - m.clamp((t - ctx.cue('crack', 0, 1e9)) / .25))); let d = 'M -100 -100 L 1180 -100 L 1180 ';
+          const pts = []; for (let x = 1180; x >= -100; x -= 40) pts.push(`${x} ${mid + Math.tan(ang * Math.PI / 180) * (x - 540) + Math.sin(x / 90 + t * 6) * 30 * (1 + k)}`);
+          a.setAttribute('d', d + pts.join(' L ') + ' Z'); b.setAttribute('d', 'M -100 2020 L 1180 2020 L ' + pts.join(' L ') + ' Z');
+          dots.forEach((c, i) => { const x = ((i * 230 + t * (i % 2 ? 300 : -300)) % 1400 + 1400) % 1400 - 160; c.setAttribute('cx', x); c.setAttribute('cy', i % 2 ? 600 : 1400); }); });
+        HFS.camera(sc, [{ el: S, depth: 1 }], Object.assign({ preset: 'roll', amount: .8 }, CFG.camera || {}));
       });
     })();
   </script>

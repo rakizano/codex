@@ -1,0 +1,38 @@
+<template>
+  <style>__FONTS__
+    #root { position: absolute; inset: 0; overflow: hidden; }
+    #__ID__-stage, #__ID__-stage .lay { position: absolute; inset: 0; }
+    #__ID__-stage { background: #0b0b10; }
+    #__ID__-stage svg { overflow: visible; }
+    #__ID__-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+  </style>
+  <div id="root" data-composition-id="__ID__" data-width="1080" data-height="1920">
+    <div id="__ID__-stage">
+      <svg id="__ID__-wall" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="__ID__-spk" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <canvas id="__ID__-fx" class="lay" width="1080" height="1920"></canvas>
+      <div id="__ID__-txt"></div>
+    </div>
+  </div>
+  <script>
+    /* SceneTemplate « speaker » — graphique : une enceinte géante dont les membranes pompent sur chaque « taga », ondes de choc, poussière qui saute ; néon vert. */
+    (function () {
+      const CFG = __CFG__;
+      HFS.boot('__ID__', CFG, (sc, ctx) => {
+        const P = ctx.P, sv = HFS.svg, m = HFS.m, E = HFS.ease;
+
+        const Wl = ctx.layer('wall'), Sp = ctx.layer('spk'), G = P.accent || '#2ecc71';
+        sv('rect', { width: 1080, height: 1920, fill: '#0b0b10' }, Wl); for (let i = 0; i < 12; i++) sv('rect', { x: 0, y: 300 + i * 120, width: 1080, height: 4, fill: G, opacity: .08 }, Wl);
+        sv('rect', { x: 200, y: 640, width: 680, height: 1060, rx: 40, fill: '#17171f', stroke: '#2a2a36', 'stroke-width': 12 }, Sp);
+        const cones = [[540, 900, 150], [540, 1390, 230]].map(([x, y, r]) => { const g = sv('g', { transform: `translate(${x},${y})` }, Sp); sv('circle', { r, fill: '#0e0e14', stroke: '#3a3a48', 'stroke-width': 14 }, g); const mem = sv('circle', { r: r * .72, fill: '#26262f' }, g); const cap = sv('circle', { r: r * .25, fill: '#3a3a48' }, g); return [g, mem, cap, r]; });
+        const rings = [0, 1, 2].map(() => sv('circle', { cx: 540, cy: 1390, fill: 'none', stroke: G, 'stroke-width': 8 }, Sp));
+        const fx = HFS.fx.particles(ctx.layer('fx'), { n: 70, colors: [G, '#ffffff'], seed: 12, size: 3 });
+        sc.update(t => { const b = Math.max(ctx.pulse(t, 'taga', 10), sc.beat(t, 'kicks', 12) * .5);
+          cones.forEach(([g, mem, cap, r]) => { mem.setAttribute('r', r * (.72 + b * .14)); cap.setAttribute('r', r * (.25 + b * .1)); });
+          rings.forEach((c, i) => { const s = ctx.since(t, 'taga'); const u = s >= 0 ? m.clamp((s - i * .08) / .5) : 1; c.setAttribute('r', 240 + u * 600); c.setAttribute('opacity', (1 - u) * .8); });
+          fx(t); ctx.layer('fx').style.transform = `translateY(${-b * 18}px)`; });
+        HFS.camera(sc, [{ el: Wl, depth: .4 }, { el: Sp, depth: 1 }, { el: ctx.layer('fx'), depth: 1.2 }], Object.assign({ preset: 'dollyIn', amount: .4, shake: t => Math.max(ctx.pulse(t, 'taga', 14), 0) * 10 }, CFG.camera || {}));
+      });
+    })();
+  </script>
+</template>

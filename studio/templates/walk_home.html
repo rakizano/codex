@@ -1,0 +1,37 @@
+<template>
+  <style>__FONTS__
+    #root { position: absolute; inset: 0; overflow: hidden; }
+    #__ID__-stage, #__ID__-stage .lay { position: absolute; inset: 0; }
+    #__ID__-stage { background: #101423; }
+    #__ID__-stage svg { overflow: visible; }
+    #__ID__-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+  </style>
+  <div id="root" data-composition-id="__ID__" data-width="1080" data-height="1920">
+    <div id="__ID__-stage">
+      <svg id="__ID__-bld" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="__ID__-mid" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <div id="__ID__-txt"></div>
+    </div>
+  </div>
+  <script>
+    /* SceneTemplate « walk_home » — aplats nuit : il rentre au bâtiment, mains dans les poches ; la porte du hall s'ouvre (lumière jaune) sur « rentre », il y disparaît. */
+    (function () {
+      const CFG = __CFG__;
+      HFS.boot('__ID__', CFG, (sc, ctx) => {
+        const P = ctx.P, sv = HFS.svg, m = HFS.m, E = HFS.ease;
+
+        const Bd = ctx.layer('bld'), M = ctx.layer('mid');
+        sv('rect', { width: 1080, height: 1920, fill: '#101423' }, Bd); sv('rect', { x: 420, y: 300, width: 660, height: 1240, fill: '#2a2f45' }, Bd);
+        for (let r = 0; r < 8; r++) for (let c = 0; c < 4; c++) sv('rect', { x: 470 + c * 150, y: 360 + r * 120, width: 80, height: 70, fill: (r * 3 + c) % 4 ? '#1c2033' : '#ffcf7a' }, Bd);
+        const hall = sv('rect', { x: 700, y: 1240, width: 220, height: 300, fill: '#ffcf7a' }, Bd), doorL = sv('rect', { x: 700, y: 1240, width: 110, height: 300, fill: '#3a3f58', stroke: '#111', 'stroke-width': 5 }, Bd), doorR = sv('rect', { x: 810, y: 1240, width: 110, height: 300, fill: '#3a3f58', stroke: '#111', 'stroke-width': 5 }, Bd);
+        const beam = sv('path', { d: 'M 700 1540 L 920 1540 L 1080 1920 L 520 1920 Z', fill: '#ffcf7a', opacity: 0 }, Bd); sv('rect', { y: 1540, width: 1080, height: 380, fill: '#191c2c' }, Bd);
+        const tO = ctx.cue('home', 0, .3), tPk = ctx.cue('pockets', 0, sc.dur * .7);
+        const g = sv('g', {}, M);
+        const C = HFS.char(g, { style: 'flat', scale: .95, look: { top: '#1d1922', top2: '#141117', bottom: '#20232e' }, track: [{ t: 0, act: 'walk', x: 120, y: 1550, speed: .9 }, { t: sc.dur * .95, act: 'walk', x: 800, y: 1545 }] });
+        sc.update(t => { C.render(t); const o = E.inOut(m.clamp((t - tO) / .6)); doorL.setAttribute('transform', `translate(${-o * 100},0) scale(1,1)`); doorR.setAttribute('transform', `translate(${o * 100},0)`); beam.setAttribute('opacity', o * .25);
+          g.setAttribute('opacity', 1 - m.clamp((C.x - 740) / 60)); });
+        HFS.camera(sc, [{ el: Bd, depth: .7 }, { el: M, depth: 1 }], Object.assign({ preset: 'dollyIn', amount: .5, follow: t => ({ x: -(C.x - 540) * .3 }) }, CFG.camera || {}));
+      });
+    })();
+  </script>
+</template>

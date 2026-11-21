@@ -1,7 +1,8 @@
 <template>
   <style>__FONTS__
-    #root { position: absolute; inset: 0; overflow: hidden; background: #14321f; }
+    #root { position: absolute; inset: 0; overflow: hidden; }
     #__ID__-stage, #__ID__-stage .lay { position: absolute; inset: 0; }
+    #__ID__-stage { background: #14321f; }
     #__ID__-stage svg { overflow: visible; }
     #__ID__-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
   </style>
@@ -27,7 +28,7 @@
         const drums = [-1, 1].map(s => { const g = sv('g', {}, Md); sv('rect', { x: -90, y: -160, width: 180, height: 240, rx: 30, fill: '#c9753a', stroke: '#2a1408', 'stroke-width': 8 }, g); const skin = sv('ellipse', { cy: -160, rx: 90, ry: 26, fill: '#f3e2b8', stroke: '#2a1408', 'stroke-width': 8 }, g); g.dataset.s = s; return [g, skin]; });
         const C = HFS.char(Md, { style: 'cartoon', scale: 1.1, track: [{ t: 0, act: 'dance', x: 540, y: 1440, speed: 1.3 }] });
         const front = [...Array(6)].map((_, i) => leaf(Fr, i * 220 - 80, i % 2 ? 1700 : 260, 3.2, i % 2 ? -30 : 160, '#0c2414'));
-        sc.update(t => { const b = sc.beat(t, 'kicks', 10); drums.forEach(([g, skin], i) => { g.setAttribute('transform', `translate(${540 + (i ? 300 : -300)},${1420}) scale(${1 + b * .06},${1 - b * .08})`); skin.setAttribute('ry', 26 - b * 10); });
+        sc.update(t => { const b = Math.max(ctx.pulse(t, 'hits', 9), sc.beat(t, 'kicks', 12) * .4); drums.forEach(([g, skin], i) => { g.setAttribute('transform', `translate(${540 + (i ? 300 : -300)},${1420}) scale(${1 + b * .06},${1 - b * .08})`); skin.setAttribute('ry', 26 - b * 10); });
           back.forEach((e, i) => e.style.transform = `translateY(${-b * 10 * (i % 3)}px)`); C.render(t); boil(t); });
         HFS.camera(sc, [{ el: Lv, depth: .3 }, { el: Md, depth: 1 }, { el: Fr, depth: 1.5, blur: 6 }], Object.assign({ preset: 'dollyIn', amount: .6, shake: t => sc.beat(t, 'kicks', 12) * 6 }, CFG.camera || {}));
       });

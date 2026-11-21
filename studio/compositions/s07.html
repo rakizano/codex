@@ -10,34 +10,37 @@
     @font-face { font-family: 'Tinos'; src: url('assets/fonts/Tinos-700.ttf'); font-display: block; }
     @font-face { font-family: 'Archivo Black'; src: url('assets/fonts/ArchivoBlack-400.ttf'); font-display: block; }
     
-    #root { position: absolute; inset: 0; overflow: hidden; background: #f2e8d5; }
+    #root { position: absolute; inset: 0; overflow: hidden; }
     #s07-stage, #s07-stage .lay { position: absolute; inset: 0; }
+    #s07-stage { background: #14321f; }
     #s07-stage svg { overflow: visible; }
     #s07-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
   </style>
   <div id="root" data-composition-id="s07" data-width="1080" data-height="1920">
     <div id="s07-stage">
-      <svg id="s07-bg" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
-      <svg id="s07-fg" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="s07-leaves" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="s07-mid" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="s07-front" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
       <div id="s07-txt"></div>
     </div>
   </div>
   <script>
-    /* SceneTemplate « ballot » — éditorial : urne transparente, des bulletins BLANCS tombent au ralenti et s'empilent, le compteur reste à zéro, tampon rouge ; formes géométriques. */
+    /* SceneTemplate « jungle_beat » — cartoon : jungle aux feuilles qui rebondissent sur les kicks, tambours frappés, personnage cartoon qui danse ; premier plan de feuilles flou. */
     (function () {
-      const CFG = {"fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s07", "dur": 3.329, "t0": 13.971, "text": {"font": "Archivo Black", "color": "#1b1a17", "accent": "#e8452c", "pos": "top", "shadow": "none", "text": "Président, / dans l'hall / j'ai vu / l'ient-cli / voter blanc", "words": [14.34, 15.0, 15.08, 15.24, 15.32, 15.44, 15.58, 15.84], "important": "blanc", "impact": 15.89, "preset": "slotMachine", "intensity": 0.94, "why": "le vote défile comme un compteur", "outAt": 16.68}, "params": {}, "camera": null, "tin": {"kind": "flyThrough", "delay": 0.25, "dur": 0.55}, "tout": {"kind": "motionBlur", "dur": 0.6}};
+      const CFG = {"cues": {"hits": [0.42, 0.97, 1.57]}, "fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s07", "dur": 2.87, "t0": 17.47, "text": {"font": "Permanent Marker", "color": "#fff4d6", "accent": "#ffd23f", "pos": "top", "shadow": "5px 6px 0 #0c2414", "text": "Ounga, ounga, / ounga, ouais", "words": [17.89, 18.44, 19.04, 19.64], "important": "ouais", "impact": 19.67, "preset": "squashStretch", "intensity": 1.1, "outAt": 25.09}, "params": {}, "camera": null, "tin": {"kind": "liquid", "x": 540, "y": 1900, "dur": 0.6, "delay": 0.0}, "tout": {"kind": "cut", "dur": 0.5}};
       HFS.boot('s07', CFG, (sc, ctx) => {
         const P = ctx.P, sv = HFS.svg, m = HFS.m, E = HFS.ease;
 
-        const B = ctx.layer('bg'), F = ctx.layer('fg'), ink = '#1b1a17', acc = P.accent || '#e8452c';
-        for (let y = 760; y < 1500; y += 70) sv('line', { x1: 80, y1: y, x2: 1000, y2: y, stroke: ink, 'stroke-width': 1.5, opacity: .1 }, B);
-        sv('path', { d: 'M 300 1000 L 780 1000 L 760 1500 L 320 1500 Z', fill: '#cfe3ff', opacity: .55, stroke: ink, 'stroke-width': 6 }, F); sv('rect', { x: 460, y: 990, width: 160, height: 18, fill: ink }, F);
-        const ballots = [...Array(14)].map((_, i) => { const g = sv('g', {}, F); sv('rect', { x: -60, y: -40, width: 120, height: 80, fill: '#ffffff', stroke: '#c9c0aa', 'stroke-width': 3 }, g); return g; });
-        const cnt = sv('text', { x: 860, y: 900, 'text-anchor': 'middle', 'font-family': 'Archivo Black', 'font-size': 160, fill: ink }, F); cnt.textContent = '0';
-        const stamp = sv('g', {}, F); sv('rect', { x: -170, y: -60, width: 340, height: 120, rx: 10, fill: 'none', stroke: acc, 'stroke-width': 12 }, stamp); const st = sv('text', { 'text-anchor': 'middle', y: 30, 'font-family': 'Archivo Black', 'font-size': 84, fill: acc }, stamp); st.textContent = 'BLANC';
-        sc.update(t => { ballots.forEach((g, i) => { const t0 = .1 + i * .18, u = t - t0; if (u < 0) { g.setAttribute('opacity', 0); return; } const land = 1460 - Math.floor(i / 3) * 22; const y = Math.min(land, 300 + u * 520); g.setAttribute('opacity', 1); g.setAttribute('transform', `translate(${540 + Math.sin(u * 3 + i) * (y < land ? 90 : 0) + (i % 3 - 1) * 70},${y}) rotate(${y < land ? Math.sin(u * 4 + i) * 30 : (i * 17 % 20) - 10})`); });
-          const ks = E.outBack(m.clamp((t - sc.dur * .55) / .25), 3); stamp.setAttribute('transform', `translate(540,1700) rotate(-12) scale(${ks > 0 ? 2.4 - ks * 1.4 : 0})`); stamp.setAttribute('opacity', ks > 0 ? 1 : 0); });
-        HFS.camera(sc, [{ el: B, depth: .4 }, { el: F, depth: 1 }], Object.assign({ preset: 'slowZoom' }, CFG.camera || {}));
+        const Lv = ctx.layer('leaves'), Md = ctx.layer('mid'), Fr = ctx.layer('front'), boil = HFS.fx.boil(Md);
+        sv('rect', { width: 1080, height: 1920, fill: '#14321f' }, Lv); sv('rect', { y: 1400, width: 1080, height: 520, fill: '#5a3a1e' }, Lv);
+        const leaf = (p, x, y, s, r, c) => sv('path', { d: 'M 0 0 Q 120 -70 260 0 Q 120 70 0 0 Z', fill: c, stroke: '#0c1f12', 'stroke-width': 6, transform: `translate(${x},${y}) rotate(${r}) scale(${s})` }, p);
+        const back = [...Array(14)].map((_, i) => leaf(Lv, (i * 97) % 1100 - 60, 500 + (i * 151) % 800, 1.4, (i * 47) % 360, ['#2f6b3a', '#3d8a49'][i % 2]));
+        const drums = [-1, 1].map(s => { const g = sv('g', {}, Md); sv('rect', { x: -90, y: -160, width: 180, height: 240, rx: 30, fill: '#c9753a', stroke: '#2a1408', 'stroke-width': 8 }, g); const skin = sv('ellipse', { cy: -160, rx: 90, ry: 26, fill: '#f3e2b8', stroke: '#2a1408', 'stroke-width': 8 }, g); g.dataset.s = s; return [g, skin]; });
+        const C = HFS.char(Md, { style: 'cartoon', scale: 1.1, track: [{ t: 0, act: 'dance', x: 540, y: 1440, speed: 1.3 }] });
+        const front = [...Array(6)].map((_, i) => leaf(Fr, i * 220 - 80, i % 2 ? 1700 : 260, 3.2, i % 2 ? -30 : 160, '#0c2414'));
+        sc.update(t => { const b = Math.max(ctx.pulse(t, 'hits', 9), sc.beat(t, 'kicks', 12) * .4); drums.forEach(([g, skin], i) => { g.setAttribute('transform', `translate(${540 + (i ? 300 : -300)},${1420}) scale(${1 + b * .06},${1 - b * .08})`); skin.setAttribute('ry', 26 - b * 10); });
+          back.forEach((e, i) => e.style.transform = `translateY(${-b * 10 * (i % 3)}px)`); C.render(t); boil(t); });
+        HFS.camera(sc, [{ el: Lv, depth: .3 }, { el: Md, depth: 1 }, { el: Fr, depth: 1.5, blur: 6 }], Object.assign({ preset: 'dollyIn', amount: .6, shake: t => sc.beat(t, 'kicks', 12) * 6 }, CFG.camera || {}));
       });
     })();
   </script>

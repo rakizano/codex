@@ -1,0 +1,37 @@
+<template>
+  <style>__FONTS__
+    #root { position: absolute; inset: 0; overflow: hidden; }
+    #__ID__-stage, #__ID__-stage .lay { position: absolute; inset: 0; }
+    #__ID__-stage { background: #1c2433; }
+    #__ID__-stage svg { overflow: visible; }
+    #__ID__-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+  </style>
+  <div id="root" data-composition-id="__ID__" data-width="1080" data-height="1920">
+    <div id="__ID__-stage">
+      <svg id="__ID__-bg" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="__ID__-mid" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <canvas id="__ID__-cold" class="lay" width="1080" height="1920"></canvas>
+      <div id="__ID__-txt"></div>
+    </div>
+  </div>
+  <script>
+    /* SceneTemplate « hug_refuse » — aplats : elle ouvre les bras pour un câlin (« câlin »), lui recule et lève la main (refus), l'air se refroidit (givre qui monte), lumière bleue. */
+    (function () {
+      const CFG = __CFG__;
+      HFS.boot('__ID__', CFG, (sc, ctx) => {
+        const P = ctx.P, sv = HFS.svg, m = HFS.m, E = HFS.ease;
+
+        const B = ctx.layer('bg'), M = ctx.layer('mid');
+        sv('rect', { width: 1080, height: 1920, fill: '#1c2433' }, B); sv('rect', { y: 1450, width: 1080, height: 470, fill: '#141a26' }, B);
+        const halo = sv('ellipse', { cx: 540, cy: 1100, rx: 520, ry: 600, fill: '#7fb8ff', opacity: .0 }, B);
+        const tH = ctx.cue('hug', 0, .6);
+        const g = sv('g', {}, M);
+        const her = HFS.char(g, { style: 'flat', scale: .95, look: { top: '#ff6aa8', top2: '#d84a88', bottom: '#2a1d36', skin: '#a8714f' }, track: [{ t: 0, act: 'walk', x: 260, y: 1460 }, { t: Math.max(.2, tH - .2), act: 'dance', x: 420, speed: .01 }] });
+        const him = HFS.char(g, { style: 'flat', scale: 1.0, facing: -1, look: { top: '#1d1922', top2: '#141117', bottom: '#20232e' }, track: [{ t: 0, act: 'idle', x: 700, y: 1460, facing: -1 }, { t: tH + .1, act: 'reach', x: 700, facing: -1 }, { t: tH + .5, act: 'walk', x: 700, facing: -1 }, { t: sc.dur, act: 'walk', x: 880, facing: -1 }] });
+        const cold = HFS.fx.particles(ctx.layer('cold'), { kind: 'snow', n: 70, colors: ['#e6f6ff'], seed: 5, size: 3 });
+        sc.update(t => { her.render(t); him.render(t); const k = m.clamp((t - tH) / .8); halo.setAttribute('opacity', k * .25); ctx.layer('cold').style.opacity = k; cold(t); });
+        HFS.camera(sc, [{ el: B, depth: .5 }, { el: M, depth: 1 }, { el: ctx.layer('cold'), depth: 1.1 }], Object.assign({ preset: 'dollyIn', amount: .6 }, CFG.camera || {}));
+      });
+    })();
+  </script>
+</template>

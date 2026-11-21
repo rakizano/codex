@@ -55,6 +55,7 @@
  },
  "audio_analysis": "config/audio.json",
  "lyrics_source": "input/lyrics_sound.json",
+ "direction": "config/direction.json",
  "song": {
   "artist": "PNL",
   "title": "Le monde ou rien",
@@ -67,14 +68,13 @@
   {
    "id": "s01",
    "start": 0.0,
-   "end": 2.38,
+   "end": 2.16,
    "lyrics": "J'veux du L, j'veux du V, j'veux du G",
    "line": "J'veux du L, j'veux du V, j'veux du G",
-   "part": "1/1",
    "template": "luxe_window",
    "style": "3d",
    "reading": "symbolic",
-   "description": "les lettres désirées apparaissent et tournent sur leurs socles — vitrine de luxe la nuit",
+   "description": "il réclame du luxe : chaque lettre L, V, G s'allume sur sa vitrine au moment où il la prononce",
    "characters": [
     "—"
    ],
@@ -95,42 +95,38 @@
     "color": "#ffffff",
     "accent": "#e9b949",
     "pos": "top",
-    "text": "J'veux du L, / j'veux du V, / j'veux du G",
+    "text": "J'veux du / L, j'veux / du V, / j'veux du G",
     "words": [
-     0.0,
-     0.0,
-     0.34,
-     0.58,
-     0.78,
-     0.78,
-     0.96,
-     1.2,
-     1.32
+     0.05,
+     0.37,
+     0.52,
+     0.67,
+     1.04,
+     1.16,
+     1.34,
+     1.71,
+     1.83
     ],
-    "important": "veux",
-    "impact": 1.01,
+    "important": "G",
+    "impact": 1.86,
     "preset": "rebuild",
-    "intensity": 1.01,
-    "why": "les lettres désirées se reconstruisent comme des logos",
-    "outAt": 2.06
+    "intensity": 1.1,
+    "outAt": 7.16
    },
    "params": {},
+   "cues": {
+    "letters": [
+     "L",
+     "V",
+     "G"
+    ]
+   },
    "sfx": [],
    "analysis": {
-    "sense": {
-     "reject": 3,
-     "luxury": 3,
-     "want": 3
-    },
-    "intensity": 0.162,
-    "important": "veux",
-    "impact": 1.01,
-    "scores": {
-     "luxe_window": 10.0,
-     "social_reject": 6.0,
-     "wardrobe": 0.0,
-     "stairwell3d": 0.0
-    }
+    "important": "G",
+    "impact": 1.86,
+    "intent": "il réclame du luxe : chaque lettre L, V, G s'allume sur sa vitrine au moment où il la prononce",
+    "hold_after_last_word": 0.33
    },
    "transition_out": {
     "preset": "zoomThroughObject",
@@ -139,15 +135,14 @@
   },
   {
    "id": "s02",
-   "start": 2.38,
-   "end": 4.54,
+   "start": 2.16,
+   "end": 4.65,
    "lyrics": "Pour dessaper ta racli",
    "line": "Pour dessaper ta racli",
-   "part": "1/1",
    "template": "wardrobe",
    "style": "flat2d",
    "reading": "symbolic",
-   "description": "les vêtements glissent, une veste s'envole — penderie en aplats",
+   "description": "« dessaper » : les vêtements glissent sur la tringle, une veste s'envole sur « racli »",
    "characters": [],
    "objects": [
     "tringle",
@@ -170,35 +165,28 @@
     "shadow": "none",
     "text": "Pour dessaper / ta racli",
     "words": [
-     2.5,
-     3.04,
-     3.56,
-     3.8
+     2.28,
+     2.84,
+     3.295,
+     3.75
     ],
-    "important": "racli",
-    "impact": 3.85,
-    "preset": "impactPunch",
-    "intensity": 0.93,
-    "why": "variation (aucune règle du lexique)",
-    "outAt": 4.22
+    "important": "dessaper",
+    "impact": 2.87,
+    "preset": "skewSnap",
+    "intensity": 1.1,
+    "outAt": 4.4
    },
    "params": {},
+   "cues": {
+    "slide": "dessaper",
+    "fly": "racli"
+   },
    "sfx": [],
    "analysis": {
-    "sense": {
-     "two": 1,
-     "undress": 1,
-     "clothes": 1
-    },
-    "intensity": 0.08,
-    "important": "racli",
-    "impact": 3.85,
-    "scores": {
-     "wardrobe": 6.0,
-     "duo_walk": 3.0,
-     "social_reject": 0.0,
-     "school": 0.0
-    }
+    "important": "dessaper",
+    "impact": 2.87,
+    "intent": "« dessaper » : les vêtements glissent sur la tringle, une veste s'envole sur « racli »",
+    "hold_after_last_word": 0.9
    },
    "transition_out": {
     "preset": "whipPan",
@@ -207,15 +195,14 @@
   },
   {
    "id": "s03",
-   "start": 4.54,
-   "end": 6.119,
+   "start": 4.65,
+   "end": 6.71,
    "lyrics": "Igo, on est voué à l'enfer,",
    "line": "Igo, on est voué à l'enfer, l'ascenseur est en panne au paradis",
-   "part": "1/2",
    "template": "elevator",
    "style": "flat2d",
    "reading": "symbolic",
-   "description": "l'ascenseur file vers l'enfer / reste coincé au paradis — cage d'ascenseur",
+   "description": "voué à l'enfer : l'ascenseur descend à -∞, les portes s'ouvrent sur le feu au mot « enfer », les lettres tombent",
    "characters": [
     "—"
    ],
@@ -239,37 +226,31 @@
     "pos": "top",
     "text": "Igo, on est / voué à / l'enfer,",
     "words": [
-     4.66,
-     5.42,
-     5.58,
-     5.74,
-     5.9,
-     6.04
+     4.77,
+     5.05,
+     5.22,
+     5.48,
+     5.91,
+     5.99
     ],
     "important": "enfer",
     "impact": 6.316,
-    "preset": "lettersRain",
-    "intensity": 0.91,
-    "why": "les lettres tombent vers l'enfer et s'effondrent",
-    "outAt": 5.799
+    "preset": "fromFar",
+    "intensity": 1.1,
+    "outAt": 11.71
    },
    "params": {
     "mode": "hell"
    },
+   "cues": {
+    "open": "enfer"
+   },
    "sfx": [],
    "analysis": {
-    "sense": {
-     "hell": 1
-    },
-    "intensity": 0.062,
     "important": "enfer",
     "impact": 6.316,
-    "scores": {
-     "elevator": 1.8,
-     "stairwell3d": 0.0,
-     "stage3d_name": 0.0,
-     "social_reject": 0.0
-    }
+    "intent": "voué à l'enfer : l'ascenseur descend à -∞, les portes s'ouvrent sur le feu au mot « enfer », les lettres tombent",
+    "hold_after_last_word": 0.72
    },
    "transition_out": {
     "preset": "whipPan",
@@ -278,15 +259,14 @@
   },
   {
    "id": "s04",
-   "start": 6.119,
-   "end": 9.022,
+   "start": 6.71,
+   "end": 9.13,
    "lyrics": "l'ascenseur est en panne au paradis",
    "line": "Igo, on est voué à l'enfer, l'ascenseur est en panne au paradis",
-   "part": "2/2",
    "template": "elevator",
    "style": "flat2d",
    "reading": "symbolic",
-   "description": "l'ascenseur file vers l'enfer / reste coincé au paradis — cage d'ascenseur",
+   "description": "l'ascenseur du paradis est en panne : voyant PANNE qui clignote dès le mot « panne »",
    "characters": [
     "—"
    ],
@@ -310,169 +290,115 @@
     "pos": "top",
     "text": "l'ascenseur / est en panne / au paradis",
     "words": [
-     6.22,
-     6.78,
-     6.88,
-     7.28,
-     7.46,
-     7.66
+     6.83,
+     7.87,
+     8.16,
+     8.35,
+     8.57,
+     8.79
     ],
-    "important": "paradis",
-    "impact": 8.127,
+    "important": "panne",
+    "impact": 8.406,
     "preset": "tumble",
-    "intensity": 0.92,
-    "why": "les mots basculent : l'ascenseur est bloqué",
-    "outAt": 8.702
+    "intensity": 1.1,
+    "outAt": 14.13
    },
    "params": {
-    "mode": "stuck",
-    "shot": 2
+    "mode": "stuck"
+   },
+   "cues": {
+    "panne": "panne"
    },
    "sfx": [],
    "analysis": {
-    "sense": {
-     "paradise": 1,
-     "elevator": 1,
-     "stuck": 1
-    },
-    "intensity": 0.073,
-    "important": "paradis",
-    "impact": 8.127,
-    "scores": {
-     "elevator": 6.1,
-     "stairwell3d": 2.0,
-     "stage3d_name": 0.0,
-     "social_reject": 0.0
-    }
+    "important": "panne",
+    "impact": 8.406,
+    "intent": "l'ascenseur du paradis est en panne : voyant PANNE qui clignote dès le mot « panne »",
+    "hold_after_last_word": 0.34
    },
    "transition_out": {
-    "preset": "zoomThroughObject",
-    "cause": "la caméra plonge à travers un point du décor (ou une lettre)"
+    "preset": "perspectiveCube",
+    "cause": "on tourne la page du monde"
    }
   },
   {
    "id": "s05",
-   "start": 9.022,
-   "end": 11.21,
+   "start": 9.13,
+   "end": 13.81,
    "lyrics": "C'est bloqué? Ah bon? Bah j'vais bicrave dans l'escalier",
    "line": "C'est bloqué? Ah bon? Bah j'vais bicrave dans l'escalier",
-   "part": "1/1",
-   "template": "stairwell3d",
-   "style": "3d",
+   "template": "stairwell_2d",
+   "style": "flat2d",
    "reading": "literal",
-   "description": "il monte les marches — cage d'escalier de tour",
+   "description": "palier de cité : il appuie sur le bouton (« bloqué »), rubalise EN PANNE, il s'interroge (« ah bon »), puis prend l'escalier (« escalier »)",
    "characters": [
-    "personnage 3D"
+    "personnage en sweat noir"
    ],
    "objects": [
-    "escalier en colimaçon",
-    "néon"
+    "porte d'ascenseur",
+    "rubalise EN PANNE",
+    "bouton",
+    "escalier"
    ],
-   "decor": "cage d'escalier de tour",
+   "decor": "palier d'immeuble de cité",
    "camera": {
-    "label": "caméra qui monte au centre en tournant"
+    "label": "suivi du personnage"
    },
    "animations": {
-    "main": "il monte les marches",
-    "secondary": "néon qui grésille"
+    "main": "il trouve l'ascenseur en panne et prend l'escalier",
+    "secondary": "bouton qui clignote, rubalise qui bouge"
    },
    "text": {
     "font": "Bebas Neue",
     "color": "#ffffff",
-    "accent": "#3ff0ff",
-    "pos": "upper",
+    "accent": "#ffd23f",
+    "pos": "top",
     "text": "C'est bloqué? / Ah bon? Bah / j'vais / bicrave dans / l'escalier",
     "words": [
-     9.16,
-     9.5,
-     9.62,
-     9.98,
-     10.22,
-     10.34,
-     10.44,
-     10.56,
-     10.66
+     9.25,
+     9.71,
+     10.33,
+     10.43,
+     10.78,
+     11.13,
+     11.75,
+     12.37,
+     12.78
     ],
-    "important": "Bah",
-    "impact": 10.286,
-    "preset": "stackPile",
-    "intensity": 0.93,
-    "why": "les mots s'empilent comme des marches",
-    "align": "center",
-    "outAt": 10.89
+    "important": "escalier",
+    "impact": 12.748,
+    "preset": "slideFriction",
+    "intensity": 1.1,
+    "outAt": 13.56
    },
    "params": {},
+   "cues": {
+    "blocked": "bloqué",
+    "shrug": "bon",
+    "stairs": "escalier"
+   },
    "sfx": [],
    "analysis": {
-    "sense": {
-     "stuck": 1,
-     "stairs": 1,
-     "sell": 1
-    },
-    "intensity": 0.083,
-    "important": "Bah",
-    "impact": 10.286,
-    "scores": {
-     "stairwell3d": 7.0,
-     "stage3d_name": 0.0,
-     "social_reject": 0.0,
-     "retro_phone": 0.0
-    }
+    "important": "escalier",
+    "impact": 12.748,
+    "intent": "palier de cité : il appuie sur le bouton (« bloqué »), rubalise EN PANNE, il s'interroge (« ah bon »), puis prend l'escalier (« escalier »)",
+    "hold_after_last_word": 1.03
    },
    "transition_out": {
-    "preset": "impactFlash",
-    "cause": "l'impact du texte au sol / un kick"
+    "preset": "starShape",
+    "cause": "éclat / célébrité"
    }
   },
   {
    "id": "s06",
-   "start": 11.21,
-   "end": 14.246,
-   "lyrics": "",
-   "line": "(instrumental)",
-   "part": "-",
-   "template": "city3d",
-   "style": "3d",
-   "reading": "symbolic",
-   "description": "respiration instrumentale — le héros traverse la foule à contre-sens puis se retourne",
-   "characters": [
-    "héros lumineux (3D)",
-    "foule grise alignée (3D)"
-   ],
-   "objects": [
-    "lampadaires"
-   ],
-   "decor": "rue de nuit, brouillard, colonnes de lumière",
-   "camera": {
-    "label": "orbite + dolly 3D"
-   },
-   "animations": {
-    "main": "le héros traverse la foule à contre-sens puis se retourne",
-    "secondary": "les têtes de la foule le suivent du regard"
-   },
-   "text": null,
-   "params": {},
-   "sfx": [],
-   "analysis": {
-    "sense": {},
-    "instrumental": true
-   },
-   "transition_out": {
-    "preset": "flyThrough",
-    "cause": "camera fly-through (on traverse l'écran)"
-   }
-  },
-  {
-   "id": "s07",
-   "start": 14.246,
-   "end": 17.0,
+   "start": 13.81,
+   "end": 17.77,
    "lyrics": "Président, dans l'hall j'ai vu l'ient-cli voter blanc",
    "line": "Président, dans l'hall j'ai vu l'ient-cli voter blanc",
-   "part": "1/1",
    "template": "ballot",
    "style": "editorial",
    "reading": "symbolic",
-   "description": "les bulletins blancs tombent dans l'urne — papier crème",
+   "description": "dans le hall, une urne : les bulletins tombent sur « voter », tampon BLANC sur « blanc »",
    "characters": [],
    "objects": [
     "urne",
@@ -495,40 +421,32 @@
     "shadow": "none",
     "text": "Président, / dans l'hall / j'ai vu / l'ient-cli / voter blanc",
     "words": [
-     14.34,
-     15.0,
-     15.08,
-     15.24,
-     15.32,
-     15.44,
-     15.58,
-     15.84
+     13.93,
+     14.56,
+     14.87,
+     15.46,
+     15.75,
+     16.05,
+     16.69,
+     17.33
     ],
     "important": "blanc",
-    "impact": 15.89,
+    "impact": 17.36,
     "preset": "slotMachine",
-    "intensity": 0.94,
-    "why": "le vote défile comme un compteur",
-    "outAt": 16.68
+    "intensity": 1.1,
+    "outAt": 22.77
    },
    "params": {},
+   "cues": {
+    "vote": "voter",
+    "stamp": "blanc"
+   },
    "sfx": [],
    "analysis": {
-    "sense": {
-     "vote": 1,
-     "blank": 1,
-     "president": 1,
-     "hall": 1
-    },
-    "intensity": 0.086,
     "important": "blanc",
-    "impact": 15.89,
-    "scores": {
-     "ballot": 10.0,
-     "social_reject": 0.0,
-     "school": 0.0,
-     "room_phone": 0.0
-    }
+    "impact": 17.36,
+    "intent": "dans le hall, une urne : les bulletins tombent sur « voter », tampon BLANC sur « blanc »",
+    "hold_after_last_word": 0.44
    },
    "transition_out": {
     "preset": "liquid",
@@ -536,16 +454,15 @@
    }
   },
   {
-   "id": "s08",
-   "start": 17.0,
-   "end": 19.9,
+   "id": "s07",
+   "start": 17.77,
+   "end": 20.09,
    "lyrics": "Ounga, ounga, ounga, ouais",
    "line": "Ounga, ounga, ounga, ouais",
-   "part": "1/1",
    "template": "jungle_beat",
    "style": "cartoon",
    "reading": "literal",
-   "description": "il danse, les tambours frappent — jungle dessinée",
+   "description": "« ounga » : jungle, les tambours sont frappés sur chaque « ounga », il danse",
    "characters": [
     "personnage cartoon qui danse"
    ],
@@ -569,52 +486,43 @@
     "shadow": "5px 6px 0 #0c2414",
     "text": "Ounga, ounga, / ounga, ouais",
     "words": [
-     17.12,
-     18.42,
-     18.74,
-     19.24
+     17.89,
+     18.44,
+     19.04,
+     19.64
     ],
-    "important": "ounga",
-    "impact": 18.855,
+    "important": "ouais",
+    "impact": 19.67,
     "preset": "squashStretch",
-    "intensity": 0.95,
-    "why": "les mots rebondissent comme des tambours",
-    "outAt": 19.58
+    "intensity": 1.1,
+    "outAt": 25.09
    },
    "params": {},
+   "cues": {
+    "hits": "all:ounga"
+   },
    "sfx": [],
    "analysis": {
-    "sense": {
-     "ounga": 3,
-     "tribal": 3,
-     "repeat": 3
-    },
-    "intensity": 0.105,
-    "important": "ounga",
-    "impact": 18.855,
-    "scores": {
-     "jungle_beat": 12.0,
-     "crew_beats": 4.0,
-     "stage3d_name": 0.0,
-     "social_reject": 0.0
-    }
+    "important": "ouais",
+    "impact": 19.67,
+    "intent": "« ounga » : jungle, les tambours sont frappés sur chaque « ounga », il danse",
+    "hold_after_last_word": 0.45
    },
    "transition_out": {
-    "preset": "perspectiveCube",
-    "cause": "on tourne la page du monde"
+    "preset": "splitReveal",
+    "cause": "l'image s'ouvre en deux"
    }
   },
   {
-   "id": "s09",
-   "start": 19.9,
-   "end": 22.06,
+   "id": "s08",
+   "start": 20.09,
+   "end": 22.29,
    "lyrics": "Mon gars, mon gars, mon gars, j'sers",
    "line": "Mon gars, mon gars, mon gars, j'sers",
-   "part": "1/1",
    "template": "crew_beats",
    "style": "flat2d",
    "reading": "literal",
-   "description": "les trois apparaissent un par un sur les impacts — scène sombre",
+   "description": "« mon gars ×3 » : un gars apparaît sous son projecteur à chaque « gars », ils se serrent la main sur « j'sers »",
    "characters": [
     "trois silhouettes"
    ],
@@ -636,121 +544,106 @@
     "pos": "top",
     "text": "Mon gars, mon / gars, mon / gars, j'sers",
     "words": [
-     20.02,
-     20.46,
-     20.72,
-     20.84,
-     21.0,
-     21.16,
-     21.46
+     20.21,
+     20.37,
+     20.53,
+     20.69,
+     20.85,
+     21.215,
+     21.58
     ],
     "important": "gars",
-    "impact": 21.2,
+    "impact": 20.4,
     "preset": "impactPunch",
-    "intensity": 0.97,
-    "why": "chaque « mon gars » frappe sur un impact",
-    "outAt": 21.74
+    "intensity": 1.1,
+    "outAt": 27.29
    },
    "params": {},
+   "cues": {
+    "guys": "all:gars",
+    "serve": "sers"
+   },
    "sfx": [],
    "analysis": {
-    "sense": {
-     "crew": 3,
-     "repeat": 3
-    },
-    "intensity": 0.118,
     "important": "gars",
-    "impact": 21.2,
-    "scores": {
-     "crew_beats": 10.0,
-     "stage3d_name": 0.0,
-     "social_reject": 0.0,
-     "school": 0.0
-    }
+    "impact": 20.4,
+    "intent": "« mon gars ×3 » : un gars apparaît sous son projecteur à chaque « gars », ils se serrent la main sur « j'sers »",
+    "hold_after_last_word": 0.71
    },
    "transition_out": {
-    "preset": "glitch",
-    "cause": "interface / réseau social"
+    "preset": "rotateSpin",
+    "cause": "rotation de caméra"
+   }
+  },
+  {
+   "id": "s09",
+   "start": 22.29,
+   "end": 24.7,
+   "lyrics": "Du taga taga à vé-Her",
+   "line": "Du taga taga à vé-Her",
+   "template": "speaker",
+   "style": "graphic",
+   "reading": "symbolic",
+   "description": "« taga taga » : l'enceinte géante pompe sur chaque « taga », ondes de choc",
+   "characters": [],
+   "objects": [
+    "enceinte géante",
+    "ondes de choc"
+   ],
+   "decor": "mur sombre néon vert",
+   "camera": {
+    "label": "dolly + secousses"
+   },
+   "animations": {
+    "main": "l'enceinte pompe sur chaque « taga »",
+    "secondary": "ondes, poussière qui saute"
+   },
+   "text": {
+    "font": "Russo One",
+    "color": "#e9fff0",
+    "accent": "#2ecc71",
+    "pos": "top",
+    "shadow": "0 0 22px rgba(46,204,113,.7)",
+    "text": "Du taga taga / à vé-Her",
+    "words": [
+     22.41,
+     22.71,
+     23.4,
+     24.09,
+     24.31
+    ],
+    "important": "taga",
+    "impact": 22.825,
+    "preset": "beatJelly",
+    "intensity": 1.1,
+    "outAt": 29.7
+   },
+   "params": {},
+   "cues": {
+    "taga": "all:taga"
+   },
+   "sfx": [],
+   "analysis": {
+    "important": "taga",
+    "impact": 22.825,
+    "intent": "« taga taga » : l'enceinte géante pompe sur chaque « taga », ondes de choc",
+    "hold_after_last_word": 0.39
+   },
+   "transition_out": {
+    "preset": "irisFromPoint",
+    "cause": "s'ouvre depuis un objet lumineux"
    }
   },
   {
    "id": "s10",
-   "start": 22.06,
-   "end": 24.0,
-   "lyrics": "Du taga taga à vé-Her",
-   "line": "Du taga taga à vé-Her",
-   "part": "1/1",
-   "template": "phone_ui",
-   "style": "neon",
-   "reading": "literal",
-   "description": "les deux avatars se rejoignent, étincelles — interface sociale néon",
-   "characters": [
-    "deux avatars"
-   ],
-   "objects": [
-    "bulles de commentaires",
-    "compteur",
-    "réactions"
-   ],
-   "decor": "interface sociale néon",
-   "camera": {
-    "label": "dolly arrière"
-   },
-   "animations": {
-    "main": "les deux avatars se rejoignent, étincelles",
-    "secondary": "bulles qui poppent, compteur calé sur les kicks, cœurs qui montent"
-   },
-   "text": {
-    "font": "Russo One",
-    "color": "#e9fdff",
-    "accent": "#ff3fb4",
-    "pos": "top",
-    "shadow": "0 0 22px rgba(63,240,255,.8)",
-    "text": "Du taga taga / à vé-Her",
-    "words": [
-     22.18,
-     22.6,
-     22.98,
-     23.42,
-     23.64
-    ],
-    "important": "taga",
-    "impact": 22.825,
-    "preset": "progressive",
-    "intensity": 1.01,
-    "why": "variation (aucune règle du lexique)",
-    "outAt": 23.68
-   },
-   "params": {},
-   "sfx": [],
-   "analysis": {
-    "sense": {},
-    "intensity": 0.165,
-    "important": "taga",
-    "impact": 22.825,
-    "scores": {
-     "phone_ui": 0.0,
-     "night_drive": 0.0,
-     "editorial": 0.0,
-     "color_split": 0.0
-    }
-   },
-   "transition_out": {
-    "preset": "glitch",
-    "cause": "interface / réseau social"
-   }
-  },
-  {
-   "id": "s11",
-   "start": 24.0,
-   "end": 27.3,
+   "start": 24.7,
+   "end": 27.49,
    "lyrics": "En jaune ou en vert, nique sa mère",
    "line": "En jaune ou en vert, nique sa mère",
-   "part": "1/1",
    "template": "color_split",
    "style": "graphic",
    "reading": "symbolic",
-   "description": "la frontière bascule sur chaque kick — écran jaune / vert",
+   "description": "l'écran devient jaune sur « jaune », vert sur « vert », se fissure sur « nique sa mère »",
    "characters": [],
    "objects": [
     "frontière ondulante",
@@ -777,57 +670,49 @@
     },
     "text": "En jaune ou / en vert, / nique sa mère",
     "words": [
-     24.12,
-     24.88,
-     25.22,
-     25.38,
-     25.56,
-     25.74,
-     25.94,
-     26.18
+     24.82,
+     25,
+     25.46,
+     25.64,
+     25.82,
+     26.46,
+     26.95,
+     27.1
     ],
     "important": "vert",
     "impact": 25.867,
     "preset": "stretchX",
-    "intensity": 0.95,
-    "why": "les mots s'étirent d'une couleur à l'autre",
-    "outAt": 26.98
+    "intensity": 1.1,
+    "outAt": 32.49
    },
    "params": {},
+   "cues": {
+    "yellow": "jaune",
+    "green": "vert",
+    "crack": "nique"
+   },
    "sfx": [],
    "analysis": {
-    "sense": {
-     "insult": 1,
-     "colors": 2,
-     "yellow": 1,
-     "green": 1
-    },
-    "intensity": 0.096,
     "important": "vert",
     "impact": 25.867,
-    "scores": {
-     "color_split": 14.0,
-     "social_reject": 1.8,
-     "stage3d_name": 0.0,
-     "school": 0.0
-    }
+    "intent": "l'écran devient jaune sur « jaune », vert sur « vert », se fissure sur « nique sa mère »",
+    "hold_after_last_word": 0.39
    },
    "transition_out": {
-    "preset": "starShape",
-    "cause": "éclat / célébrité"
+    "preset": "dropFall",
+    "cause": "le décor tombe (gravité)"
    }
   },
   {
-   "id": "s12",
-   "start": 27.3,
-   "end": 30.49,
-   "lyrics": "La famille a faim, pas l'temps d'raconter ma life, trêve de balivernes",
+   "id": "s11",
+   "start": 27.49,
+   "end": 28.5,
+   "lyrics": "La famille a faim,",
    "line": "La famille a faim, pas l'temps d'raconter ma life, trêve de balivernes",
-   "part": "1/1",
    "template": "kitchen_clock",
    "style": "flat2d",
    "reading": "literal",
-   "description": "le frigo s'ouvre sur du vide — cuisine de nuit",
+   "description": "« la famille a faim » : le frigo s'ouvre sur des étagères vides au mot « faim »",
    "characters": [],
    "objects": [
     "frigo vide",
@@ -847,87 +732,93 @@
     "color": "#ffffff",
     "accent": "#ffb03a",
     "pos": "top",
-    "text": "La famille a / faim, pas / l'temps / d'raconter ma / life, trêve / de balivernes",
+    "text": "La famille a / faim,",
     "words": [
-     27.42,
-     27.88,
-     28.26,
-     28.52,
-     28.78,
-     28.8,
-     28.8,
-     28.96,
-     29.08,
-     29.5,
-     29.74,
-     29.94
+     27.61,
+     27.67,
+     28.02,
+     28.25
     ],
-    "important": "temps",
-    "impact": 29.327,
+    "important": "faim",
+    "impact": 28.375,
     "preset": "typewriter",
-    "intensity": 1.01,
-    "why": "le temps file, le texte se tape",
-    "outAt": 30.17
+    "intensity": 1.1,
+    "outAt": 33.5
    },
    "params": {},
+   "cues": {
+    "open": "faim"
+   },
    "sfx": [],
    "analysis": {
-    "sense": {
-     "reject": 1,
-     "two": 1,
-     "family": 1,
-     "hunger": 1,
-     "time": 1,
-     "life": 1,
-     "refuse": 1
-    },
-    "intensity": 0.16,
-    "important": "temps",
-    "impact": 29.327,
-    "scores": {
-     "kitchen_clock": 10.5,
-     "social_reject": 3.0,
-     "duo_walk": 3.0,
-     "balcony": 2.0
-    }
+    "important": "faim",
+    "impact": 28.375,
+    "intent": "« la famille a faim » : le frigo s'ouvre sur des étagères vides au mot « faim »",
+    "hold_after_last_word": 0.25
    },
    "transition_out": {
-    "preset": "splitReveal",
-    "cause": "l'image s'ouvre en deux"
+    "preset": "whipPan",
+    "cause": "mouvement de caméra (panoramique filé)"
    }
   },
   {
-   "id": "s13",
-   "start": 30.49,
-   "end": 32.242,
-   "lyrics": "",
-   "line": "(instrumental)",
-   "part": "-",
-   "template": "club",
-   "style": "neon",
+   "id": "s12",
+   "start": 28.5,
+   "end": 32.17,
+   "lyrics": "pas l'temps d'raconter ma life, trêve de balivernes",
+   "line": "La famille a faim, pas l'temps d'raconter ma life, trêve de balivernes",
+   "template": "kitchen_clock",
+   "style": "flat2d",
    "reading": "literal",
-   "description": "respiration instrumentale — la piste s'allume sur les kicks",
-   "characters": [
-    "danseurs en silhouette"
-   ],
+   "description": "« pas l'temps » : gros plan sur l'horloge qui s'emballe, le carnet de sa vie claque sur « balivernes »",
+   "characters": [],
    "objects": [
-    "dalles lumineuses",
-    "lasers"
+    "frigo vide",
+    "horloge",
+    "assiette vide"
    ],
-   "decor": "boîte de nuit",
+   "decor": "cuisine de nuit",
    "camera": {
-    "label": "roulis + secousses"
+    "label": "panoramique"
    },
    "animations": {
-    "main": "la piste s'allume sur les kicks",
-    "secondary": "lasers et danseurs"
+    "main": "le frigo s'ouvre sur du vide",
+    "secondary": "l'horloge s'emballe"
    },
-   "text": null,
-   "params": {},
+   "text": {
+    "font": "Anton",
+    "color": "#ffffff",
+    "accent": "#ffb03a",
+    "pos": "top",
+    "text": "pas l'temps / d'raconter ma / life, trêve / de balivernes",
+    "words": [
+     28.48,
+     28.63,
+     28.98,
+     29.48,
+     29.57,
+     30.06,
+     30.725,
+     31.39
+    ],
+    "important": "balivernes",
+    "impact": 31.42,
+    "preset": "windDisperse",
+    "intensity": 1.1,
+    "outAt": 37.17
+   },
+   "params": {
+    "shot": 2
+   },
+   "cues": {
+    "slam": "balivernes"
+   },
    "sfx": [],
    "analysis": {
-    "sense": {},
-    "instrumental": true
+    "important": "balivernes",
+    "impact": 31.42,
+    "intent": "« pas l'temps » : gros plan sur l'horloge qui s'emballe, le carnet de sa vie claque sur « balivernes »",
+    "hold_after_last_word": 0.78
    },
    "transition_out": {
     "preset": "flyThrough",
@@ -935,16 +826,73 @@
    }
   },
   {
-   "id": "s14",
-   "start": 32.242,
-   "end": 34.45,
-   "lyrics": "J'veux pas d'câlin, j'suis qu'un glaçon sous string ficelle",
+   "id": "s13",
+   "start": 32.17,
+   "end": 33.47,
+   "lyrics": "J'veux pas d'câlin,",
    "line": "J'veux pas d'câlin, j'suis qu'un glaçon sous string ficelle",
-   "part": "1/1",
+   "template": "hug_refuse",
+   "style": "flat2d",
+   "reading": "literal",
+   "description": "« pas d'câlin » : elle ouvre les bras, il recule et lève la main, l'air se refroidit",
+   "characters": [
+    "elle (rose)",
+    "lui (sweat noir)"
+   ],
+   "objects": [
+    "givre"
+   ],
+   "decor": "pièce bleue froide",
+   "camera": {
+    "label": "dolly avant"
+   },
+   "animations": {
+    "main": "elle ouvre les bras, il recule et lève la main",
+    "secondary": "l'air se refroidit, givre"
+   },
+   "text": {
+    "font": "Anton",
+    "color": "#ffffff",
+    "accent": "#7fb8ff",
+    "pos": "top",
+    "text": "J'veux pas / d'câlin,",
+    "words": [
+     32.29,
+     32.69,
+     32.92
+    ],
+    "important": "câlin",
+    "impact": 32.833,
+    "preset": "elastic",
+    "intensity": 1.1,
+    "outAt": 38.47
+   },
+   "params": {},
+   "cues": {
+    "hug": "câlin"
+   },
+   "sfx": [],
+   "analysis": {
+    "important": "câlin",
+    "impact": 32.833,
+    "intent": "« pas d'câlin » : elle ouvre les bras, il recule et lève la main, l'air se refroidit",
+    "hold_after_last_word": 0.55
+   },
+   "transition_out": {
+    "preset": "zoomThroughObject",
+    "cause": "la caméra plonge à travers un point du décor (ou une lettre)"
+   }
+  },
+  {
+   "id": "s14",
+   "start": 33.47,
+   "end": 36.33,
+   "lyrics": "j'suis qu'un glaçon sous string ficelle",
+   "line": "J'veux pas d'câlin, j'suis qu'un glaçon sous string ficelle",
    "template": "ice3d",
    "style": "3d",
    "reading": "symbolic",
-   "description": "le glaçon tourne et fond — sol sombre glacé",
+   "description": "« qu'un glaçon » : un glaçon géant en 3D tourne et fond",
    "characters": [],
    "objects": [
     "glaçon géant",
@@ -964,163 +912,107 @@
     "accent": "#3ff0ff",
     "pos": "top",
     "shadow": "0 0 20px rgba(63,240,255,.6)",
-    "text": "J'veux pas / d'câlin, / j'suis qu'un / glaçon sous / string / ficelle",
+    "text": "j'suis qu'un / glaçon sous / string / ficelle",
     "words": [
-     32.32,
-     32.32,
-     32.56,
-     32.76,
-     32.88,
-     33.62,
-     33.62,
-     33.76,
-     33.9
+     33.59,
+     34.04,
+     34.41,
+     34.87,
+     35.17,
+     35.76
     ],
     "important": "glaçon",
-    "impact": 33.67,
+    "impact": 34.44,
     "preset": "compress",
-    "intensity": 1.04,
-    "why": "le texte se fige et se compresse comme de la glace",
-    "outAt": 34.13
+    "intensity": 1.1,
+    "outAt": 41.33
    },
    "params": {},
+   "cues": {},
    "sfx": [],
    "analysis": {
-    "sense": {
-     "reject": 2,
-     "want": 1,
-     "clothes": 2,
-     "cold": 1,
-     "ice": 1,
-     "refuse": 1
-    },
-    "intensity": 0.188,
     "important": "glaçon",
-    "impact": 33.67,
-    "scores": {
-     "ice3d": 7.5,
-     "social_reject": 6.0,
-     "wardrobe": 1.6,
-     "balcony": 0.8
-    }
+    "impact": 34.44,
+    "intent": "« qu'un glaçon » : un glaçon géant en 3D tourne et fond",
+    "hold_after_last_word": 0.57
    },
    "transition_out": {
-    "preset": "particles",
-    "cause": "l'image se dissout en points"
+    "preset": "flyThrough",
+    "cause": "camera fly-through (on traverse l'écran)"
    }
   },
   {
    "id": "s15",
-   "start": 34.45,
-   "end": 36.886,
-   "lyrics": "",
-   "line": "(instrumental)",
-   "part": "-",
-   "template": "color_split",
-   "style": "graphic",
+   "start": 36.33,
+   "end": 38.39,
+   "lyrics": "Oh, non mais oh",
+   "line": "Oh, non mais oh",
+   "template": "balcony",
+   "style": "flat2d",
    "reading": "symbolic",
-   "description": "respiration instrumentale — la frontière bascule sur chaque kick",
-   "characters": [],
-   "objects": [
-    "frontière ondulante",
-    "ronds"
+   "description": "« oh, non mais oh » : au balcon, il lève les bras, indigné",
+   "characters": [
+    "silhouette au balcon"
    ],
-   "decor": "écran jaune / vert",
+   "objects": [
+    "rose",
+    "balcon",
+    "lune"
+   ],
+   "decor": "façade de nuit",
    "camera": {
-    "label": "roulis"
+    "label": "caméra qui monte"
    },
    "animations": {
-    "main": "la frontière bascule sur chaque kick",
-    "secondary": "ronds qui roulent"
+    "main": "la rose est lancée, il se détourne",
+    "secondary": "la rose retombe"
    },
-   "text": null,
-   "params": {},
+   "text": {
+    "font": "Cinzel",
+    "color": "#f6e7b8",
+    "accent": "#e8253c",
+    "pos": "top",
+    "text": "Oh, non mais / oh",
+    "words": [
+     36.45,
+     36.77,
+     37.32,
+     38.06
+    ],
+    "important": "non",
+    "impact": 36.827,
+    "preset": "impactPunch",
+    "intensity": 1.1,
+    "outAt": 43.39
+   },
+   "params": {
+    "shot": 1
+   },
+   "cues": {
+    "outrage": "non"
+   },
    "sfx": [],
    "analysis": {
-    "sense": {},
-    "instrumental": true
+    "important": "non",
+    "impact": 36.827,
+    "intent": "« oh, non mais oh » : au balcon, il lève les bras, indigné",
+    "hold_after_last_word": 0.33
    },
    "transition_out": {
-    "preset": "rotateSpin",
-    "cause": "rotation de caméra"
+    "preset": "perspectiveCube",
+    "cause": "on tourne la page du monde"
    }
   },
   {
    "id": "s16",
-   "start": 36.886,
-   "end": 38.16,
-   "lyrics": "Oh, non mais oh",
-   "line": "Oh, non mais oh",
-   "part": "1/1",
-   "template": "editorial",
-   "style": "editorial",
-   "reading": "symbolic",
-   "description": "le ticket s'imprime ligne à ligne — papier crème, grille",
-   "characters": [],
-   "objects": [
-    "ticket de caisse",
-    "étiquette de prix",
-    "formes géométriques"
-   ],
-   "decor": "papier crème, grille",
-   "camera": {
-    "label": "zoom brutal (crash zoom)"
-   },
-   "animations": {
-    "main": "le ticket s'imprime ligne à ligne",
-    "secondary": "l'étiquette se balance, les formes glissent"
-   },
-   "text": {
-    "font": "Archivo Black",
-    "color": "#1b1a17",
-    "accent": "#e8452c",
-    "pos": "top",
-    "text": "Oh, non mais / oh",
-    "words": [
-     36.94,
-     37.4,
-     37.54,
-     37.74
-    ],
-    "important": "non",
-    "impact": 37.686,
-    "preset": "lettersRain",
-    "intensity": 0.99,
-    "why": "variation (aucune règle du lexique)",
-    "outAt": 37.84
-   },
-   "params": {},
-   "sfx": [],
-   "analysis": {
-    "sense": {
-     "refuse": 1
-    },
-    "intensity": 0.145,
-    "important": "non",
-    "impact": 37.686,
-    "scores": {
-     "editorial": 0.0,
-     "duo_walk": 0.0,
-     "club": 0.0,
-     "bubble": 0.0
-    }
-   },
-   "transition_out": {
-    "preset": "irisFromPoint",
-    "cause": "s'ouvre depuis un objet lumineux"
-   }
-  },
-  {
-   "id": "s17",
-   "start": 38.16,
-   "end": 39.97,
+   "start": 38.39,
+   "end": 41.58,
    "lyrics": "Elle m'a pris pour qui, pour Romeo?",
    "line": "Elle m'a pris pour qui, pour Romeo?",
-   "part": "1/1",
    "template": "balcony",
    "style": "flat2d",
    "reading": "symbolic",
-   "description": "la rose est lancée, il se détourne — façade de nuit",
+   "description": "« pour Roméo ? » : une rose est lancée vers le balcon, il se détourne sur « Roméo », la rose retombe",
    "characters": [
     "silhouette au balcon"
    ],
@@ -1144,91 +1036,48 @@
     "pos": "top",
     "text": "Elle m'a pris / pour qui, / pour Romeo?",
     "words": [
-     38.28,
+     38.51,
      38.66,
-     38.82,
-     38.94,
-     39.04,
-     39.26,
-     39.42
+     38.76,
+     38.91,
+     39.06,
+     39.36,
+     40.37
     ],
     "important": "Romeo",
-    "impact": 39.47,
-    "preset": "elastic",
-    "intensity": 1.07,
-    "why": "la question rebondit, ironique",
-    "outAt": 39.65
+    "impact": 40.4,
+    "preset": "rollIn",
+    "intensity": 1.1,
+    "outAt": 41.33
    },
-   "params": {},
+   "params": {
+    "shot": 2
+   },
+   "cues": {
+    "rose": "romeo"
+   },
    "sfx": [],
    "analysis": {
-    "sense": {
-     "romeo": 1
-    },
-    "intensity": 0.219,
     "important": "Romeo",
-    "impact": 39.47,
-    "scores": {
-     "balcony": 3.0,
-     "stage3d_name": 0.0,
-     "social_reject": 0.0,
-     "school": 0.0
-    }
+    "impact": 40.4,
+    "intent": "« pour Roméo ? » : une rose est lancée vers le balcon, il se détourne sur « Roméo », la rose retombe",
+    "hold_after_last_word": 1.21
    },
    "transition_out": {
-    "preset": "perspectiveCube",
-    "cause": "on tourne la page du monde"
+    "preset": "liquid",
+    "cause": "encre / peinture qui envahit"
    }
   },
   {
-   "id": "s18",
-   "start": 39.97,
-   "end": 41.74,
-   "lyrics": "",
-   "line": "(instrumental)",
-   "part": "-",
-   "template": "city3d",
-   "style": "3d",
-   "reading": "symbolic",
-   "description": "respiration instrumentale — le héros traverse la foule à contre-sens puis se retourne",
-   "characters": [
-    "héros lumineux (3D)",
-    "foule grise alignée (3D)"
-   ],
-   "objects": [
-    "lampadaires"
-   ],
-   "decor": "rue de nuit, brouillard, colonnes de lumière",
-   "camera": {
-    "label": "orbite + dolly 3D"
-   },
-   "animations": {
-    "main": "le héros traverse la foule à contre-sens puis se retourne",
-    "secondary": "les têtes de la foule le suivent du regard"
-   },
-   "text": null,
-   "params": {},
-   "sfx": [],
-   "analysis": {
-    "sense": {},
-    "instrumental": true
-   },
-   "transition_out": {
-    "preset": "starShape",
-    "cause": "éclat / célébrité"
-   }
-  },
-  {
-   "id": "s19",
-   "start": 41.74,
-   "end": 46.52,
+   "id": "s17",
+   "start": 41.58,
+   "end": 46.57,
    "lyrics": "Non mais allô? Non mais allô?",
    "line": "Non mais allô? Non mais allô?",
-   "part": "1/1",
    "template": "retro_phone",
    "style": "cartoon",
    "reading": "literal",
-   "description": "le téléphone sonne en sautillant puis on décroche — fond jaune à cercles",
+   "description": "« non mais allô ? » : le vieux téléphone sonne en sautillant et on décroche au premier « allô »",
    "characters": [
     "main"
    ],
@@ -1252,54 +1101,45 @@
     "shadow": "none",
     "text": "Non mais / allô? Non / mais allô?",
     "words": [
-     41.86,
-     41.96,
-     42.28,
-     44.12,
-     44.3,
-     44.5
+     41.7,
+     42.27,
+     43.11,
+     44.37,
+     44.98,
+     45.79
     ],
     "important": "allô",
-    "impact": 44.489,
+    "impact": 43.14,
     "preset": "growTiny",
-    "intensity": 1.11,
-    "why": "chaque « allô » grossit comme une sonnerie",
-    "outAt": 46.2
+    "intensity": 1.1,
+    "outAt": 51.57
    },
    "params": {},
+   "cues": {
+    "pick": "allô"
+   },
    "sfx": [],
    "analysis": {
-    "sense": {
-     "call": 2,
-     "refuse": 2,
-     "hello": 2
-    },
-    "intensity": 0.265,
     "important": "allô",
-    "impact": 44.489,
-    "scores": {
-     "retro_phone": 10.0,
-     "room_phone": 4.8,
-     "stage3d_name": 0.0,
-     "social_reject": 0.0
-    }
+    "impact": 43.14,
+    "intent": "« non mais allô ? » : le vieux téléphone sonne en sautillant et on décroche au premier « allô »",
+    "hold_after_last_word": 0.78
    },
    "transition_out": {
-    "preset": "splitReveal",
-    "cause": "l'image s'ouvre en deux"
+    "preset": "glitch",
+    "cause": "interface / réseau social"
    }
   },
   {
-   "id": "s20",
-   "start": 46.52,
-   "end": 48.496,
+   "id": "s18",
+   "start": 46.57,
+   "end": 49.23,
    "lyrics": "J'laisse trace pour transe au WC",
    "line": "J'laisse trace pour transe au WC",
-   "part": "1/1",
    "template": "club",
    "style": "neon",
    "reading": "literal",
-   "description": "la piste s'allume sur les kicks — boîte de nuit",
+   "description": "« transe » : boîte de nuit, stroboscope qui part au mot « transe »",
    "characters": [
     "danseurs en silhouette"
    ],
@@ -1323,189 +1163,165 @@
     "shadow": "0 0 22px rgba(255,63,180,.7)",
     "text": "J'laisse / trace pour / transe au WC",
     "words": [
-     46.64,
-     46.8,
-     47.02,
-     47.42,
-     47.64,
-     47.94
+     46.69,
+     47.21,
+     47.79,
+     48.18,
+     48.66,
+     48.86
     ],
     "important": "transe",
-    "impact": 47.47,
-    "preset": "skewSnap",
-    "intensity": 0.9,
-    "why": "le texte titube et claque",
-    "outAt": 48.176
+    "impact": 48.21,
+    "preset": "rotateIn",
+    "intensity": 1.1,
+    "outAt": 54.23
    },
    "params": {},
+   "cues": {
+    "strobe": "transe"
+   },
    "sfx": [],
    "analysis": {
-    "sense": {
-     "party": 1,
-     "dance": 1,
-     "trance": 1
-    },
-    "intensity": 0.052,
     "important": "transe",
-    "impact": 47.47,
-    "scores": {
-     "club": 8.0,
-     "night_drive": 2.0,
-     "stage3d_name": 0.0,
-     "social_reject": 0.0
-    }
+    "impact": 48.21,
+    "intent": "« transe » : boîte de nuit, stroboscope qui part au mot « transe »",
+    "hold_after_last_word": 0.37
    },
    "transition_out": {
-    "preset": "particles",
-    "cause": "l'image se dissout en points"
+    "preset": "glitch",
+    "cause": "interface / réseau social"
    }
   },
   {
-   "id": "s21",
-   "start": 48.496,
-   "end": 51.12,
+   "id": "s19",
+   "start": 49.23,
+   "end": 51.45,
    "lyrics": "En LV totalement pété",
    "line": "En LV totalement pété",
-   "part": "1/1",
-   "template": "night_drive",
-   "style": "3d",
-   "reading": "literal",
-   "description": "la voiture traverse la ville — ville low-poly de nuit",
-   "characters": [],
-   "objects": [
-    "voiture low-poly",
-    "billets",
-    "lampadaires",
-    "lettres 3D au bord de la route"
-   ],
-   "decor": "ville low-poly de nuit",
-   "camera": {
-    "label": "caméra qui suit la voiture"
-   },
-   "animations": {
-    "main": "la voiture traverse la ville",
-    "secondary": "billets qui volent, reflets"
-   },
-   "text": {
-    "font": "Bebas Neue",
-    "color": "#ffffff",
-    "accent": "#ffd23f",
-    "pos": "top",
-    "text": "En LV / totalement / pété",
-    "words": [
-     48.519,
-     48.719,
-     49.84,
-     50.02
-    ],
-    "important": "pété",
-    "impact": 50.07,
-    "preset": "rollIn",
-    "intensity": 1.05,
-    "why": "variation (aucune règle du lexique)",
-    "outAt": 50.8
-   },
-   "params": {
-    "word3d": "PÉTÉ"
-   },
-   "sfx": [],
-   "analysis": {
-    "sense": {
-     "party": 1,
-     "luxury": 1,
-     "drunk": 1
-    },
-    "intensity": 0.198,
-    "important": "pété",
-    "impact": 50.07,
-    "scores": {
-     "night_drive": 2.0,
-     "stage3d_name": 0.0,
-     "school": 0.0,
-     "room_phone": 0.0
-    }
-   },
-   "transition_out": {
-    "preset": "rotateSpin",
-    "cause": "rotation de caméra"
-   }
-  },
-  {
-   "id": "s22",
-   "start": 51.12,
-   "end": 53.835,
-   "lyrics": "J'rentre coke dans les poches",
-   "line": "J'rentre coke dans les poches",
-   "part": "1/1",
-   "template": "duo_walk",
+   "template": "drunk_walk",
    "style": "flat2d",
    "reading": "literal",
-   "description": "les deux marchent côte à côte — rue de nuit violette, ville au loin",
+   "description": "« en LV totalement pété » : il titube avec son sac, la vision se dédouble sur « pété »",
    "characters": [
-    "silhouette",
-    "personnage en aplat rose"
+    "personnage en veste dorée"
    ],
    "objects": [
-    "réverbères"
+    "sac monogrammé",
+    "lampadaires"
    ],
-   "decor": "rue de nuit violette, ville au loin",
+   "decor": "rue de nuit",
    "camera": {
-    "label": "travelling latéral avec parallaxe, premier plan flou"
+    "label": "roulis + suivi"
    },
    "animations": {
-    "main": "les deux marchent côte à côte",
-    "secondary": "cônes de lumière qui défilent"
+    "main": "il titube",
+    "secondary": "vision dédoublée sur « pété »"
    },
    "text": {
     "font": "Anton",
     "color": "#ffffff",
-    "accent": "#ff6aa8",
+    "accent": "#e9b949",
     "pos": "top",
-    "text": "J'rentre coke / dans les / poches",
+    "text": "En LV / totalement / pété",
     "words": [
-     51.24,
-     51.24,
-     51.89,
-     52.54,
-     52.7
+     49.35,
+     49.59,
+     49.82,
+     51.01
     ],
-    "important": "rentre",
+    "important": "pété",
     "impact": 51.293,
     "preset": "explodeOut",
-    "intensity": 1.08,
-    "why": "variation (aucune règle du lexique)",
-    "outAt": 53.515
+    "intensity": 1.1,
+    "outAt": 56.45
    },
    "params": {},
+   "cues": {
+    "wasted": "pété"
+   },
    "sfx": [],
    "analysis": {
-    "sense": {},
-    "intensity": 0.232,
-    "important": "rentre",
+    "important": "pété",
     "impact": 51.293,
-    "scores": {
-     "duo_walk": 0.0,
-     "bubble": 0.0,
-     "city3d": -1.2,
-     "phone_ui": -3.2
-    }
+    "intent": "« en LV totalement pété » : il titube avec son sac, la vision se dédouble sur « pété »",
+    "hold_after_last_word": 0.44
    },
    "transition_out": {
-    "preset": "dropFall",
-    "cause": "le décor tombe (gravité)"
+    "preset": "starShape",
+    "cause": "éclat / célébrité"
    }
   },
   {
-   "id": "s23",
-   "start": 53.835,
-   "end": 55.462,
+   "id": "s20",
+   "start": 51.45,
+   "end": 53.6,
+   "lyrics": "J'rentre coke dans les poches",
+   "line": "J'rentre coke dans les poches",
+   "template": "walk_home",
+   "style": "flat2d",
+   "reading": "symbolic",
+   "description": "« j'rentre » : il rentre au bâtiment, la porte du hall s'ouvre sur « rentre » (rien de la drogue n'est montré)",
+   "characters": [
+    "personnage en sweat noir"
+   ],
+   "objects": [
+    "porte du hall",
+    "fenêtres"
+   ],
+   "decor": "immeuble de nuit",
+   "camera": {
+    "label": "dolly + suivi"
+   },
+   "animations": {
+    "main": "il rentre, la porte du hall s'ouvre",
+    "secondary": "lumière du hall"
+   },
+   "text": {
+    "font": "Bebas Neue",
+    "color": "#ffffff",
+    "accent": "#ffcf7a",
+    "pos": "top",
+    "text": "J'rentre coke / dans les / poches",
+    "words": [
+     51.57,
+     52.32,
+     52.64,
+     52.97,
+     53.21
+    ],
+    "important": "rentre",
+    "impact": 51.664,
+    "preset": "progressive",
+    "intensity": 1.1,
+    "outAt": 58.6
+   },
+   "params": {},
+   "cues": {
+    "home": "rentre",
+    "pockets": "poches"
+   },
+   "sfx": [],
+   "analysis": {
+    "important": "rentre",
+    "impact": 51.664,
+    "intent": "« j'rentre » : il rentre au bâtiment, la porte du hall s'ouvre sur « rentre » (rien de la drogue n'est montré)",
+    "hold_after_last_word": 0.39
+   },
+   "transition_out": {
+    "preset": "splitReveal",
+    "cause": "l'image s'ouvre en deux"
+   }
+  },
+  {
+   "id": "s21",
+   "start": 53.6,
+   "end": 55.46,
    "lyrics": "Quand p'tit frère part à l'école",
    "line": "Quand p'tit frère part à l'école",
-   "part": "1/1",
    "template": "school",
    "style": "flat2d",
    "reading": "literal",
-   "description": "il marche vers l'école — rue au lever du jour",
+   "description": "« p'tit frère part à l'école » : le matin, il marche avec son cartable, le bus passe sur « école »",
    "characters": [
     "petit frère avec cartable"
    ],
@@ -1530,53 +1346,45 @@
     "shadow": "none",
     "text": "Quand p'tit / frère part à / l'école",
     "words": [
-     53.955,
-     54.0,
-     54.0,
-     54.28,
-     54.65,
-     55.02
+     53.72,
+     54.06,
+     54.26,
+     54.52,
+     54.78,
+     54.86
     ],
     "important": "école",
-    "impact": 55.07,
+    "impact": 54.89,
     "preset": "sideSweep",
-    "intensity": 1.29,
-    "why": "les mots traversent comme le bus",
-    "outAt": 55.142
+    "intensity": 1.1,
+    "outAt": 60.46
    },
    "params": {},
+   "cues": {
+    "bus": "école"
+   },
    "sfx": [],
    "analysis": {
-    "sense": {
-     "school": 1,
-     "brother": 1
-    },
-    "intensity": 0.443,
     "important": "école",
-    "impact": 55.07,
-    "scores": {
-     "school": 3.8,
-     "stage3d_name": 0.0,
-     "social_reject": 0.0,
-     "ink_storm": 0.0
-    }
+    "impact": 54.89,
+    "intent": "« p'tit frère part à l'école » : le matin, il marche avec son cartable, le bus passe sur « école »",
+    "hold_after_last_word": 0.6
    },
    "transition_out": {
-    "preset": "irisFromPoint",
-    "cause": "s'ouvre depuis un objet lumineux"
+    "preset": "rotateSpin",
+    "cause": "rotation de caméra"
    }
   },
   {
-   "id": "s24",
-   "start": 55.462,
-   "end": 57.07,
+   "id": "s22",
+   "start": 55.46,
+   "end": 59.95,
    "lyrics": "J'suis dans ma bulle, bulle, bulle",
    "line": "J'suis dans ma bulle, bulle, bulle",
-   "part": "1/1",
    "template": "bubble",
    "style": "flat2d",
    "reading": "symbolic",
-   "description": "il flotte dans sa bulle — ciel du soir au-dessus de la ville",
+   "description": "« dans ma bulle » : il flotte dans sa bulle, une bulle éclate à chaque « bulle »",
    "characters": [
     "personnage dans une bulle"
    ],
@@ -1600,76 +1408,29 @@
     "case": "none",
     "text": "J'suis dans / ma bulle, / bulle, bulle",
     "words": [
-     55.54,
-     55.54,
-     55.86,
-     56.16,
-     56.34,
-     56.52
+     55.58,
+     55.9,
+     56.14,
+     56.4,
+     56.96,
+     57.6
     ],
     "important": "bulle",
-    "impact": 56.57,
+    "impact": 56.308,
     "preset": "burst",
-    "intensity": 1.24,
-    "why": "les bulles éclatent en particules",
-    "outAt": 56.75
+    "intensity": 1.1,
+    "outAt": 59.7
    },
    "params": {},
+   "cues": {
+    "pops": "all:bulle"
+   },
    "sfx": [],
    "analysis": {
-    "sense": {
-     "two": 1,
-     "bubble": 3,
-     "dream": 3,
-     "alone": 3
-    },
-    "intensity": 0.391,
     "important": "bulle",
-    "impact": 56.57,
-    "scores": {
-     "bubble": 11.8,
-     "stage3d_name": 0.0,
-     "social_reject": 0.0,
-     "ink_storm": 0.0
-    }
-   },
-   "transition_out": {
-    "preset": "whipPan",
-    "cause": "mouvement de caméra (panoramique filé)"
-   }
-  },
-  {
-   "id": "s25",
-   "start": 57.07,
-   "end": 59.95,
-   "lyrics": "",
-   "line": "(instrumental)",
-   "part": "-",
-   "template": "bubble",
-   "style": "flat2d",
-   "reading": "symbolic",
-   "description": "respiration instrumentale — il flotte dans sa bulle",
-   "characters": [
-    "personnage dans une bulle"
-   ],
-   "objects": [
-    "bulle géante",
-    "petites bulles"
-   ],
-   "decor": "ciel du soir au-dessus de la ville",
-   "camera": {
-    "label": "caméra qui monte"
-   },
-   "animations": {
-    "main": "il flotte dans sa bulle",
-    "secondary": "les bulles éclatent sur les kicks"
-   },
-   "text": null,
-   "params": {},
-   "sfx": [],
-   "analysis": {
-    "sense": {},
-    "instrumental": true
+    "impact": 56.308,
+    "intent": "« dans ma bulle » : il flotte dans sa bulle, une bulle éclate à chaque « bulle »",
+    "hold_after_last_word": 2.35
    },
    "transition_out": {
     "preset": null,

@@ -10,8 +10,9 @@
     @font-face { font-family: 'Tinos'; src: url('assets/fonts/Tinos-700.ttf'); font-display: block; }
     @font-face { font-family: 'Archivo Black'; src: url('assets/fonts/ArchivoBlack-400.ttf'); font-display: block; }
     
-    #root { position: absolute; inset: 0; overflow: hidden; background: #06121e; }
+    #root { position: absolute; inset: 0; overflow: hidden; }
     #s14-stage, #s14-stage .lay { position: absolute; inset: 0; }
+    #s14-stage { background: #06121e; }
     #s14-stage svg { overflow: visible; }
     #s14-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
   </style>
@@ -25,7 +26,7 @@
   <script>
     /* SceneTemplate « ice3d » — 3D : un glaçon géant transparent tourne sous une lumière froide, il fond lentement (gouttes), givre qui flotte ; la caméra tourne autour. */
     (function () {
-      const CFG = {"fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s14", "dur": 2.833, "t0": 31.967, "text": {"font": "Russo One", "color": "#e6f6ff", "accent": "#3ff0ff", "pos": "top", "shadow": "0 0 20px rgba(63,240,255,.6)", "text": "J'veux pas / d'câlin, / j'suis qu'un / glaçon sous / string / ficelle", "words": [32.32, 32.32, 32.56, 32.76, 32.88, 33.62, 33.62, 33.76, 33.9], "important": "glaçon", "impact": 33.67, "preset": "compress", "intensity": 1.04, "why": "le texte se fige et se compresse comme de la glace", "outAt": 34.13}, "params": {}, "camera": null, "tin": {"kind": "flyThrough", "delay": 0.25, "dur": 0.55}, "tout": {"kind": "particles", "color": "#ffffff", "dur": 0.7}};
+      const CFG = {"cues": {}, "fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s14", "dur": 3.435, "t0": 33.17, "text": {"font": "Russo One", "color": "#e6f6ff", "accent": "#3ff0ff", "pos": "top", "shadow": "0 0 20px rgba(63,240,255,.6)", "text": "j'suis qu'un / glaçon sous / string / ficelle", "words": [33.59, 34.04, 34.41, 34.87, 35.17, 35.76], "important": "glaçon", "impact": 34.44, "preset": "compress", "intensity": 1.1, "outAt": 41.33}, "params": {}, "camera": null, "tin": {"kind": "zoomOut", "from": 0.4, "delay": 0.34, "dur": 0.6}, "tout": {"kind": "zoomThrough", "to": 10, "dur": 0.55}};
       HFS.boot('s14', CFG, (sc, ctx) => {
         const P = ctx.P, sv = HFS.svg, m = HFS.m, E = HFS.ease;
 

@@ -10,8 +10,9 @@
     @font-face { font-family: 'Tinos'; src: url('assets/fonts/Tinos-700.ttf'); font-display: block; }
     @font-face { font-family: 'Archivo Black'; src: url('assets/fonts/ArchivoBlack-400.ttf'); font-display: block; }
     
-    #root { position: absolute; inset: 0; overflow: hidden; background: #f4e9e2; }
+    #root { position: absolute; inset: 0; overflow: hidden; }
     #s02-stage, #s02-stage .lay { position: absolute; inset: 0; }
+    #s02-stage { background: #f4e9e2; }
     #s02-stage svg { overflow: visible; }
     #s02-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
   </style>
@@ -25,7 +26,7 @@
   <script>
     /* SceneTemplate « wardrobe » — aplats : une penderie, les vêtements glissent sur la tringle, les cintres se balancent, une veste s'envole (physique) ; travelling latéral. */
     (function () {
-      const CFG = {"fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s02", "dur": 2.62, "t0": 2.08, "text": {"font": "Anton", "color": "#1b1a17", "accent": "#e8452c", "pos": "top", "shadow": "none", "text": "Pour dessaper / ta racli", "words": [2.5, 3.04, 3.56, 3.8], "important": "racli", "impact": 3.85, "preset": "impactPunch", "intensity": 0.93, "why": "variation (aucune règle du lexique)", "outAt": 4.22}, "params": {}, "camera": null, "tin": {"kind": "zoomOut", "from": 0.4, "delay": 0.34, "dur": 0.6}, "tout": {"kind": "whip", "dir": "left", "dur": 0.32}};
+      const CFG = {"cues": {"slide": [0.98], "fly": [1.89]}, "fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s02", "dur": 2.95, "t0": 1.86, "text": {"font": "Anton", "color": "#1b1a17", "accent": "#e8452c", "pos": "top", "shadow": "none", "text": "Pour dessaper / ta racli", "words": [2.28, 2.84, 3.295, 3.75], "important": "dessaper", "impact": 2.87, "preset": "skewSnap", "intensity": 1.1, "outAt": 4.4}, "params": {}, "camera": null, "tin": {"kind": "zoomOut", "from": 0.4, "delay": 0.34, "dur": 0.6}, "tout": {"kind": "whip", "dir": "left", "dur": 0.32}};
       HFS.boot('s02', CFG, (sc, ctx) => {
         const P = ctx.P, sv = HFS.svg, m = HFS.m, E = HFS.ease;
 
@@ -34,9 +35,9 @@
         sv('rect', { x: -200, y: 700, width: 1500, height: 16, rx: 8, fill: '#8a8a92' }, R);
         const hang = []; for (let i = 0; i < 9; i++) { const g = sv('g', {}, R); sv('path', { d: 'M 0 0 q 0 -26 18 -26 M 0 0 L -80 50 L 80 50 Z', fill: 'none', stroke: '#6a6a72', 'stroke-width': 6 }, g);
           sv('path', { d: 'M -80 50 L 80 50 L 95 380 L -95 380 Z', fill: cols[i % cols.length] }, g); sv('path', { d: 'M -80 50 L -120 200 L -95 210 M 80 50 L 120 200 L 95 210', stroke: cols[i % cols.length], 'stroke-width': 34, 'stroke-linecap': 'round' }, g); hang.push(g); }
-        const fly = 4;
-        sc.update(t => hang.forEach((g, i) => { const slide = -t * 240, x = 120 + i * 220 + slide, sw = Math.sin(t * 4 + i) * 6 + (i === fly ? 0 : 0);
-          if (i === fly && t > sc.dur * .35) { const u = t - sc.dur * .35, b = HFS.phys.ballistic(u, 500, -1400, 3600); g.setAttribute('transform', `translate(${x + b.x},${700 + b.y}) rotate(${u * 420})`); }
+        const fly = 4, tFly = ctx.cue('fly', 0, sc.dur * .35), tGo = ctx.cue('slide', 0, 0);
+        sc.update(t => hang.forEach((g, i) => { const slide = -Math.max(0, t - tGo) * 320, x = 120 + i * 220 + slide, sw = Math.sin(t * 4 + i) * 6 + (i === fly ? 0 : 0);
+          if (i === fly && t > tFly) { const u = t - tFly, b = HFS.phys.ballistic(u, 500, -1400, 3600); g.setAttribute('transform', `translate(${x + b.x},${700 + b.y}) rotate(${u * 420})`); }
           else g.setAttribute('transform', `translate(${x},${700}) rotate(${sw})`); }));
         HFS.camera(sc, [{ el: B, depth: .4 }, { el: R, depth: 1 }], Object.assign({ preset: 'truckLeft', amount: .5 }, CFG.camera || {}));
       });

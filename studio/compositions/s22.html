@@ -10,36 +10,37 @@
     @font-face { font-family: 'Tinos'; src: url('assets/fonts/Tinos-700.ttf'); font-display: block; }
     @font-face { font-family: 'Archivo Black'; src: url('assets/fonts/ArchivoBlack-400.ttf'); font-display: block; }
     
-    #root { position: absolute; inset: 0; overflow: hidden; background: #0d0a18; }
+    #root { position: absolute; inset: 0; overflow: hidden; }
     #s22-stage, #s22-stage .lay { position: absolute; inset: 0; }
+    #s22-stage { background: #1a2a5a; }
     #s22-stage svg { overflow: visible; }
+    #s22-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
   </style>
   <div id="root" data-composition-id="s22" data-width="1080" data-height="1920">
     <div id="s22-stage">
-      <svg id="s22-far" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="s22-bg" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <canvas id="s22-bub" class="lay" width="1080" height="1920"></canvas>
       <svg id="s22-mid" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
-      <svg id="s22-near" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
       <div id="s22-txt"></div>
     </div>
   </div>
   <script>
-    /* SceneTemplate « duo_walk » — deux personnages marchent côte à côte sous des réverbères (cônes de lumière qui
-       défilent en parallaxe, premier plan flou), l'un pose la main dans le dos de l'autre ; travelling latéral. */
+    /* SceneTemplate « bubble » — aplats rêveurs : le personnage flotte dans une grande bulle irisée, des bulles éclatent sur chaque kick, la ville en dessous s'éloigne ; caméra qui monte. */
     (function () {
-      const CFG = {"fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s22", "dur": 3.19, "t0": 50.895, "text": {"font": "Anton", "color": "#ffffff", "accent": "#ff6aa8", "pos": "top", "text": "J'rentre coke / dans les / poches", "words": [51.24, 51.24, 51.89, 52.54, 52.7], "important": "rentre", "impact": 51.293, "preset": "explodeOut", "intensity": 1.08, "why": "variation (aucune règle du lexique)", "outAt": 53.515}, "params": {}, "camera": null, "tin": {"kind": "rotate", "angle": -90, "dur": 0.45, "delay": 0.0}, "tout": {"kind": "fall", "dur": 0.5}};
+      const CFG = {"cues": {"pops": [1.165, 1.725, 2.365]}, "fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s22", "dur": 4.715, "t0": 55.235, "text": {"font": "Caveat Brush", "color": "#ffffff", "accent": "#ff6aa8", "pos": "top", "case": "none", "text": "J'suis dans / ma bulle, / bulle, bulle", "words": [55.58, 55.9, 56.14, 56.4, 56.96, 57.6], "important": "bulle", "impact": 56.308, "preset": "burst", "intensity": 1.1, "outAt": 59.7}, "params": {}, "camera": null, "tin": {"kind": "rotate", "angle": -90, "dur": 0.45, "delay": 0.0}, "tout": null};
       HFS.boot('s22', CFG, (sc, ctx) => {
-        const P = ctx.P, sv = HFS.svg, Fr = ctx.layer('far'), Md = ctx.layer('mid'), Nr = ctx.layer('near'), acc = P.accent || '#ff6aa8';
-        const grd = sv('linearGradient', { id: 's22-sky', x1: 0, y1: 0, x2: 0, y2: 1 }, Fr); [['0', '#1a1030'], ['.6', '#3a1a40'], ['1', '#120a1a']].forEach(([o, c]) => sv('stop', { offset: o, 'stop-color': c }, grd));
-        sv('rect', { x: -400, width: 1900, height: 1920, fill: 'url(#s22-sky)' }, Fr);
-        const city = sv('g', {}, Fr); for (let i = 0; i < 24; i++) { const h = 200 + (i * 97) % 380; sv('rect', { x: -400 + i * 80, y: 1380 - h, width: 74, height: h, fill: '#1c1428' }, city); }
-        sv('rect', { x: -400, y: 1380, width: 1900, height: 600, fill: '#140e1c' }, Md);
-        const lamps = sv('g', {}, Md); for (let i = 0; i < 8; i++) { const x = -300 + i * 330; sv('path', { d: `M ${x - 30} 640 L ${x + 30} 640 L ${x + 170} 1390 L ${x - 170} 1390 Z`, fill: i % 2 ? acc : '#ffd9a8', opacity: .14 }, lamps); sv('rect', { x: x + 50, y: 620, width: 10, height: 770, fill: '#241a30' }, lamps); sv('circle', { cx: x, cy: 640, r: 14, fill: '#fff4dc' }, lamps); }
-        const g = sv('g', {}, Md);
-        const A = HFS.char(g, { style: 'silhouette', scale: 1.0, track: [{ t: 0, act: 'walk', x: 300, y: 1400, speed: .9 }, { t: sc.dur, act: 'walk', x: 620 }] });
-        const B = HFS.char(g, { style: 'flat', scale: .94, look: { top: acc, top2: '#c24a80', bottom: '#2a1d36', skin: '#a8714f', hair: '#1a1014' }, track: [{ t: 0, act: 'walk', x: 420, y: 1405, speed: .9 }, { t: sc.dur, act: 'walk', x: 740 }] });
-        const near = sv('g', { opacity: .9 }, Nr); for (let i = 0; i < 5; i++) sv('rect', { x: -200 + i * 420, y: 0, width: 46, height: 1920, fill: '#06040a' }, near);
-        sc.update(t => { A.render(t); B.render(t); lamps.setAttribute('transform', `translate(${-t * 120},0)`); city.setAttribute('transform', `translate(${-t * 30},0)`); near.setAttribute('transform', `translate(${-t * 420},0)`); });
-        HFS.camera(sc, [{ el: Fr, depth: .3 }, { el: Md, depth: 1 }, { el: Nr, depth: 1.4, blur: 8 }], Object.assign({ preset: 'truckRight', amount: .6, follow: t => ({ x: -(A.x - 520) }), handheld: .5 }, CFG.camera || {}));
+        const P = ctx.P, sv = HFS.svg, m = HFS.m, E = HFS.ease;
+
+        const B = ctx.layer('bg'), M = ctx.layer('mid');
+        const gr = sv('linearGradient', { id: 's22-g', x1: 0, y1: 0, x2: 0, y2: 1 }, B); [['0', '#1a2a5a'], ['1', '#c86a9a']].forEach(([o, c]) => sv('stop', { offset: o, 'stop-color': c }, gr)); sv('rect', { width: 1080, height: 1920, fill: 'url(#s22-g)' }, B);
+        const city = sv('g', {}, B); for (let i = 0; i < 16; i++) { const hh = 160 + (i * 89) % 300; sv('rect', { x: i * 70, y: 1920 - hh, width: 64, height: hh, fill: '#2a1d40' }, city); }
+        const bub = sv('g', {}, M); sv('circle', { r: 300, fill: '#bfe8ff', opacity: .12, stroke: '#ffffff', 'stroke-width': 6 }, bub); sv('path', { d: 'M -200 -150 A 250 250 0 0 1 -60 -260', fill: 'none', stroke: '#fff', 'stroke-width': 14, 'stroke-linecap': 'round', opacity: .8 }, bub);
+        const inn = sv('g', {}, bub); const C = HFS.char(inn, { style: 'flat', scale: .7, look: { top: '#ff6aa8', top2: '#d84a88' }, track: [{ t: 0, act: 'sit', x: 0, y: 160 }] });
+        const ctx2 = ctx.layer('bub').getContext('2d'), r = HFS.m.rng('bs22'), bs = [...Array(26)].map(() => [r() * 1080, 1900 + r() * 400, 20 + r() * 60, .5 + r()]);
+        sc.update(t => { C.render(t); bub.setAttribute('transform', `translate(${540 + Math.sin(t) * 40},${980 - t * 40 + Math.sin(t * 1.7) * 20}) scale(${1 + sc.beat(t, 'kicks', 8) * .03})`); city.setAttribute('transform', `translate(0,${t * 60})`);
+          ctx2.clearRect(0, 0, 1080, 1920); const n = (HFS.audio.data.kicks || []).filter(x => x <= sc.t0 + t).length;
+          bs.forEach(([x, y0, rad, sp], i) => { const y = y0 - t * 300 * sp; const pop = (i + n) % 7 === 0 || (ctx.since(t, 'pops') >= 0 && ctx.since(t, 'pops') < .25 && i % 3 === ctx.count(t, 'pops') % 3); ctx2.globalAlpha = pop ? .9 : .35; ctx2.strokeStyle = '#ffffff'; ctx2.lineWidth = 4; ctx2.beginPath(); if (pop) { for (let k = 0; k < 8; k++) { const a = k / 8 * 6.28; ctx2.moveTo(x + Math.cos(a) * rad * .6, y + Math.sin(a) * rad * .6); ctx2.lineTo(x + Math.cos(a) * rad, y + Math.sin(a) * rad); } } else ctx2.arc(x, y, rad, 0, 6.28); ctx2.stroke(); }); });
+        HFS.camera(sc, [{ el: B, depth: .4 }, { el: ctx.layer('bub'), depth: .8 }, { el: M, depth: 1 }], Object.assign({ preset: 'pedestalUp', amount: .6 }, CFG.camera || {}));
       });
     })();
   </script>

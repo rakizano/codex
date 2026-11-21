@@ -1,0 +1,257 @@
+{
+ "_doc": "Réalisation phrase par phrase (modifiable). line = index de la phrase dans input/lyrics_sound.json (phrases du son), from/to = plage de mots (plusieurs plans pour une phrase), cues = actions déclenchées sur le mot chanté ('all:mot' = à chaque occurrence).",
+ "song": "PNL — Le monde ou rien",
+ "shots": [
+  {
+   "line": 0,
+   "template": "luxe_window",
+   "preset": "rebuild",
+   "important": "G",
+   "cues": {
+    "letters": [
+     "L",
+     "V",
+     "G"
+    ]
+   },
+   "intent": "il réclame du luxe : chaque lettre L, V, G s'allume sur sa vitrine au moment où il la prononce"
+  },
+  {
+   "line": 1,
+   "template": "wardrobe",
+   "preset": "skewSnap",
+   "important": "dessaper",
+   "cues": {
+    "slide": "dessaper",
+    "fly": "racli"
+   },
+   "intent": "« dessaper » : les vêtements glissent sur la tringle, une veste s'envole sur « racli »"
+  },
+  {
+   "line": 2,
+   "to": 6,
+   "template": "elevator",
+   "params": {
+    "mode": "hell"
+   },
+   "preset": "fromFar",
+   "important": "enfer",
+   "cues": {
+    "open": "enfer"
+   },
+   "intent": "voué à l'enfer : l'ascenseur descend à -∞, les portes s'ouvrent sur le feu au mot « enfer », les lettres tombent"
+  },
+  {
+   "line": 2,
+   "from": 6,
+   "template": "elevator",
+   "params": {
+    "mode": "stuck"
+   },
+   "preset": "tumble",
+   "important": "panne",
+   "cues": {
+    "panne": "panne"
+   },
+   "intent": "l'ascenseur du paradis est en panne : voyant PANNE qui clignote dès le mot « panne »"
+  },
+  {
+   "line": 3,
+   "template": "stairwell_2d",
+   "preset": "slideFriction",
+   "important": "escalier",
+   "cues": {
+    "blocked": "bloqué",
+    "shrug": "bon",
+    "stairs": "escalier"
+   },
+   "intent": "palier de cité : il appuie sur le bouton (« bloqué »), rubalise EN PANNE, il s'interroge (« ah bon »), puis prend l'escalier (« escalier »)"
+  },
+  {
+   "line": 4,
+   "template": "ballot",
+   "preset": "slotMachine",
+   "important": "blanc",
+   "cues": {
+    "vote": "voter",
+    "stamp": "blanc"
+   },
+   "intent": "dans le hall, une urne : les bulletins tombent sur « voter », tampon BLANC sur « blanc »"
+  },
+  {
+   "line": 5,
+   "template": "jungle_beat",
+   "preset": "squashStretch",
+   "important": "ouais",
+   "cues": {
+    "hits": "all:ounga"
+   },
+   "intent": "« ounga » : jungle, les tambours sont frappés sur chaque « ounga », il danse"
+  },
+  {
+   "line": 6,
+   "template": "crew_beats",
+   "preset": "impactPunch",
+   "important": "gars",
+   "cues": {
+    "guys": "all:gars",
+    "serve": "sers"
+   },
+   "intent": "« mon gars ×3 » : un gars apparaît sous son projecteur à chaque « gars », ils se serrent la main sur « j'sers »"
+  },
+  {
+   "line": 7,
+   "template": "speaker",
+   "preset": "beatJelly",
+   "important": "taga",
+   "cues": {
+    "taga": "all:taga"
+   },
+   "intent": "« taga taga » : l'enceinte géante pompe sur chaque « taga », ondes de choc"
+  },
+  {
+   "line": 8,
+   "template": "color_split",
+   "preset": "stretchX",
+   "important": "vert",
+   "cues": {
+    "yellow": "jaune",
+    "green": "vert",
+    "crack": "nique"
+   },
+   "intent": "l'écran devient jaune sur « jaune », vert sur « vert », se fissure sur « nique sa mère »"
+  },
+  {
+   "line": 9,
+   "to": 4,
+   "template": "kitchen_clock",
+   "preset": "typewriter",
+   "important": "faim",
+   "cues": {
+    "open": "faim"
+   },
+   "intent": "« la famille a faim » : le frigo s'ouvre sur des étagères vides au mot « faim »"
+  },
+  {
+   "line": 9,
+   "from": 4,
+   "template": "kitchen_clock",
+   "params": {
+    "shot": 2
+   },
+   "preset": "windDisperse",
+   "important": "balivernes",
+   "cues": {
+    "slam": "balivernes"
+   },
+   "intent": "« pas l'temps » : gros plan sur l'horloge qui s'emballe, le carnet de sa vie claque sur « balivernes »"
+  },
+  {
+   "line": 10,
+   "to": 3,
+   "template": "hug_refuse",
+   "preset": "elastic",
+   "important": "câlin",
+   "cues": {
+    "hug": "câlin"
+   },
+   "intent": "« pas d'câlin » : elle ouvre les bras, il recule et lève la main, l'air se refroidit"
+  },
+  {
+   "line": 10,
+   "from": 3,
+   "template": "ice3d",
+   "preset": "compress",
+   "important": "glaçon",
+   "cues": {},
+   "intent": "« qu'un glaçon » : un glaçon géant en 3D tourne et fond"
+  },
+  {
+   "line": 11,
+   "template": "balcony",
+   "params": {
+    "shot": 1
+   },
+   "preset": "impactPunch",
+   "important": "non",
+   "cues": {
+    "outrage": "non"
+   },
+   "intent": "« oh, non mais oh » : au balcon, il lève les bras, indigné"
+  },
+  {
+   "line": 12,
+   "template": "balcony",
+   "params": {
+    "shot": 2
+   },
+   "preset": "rollIn",
+   "important": "Romeo",
+   "cues": {
+    "rose": "romeo"
+   },
+   "intent": "« pour Roméo ? » : une rose est lancée vers le balcon, il se détourne sur « Roméo », la rose retombe"
+  },
+  {
+   "line": 13,
+   "template": "retro_phone",
+   "preset": "growTiny",
+   "important": "allô",
+   "cues": {
+    "pick": "allô"
+   },
+   "intent": "« non mais allô ? » : le vieux téléphone sonne en sautillant et on décroche au premier « allô »"
+  },
+  {
+   "line": 14,
+   "template": "club",
+   "preset": "rotateIn",
+   "important": "transe",
+   "cues": {
+    "strobe": "transe"
+   },
+   "intent": "« transe » : boîte de nuit, stroboscope qui part au mot « transe »"
+  },
+  {
+   "line": 15,
+   "template": "drunk_walk",
+   "preset": "explodeOut",
+   "important": "pété",
+   "cues": {
+    "wasted": "pété"
+   },
+   "intent": "« en LV totalement pété » : il titube avec son sac, la vision se dédouble sur « pété »"
+  },
+  {
+   "line": 16,
+   "template": "walk_home",
+   "preset": "progressive",
+   "important": "rentre",
+   "cues": {
+    "home": "rentre",
+    "pockets": "poches"
+   },
+   "intent": "« j'rentre » : il rentre au bâtiment, la porte du hall s'ouvre sur « rentre » (rien de la drogue n'est montré)"
+  },
+  {
+   "line": 17,
+   "template": "school",
+   "preset": "sideSweep",
+   "important": "école",
+   "cues": {
+    "bus": "école"
+   },
+   "intent": "« p'tit frère part à l'école » : le matin, il marche avec son cartable, le bus passe sur « école »"
+  },
+  {
+   "line": 18,
+   "template": "bubble",
+   "preset": "burst",
+   "important": "bulle",
+   "cues": {
+    "pops": "all:bulle"
+   },
+   "intent": "« dans ma bulle » : il flotte dans sa bulle, une bulle éclate à chaque « bulle »"
+  }
+ ]
+}

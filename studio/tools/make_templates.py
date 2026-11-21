@@ -6,8 +6,9 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SKEL = '''<template>
   <style>__FONTS__
-    #root {{ position: absolute; inset: 0; overflow: hidden; background: {bg}; }}
+    #root {{ position: absolute; inset: 0; overflow: hidden; }}
     #__ID__-stage, #__ID__-stage .lay {{ position: absolute; inset: 0; }}
+    #__ID__-stage {{ background: {bg}; }}
     #__ID__-stage svg {{ overflow: visible; }}
     #__ID__-gl {{ position: absolute; inset: 0; width: 1080px; height: 1920px; }}
   </style>
@@ -43,7 +44,7 @@ T['luxe_window'] = dict(bg='#0b0a10', layers=L('gl', 'cv:dust'), doc="3D : vitri
           const t3 = K.text3D(T, ch, { size: 1.3, depth: .4, color: i % 2 ? 0xd9b34a : 0xe8e8ee, side: 0x5a4a30, metalness: .9, roughness: .2 }); t3.position.set(x, 1.25, 0); X.add(t3); items.push(t3);
           const v = K.volumetric(T, { color: 0xfff2d8, length: 7, radius: 1.1, intensity: .45, power: 4 }); v.position.set(x, 7.4, 0); X.add(v); });
         const glass = new T.Mesh(new T.PlaneGeometry(14, 9), new T.MeshStandardMaterial({ color: 0x8fb0ff, transparent: true, opacity: .07, roughness: 0, metalness: 1 })); glass.position.set(0, 4, 3.2); X.add(glass);
-        X.update(t => items.forEach((it, i) => { const k = E.outBack(m.clamp((t - .15 - i * .35) / .5)); it.scale.setScalar(Math.max(.01, k)); it.rotation.y = t * 1.2 + i; it.position.y = 1.25 + sc.beat(t, 'kicks', 9) * .15; }));
+        X.update(t => items.forEach((it, i) => { const k = E.outBack(m.clamp((t - ctx.cue('letters', i, .15 + i * .35)) / .35)); it.scale.setScalar(Math.max(.01, k)); it.rotation.y = t * 1.2 + i; it.position.y = 1.25 + sc.beat(t, 'kicks', 9) * .15; }));
         X.camMove('truck', { from: [-4.5, 3.2, 14], to: [4.5, 3.4, 12.5], target: t => new T.Vector3(-1 + t * .8, 1.8, 0), fov0: 42, fov1: 36, ease: 'inOut' });
         const dust = HFS.fx.particles(ctx.layer('dust'), { n: 60, colors: ['#fff2d8'], seed: 3, size: 3 }); sc.update(t => dust(t));''')
 
@@ -53,9 +54,9 @@ T['wardrobe'] = dict(bg='#f4e9e2', layers=L('back', 'rail'), doc="aplats : une p
         sv('rect', { x: -200, y: 700, width: 1500, height: 16, rx: 8, fill: '#8a8a92' }, R);
         const hang = []; for (let i = 0; i < 9; i++) { const g = sv('g', {}, R); sv('path', { d: 'M 0 0 q 0 -26 18 -26 M 0 0 L -80 50 L 80 50 Z', fill: 'none', stroke: '#6a6a72', 'stroke-width': 6 }, g);
           sv('path', { d: 'M -80 50 L 80 50 L 95 380 L -95 380 Z', fill: cols[i % cols.length] }, g); sv('path', { d: 'M -80 50 L -120 200 L -95 210 M 80 50 L 120 200 L 95 210', stroke: cols[i % cols.length], 'stroke-width': 34, 'stroke-linecap': 'round' }, g); hang.push(g); }
-        const fly = 4;
-        sc.update(t => hang.forEach((g, i) => { const slide = -t * 240, x = 120 + i * 220 + slide, sw = Math.sin(t * 4 + i) * 6 + (i === fly ? 0 : 0);
-          if (i === fly && t > sc.dur * .35) { const u = t - sc.dur * .35, b = HFS.phys.ballistic(u, 500, -1400, 3600); g.setAttribute('transform', `translate(${x + b.x},${700 + b.y}) rotate(${u * 420})`); }
+        const fly = 4, tFly = ctx.cue('fly', 0, sc.dur * .35), tGo = ctx.cue('slide', 0, 0);
+        sc.update(t => hang.forEach((g, i) => { const slide = -Math.max(0, t - tGo) * 320, x = 120 + i * 220 + slide, sw = Math.sin(t * 4 + i) * 6 + (i === fly ? 0 : 0);
+          if (i === fly && t > tFly) { const u = t - tFly, b = HFS.phys.ballistic(u, 500, -1400, 3600); g.setAttribute('transform', `translate(${x + b.x},${700 + b.y}) rotate(${u * 420})`); }
           else g.setAttribute('transform', `translate(${x},${700}) rotate(${sw})`); }));
         HFS.camera(sc, [{ el: B, depth: .4 }, { el: R, depth: 1 }], Object.assign({ preset: 'truckLeft', amount: .5 }, CFG.camera || {}));''')
 
@@ -68,11 +69,11 @@ T['elevator'] = dict(bg='#1a1416', layers=L('wall', 'doors', 'cv:fx'), doc="apla
         const arrow = sv('path', { d: 'M 0 -26 L 20 0 L 8 0 L 8 26 L -8 26 L -8 0 L -20 0 Z', fill: hell ? '#ff5a3c' : '#9aa3b5' }, panel);
         const L1 = sv('rect', { y: 500, width: 300, height: 1100, fill: '#b9bcc6', stroke: '#6a6d78', 'stroke-width': 6 }, Dr), R1 = sv('rect', { y: 500, width: 300, height: 1100, fill: '#c5c8d2', stroke: '#6a6d78', 'stroke-width': 6 }, Dr);
         sv('rect', { x: 220, y: 480, width: 640, height: 1140, fill: 'none', stroke: '#4a4d58', 'stroke-width': 40 }, Dr);
-        const fx = HFS.fx.particles(ctx.layer('fx'), hell ? { kind: 'sparks', n: 80, colors: ['#ff5a3c', '#ffb03a'], at: sc.dur * .45, x: 540, y: 1500, seed: 4, size: 6 } : { kind: 'dust', n: 50, colors: ['#ffffff'], seed: 4 });
+        const fx = HFS.fx.particles(ctx.layer('fx'), hell ? { kind: 'sparks', n: 80, colors: ['#ff5a3c', '#ffb03a'], at: ctx.cue('open', 0, sc.dur * .4) + .1, x: 540, y: 1500, seed: 4, size: 6 } : { kind: 'dust', n: 50, colors: ['#ffffff'], seed: 4 });
         sc.update(t => {
-          const open = hell ? E.inOut(m.clamp((t - sc.dur * .4) / .6)) : m.clamp((t - .3) / .25) * .18 * (1 + Math.sin(t * 30) * .3);
+          const open = hell ? E.inOut(m.clamp((t - ctx.cue('open', 0, sc.dur * .4)) / .45)) : m.clamp((t - .3) / .25) * .18 * (1 + Math.sin(t * 30) * .3);
           L1.setAttribute('x', 240 - open * 300); R1.setAttribute('x', 540 + open * 300); glow.setAttribute('opacity', hell ? open * .9 : .25);
-          const fl = hell ? Math.max(-9, -Math.floor(t * 6)) : 99; floorTxt.textContent = hell ? (fl <= -9 ? '-∞' : String(fl)) : (Math.floor(t * 3) % 2 ? 'PANNE' : ''); floorTxt.setAttribute('font-size', hell ? 100 : 64);
+          const fl = hell ? Math.max(-9, -Math.floor(t * 6)) : 99; floorTxt.textContent = hell ? (fl <= -9 ? '-∞' : String(fl)) : (t >= ctx.cue('panne', 0, 0) && Math.floor(t * 3) % 2 ? 'PANNE' : (t < ctx.cue('panne', 0, 0) ? '∞' : '')); floorTxt.setAttribute('font-size', hell ? 100 : 64);
           arrow.setAttribute('transform', `translate(600,${hell ? 365 + (t * 60 % 20) : 365}) rotate(${hell ? 180 : 0})`); fx(t);
         });
         HFS.camera(sc, [{ el: Wl, depth: .6 }, { el: Dr, depth: 1 }, { el: ctx.layer('fx'), depth: 1 }], Object.assign({ preset: hell ? 'pedestalDown' : 'dollyIn', amount: .5, shake: t => hell ? m.clamp((t - sc.dur * .4) * 2) * 4 : 0 }, CFG.camera || {}));''')
@@ -96,8 +97,9 @@ T['ballot'] = dict(bg='#f2e8d5', layers=L('bg', 'fg'), doc="éditorial : urne tr
         const ballots = [...Array(14)].map((_, i) => { const g = sv('g', {}, F); sv('rect', { x: -60, y: -40, width: 120, height: 80, fill: '#ffffff', stroke: '#c9c0aa', 'stroke-width': 3 }, g); return g; });
         const cnt = sv('text', { x: 860, y: 900, 'text-anchor': 'middle', 'font-family': 'Archivo Black', 'font-size': 160, fill: ink }, F); cnt.textContent = '0';
         const stamp = sv('g', {}, F); sv('rect', { x: -170, y: -60, width: 340, height: 120, rx: 10, fill: 'none', stroke: acc, 'stroke-width': 12 }, stamp); const st = sv('text', { 'text-anchor': 'middle', y: 30, 'font-family': 'Archivo Black', 'font-size': 84, fill: acc }, stamp); st.textContent = 'BLANC';
-        sc.update(t => { ballots.forEach((g, i) => { const t0 = .1 + i * .18, u = t - t0; if (u < 0) { g.setAttribute('opacity', 0); return; } const land = 1460 - Math.floor(i / 3) * 22; const y = Math.min(land, 300 + u * 520); g.setAttribute('opacity', 1); g.setAttribute('transform', `translate(${540 + Math.sin(u * 3 + i) * (y < land ? 90 : 0) + (i % 3 - 1) * 70},${y}) rotate(${y < land ? Math.sin(u * 4 + i) * 30 : (i * 17 % 20) - 10})`); });
-          const ks = E.outBack(m.clamp((t - sc.dur * .55) / .25), 3); stamp.setAttribute('transform', `translate(540,1700) rotate(-12) scale(${ks > 0 ? 2.4 - ks * 1.4 : 0})`); stamp.setAttribute('opacity', ks > 0 ? 1 : 0); });
+        const tV = ctx.cue('vote', 0, .1);
+        sc.update(t => { ballots.forEach((g, i) => { const t0 = tV + i * .12, u = t - t0; if (u < 0) { g.setAttribute('opacity', 0); return; } const land = 1460 - Math.floor(i / 3) * 22; const y = Math.min(land, 300 + u * 520); g.setAttribute('opacity', 1); g.setAttribute('transform', `translate(${540 + Math.sin(u * 3 + i) * (y < land ? 90 : 0) + (i % 3 - 1) * 70},${y}) rotate(${y < land ? Math.sin(u * 4 + i) * 30 : (i * 17 % 20) - 10})`); });
+          const ks = E.outBack(m.clamp((t - ctx.cue('stamp', 0, sc.dur * .55)) / .22), 3); stamp.setAttribute('transform', `translate(540,1700) rotate(-12) scale(${ks > 0 ? 2.4 - ks * 1.4 : 0})`); stamp.setAttribute('opacity', ks > 0 ? 1 : 0); });
         HFS.camera(sc, [{ el: B, depth: .4 }, { el: F, depth: 1 }], Object.assign({ preset: 'slowZoom' }, CFG.camera || {}));''')
 
 T['jungle_beat'] = dict(bg='#14321f', layers=L('leaves', 'mid', 'front'), doc="cartoon : jungle aux feuilles qui rebondissent sur les kicks, tambours frappés, personnage cartoon qui danse ; premier plan de feuilles flou.", body='''
@@ -108,24 +110,27 @@ T['jungle_beat'] = dict(bg='#14321f', layers=L('leaves', 'mid', 'front'), doc="c
         const drums = [-1, 1].map(s => { const g = sv('g', {}, Md); sv('rect', { x: -90, y: -160, width: 180, height: 240, rx: 30, fill: '#c9753a', stroke: '#2a1408', 'stroke-width': 8 }, g); const skin = sv('ellipse', { cy: -160, rx: 90, ry: 26, fill: '#f3e2b8', stroke: '#2a1408', 'stroke-width': 8 }, g); g.dataset.s = s; return [g, skin]; });
         const C = HFS.char(Md, { style: 'cartoon', scale: 1.1, track: [{ t: 0, act: 'dance', x: 540, y: 1440, speed: 1.3 }] });
         const front = [...Array(6)].map((_, i) => leaf(Fr, i * 220 - 80, i % 2 ? 1700 : 260, 3.2, i % 2 ? -30 : 160, '#0c2414'));
-        sc.update(t => { const b = sc.beat(t, 'kicks', 10); drums.forEach(([g, skin], i) => { g.setAttribute('transform', `translate(${540 + (i ? 300 : -300)},${1420}) scale(${1 + b * .06},${1 - b * .08})`); skin.setAttribute('ry', 26 - b * 10); });
+        sc.update(t => { const b = Math.max(ctx.pulse(t, 'hits', 9), sc.beat(t, 'kicks', 12) * .4); drums.forEach(([g, skin], i) => { g.setAttribute('transform', `translate(${540 + (i ? 300 : -300)},${1420}) scale(${1 + b * .06},${1 - b * .08})`); skin.setAttribute('ry', 26 - b * 10); });
           back.forEach((e, i) => e.style.transform = `translateY(${-b * 10 * (i % 3)}px)`); C.render(t); boil(t); });
         HFS.camera(sc, [{ el: Lv, depth: .3 }, { el: Md, depth: 1 }, { el: Fr, depth: 1.5, blur: 6 }], Object.assign({ preset: 'dollyIn', amount: .6, shake: t => sc.beat(t, 'kicks', 12) * 6 }, CFG.camera || {}));''')
 
 T['crew_beats'] = dict(bg='#0c0c12', layers=L('bg', 'crew'), doc="aplats : trois silhouettes apparaissent une à une, chacune sur un kick, sous leur projecteur ; la dernière s'avance (zoom).", body='''
         const B = ctx.layer('bg'), Cw = ctx.layer('crew');
         sv('rect', { width: 1080, height: 1920, fill: '#0c0c12' }, B); sv('rect', { y: 1480, width: 1080, height: 440, fill: '#16161e' }, B);
-        const ks = (HFS.audio.data.impacts || []).filter(x => x > sc.t0 + .2 && x < sc.t0 + sc.dur - .4).map(x => x - sc.t0);
-        const times = [ks[0] ?? .3, ks[1] ?? .9, ks[2] ?? 1.5];
+        const times = [ctx.cue('guys', 0, .3), ctx.cue('guys', 1, .9), ctx.cue('guys', 2, 1.5)], tServe = ctx.cue('serve', 0, sc.dur * .8);
         const cones = [], guys = [270, 540, 810].map((x, i) => { const cone = sv('path', { d: `M ${x - 30} 200 L ${x + 30} 200 L ${x + 230} 1500 L ${x - 230} 1500 Z`, fill: '#fff2d8', opacity: 0 }, B); cones.push(cone);
-          const g = sv('g', {}, Cw); const C = HFS.char(g, { style: i === 1 ? 'flat' : 'silhouette', scale: 1.05, track: [{ t: 0, act: i === 2 ? 'wave' : 'idle', x, y: 1490 }] }); return [g, C]; });
+          const g = sv('g', {}, Cw); const C = HFS.char(g, { style: i === 1 ? 'flat' : 'silhouette', scale: 1.05, facing: i === 2 ? -1 : 1, track: [{ t: 0, act: 'idle', x, y: 1490 }, { t: tServe, act: i === 1 || i === 2 ? 'reach' : 'idle' }] }); return [g, C]; });
         sc.update(t => guys.forEach(([g, C], i) => { const u = t - times[i], k = E.outBack(m.clamp(u / .25), 2.5); g.setAttribute('opacity', u >= 0 ? 1 : 0); C.render(t); g.style.transform = `translateY(${(1 - k) * 60}px)`; cones[i].setAttribute('opacity', u >= 0 ? .16 + .1 * Math.exp(-u * 6) : 0); }));
         HFS.camera(sc, [{ el: B, depth: .5 }, { el: Cw, depth: 1 }], Object.assign({ preset: 'crashZoom', at: .75 }, CFG.camera || {}));''')
 
 T['color_split'] = dict(bg='#ffd23f', layers=L('split'), doc="graphique : l'écran se coupe en jaune / vert, la frontière ondule et bascule à chaque kick, formes qui roulent ; aplats francs.", body='''
         const S = ctx.layer('split'), Y = P.c1 || '#ffd23f', G = P.c2 || '#2ecc71';
+        const crack = sv('path', { d: 'M 540 -50 L 500 400 L 600 700 L 470 1100 L 580 1500 L 520 1980', fill: 'none', stroke: '#111', 'stroke-width': 14, opacity: 0 }, S);
         const a = sv('path', { fill: Y }, S), b = sv('path', { fill: G }, S), dots = [...Array(10)].map((_, i) => sv('circle', { r: 30 + (i % 3) * 20, fill: i % 2 ? Y : G, stroke: '#111', 'stroke-width': 8 }, S));
-        sc.update(t => { const k = sc.beat(t, 'kicks', 7), ang = Math.sin(t * 1.5) * 18 + k * 14, mid = 960 + Math.sin(t * 2) * 120; let d = 'M -100 -100 L 1180 -100 L 1180 ';
+        S.appendChild(crack);
+        sc.update(t => { const k = sc.beat(t, 'kicks', 7), ty = ctx.cue('yellow', 0, null), tg = ctx.cue('green', 0, null), ang = Math.sin(t * 1.5) * 12 + k * 10;
+          const tc = ctx.cue('crack', 0, 1e9), mid = ty == null ? 960 + Math.sin(t * 2) * 120 : (t < ty ? 960 + Math.sin(t * 2) * 80 : t < tg ? HFS.m.lerp(960, 2100, E.outExpo(m.clamp((t - ty) / .3))) : t < tc ? HFS.m.lerp(2100, -200, E.outExpo(m.clamp((t - tg) / .3))) : HFS.m.lerp(-200, 960, E.outBack(m.clamp((t - tc) / .35))));
+          crack.setAttribute('opacity', t >= ctx.cue('crack', 0, 1e9) ? 1 : 0); crack.setAttribute('stroke-dasharray', '3000'); crack.setAttribute('stroke-dashoffset', 3000 * (1 - m.clamp((t - ctx.cue('crack', 0, 1e9)) / .25))); let d = 'M -100 -100 L 1180 -100 L 1180 ';
           const pts = []; for (let x = 1180; x >= -100; x -= 40) pts.push(`${x} ${mid + Math.tan(ang * Math.PI / 180) * (x - 540) + Math.sin(x / 90 + t * 6) * 30 * (1 + k)}`);
           a.setAttribute('d', d + pts.join(' L ') + ' Z'); b.setAttribute('d', 'M -100 2020 L 1180 2020 L ' + pts.join(' L ') + ' Z');
           dots.forEach((c, i) => { const x = ((i * 230 + t * (i % 2 ? 300 : -300)) % 1400 + 1400) % 1400 - 160; c.setAttribute('cx', x); c.setAttribute('cy', i % 2 ? 600 : 1400); }); });
@@ -141,7 +146,10 @@ T['kitchen_clock'] = dict(bg='#2b2633', layers=L('room', 'mid'), doc="aplats : c
         const door = sv('rect', { width: 360, height: 700, rx: 24, fill: '#eef0f4', stroke: '#6a6d78', 'stroke-width': 6 }, fr);
         const cold = sv('path', { d: 'M 170 700 L 530 700 L 760 1500 L 0 1500 Z', fill: '#bfe4ff', opacity: 0 }, M);
         const plate = sv('ellipse', { cx: 740, cy: 1330, rx: 150, ry: 36, fill: '#f4f1ea', stroke: '#9aa3b5', 'stroke-width': 6 }, M);
-        sc.update(t => { const o = E.inOut(m.clamp((t - .3) / .6)); door.setAttribute('transform', `translate(${o * 330},0) scale(${1 - o * .85},1)`); cold.setAttribute('opacity', o * .25);
+        const shot2 = P.shot === 2, tSlam = ctx.cue('slam', 0, sc.dur * .8);
+        const book = sv('g', {}, M); const bl = sv('rect', { x: -170, y: -110, width: 170, height: 220, fill: '#e8452c', stroke: '#111', 'stroke-width': 6 }, book), br = sv('rect', { x: 0, y: -110, width: 170, height: 220, fill: '#f4f1ea', stroke: '#111', 'stroke-width': 6 }, book); book.setAttribute('opacity', shot2 ? 1 : 0);
+        if (shot2) { clock.setAttribute('transform', 'translate(540,700) scale(1.9)'); fr.setAttribute('opacity', .25); }
+        sc.update(t => { const o = E.inOut(m.clamp((t - ctx.cue('open', 0, .3)) / .5)); if (shot2) { const ks = m.clamp((t - tSlam) / .12); br.setAttribute('transform', `scale(${1 - 2 * E.inCubic(ks)},1)`); book.setAttribute('transform', `translate(540,1250) rotate(${-6 + ks * 6})`); } door.setAttribute('transform', `translate(${o * 330},0) scale(${1 - o * .85},1)`); cold.setAttribute('opacity', o * .25);
           const sp = 1 + Math.pow(m.clamp(t / sc.dur), 2) * 40; mH.setAttribute('transform', `rotate(${t * 60 * sp})`); hH.setAttribute('transform', `rotate(${t * 5 * sp})`); plate.setAttribute('transform', `translate(0,${Math.sin(t * 30) * (t > sc.dur * .6 ? 3 : 0)})`); });
         HFS.camera(sc, [{ el: R, depth: .6 }, { el: M, depth: 1 }], Object.assign({ preset: 'pan', amount: .6 }, CFG.camera || {}));''')
 
@@ -161,9 +169,11 @@ T['balcony'] = dict(bg='#120e26', layers=L('sky', 'house', 'front'), doc="aplats
         sv('rect', { width: 1080, height: 1920, fill: '#120e26' }, S); sv('circle', { cx: 820, cy: 420, r: 110, fill: '#f4f1e1' }, S); for (let i = 0; i < 60; i++) sv('circle', { cx: (i * 137) % 1080, cy: (i * 89) % 900, r: 2 + i % 3, fill: '#fff', opacity: .7 }, S);
         sv('rect', { x: 260, y: 700, width: 560, height: 1300, fill: '#3a2a3e' }, Hs); sv('rect', { x: 380, y: 760, width: 320, height: 380, fill: '#ffcf7a' }, Hs);
         sv('rect', { x: 300, y: 1140, width: 480, height: 30, fill: '#1a1220' }, Hs); for (let x = 310; x < 780; x += 34) sv('rect', { x, y: 1170, width: 10, height: 110, fill: '#1a1220' }, Hs); sv('rect', { x: 300, y: 1280, width: 480, height: 20, fill: '#1a1220' }, Hs);
-        const ch = sv('g', {}, Hs); const C = HFS.char(ch, { style: 'silhouette', scale: .62, track: [{ t: 0, act: 'idle', x: 540, y: 1140, facing: 1 }, { t: sc.dur * .45, act: 'turn', from: 1, dur: .35 }, { t: sc.dur * .45 + .35, act: 'idle', facing: -1 }] });
+        const tR = ctx.cue('rose', 0, sc.dur * .45), shot1 = P.shot !== 2, tN = ctx.cue('outrage', 0, .3);
+        const ch = sv('g', {}, Hs); const C = HFS.char(ch, { style: 'silhouette', scale: .62, track: shot1 ? [{ t: 0, act: 'idle', x: 540, y: 1140 }, { t: tN, act: 'wave', x: 540 }] : [{ t: 0, act: 'lookUp', x: 540, y: 1140, facing: 1 }, { t: tR, act: 'turn', from: 1, dur: .35 }, { t: tR + .35, act: 'idle', facing: -1 }] });
+        if (shot1) Hs.style.transformOrigin = '540px 1000px';
         const rose = sv('g', {}, Fr); sv('path', { d: 'M 0 0 L 0 120', stroke: '#2f6b3a', 'stroke-width': 8 }, rose); sv('circle', { r: 26, fill: '#e8253c' }, rose); sv('path', { d: 'M -14 -6 Q 0 -30 14 -6', fill: '#b0182c' }, rose);
-        sc.update(t => { C.render(t); const u = t - .2, T1 = sc.dur * .45 - .2; let x, y, r; if (u < T1) { const k = m.clamp(u / T1); x = 140 + k * 360; y = 1800 - Math.sin(k * Math.PI * .9) * 700 - k * 100; r = k * 540; } else { const v = u - T1; x = 500 + v * 80; y = 1060 + 0.5 * 4200 * v * v; r = 540 + v * 600; } rose.setAttribute('transform', `translate(${x},${y}) rotate(${r})`); });
+        sc.update(t => { C.render(t); rose.setAttribute('opacity', shot1 ? 0 : 1); const u = t - .2, T1 = tR - .2; let x, y, r; if (u < T1) { const k = m.clamp(u / T1); x = 140 + k * 360; y = 1800 - Math.sin(k * Math.PI * .9) * 700 - k * 100; r = k * 540; } else { const v = u - T1; x = 500 + v * 80; y = 1060 + 0.5 * 4200 * v * v; r = 540 + v * 600; } rose.setAttribute('transform', `translate(${x},${y}) rotate(${r})`); });
         HFS.camera(sc, [{ el: S, depth: .2 }, { el: Hs, depth: 1 }, { el: Fr, depth: 1.2 }], Object.assign({ preset: 'pedestalUp', amount: .5 }, CFG.camera || {}));''')
 
 T['retro_phone'] = dict(bg='#f2c94c', layers=L('bg', 'ph'), doc="cartoon : vieux téléphone à cadran qui sonne en sautillant (squash & stretch), une main décroche le combiné, ondes sonores à chaque « allô ».", body='''
@@ -173,7 +183,7 @@ T['retro_phone'] = dict(bg='#f2c94c', layers=L('bg', 'ph'), doc="cartoon : vieux
         for (let i = 0; i < 10; i++) { const a = i / 10 * 5.3 + .5; sv('circle', { cx: Math.cos(a) * 52, cy: 40 + Math.sin(a) * 52, r: 12, fill: ink }, body); }
         const hs = sv('g', {}, Ph); sv('path', { d: 'M -200 -90 Q 0 -150 200 -90 L 220 -40 Q 160 -60 120 -50 L 100 -80 Q 0 -100 -100 -80 L -120 -50 Q -160 -60 -220 -40 Z', fill: '#e8253c', stroke: ink, 'stroke-width': 10 }, hs);
         const waves = [0, 1, 2].map(i => sv('path', { fill: 'none', stroke: ink, 'stroke-width': 10, 'stroke-linecap': 'round' }, Ph));
-        const pick = P.pickAt ?? sc.dur * .35;
+        const pick = ctx.cue('pick', 0, sc.dur * .35);
         sc.update(t => { const ring = t < pick, hop = ring ? Math.abs(Math.sin(t * 16)) : 0, sq = ring ? 1 - Math.max(0, Math.cos(t * 16)) * .12 : 1;
           body.setAttribute('transform', `translate(540,${1200 - hop * 40}) scale(${2 - sq + .0},${sq}) rotate(${ring ? Math.sin(t * 32) * 6 : 0})`);
           const k = E.outBack(m.clamp((t - pick) / .4)); hs.setAttribute('transform', `translate(${540 + k * 140},${1140 - hop * 40 - k * 360}) rotate(${-k * 35})`);
@@ -190,7 +200,7 @@ T['club'] = dict(bg='#07040f', layers=L('floor', 'cv:laser', 'crowd'), doc="néo
         sc.update(t => { const n = (HFS.audio.data.kicks || []).filter(x => x <= sc.t0 + t).length, b = sc.beat(t, 'kicks', 10);
           tiles.forEach((e, i) => e.setAttribute('opacity', ((i + n) % 3 === 0) ? .55 + b * .4 : .12));
           lz.clearRect(0, 0, 1080, 1920); lz.globalCompositeOperation = 'lighter'; for (let i = 0; i < 6; i++) { const a = Math.sin(t * 1.3 + i) * .6 + (i - 2.5) * .25; lz.strokeStyle = cols[i % 4]; lz.globalAlpha = .55; lz.lineWidth = 6; lz.beginPath(); lz.moveTo(540, 120); lz.lineTo(540 + Math.sin(a) * 2400, 120 + Math.cos(a) * 2400); lz.stroke(); }
-          lz.globalAlpha = 1; dancers.forEach((C, i) => { const tt = i % 2 ? t : (t % .5); C.render(tt); }); Fl.style.filter = b > .8 ? 'brightness(1.8)' : ''; });
+          lz.globalAlpha = 1; dancers.forEach((C, i) => { const tt = i % 2 ? t : (t % .5); C.render(tt); }); const st = ctx.since(t, 'strobe'); Fl.style.filter = (b > .8 || (st >= 0 && st < .6 && Math.floor(t * 16) % 2)) ? 'brightness(2.2)' : ''; });
         HFS.camera(sc, [{ el: Fl, depth: .7 }, { el: ctx.layer('laser'), depth: .5 }, { el: Cr, depth: 1 }], Object.assign({ preset: 'roll', amount: 1.4, shake: t => sc.beat(t, 'kicks', 12) * 8 }, CFG.camera || {}));''')
 
 T['school'] = dict(bg='#ffd9a8', layers=L('sky', 'street', 'front'), doc="aplats matin : petit frère avec son cartable marche vers l'école, le bus scolaire passe, soleil qui se lève ; travelling qui le suit.", body='''
@@ -202,7 +212,7 @@ T['school'] = dict(bg='#ffd9a8', layers=L('sky', 'street', 'front'), doc="aplats
         const bag = sv('rect', { width: 70, height: 90, rx: 14, fill: '#e8452c', stroke: '#8a1a10', 'stroke-width': 5 }, St);
         const bus = sv('g', {}, Fr); sv('rect', { x: 0, y: -260, width: 700, height: 260, rx: 30, fill: '#ffd23f', stroke: '#1b1a17', 'stroke-width': 8 }, bus); for (let i = 0; i < 5; i++) sv('rect', { x: 40 + i * 130, y: -220, width: 100, height: 90, rx: 10, fill: '#bfe4ff' }, bus); [130, 570].forEach(x => sv('circle', { cx: x, cy: 0, r: 56, fill: '#1b1a17' }, bus));
         sc.update(t => { C.render(t); const [hx] = [C.x]; bag.setAttribute('x', C.x - 75); bag.setAttribute('y', C.y - 330 * .7 + Math.sin(t * 8) * 4); sun.setAttribute('cy', 700 - t * 60);
-          bus.setAttribute("transform", `translate(${2200 - t * 900},${1830})`); });
+          const tb = ctx.cue('bus', 0, 0); bus.setAttribute('transform', `translate(${2200 - Math.max(0, t - tb + 1.2) * 1100},${1830})`); });
         HFS.camera(sc, [{ el: S, depth: .2 }, { el: St, depth: 1 }, { el: Fr, depth: 1.2 }], Object.assign({ preset: 'static', follow: t => ({ x: -(C.x - 420) }) }, CFG.camera || {}));''')
 
 T['bubble'] = dict(bg='#1a2a5a', layers=L('bg', 'cv:bub', 'mid'), doc="aplats rêveurs : le personnage flotte dans une grande bulle irisée, des bulles éclatent sur chaque kick, la ville en dessous s'éloigne ; caméra qui monte.", body='''
@@ -214,8 +224,78 @@ T['bubble'] = dict(bg='#1a2a5a', layers=L('bg', 'cv:bub', 'mid'), doc="aplats r�
         const ctx2 = ctx.layer('bub').getContext('2d'), r = HFS.m.rng('b__ID__'), bs = [...Array(26)].map(() => [r() * 1080, 1900 + r() * 400, 20 + r() * 60, .5 + r()]);
         sc.update(t => { C.render(t); bub.setAttribute('transform', `translate(${540 + Math.sin(t) * 40},${980 - t * 40 + Math.sin(t * 1.7) * 20}) scale(${1 + sc.beat(t, 'kicks', 8) * .03})`); city.setAttribute('transform', `translate(0,${t * 60})`);
           ctx2.clearRect(0, 0, 1080, 1920); const n = (HFS.audio.data.kicks || []).filter(x => x <= sc.t0 + t).length;
-          bs.forEach(([x, y0, rad, sp], i) => { const y = y0 - t * 300 * sp; const pop = (i + n) % 7 === 0; ctx2.globalAlpha = pop ? .9 : .35; ctx2.strokeStyle = '#ffffff'; ctx2.lineWidth = 4; ctx2.beginPath(); if (pop) { for (let k = 0; k < 8; k++) { const a = k / 8 * 6.28; ctx2.moveTo(x + Math.cos(a) * rad * .6, y + Math.sin(a) * rad * .6); ctx2.lineTo(x + Math.cos(a) * rad, y + Math.sin(a) * rad); } } else ctx2.arc(x, y, rad, 0, 6.28); ctx2.stroke(); }); });
+          bs.forEach(([x, y0, rad, sp], i) => { const y = y0 - t * 300 * sp; const pop = (i + n) % 7 === 0 || (ctx.since(t, 'pops') >= 0 && ctx.since(t, 'pops') < .25 && i % 3 === ctx.count(t, 'pops') % 3); ctx2.globalAlpha = pop ? .9 : .35; ctx2.strokeStyle = '#ffffff'; ctx2.lineWidth = 4; ctx2.beginPath(); if (pop) { for (let k = 0; k < 8; k++) { const a = k / 8 * 6.28; ctx2.moveTo(x + Math.cos(a) * rad * .6, y + Math.sin(a) * rad * .6); ctx2.lineTo(x + Math.cos(a) * rad, y + Math.sin(a) * rad); } } else ctx2.arc(x, y, rad, 0, 6.28); ctx2.stroke(); }); });
         HFS.camera(sc, [{ el: B, depth: .4 }, { el: ctx.layer('bub'), depth: .8 }, { el: M, depth: 1 }], Object.assign({ preset: 'pedestalUp', amount: .6 }, CFG.camera || {}));''')
+
+T['stairwell_2d'] = dict(bg='#2a2e38', layers=L('wall', 'mid', 'front'), doc="aplats : palier d'immeuble de cité ; il appuie sur le bouton de l'ascenseur (« bloqué » : rubalise EN PANNE), haussement d'épaules (« ah bon ? »), puis il part vers l'escalier et monte (« escalier »).", body="""
+        const Wl = ctx.layer('wall'), M = ctx.layer('mid'), Fr = ctx.layer('front');
+        sv('rect', { width: 1080, height: 1920, fill: '#3a3f4c' }, Wl); for (let y = 300; y < 1500; y += 60) sv('line', { x1: 0, y1: y, x2: 1080, y2: y, stroke: '#343846', 'stroke-width': 3 }, Wl);
+        sv('rect', { y: 1500, width: 1080, height: 420, fill: '#22252e' }, Wl);
+        for (let i = 0; i < 14; i++) sv('rect', { x: 20 + (i * 71) % 300, y: 420 + Math.floor(i / 5) * 90, width: 60, height: 40, fill: '#6a6d78', opacity: .35 }, Wl);
+        const door = sv('g', {}, M); sv('rect', { x: 80, y: 780, width: 380, height: 720, fill: '#8d919c', stroke: '#2a2e38', 'stroke-width': 10 }, door); sv('line', { x1: 270, y1: 780, x2: 270, y2: 1500, stroke: '#2a2e38', 'stroke-width': 8 }, door);
+        const btn = sv('circle', { cx: 510, cy: 1100, r: 18, fill: '#444' }, M);
+        const tape = sv('g', {}, M); [880, 1020].forEach((y, k) => { sv('rect', { x: 40, y, width: 460, height: 46, fill: '#ffd23f', transform: `rotate(${k ? 8 : -8} 270 ${y})` }, tape); const tx = sv('text', { x: 270, y: y + 36, 'text-anchor': 'middle', 'font-family': 'Anton', 'font-size': 38, fill: '#111', transform: `rotate(${k ? 8 : -8} 270 ${y})` }, tape); tx.textContent = 'EN PANNE · EN PANNE · EN PANNE'; });
+        // escalier en dents de scie qui monte vers la droite
+        let d = 'M 620 1500'; for (let i = 0; i < 9; i++) d += ` L ${620 + i * 52} ${1500 - i * 52} L ${672 + i * 52} ${1500 - i * 52}`; d += ' L 1120 1032 L 1120 1500 Z';
+        sv('path', { d, fill: '#5a5e6a', stroke: '#2a2e38', 'stroke-width': 6 }, M); sv('path', { d: 'M 600 1420 L 1100 940', stroke: '#c9ccd4', 'stroke-width': 10 }, M);
+        const tB = ctx.cue('blocked', 0, .5), tS = ctx.cue('shrug', 0, tB + .7), tE = ctx.cue('stairs', 0, sc.dur * .7);
+        const g = sv('g', {}, M);
+        const C = HFS.char(g, { style: 'flat', scale: .95, look: { top: '#1d1922', top2: '#141117', bottom: '#20232e' }, track: [{ t: 0, act: 'walk', x: 300, y: 1500 }, { t: Math.max(.3, tB - .35), act: 'reach', x: 460 }, { t: tS, act: 'lookUp', x: 460 }, { t: tS + .5, act: 'walk', x: 460 }, { t: tE, act: 'walk', x: 640 }, { t: sc.dur, act: 'walk', x: 1020, y: 1110 }] });
+        sc.update(t => { C.render(t); const press = t >= tB; btn.setAttribute('fill', press ? (Math.floor(t * 6) % 2 ? '#ff3b1f' : '#5a1a10') : '#444'); tape.setAttribute('transform', `rotate(${Math.sin(t * 3) * 1.5} 270 950)`); });
+        HFS.camera(sc, [{ el: Wl, depth: .5 }, { el: M, depth: 1 }, { el: Fr, depth: 1.3 }], Object.assign({ preset: 'static', follow: t => ({ x: -(C.x - 480) * .5, y: -(C.y - 1500) * .4 }) }, CFG.camera || {}));""")
+
+T['hug_refuse'] = dict(bg='#1c2433', layers=L('bg', 'mid', 'cv:cold'), doc="aplats : elle ouvre les bras pour un câlin (« câlin »), lui recule et lève la main (refus), l'air se refroidit (givre qui monte), lumière bleue.", body="""
+        const B = ctx.layer('bg'), M = ctx.layer('mid');
+        sv('rect', { width: 1080, height: 1920, fill: '#1c2433' }, B); sv('rect', { y: 1450, width: 1080, height: 470, fill: '#141a26' }, B);
+        const halo = sv('ellipse', { cx: 540, cy: 1100, rx: 520, ry: 600, fill: '#7fb8ff', opacity: .0 }, B);
+        const tH = ctx.cue('hug', 0, .6);
+        const g = sv('g', {}, M);
+        const her = HFS.char(g, { style: 'flat', scale: .95, look: { top: '#ff6aa8', top2: '#d84a88', bottom: '#2a1d36', skin: '#a8714f' }, track: [{ t: 0, act: 'walk', x: 260, y: 1460 }, { t: Math.max(.2, tH - .2), act: 'dance', x: 420, speed: .01 }] });
+        const him = HFS.char(g, { style: 'flat', scale: 1.0, facing: -1, look: { top: '#1d1922', top2: '#141117', bottom: '#20232e' }, track: [{ t: 0, act: 'idle', x: 700, y: 1460, facing: -1 }, { t: tH + .1, act: 'reach', x: 700, facing: -1 }, { t: tH + .5, act: 'walk', x: 700, facing: -1 }, { t: sc.dur, act: 'walk', x: 880, facing: -1 }] });
+        const cold = HFS.fx.particles(ctx.layer('cold'), { kind: 'snow', n: 70, colors: ['#e6f6ff'], seed: 5, size: 3 });
+        sc.update(t => { her.render(t); him.render(t); const k = m.clamp((t - tH) / .8); halo.setAttribute('opacity', k * .25); ctx.layer('cold').style.opacity = k; cold(t); });
+        HFS.camera(sc, [{ el: B, depth: .5 }, { el: M, depth: 1 }, { el: ctx.layer('cold'), depth: 1.1 }], Object.assign({ preset: 'dollyIn', amount: .6 }, CFG.camera || {}));""")
+
+T['drunk_walk'] = dict(bg='#0e0b1a', layers=L('city', 'mid'), doc="aplats nuit : le personnage, sac monogrammé à la main, titube sur le trottoir sous les lampadaires ; la caméra tangue et la vision se dédouble sur « pété ».", body="""
+        const Cy = ctx.layer('city'), M = ctx.layer('mid');
+        sv('rect', { x: -300, width: 1700, height: 1920, fill: '#0e0b1a' }, Cy); for (let i = 0; i < 22; i++) { const h = 250 + (i * 83) % 420; sv('rect', { x: -300 + i * 80, y: 1420 - h, width: 74, height: h, fill: '#1e1834' }, Cy); for (let k = 0; k < 6; k++) sv('rect', { x: -290 + i * 80 + (k % 2) * 34, y: 1420 - h + 30 + Math.floor(k / 2) * 60, width: 18, height: 26, fill: (i + k) % 3 ? '#2a2448' : '#ffcf7a' }, Cy); }
+        sv('rect', { x: -300, y: 1420, width: 1700, height: 520, fill: '#16121f' }, Cy);
+        for (let x = -100; x < 1300; x += 360) { sv('rect', { x, y: 700, width: 12, height: 720, fill: '#2a2440' }, Cy); sv('path', { d: `M ${x - 120} 1420 L ${x + 130} 1420 L ${x + 30} 720 L ${x - 20} 720 Z`, fill: '#ffd9a8', opacity: .12 }, Cy); }
+        const ghost = sv('g', { opacity: 0 }, M), g = sv('g', {}, M);
+        const look = { top: '#e9b949', top2: '#c99a2e', bottom: '#20232e' };
+        const C = HFS.char(g, { style: 'flat', scale: 1.0, look, track: [{ t: 0, act: 'walk', x: 240, y: 1430, speed: .7 }, { t: sc.dur, act: 'walk', x: 760 }] });
+        const C2 = HFS.char(ghost, { style: 'flat', scale: 1.0, look, track: [{ t: 0, act: 'walk', x: 240, y: 1430, speed: .7 }, { t: sc.dur, act: 'walk', x: 760 }] });
+        const bag = sv('g', {}, M); sv('rect', { x: -40, y: -10, width: 80, height: 70, rx: 10, fill: '#7a5230', stroke: '#3a2414', 'stroke-width': 4 }, bag); sv('path', { d: 'M -24 -10 Q 0 -44 24 -10', fill: 'none', stroke: '#3a2414', 'stroke-width': 5 }, bag);
+        const tP = ctx.cue('wasted', 0, sc.dur * .7);
+        sc.update(t => { C.render(t); C2.render(t - .12); const [hx, hy] = C.handPos; bag.setAttribute('transform', `translate(${hx},${hy}) rotate(${Math.sin(t * 5) * 20})`);
+          g.setAttribute('transform', `rotate(${Math.sin(t * 2.3) * 7} ${C.x} 1430)`); ghost.setAttribute('opacity', t > tP ? .45 : .0); ghost.setAttribute('transform', `translate(${18 + Math.sin(t * 7) * 10},0) rotate(${Math.sin(t * 2.3 + .5) * 7} ${C.x} 1430)`); });
+        HFS.camera(sc, [{ el: Cy, depth: .5 }, { el: M, depth: 1 }], Object.assign({ preset: 'roll', amount: 2.2, follow: t => ({ x: -(C.x - 500) * .6 }), handheld: 1.5 }, CFG.camera || {}));""")
+
+T['walk_home'] = dict(bg='#101423', layers=L('bld', 'mid'), doc="aplats nuit : il rentre au bâtiment, mains dans les poches ; la porte du hall s'ouvre (lumière jaune) sur « rentre », il y disparaît.", body="""
+        const Bd = ctx.layer('bld'), M = ctx.layer('mid');
+        sv('rect', { width: 1080, height: 1920, fill: '#101423' }, Bd); sv('rect', { x: 420, y: 300, width: 660, height: 1240, fill: '#2a2f45' }, Bd);
+        for (let r = 0; r < 8; r++) for (let c = 0; c < 4; c++) sv('rect', { x: 470 + c * 150, y: 360 + r * 120, width: 80, height: 70, fill: (r * 3 + c) % 4 ? '#1c2033' : '#ffcf7a' }, Bd);
+        const hall = sv('rect', { x: 700, y: 1240, width: 220, height: 300, fill: '#ffcf7a' }, Bd), doorL = sv('rect', { x: 700, y: 1240, width: 110, height: 300, fill: '#3a3f58', stroke: '#111', 'stroke-width': 5 }, Bd), doorR = sv('rect', { x: 810, y: 1240, width: 110, height: 300, fill: '#3a3f58', stroke: '#111', 'stroke-width': 5 }, Bd);
+        const beam = sv('path', { d: 'M 700 1540 L 920 1540 L 1080 1920 L 520 1920 Z', fill: '#ffcf7a', opacity: 0 }, Bd); sv('rect', { y: 1540, width: 1080, height: 380, fill: '#191c2c' }, Bd);
+        const tO = ctx.cue('home', 0, .3), tPk = ctx.cue('pockets', 0, sc.dur * .7);
+        const g = sv('g', {}, M);
+        const C = HFS.char(g, { style: 'flat', scale: .95, look: { top: '#1d1922', top2: '#141117', bottom: '#20232e' }, track: [{ t: 0, act: 'walk', x: 120, y: 1550, speed: .9 }, { t: sc.dur * .95, act: 'walk', x: 800, y: 1545 }] });
+        sc.update(t => { C.render(t); const o = E.inOut(m.clamp((t - tO) / .6)); doorL.setAttribute('transform', `translate(${-o * 100},0) scale(1,1)`); doorR.setAttribute('transform', `translate(${o * 100},0)`); beam.setAttribute('opacity', o * .25);
+          g.setAttribute('opacity', 1 - m.clamp((C.x - 740) / 60)); });
+        HFS.camera(sc, [{ el: Bd, depth: .7 }, { el: M, depth: 1 }], Object.assign({ preset: 'dollyIn', amount: .5, follow: t => ({ x: -(C.x - 540) * .3 }) }, CFG.camera || {}));""")
+
+T['speaker'] = dict(bg='#0b0b10', layers=L('wall', 'spk', 'cv:fx'), doc="graphique : une enceinte géante dont les membranes pompent sur chaque « taga », ondes de choc, poussière qui saute ; néon vert.", body="""
+        const Wl = ctx.layer('wall'), Sp = ctx.layer('spk'), G = P.accent || '#2ecc71';
+        sv('rect', { width: 1080, height: 1920, fill: '#0b0b10' }, Wl); for (let i = 0; i < 12; i++) sv('rect', { x: 0, y: 300 + i * 120, width: 1080, height: 4, fill: G, opacity: .08 }, Wl);
+        sv('rect', { x: 200, y: 640, width: 680, height: 1060, rx: 40, fill: '#17171f', stroke: '#2a2a36', 'stroke-width': 12 }, Sp);
+        const cones = [[540, 900, 150], [540, 1390, 230]].map(([x, y, r]) => { const g = sv('g', { transform: `translate(${x},${y})` }, Sp); sv('circle', { r, fill: '#0e0e14', stroke: '#3a3a48', 'stroke-width': 14 }, g); const mem = sv('circle', { r: r * .72, fill: '#26262f' }, g); const cap = sv('circle', { r: r * .25, fill: '#3a3a48' }, g); return [g, mem, cap, r]; });
+        const rings = [0, 1, 2].map(() => sv('circle', { cx: 540, cy: 1390, fill: 'none', stroke: G, 'stroke-width': 8 }, Sp));
+        const fx = HFS.fx.particles(ctx.layer('fx'), { n: 70, colors: [G, '#ffffff'], seed: 12, size: 3 });
+        sc.update(t => { const b = Math.max(ctx.pulse(t, 'taga', 10), sc.beat(t, 'kicks', 12) * .5);
+          cones.forEach(([g, mem, cap, r]) => { mem.setAttribute('r', r * (.72 + b * .14)); cap.setAttribute('r', r * (.25 + b * .1)); });
+          rings.forEach((c, i) => { const s = ctx.since(t, 'taga'); const u = s >= 0 ? m.clamp((s - i * .08) / .5) : 1; c.setAttribute('r', 240 + u * 600); c.setAttribute('opacity', (1 - u) * .8); });
+          fx(t); ctx.layer('fx').style.transform = `translateY(${-b * 18}px)`; });
+        HFS.camera(sc, [{ el: Wl, depth: .4 }, { el: Sp, depth: 1 }, { el: ctx.layer('fx'), depth: 1.2 }], Object.assign({ preset: 'dollyIn', amount: .4, shake: t => Math.max(ctx.pulse(t, 'taga', 14), 0) * 10 }, CFG.camera || {}));""")
 
 for name, d in T.items():
     open(os.path.join(ROOT, 'templates', name + '.html'), 'w').write(SKEL.format(name=name, **d))

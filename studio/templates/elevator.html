@@ -1,7 +1,8 @@
 <template>
   <style>__FONTS__
-    #root { position: absolute; inset: 0; overflow: hidden; background: #1a1416; }
+    #root { position: absolute; inset: 0; overflow: hidden; }
     #__ID__-stage, #__ID__-stage .lay { position: absolute; inset: 0; }
+    #__ID__-stage { background: #1a1416; }
     #__ID__-stage svg { overflow: visible; }
     #__ID__-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
   </style>
@@ -28,11 +29,11 @@
         const arrow = sv('path', { d: 'M 0 -26 L 20 0 L 8 0 L 8 26 L -8 26 L -8 0 L -20 0 Z', fill: hell ? '#ff5a3c' : '#9aa3b5' }, panel);
         const L1 = sv('rect', { y: 500, width: 300, height: 1100, fill: '#b9bcc6', stroke: '#6a6d78', 'stroke-width': 6 }, Dr), R1 = sv('rect', { y: 500, width: 300, height: 1100, fill: '#c5c8d2', stroke: '#6a6d78', 'stroke-width': 6 }, Dr);
         sv('rect', { x: 220, y: 480, width: 640, height: 1140, fill: 'none', stroke: '#4a4d58', 'stroke-width': 40 }, Dr);
-        const fx = HFS.fx.particles(ctx.layer('fx'), hell ? { kind: 'sparks', n: 80, colors: ['#ff5a3c', '#ffb03a'], at: sc.dur * .45, x: 540, y: 1500, seed: 4, size: 6 } : { kind: 'dust', n: 50, colors: ['#ffffff'], seed: 4 });
+        const fx = HFS.fx.particles(ctx.layer('fx'), hell ? { kind: 'sparks', n: 80, colors: ['#ff5a3c', '#ffb03a'], at: ctx.cue('open', 0, sc.dur * .4) + .1, x: 540, y: 1500, seed: 4, size: 6 } : { kind: 'dust', n: 50, colors: ['#ffffff'], seed: 4 });
         sc.update(t => {
-          const open = hell ? E.inOut(m.clamp((t - sc.dur * .4) / .6)) : m.clamp((t - .3) / .25) * .18 * (1 + Math.sin(t * 30) * .3);
+          const open = hell ? E.inOut(m.clamp((t - ctx.cue('open', 0, sc.dur * .4)) / .45)) : m.clamp((t - .3) / .25) * .18 * (1 + Math.sin(t * 30) * .3);
           L1.setAttribute('x', 240 - open * 300); R1.setAttribute('x', 540 + open * 300); glow.setAttribute('opacity', hell ? open * .9 : .25);
-          const fl = hell ? Math.max(-9, -Math.floor(t * 6)) : 99; floorTxt.textContent = hell ? (fl <= -9 ? '-∞' : String(fl)) : (Math.floor(t * 3) % 2 ? 'PANNE' : ''); floorTxt.setAttribute('font-size', hell ? 100 : 64);
+          const fl = hell ? Math.max(-9, -Math.floor(t * 6)) : 99; floorTxt.textContent = hell ? (fl <= -9 ? '-∞' : String(fl)) : (t >= ctx.cue('panne', 0, 0) && Math.floor(t * 3) % 2 ? 'PANNE' : (t < ctx.cue('panne', 0, 0) ? '∞' : '')); floorTxt.setAttribute('font-size', hell ? 100 : 64);
           arrow.setAttribute('transform', `translate(600,${hell ? 365 + (t * 60 % 20) : 365}) rotate(${hell ? 180 : 0})`); fx(t);
         });
         HFS.camera(sc, [{ el: Wl, depth: .6 }, { el: Dr, depth: 1 }, { el: ctx.layer('fx'), depth: 1 }], Object.assign({ preset: hell ? 'pedestalDown' : 'dollyIn', amount: .5, shake: t => hell ? m.clamp((t - sc.dur * .4) * 2) * 4 : 0 }, CFG.camera || {}));

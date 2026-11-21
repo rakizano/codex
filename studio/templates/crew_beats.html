@@ -1,7 +1,8 @@
 <template>
   <style>__FONTS__
-    #root { position: absolute; inset: 0; overflow: hidden; background: #0c0c12; }
+    #root { position: absolute; inset: 0; overflow: hidden; }
     #__ID__-stage, #__ID__-stage .lay { position: absolute; inset: 0; }
+    #__ID__-stage { background: #0c0c12; }
     #__ID__-stage svg { overflow: visible; }
     #__ID__-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
   </style>
@@ -21,10 +22,9 @@
 
         const B = ctx.layer('bg'), Cw = ctx.layer('crew');
         sv('rect', { width: 1080, height: 1920, fill: '#0c0c12' }, B); sv('rect', { y: 1480, width: 1080, height: 440, fill: '#16161e' }, B);
-        const ks = (HFS.audio.data.impacts || []).filter(x => x > sc.t0 + .2 && x < sc.t0 + sc.dur - .4).map(x => x - sc.t0);
-        const times = [ks[0] ?? .3, ks[1] ?? .9, ks[2] ?? 1.5];
+        const times = [ctx.cue('guys', 0, .3), ctx.cue('guys', 1, .9), ctx.cue('guys', 2, 1.5)], tServe = ctx.cue('serve', 0, sc.dur * .8);
         const cones = [], guys = [270, 540, 810].map((x, i) => { const cone = sv('path', { d: `M ${x - 30} 200 L ${x + 30} 200 L ${x + 230} 1500 L ${x - 230} 1500 Z`, fill: '#fff2d8', opacity: 0 }, B); cones.push(cone);
-          const g = sv('g', {}, Cw); const C = HFS.char(g, { style: i === 1 ? 'flat' : 'silhouette', scale: 1.05, track: [{ t: 0, act: i === 2 ? 'wave' : 'idle', x, y: 1490 }] }); return [g, C]; });
+          const g = sv('g', {}, Cw); const C = HFS.char(g, { style: i === 1 ? 'flat' : 'silhouette', scale: 1.05, facing: i === 2 ? -1 : 1, track: [{ t: 0, act: 'idle', x, y: 1490 }, { t: tServe, act: i === 1 || i === 2 ? 'reach' : 'idle' }] }); return [g, C]; });
         sc.update(t => guys.forEach(([g, C], i) => { const u = t - times[i], k = E.outBack(m.clamp(u / .25), 2.5); g.setAttribute('opacity', u >= 0 ? 1 : 0); C.render(t); g.style.transform = `translateY(${(1 - k) * 60}px)`; cones[i].setAttribute('opacity', u >= 0 ? .16 + .1 * Math.exp(-u * 6) : 0); }));
         HFS.camera(sc, [{ el: B, depth: .5 }, { el: Cw, depth: 1 }], Object.assign({ preset: 'crashZoom', at: .75 }, CFG.camera || {}));
       });

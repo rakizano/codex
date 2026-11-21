@@ -10,36 +10,37 @@
     @font-face { font-family: 'Tinos'; src: url('assets/fonts/Tinos-700.ttf'); font-display: block; }
     @font-face { font-family: 'Archivo Black'; src: url('assets/fonts/ArchivoBlack-400.ttf'); font-display: block; }
     
-    #root { position: absolute; inset: 0; overflow: hidden; background: #07040f; }
+    #root { position: absolute; inset: 0; overflow: hidden; }
     #s13-stage, #s13-stage .lay { position: absolute; inset: 0; }
+    #s13-stage { background: #1c2433; }
     #s13-stage svg { overflow: visible; }
     #s13-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
   </style>
   <div id="root" data-composition-id="s13" data-width="1080" data-height="1920">
     <div id="s13-stage">
-      <svg id="s13-floor" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
-      <canvas id="s13-laser" class="lay" width="1080" height="1920"></canvas>
-      <svg id="s13-crowd" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="s13-bg" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="s13-mid" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <canvas id="s13-cold" class="lay" width="1080" height="1920"></canvas>
       <div id="s13-txt"></div>
     </div>
   </div>
   <script>
-    /* SceneTemplate « club » — néon : piste de danse, dalles lumineuses qui changent sur les kicks, lasers, stroboscope, silhouettes qui dansent ; la caméra tangue. */
+    /* SceneTemplate « hug_refuse » — aplats : elle ouvre les bras pour un câlin (« câlin »), lui recule et lève la main (refus), l'air se refroidit (givre qui monte), lumière bleue. */
     (function () {
-      const CFG = {"fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s13", "dur": 2.277, "t0": 30.24, "text": null, "params": {}, "camera": null, "tin": {"kind": "split", "dur": 0.5, "delay": 0.0}, "tout": {"kind": "zoomThrough", "to": 10, "dur": 0.55}};
+      const CFG = {"cues": {"hug": [1.025]}, "fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s13", "dur": 1.875, "t0": 31.895, "text": {"font": "Anton", "color": "#ffffff", "accent": "#7fb8ff", "pos": "top", "text": "J'veux pas / d'câlin,", "words": [32.29, 32.69, 32.92], "important": "câlin", "impact": 32.833, "preset": "elastic", "intensity": 1.1, "outAt": 38.47}, "params": {}, "camera": null, "tin": {"kind": "flyThrough", "delay": 0.25, "dur": 0.55}, "tout": {"kind": "zoomThrough", "to": 16, "dur": 0.6}};
       HFS.boot('s13', CFG, (sc, ctx) => {
         const P = ctx.P, sv = HFS.svg, m = HFS.m, E = HFS.ease;
 
-        const Fl = ctx.layer('floor'), Cr = ctx.layer('crowd'), cols = [P.accent || '#ff3fb4', '#3ff0ff', '#ffd23f', '#7a5cff'];
-        sv('rect', { width: 1080, height: 1920, fill: '#07040f' }, Fl);
-        const tiles = []; for (let r = 0; r < 6; r++) for (let c = 0; c < 6; c++) { const y0 = 1250 + r * r * 20 + r * 60, w = 140 + r * 30, x0 = 540 + (c - 2.5) * w; tiles.push(sv('rect', { x: x0 - w / 2 + 4, y: y0, width: w - 8, height: 50 + r * 18, rx: 6, fill: cols[(r + c) % 4], opacity: .2 }, Fl)); }
-        const lz = ctx.layer('laser').getContext('2d');
-        const dancers = [140, 330, 540, 750, 940].map((x, i) => HFS.char(Cr, { style: 'silhouette', scale: .7 + (i === 2 ? .2 : 0), track: [{ t: 0, act: i % 2 ? 'dance' : 'jump', x, y: 1420 + (i === 2 ? 60 : 0), speed: 1 + i * .1, dur: .5, height: 120 }] }));
-        sc.update(t => { const n = (HFS.audio.data.kicks || []).filter(x => x <= sc.t0 + t).length, b = sc.beat(t, 'kicks', 10);
-          tiles.forEach((e, i) => e.setAttribute('opacity', ((i + n) % 3 === 0) ? .55 + b * .4 : .12));
-          lz.clearRect(0, 0, 1080, 1920); lz.globalCompositeOperation = 'lighter'; for (let i = 0; i < 6; i++) { const a = Math.sin(t * 1.3 + i) * .6 + (i - 2.5) * .25; lz.strokeStyle = cols[i % 4]; lz.globalAlpha = .55; lz.lineWidth = 6; lz.beginPath(); lz.moveTo(540, 120); lz.lineTo(540 + Math.sin(a) * 2400, 120 + Math.cos(a) * 2400); lz.stroke(); }
-          lz.globalAlpha = 1; dancers.forEach((C, i) => { const tt = i % 2 ? t : (t % .5); C.render(tt); }); Fl.style.filter = b > .8 ? 'brightness(1.8)' : ''; });
-        HFS.camera(sc, [{ el: Fl, depth: .7 }, { el: ctx.layer('laser'), depth: .5 }, { el: Cr, depth: 1 }], Object.assign({ preset: 'roll', amount: 1.4, shake: t => sc.beat(t, 'kicks', 12) * 8 }, CFG.camera || {}));
+        const B = ctx.layer('bg'), M = ctx.layer('mid');
+        sv('rect', { width: 1080, height: 1920, fill: '#1c2433' }, B); sv('rect', { y: 1450, width: 1080, height: 470, fill: '#141a26' }, B);
+        const halo = sv('ellipse', { cx: 540, cy: 1100, rx: 520, ry: 600, fill: '#7fb8ff', opacity: .0 }, B);
+        const tH = ctx.cue('hug', 0, .6);
+        const g = sv('g', {}, M);
+        const her = HFS.char(g, { style: 'flat', scale: .95, look: { top: '#ff6aa8', top2: '#d84a88', bottom: '#2a1d36', skin: '#a8714f' }, track: [{ t: 0, act: 'walk', x: 260, y: 1460 }, { t: Math.max(.2, tH - .2), act: 'dance', x: 420, speed: .01 }] });
+        const him = HFS.char(g, { style: 'flat', scale: 1.0, facing: -1, look: { top: '#1d1922', top2: '#141117', bottom: '#20232e' }, track: [{ t: 0, act: 'idle', x: 700, y: 1460, facing: -1 }, { t: tH + .1, act: 'reach', x: 700, facing: -1 }, { t: tH + .5, act: 'walk', x: 700, facing: -1 }, { t: sc.dur, act: 'walk', x: 880, facing: -1 }] });
+        const cold = HFS.fx.particles(ctx.layer('cold'), { kind: 'snow', n: 70, colors: ['#e6f6ff'], seed: 5, size: 3 });
+        sc.update(t => { her.render(t); him.render(t); const k = m.clamp((t - tH) / .8); halo.setAttribute('opacity', k * .25); ctx.layer('cold').style.opacity = k; cold(t); });
+        HFS.camera(sc, [{ el: B, depth: .5 }, { el: M, depth: 1 }, { el: ctx.layer('cold'), depth: 1.1 }], Object.assign({ preset: 'dollyIn', amount: .6 }, CFG.camera || {}));
       });
     })();
   </script>

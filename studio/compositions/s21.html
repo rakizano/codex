@@ -10,35 +10,37 @@
     @font-face { font-family: 'Tinos'; src: url('assets/fonts/Tinos-700.ttf'); font-display: block; }
     @font-face { font-family: 'Archivo Black'; src: url('assets/fonts/ArchivoBlack-400.ttf'); font-display: block; }
     
-    #root { position: absolute; inset: 0; overflow: hidden; background: #0a0b18; }
+    #root { position: absolute; inset: 0; overflow: hidden; }
     #s21-stage, #s21-stage .lay { position: absolute; inset: 0; }
+    #s21-stage { background: #ffd9a8; }
     #s21-stage svg { overflow: visible; }
     #s21-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
   </style>
   <div id="root" data-composition-id="s21" data-width="1080" data-height="1920">
     <div id="s21-stage">
-      <canvas id="s21-gl" width="1080" height="1920"></canvas>
-      <canvas id="s21-bills" class="lay" width="1080" height="1920"></canvas>
+      <svg id="s21-sky" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="s21-street" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="s21-front" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
       <div id="s21-txt"></div>
     </div>
   </div>
   <script>
-    /* SceneTemplate « night_drive » — low-poly 3D : la voiture traverse une ville de nuit (lampadaires, reflets,
-       ombres), la caméra la suit puis passe devant ; billets qui volent ; le texte arrive de loin et fonce vers la caméra. */
+    /* SceneTemplate « school » — aplats matin : petit frère avec son cartable marche vers l'école, le bus scolaire passe, soleil qui se lève ; travelling qui le suit. */
     (function () {
-      const CFG = {"fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s21", "dur": 3.199, "t0": 48.146, "text": {"font": "Bebas Neue", "color": "#ffffff", "accent": "#ffd23f", "pos": "top", "text": "En LV / totalement / pété", "words": [48.519, 48.719, 49.84, 50.02], "important": "pété", "impact": 50.07, "preset": "rollIn", "intensity": 1.05, "why": "variation (aucune règle du lexique)", "outAt": 50.8}, "params": {"word3d": "PÉTÉ"}, "camera": null, "tin": {"kind": "particles", "color": "#ffffff", "delay": 0.35, "dur": 0.7}, "tout": {"kind": "rotate", "angle": 90, "dur": 0.45}};
+      const CFG = {"cues": {"bus": [1.51]}, "fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s21", "dur": 2.335, "t0": 53.35, "text": {"font": "Anton", "color": "#1b1a17", "accent": "#e8452c", "pos": "top", "shadow": "none", "text": "Quand p'tit / frère part à / l'école", "words": [53.72, 54.06, 54.26, 54.52, 54.78, 54.86], "important": "école", "impact": 54.89, "preset": "sideSweep", "intensity": 1.1, "outAt": 60.46}, "params": {}, "camera": null, "tin": {"kind": "split", "dur": 0.5, "delay": 0.0}, "tout": {"kind": "rotate", "angle": 90, "dur": 0.45}};
       HFS.boot('s21', CFG, (sc, ctx) => {
-        const P = ctx.P, X = HFS.three(sc, document.getElementById('s21-gl'), { bg: 0x0a0b18, fog: [0x0a0b18, 16, 70], exposure: 1.3 }), T = X.T, K = HFS.K3;
-        X.add(new T.HemisphereLight(0x3a4870, 0x05050a, .6));
-        X.add(K.lowpolyCity(T, { seed: 4, length: 200, maxH: 24 }));
-        for (let z = 10; z > -170; z -= 16) [-1, 1].forEach((s, j) => { const l = K.streetLight(T, { dir: -s, light: (z / 16) % 2 === 0 && j === 0 }); l.position.set(s * 5.2, 0, z - j * 8); X.add(l); });
-        const car = K.lowpolyCar(T, { color: parseInt((P.carColor || '#e8452c').replace('#', ''), 16) }); X.add(car);
-        if (P.word3d) { const w = K.text3D(T, P.word3d, { size: 2.2, depth: .6, color: 0xffd23f, side: 0x7a4a10 }); w.position.set(-8.5, 0, -40); w.rotation.y = .6; X.add(w); const gl = new T.PointLight(0xffd23f, 3, 16, 2); gl.position.set(-6, 3, -38); X.add(gl); }
-        const zAt = t => 6 - t * 10;
-        X.update(t => { const z = zAt(t); car.position.set(Math.sin(t * .8) * .3, 0, z); car.userData.wheels.forEach(w => { w.rotation.x = -t * 25; }); });
-        X.camMove('follow', { subject: t => new T.Vector3(0, 0, zAt(t)), offset: [2.2, 2.6, 9], look: [-.4, .7, -8], ease: 'linear', handheld: .3 });
-        const bills = HFS.fx.particles(ctx.layer('bills'), { kind: 'bills', n: 14, seed: 6 });
-        sc.update(t => { if (P.bills !== false) bills(t); });
+        const P = ctx.P, sv = HFS.svg, m = HFS.m, E = HFS.ease;
+
+        const S = ctx.layer('sky'), St = ctx.layer('street'), Fr = ctx.layer('front');
+        sv('rect', { width: 1080, height: 1920, fill: '#ffd9a8' }, S); const sun = sv('circle', { cx: 760, r: 130, fill: '#ffb03a' }, S);
+        const sch = sv('g', {}, St); sv('rect', { x: 1300, y: 800, width: 900, height: 600, fill: '#e8a77a' }, sch); sv('path', { d: 'M 1250 800 L 1750 560 L 2250 800 Z', fill: '#b4553a' }, sch); for (let i = 0; i < 6; i++) sv('rect', { x: 1360 + i * 140, y: 900, width: 80, height: 110, fill: '#bfe4ff' }, sch); sv('rect', { x: 1700, y: 1180, width: 120, height: 220, fill: '#6a3a28' }, sch);
+        sv('rect', { x: -500, y: 1400, width: 3500, height: 520, fill: '#8a8d96' }, St); sv('rect', { x: -500, y: 1400, width: 3500, height: 26, fill: '#c9ccd4' }, St);
+        const kid = sv('g', {}, St); const C = HFS.char(kid, { style: 'flat', scale: .7, look: { top: '#3ddc97', top2: '#2bb37a', bottom: '#2b4c9a' }, track: [{ t: 0, act: 'walk', x: 200, y: 1410, speed: 1.3 }, { t: sc.dur, act: 'walk', x: 1500 }] });
+        const bag = sv('rect', { width: 70, height: 90, rx: 14, fill: '#e8452c', stroke: '#8a1a10', 'stroke-width': 5 }, St);
+        const bus = sv('g', {}, Fr); sv('rect', { x: 0, y: -260, width: 700, height: 260, rx: 30, fill: '#ffd23f', stroke: '#1b1a17', 'stroke-width': 8 }, bus); for (let i = 0; i < 5; i++) sv('rect', { x: 40 + i * 130, y: -220, width: 100, height: 90, rx: 10, fill: '#bfe4ff' }, bus); [130, 570].forEach(x => sv('circle', { cx: x, cy: 0, r: 56, fill: '#1b1a17' }, bus));
+        sc.update(t => { C.render(t); const [hx] = [C.x]; bag.setAttribute('x', C.x - 75); bag.setAttribute('y', C.y - 330 * .7 + Math.sin(t * 8) * 4); sun.setAttribute('cy', 700 - t * 60);
+          const tb = ctx.cue('bus', 0, 0); bus.setAttribute('transform', `translate(${2200 - Math.max(0, t - tb + 1.2) * 1100},${1830})`); });
+        HFS.camera(sc, [{ el: S, depth: .2 }, { el: St, depth: 1 }, { el: Fr, depth: 1.2 }], Object.assign({ preset: 'static', follow: t => ({ x: -(C.x - 420) }) }, CFG.camera || {}));
       });
     })();
   </script>

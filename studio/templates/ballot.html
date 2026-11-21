@@ -1,7 +1,8 @@
 <template>
   <style>__FONTS__
-    #root { position: absolute; inset: 0; overflow: hidden; background: #f2e8d5; }
+    #root { position: absolute; inset: 0; overflow: hidden; }
     #__ID__-stage, #__ID__-stage .lay { position: absolute; inset: 0; }
+    #__ID__-stage { background: #f2e8d5; }
     #__ID__-stage svg { overflow: visible; }
     #__ID__-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
   </style>
@@ -25,8 +26,9 @@
         const ballots = [...Array(14)].map((_, i) => { const g = sv('g', {}, F); sv('rect', { x: -60, y: -40, width: 120, height: 80, fill: '#ffffff', stroke: '#c9c0aa', 'stroke-width': 3 }, g); return g; });
         const cnt = sv('text', { x: 860, y: 900, 'text-anchor': 'middle', 'font-family': 'Archivo Black', 'font-size': 160, fill: ink }, F); cnt.textContent = '0';
         const stamp = sv('g', {}, F); sv('rect', { x: -170, y: -60, width: 340, height: 120, rx: 10, fill: 'none', stroke: acc, 'stroke-width': 12 }, stamp); const st = sv('text', { 'text-anchor': 'middle', y: 30, 'font-family': 'Archivo Black', 'font-size': 84, fill: acc }, stamp); st.textContent = 'BLANC';
-        sc.update(t => { ballots.forEach((g, i) => { const t0 = .1 + i * .18, u = t - t0; if (u < 0) { g.setAttribute('opacity', 0); return; } const land = 1460 - Math.floor(i / 3) * 22; const y = Math.min(land, 300 + u * 520); g.setAttribute('opacity', 1); g.setAttribute('transform', `translate(${540 + Math.sin(u * 3 + i) * (y < land ? 90 : 0) + (i % 3 - 1) * 70},${y}) rotate(${y < land ? Math.sin(u * 4 + i) * 30 : (i * 17 % 20) - 10})`); });
-          const ks = E.outBack(m.clamp((t - sc.dur * .55) / .25), 3); stamp.setAttribute('transform', `translate(540,1700) rotate(-12) scale(${ks > 0 ? 2.4 - ks * 1.4 : 0})`); stamp.setAttribute('opacity', ks > 0 ? 1 : 0); });
+        const tV = ctx.cue('vote', 0, .1);
+        sc.update(t => { ballots.forEach((g, i) => { const t0 = tV + i * .12, u = t - t0; if (u < 0) { g.setAttribute('opacity', 0); return; } const land = 1460 - Math.floor(i / 3) * 22; const y = Math.min(land, 300 + u * 520); g.setAttribute('opacity', 1); g.setAttribute('transform', `translate(${540 + Math.sin(u * 3 + i) * (y < land ? 90 : 0) + (i % 3 - 1) * 70},${y}) rotate(${y < land ? Math.sin(u * 4 + i) * 30 : (i * 17 % 20) - 10})`); });
+          const ks = E.outBack(m.clamp((t - ctx.cue('stamp', 0, sc.dur * .55)) / .22), 3); stamp.setAttribute('transform', `translate(540,1700) rotate(-12) scale(${ks > 0 ? 2.4 - ks * 1.4 : 0})`); stamp.setAttribute('opacity', ks > 0 ? 1 : 0); });
         HFS.camera(sc, [{ el: B, depth: .4 }, { el: F, depth: 1 }], Object.assign({ preset: 'slowZoom' }, CFG.camera || {}));
       });
     })();

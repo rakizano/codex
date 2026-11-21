@@ -52,7 +52,21 @@ def main():
         tout = dict(trout['out'], dur=dout) if trout else None
         if tout and tout['kind'] == 'objectFill':
             tout['color'] = (scenes[i + 1].get('params') or {}).get('bg', '#071226')
-        cfg = {'fonts': list(PJ['fonts'].keys()), 'id': s['id'], 'dur': round(h1 - h0, 3), 't0': round(h0, 3), 'text': s['text'], 'params': s.get('params') or {}, 'camera': {k: v for k, v in (s.get('camera') or {}).items() if k != 'label'} or None, 'tin': tin, 'tout': tout}
+        # repères : mot (ou « all:mot ») → instants LOCAUX où ce mot est chanté dans la scène
+        cues = {}
+        if s.get('text') and s.get('cues'):
+            import re as _re, unicodedata as _u
+            nz = lambda w: _re.sub(r"[^a-z0-9]", '', _u.normalize('NFD', w.lower()).encode('ascii', 'ignore').decode().split("'")[-1])
+            toks = s['lyrics'].split(); wt = s['text']['words']
+            for name, spec in s['cues'].items():
+                specs = spec if isinstance(spec, list) else [spec]
+                ts = []
+                for sp in specs:
+                    allm = str(sp).startswith('all:'); w0 = nz(str(sp)[4:] if allm else str(sp))
+                    hits = [wt[i] for i, tk in enumerate(toks) if nz(tk) == w0 or nz(tk).startswith(w0) and len(w0) >= 3]
+                    ts += hits if allm else hits[:1]
+                cues[name] = [round(x - h0, 3) for x in sorted(ts)]
+        cfg = {'cues': cues, 'fonts': list(PJ['fonts'].keys()), 'id': s['id'], 'dur': round(h1 - h0, 3), 't0': round(h0, 3), 'text': s['text'], 'params': s.get('params') or {}, 'camera': {k: v for k, v in (s.get('camera') or {}).items() if k != 'label'} or None, 'tin': tin, 'tout': tout}
         tpl = open(os.path.join(ROOT, 'templates', s['template'] + '.html')).read()
         out = tpl.replace('__ID__', s['id']).replace('__FONTS__', fonts).replace('__CFG__', json.dumps(cfg, ensure_ascii=False))
         open(os.path.join(ROOT, 'compositions', s['id'] + '.html'), 'w').write(out)

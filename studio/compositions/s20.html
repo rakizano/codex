@@ -10,36 +10,37 @@
     @font-face { font-family: 'Tinos'; src: url('assets/fonts/Tinos-700.ttf'); font-display: block; }
     @font-face { font-family: 'Archivo Black'; src: url('assets/fonts/ArchivoBlack-400.ttf'); font-display: block; }
     
-    #root { position: absolute; inset: 0; overflow: hidden; background: #07040f; }
+    #root { position: absolute; inset: 0; overflow: hidden; }
     #s20-stage, #s20-stage .lay { position: absolute; inset: 0; }
+    #s20-stage { background: #101423; }
     #s20-stage svg { overflow: visible; }
     #s20-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
   </style>
   <div id="root" data-composition-id="s20" data-width="1080" data-height="1920">
     <div id="s20-stage">
-      <svg id="s20-floor" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
-      <canvas id="s20-laser" class="lay" width="1080" height="1920"></canvas>
-      <svg id="s20-crowd" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="s20-bld" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+      <svg id="s20-mid" class="lay" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
       <div id="s20-txt"></div>
     </div>
   </div>
   <script>
-    /* SceneTemplate « club » — néon : piste de danse, dalles lumineuses qui changent sur les kicks, lasers, stroboscope, silhouettes qui dansent ; la caméra tangue. */
+    /* SceneTemplate « walk_home » — aplats nuit : il rentre au bâtiment, mains dans les poches ; la porte du hall s'ouvre (lumière jaune) sur « rentre », il y disparaît. */
     (function () {
-      const CFG = {"fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s20", "dur": 2.576, "t0": 46.27, "text": {"font": "Russo One", "color": "#ffffff", "accent": "#ff3fb4", "pos": "top", "shadow": "0 0 22px rgba(255,63,180,.7)", "text": "J'laisse / trace pour / transe au WC", "words": [46.64, 46.8, 47.02, 47.42, 47.64, 47.94], "important": "transe", "impact": 47.47, "preset": "skewSnap", "intensity": 0.9, "why": "le texte titube et claque", "outAt": 48.176}, "params": {}, "camera": null, "tin": {"kind": "split", "dur": 0.5, "delay": 0.0}, "tout": {"kind": "particles", "color": "#ffffff", "dur": 0.7}};
+      const CFG = {"cues": {"home": [0.395], "pockets": [2.035]}, "fonts": ["Anton", "Bebas Neue", "Permanent Marker", "Special Elite", "Caveat Brush", "Russo One", "VT323", "Cinzel", "Tinos", "Archivo Black"], "id": "s20", "dur": 2.675, "t0": 51.175, "text": {"font": "Bebas Neue", "color": "#ffffff", "accent": "#ffcf7a", "pos": "top", "text": "J'rentre coke / dans les / poches", "words": [51.57, 52.32, 52.64, 52.97, 53.21], "important": "rentre", "impact": 51.664, "preset": "progressive", "intensity": 1.1, "outAt": 58.6}, "params": {}, "camera": null, "tin": {"kind": "shape", "points": 5, "dur": 0.55, "delay": 0.0}, "tout": {"kind": "cut", "dur": 0.5}};
       HFS.boot('s20', CFG, (sc, ctx) => {
         const P = ctx.P, sv = HFS.svg, m = HFS.m, E = HFS.ease;
 
-        const Fl = ctx.layer('floor'), Cr = ctx.layer('crowd'), cols = [P.accent || '#ff3fb4', '#3ff0ff', '#ffd23f', '#7a5cff'];
-        sv('rect', { width: 1080, height: 1920, fill: '#07040f' }, Fl);
-        const tiles = []; for (let r = 0; r < 6; r++) for (let c = 0; c < 6; c++) { const y0 = 1250 + r * r * 20 + r * 60, w = 140 + r * 30, x0 = 540 + (c - 2.5) * w; tiles.push(sv('rect', { x: x0 - w / 2 + 4, y: y0, width: w - 8, height: 50 + r * 18, rx: 6, fill: cols[(r + c) % 4], opacity: .2 }, Fl)); }
-        const lz = ctx.layer('laser').getContext('2d');
-        const dancers = [140, 330, 540, 750, 940].map((x, i) => HFS.char(Cr, { style: 'silhouette', scale: .7 + (i === 2 ? .2 : 0), track: [{ t: 0, act: i % 2 ? 'dance' : 'jump', x, y: 1420 + (i === 2 ? 60 : 0), speed: 1 + i * .1, dur: .5, height: 120 }] }));
-        sc.update(t => { const n = (HFS.audio.data.kicks || []).filter(x => x <= sc.t0 + t).length, b = sc.beat(t, 'kicks', 10);
-          tiles.forEach((e, i) => e.setAttribute('opacity', ((i + n) % 3 === 0) ? .55 + b * .4 : .12));
-          lz.clearRect(0, 0, 1080, 1920); lz.globalCompositeOperation = 'lighter'; for (let i = 0; i < 6; i++) { const a = Math.sin(t * 1.3 + i) * .6 + (i - 2.5) * .25; lz.strokeStyle = cols[i % 4]; lz.globalAlpha = .55; lz.lineWidth = 6; lz.beginPath(); lz.moveTo(540, 120); lz.lineTo(540 + Math.sin(a) * 2400, 120 + Math.cos(a) * 2400); lz.stroke(); }
-          lz.globalAlpha = 1; dancers.forEach((C, i) => { const tt = i % 2 ? t : (t % .5); C.render(tt); }); Fl.style.filter = b > .8 ? 'brightness(1.8)' : ''; });
-        HFS.camera(sc, [{ el: Fl, depth: .7 }, { el: ctx.layer('laser'), depth: .5 }, { el: Cr, depth: 1 }], Object.assign({ preset: 'roll', amount: 1.4, shake: t => sc.beat(t, 'kicks', 12) * 8 }, CFG.camera || {}));
+        const Bd = ctx.layer('bld'), M = ctx.layer('mid');
+        sv('rect', { width: 1080, height: 1920, fill: '#101423' }, Bd); sv('rect', { x: 420, y: 300, width: 660, height: 1240, fill: '#2a2f45' }, Bd);
+        for (let r = 0; r < 8; r++) for (let c = 0; c < 4; c++) sv('rect', { x: 470 + c * 150, y: 360 + r * 120, width: 80, height: 70, fill: (r * 3 + c) % 4 ? '#1c2033' : '#ffcf7a' }, Bd);
+        const hall = sv('rect', { x: 700, y: 1240, width: 220, height: 300, fill: '#ffcf7a' }, Bd), doorL = sv('rect', { x: 700, y: 1240, width: 110, height: 300, fill: '#3a3f58', stroke: '#111', 'stroke-width': 5 }, Bd), doorR = sv('rect', { x: 810, y: 1240, width: 110, height: 300, fill: '#3a3f58', stroke: '#111', 'stroke-width': 5 }, Bd);
+        const beam = sv('path', { d: 'M 700 1540 L 920 1540 L 1080 1920 L 520 1920 Z', fill: '#ffcf7a', opacity: 0 }, Bd); sv('rect', { y: 1540, width: 1080, height: 380, fill: '#191c2c' }, Bd);
+        const tO = ctx.cue('home', 0, .3), tPk = ctx.cue('pockets', 0, sc.dur * .7);
+        const g = sv('g', {}, M);
+        const C = HFS.char(g, { style: 'flat', scale: .95, look: { top: '#1d1922', top2: '#141117', bottom: '#20232e' }, track: [{ t: 0, act: 'walk', x: 120, y: 1550, speed: .9 }, { t: sc.dur * .95, act: 'walk', x: 800, y: 1545 }] });
+        sc.update(t => { C.render(t); const o = E.inOut(m.clamp((t - tO) / .6)); doorL.setAttribute('transform', `translate(${-o * 100},0) scale(1,1)`); doorR.setAttribute('transform', `translate(${o * 100},0)`); beam.setAttribute('opacity', o * .25);
+          g.setAttribute('opacity', 1 - m.clamp((C.x - 740) / 60)); });
+        HFS.camera(sc, [{ el: Bd, depth: .7 }, { el: M, depth: 1 }], Object.assign({ preset: 'dollyIn', amount: .5, follow: t => ({ x: -(C.x - 540) * .3 }) }, CFG.camera || {}));
       });
     })();
   </script>

@@ -1,7 +1,8 @@
 <template>
   <style>__FONTS__
-    #root { position: absolute; inset: 0; overflow: hidden; background: #2b2633; }
+    #root { position: absolute; inset: 0; overflow: hidden; }
     #__ID__-stage, #__ID__-stage .lay { position: absolute; inset: 0; }
+    #__ID__-stage { background: #2b2633; }
     #__ID__-stage svg { overflow: visible; }
     #__ID__-gl { position: absolute; inset: 0; width: 1080px; height: 1920px; }
   </style>
@@ -28,7 +29,10 @@
         const door = sv('rect', { width: 360, height: 700, rx: 24, fill: '#eef0f4', stroke: '#6a6d78', 'stroke-width': 6 }, fr);
         const cold = sv('path', { d: 'M 170 700 L 530 700 L 760 1500 L 0 1500 Z', fill: '#bfe4ff', opacity: 0 }, M);
         const plate = sv('ellipse', { cx: 740, cy: 1330, rx: 150, ry: 36, fill: '#f4f1ea', stroke: '#9aa3b5', 'stroke-width': 6 }, M);
-        sc.update(t => { const o = E.inOut(m.clamp((t - .3) / .6)); door.setAttribute('transform', `translate(${o * 330},0) scale(${1 - o * .85},1)`); cold.setAttribute('opacity', o * .25);
+        const shot2 = P.shot === 2, tSlam = ctx.cue('slam', 0, sc.dur * .8);
+        const book = sv('g', {}, M); const bl = sv('rect', { x: -170, y: -110, width: 170, height: 220, fill: '#e8452c', stroke: '#111', 'stroke-width': 6 }, book), br = sv('rect', { x: 0, y: -110, width: 170, height: 220, fill: '#f4f1ea', stroke: '#111', 'stroke-width': 6 }, book); book.setAttribute('opacity', shot2 ? 1 : 0);
+        if (shot2) { clock.setAttribute('transform', 'translate(540,700) scale(1.9)'); fr.setAttribute('opacity', .25); }
+        sc.update(t => { const o = E.inOut(m.clamp((t - ctx.cue('open', 0, .3)) / .5)); if (shot2) { const ks = m.clamp((t - tSlam) / .12); br.setAttribute('transform', `scale(${1 - 2 * E.inCubic(ks)},1)`); book.setAttribute('transform', `translate(540,1250) rotate(${-6 + ks * 6})`); } door.setAttribute('transform', `translate(${o * 330},0) scale(${1 - o * .85},1)`); cold.setAttribute('opacity', o * .25);
           const sp = 1 + Math.pow(m.clamp(t / sc.dur), 2) * 40; mH.setAttribute('transform', `rotate(${t * 60 * sp})`); hH.setAttribute('transform', `rotate(${t * 5 * sp})`); plate.setAttribute('transform', `translate(0,${Math.sin(t * 30) * (t > sc.dur * .6 ? 3 : 0)})`); });
         HFS.camera(sc, [{ el: R, depth: .6 }, { el: M, depth: 1 }], Object.assign({ preset: 'pan', amount: .6 }, CFG.camera || {}));
       });

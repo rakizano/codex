@@ -1,0 +1,872 @@
+[
+ {
+  "line": "J'veux du L, j'veux du V, j'veux du G",
+  "matched": "8/9",
+  "first": 0.05,
+  "last": 1.83,
+  "max_shift_vs_old": 0.51,
+  "words": [
+   [
+    "J'veux",
+    0.05,
+    "transcript.json"
+   ],
+   [
+    "du",
+    0.37,
+    "transcript.json"
+   ],
+   [
+    "L,",
+    0.52,
+    "interpolé"
+   ],
+   [
+    "j'veux",
+    0.67,
+    "transcript.json"
+   ],
+   [
+    "du",
+    1.04,
+    "transcript.json"
+   ],
+   [
+    "V,",
+    1.16,
+    "transcript.json"
+   ],
+   [
+    "j'veux",
+    1.34,
+    "transcript.json"
+   ],
+   [
+    "du",
+    1.71,
+    "transcript.json"
+   ],
+   [
+    "G",
+    1.83,
+    "transcript.json"
+   ]
+  ]
+ },
+ {
+  "line": "Pour dessaper ta racli",
+  "matched": "3/4",
+  "first": 2.28,
+  "last": 3.75,
+  "max_shift_vs_old": -0.27,
+  "words": [
+   [
+    "Pour",
+    2.28,
+    "transcript.json"
+   ],
+   [
+    "dessaper",
+    2.84,
+    "transcript.json"
+   ],
+   [
+    "ta",
+    3.29,
+    "interpolé"
+   ],
+   [
+    "racli",
+    3.75,
+    "transcript.json"
+   ]
+  ]
+ },
+ {
+  "line": "Igo, on est voué à l'enfer, l'ascenseur est en panne au paradis",
+  "matched": "10/12",
+  "first": 4.77,
+  "last": 8.79,
+  "max_shift_vs_old": 1.28,
+  "words": [
+   [
+    "Igo,",
+    4.77,
+    "transcript.json"
+   ],
+   [
+    "on",
+    5.05,
+    "transcript.json"
+   ],
+   [
+    "est",
+    5.22,
+    "transcript.json"
+   ],
+   [
+    "voué",
+    5.48,
+    "transcript.json"
+   ],
+   [
+    "à",
+    5.91,
+    "transcript.json"
+   ],
+   [
+    "l'enfer,",
+    5.99,
+    "transcript.json"
+   ],
+   [
+    "l'ascenseur",
+    6.83,
+    "transcript.json"
+   ],
+   [
+    "est",
+    7.87,
+    "transcript.json"
+   ],
+   [
+    "en",
+    8.16,
+    "transcript.json"
+   ],
+   [
+    "panne",
+    8.35,
+    "transcript.json"
+   ],
+   [
+    "au",
+    8.57,
+    "interpolé"
+   ],
+   [
+    "paradis",
+    8.79,
+    "interpolé"
+   ]
+  ]
+ },
+ {
+  "line": "C'est bloqué? Ah bon? Bah j'vais bicrave dans l'escalier",
+  "matched": "7/9",
+  "first": 9.25,
+  "last": 12.78,
+  "max_shift_vs_old": 2.12,
+  "words": [
+   [
+    "C'est",
+    9.25,
+    "transcript.json"
+   ],
+   [
+    "bloqué?",
+    9.71,
+    "transcript.json"
+   ],
+   [
+    "Ah",
+    10.33,
+    "transcript.json"
+   ],
+   [
+    "bon?",
+    10.43,
+    "transcript.json"
+   ],
+   [
+    "Bah",
+    10.78,
+    "interpolé"
+   ],
+   [
+    "j'vais",
+    11.13,
+    "transcript.json"
+   ],
+   [
+    "bicrave",
+    11.75,
+    "interpolé"
+   ],
+   [
+    "dans",
+    12.37,
+    "transcript.json"
+   ],
+   [
+    "l'escalier",
+    12.78,
+    "transcript.json"
+   ]
+  ]
+ },
+ {
+  "line": "Président, dans l'hall j'ai vu l'ient-cli voter blanc",
+  "matched": "7/8",
+  "first": 13.93,
+  "last": 17.33,
+  "max_shift_vs_old": 1.49,
+  "words": [
+   [
+    "Président,",
+    13.93,
+    "transcript.json"
+   ],
+   [
+    "dans",
+    14.56,
+    "transcript.json"
+   ],
+   [
+    "l'hall",
+    14.87,
+    "transcript.json"
+   ],
+   [
+    "j'ai",
+    15.46,
+    "transcript.json"
+   ],
+   [
+    "vu",
+    15.75,
+    "transcript.json"
+   ],
+   [
+    "l'ient-cli",
+    16.05,
+    "transcript.json"
+   ],
+   [
+    "voter",
+    16.69,
+    "interpolé"
+   ],
+   [
+    "blanc",
+    17.33,
+    "transcript.json"
+   ]
+  ]
+ },
+ {
+  "line": "Ounga, ounga, ounga, ouais",
+  "matched": "4/4",
+  "first": 17.89,
+  "last": 19.64,
+  "max_shift_vs_old": 0.77,
+  "words": [
+   [
+    "Ounga,",
+    17.89,
+    "transcript.json"
+   ],
+   [
+    "ounga,",
+    18.44,
+    "transcript.json"
+   ],
+   [
+    "ounga,",
+    19.04,
+    "transcript.json"
+   ],
+   [
+    "ouais",
+    19.64,
+    "transcript.json"
+   ]
+  ]
+ },
+ {
+  "line": "Mon gars, mon gars, mon gars, j'sers",
+  "matched": "4/7",
+  "first": 20.21,
+  "last": 21.58,
+  "max_shift_vs_old": 0.19,
+  "words": [
+   [
+    "Mon",
+    20.21,
+    "transcript.json"
+   ],
+   [
+    "gars,",
+    20.37,
+    "interpolé"
+   ],
+   [
+    "mon",
+    20.53,
+    "transcript.json"
+   ],
+   [
+    "gars,",
+    20.69,
+    "interpolé"
+   ],
+   [
+    "mon",
+    20.85,
+    "transcript.json"
+   ],
+   [
+    "gars,",
+    21.21,
+    "interpolé"
+   ],
+   [
+    "j'sers",
+    21.58,
+    "transcript.json"
+   ]
+  ]
+ },
+ {
+  "line": "Du taga taga à vé-Her",
+  "matched": "4/5",
+  "first": 22.41,
+  "last": 24.31,
+  "max_shift_vs_old": 0.67,
+  "words": [
+   [
+    "Du",
+    22.41,
+    "transcript.json"
+   ],
+   [
+    "taga",
+    22.71,
+    "transcript.json"
+   ],
+   [
+    "taga",
+    23.4,
+    "transcript.json"
+   ],
+   [
+    "à",
+    24.09,
+    "transcript.json"
+   ],
+   [
+    "vé-Her",
+    24.31,
+    "interpolé"
+   ]
+  ]
+ },
+ {
+  "line": "En jaune ou en vert, nique sa mère",
+  "matched": "8/8",
+  "first": 24.82,
+  "last": 27.1,
+  "max_shift_vs_old": 1.01,
+  "words": [
+   [
+    "En",
+    24.82,
+    "transcript.json"
+   ],
+   [
+    "jaune",
+    25,
+    "transcript.json"
+   ],
+   [
+    "ou",
+    25.46,
+    "transcript.json"
+   ],
+   [
+    "en",
+    25.64,
+    "transcript.json"
+   ],
+   [
+    "vert,",
+    25.82,
+    "transcript.json"
+   ],
+   [
+    "nique",
+    26.46,
+    "transcript.json"
+   ],
+   [
+    "sa",
+    26.95,
+    "transcript.json"
+   ],
+   [
+    "mère",
+    27.1,
+    "transcript.json"
+   ]
+  ]
+ },
+ {
+  "line": "La famille a faim, pas l'temps d'raconter ma life, trêve de balivernes",
+  "matched": "10/12",
+  "first": 27.61,
+  "last": 31.39,
+  "max_shift_vs_old": 1.45,
+  "words": [
+   [
+    "La",
+    27.61,
+    "transcript.json"
+   ],
+   [
+    "famille",
+    27.67,
+    "transcript.json"
+   ],
+   [
+    "a",
+    28.02,
+    "transcript.json"
+   ],
+   [
+    "faim,",
+    28.25,
+    "interpolé"
+   ],
+   [
+    "pas",
+    28.48,
+    "transcript.json"
+   ],
+   [
+    "l'temps",
+    28.63,
+    "transcript.json"
+   ],
+   [
+    "d'raconter",
+    28.98,
+    "transcript.json"
+   ],
+   [
+    "ma",
+    29.48,
+    "transcript.json"
+   ],
+   [
+    "life,",
+    29.57,
+    "transcript.json"
+   ],
+   [
+    "trêve",
+    30.06,
+    "transcript.json"
+   ],
+   [
+    "de",
+    30.73,
+    "interpolé"
+   ],
+   [
+    "balivernes",
+    31.39,
+    "transcript.json"
+   ]
+  ]
+ },
+ {
+  "line": "J'veux pas d'câlin, j'suis qu'un glaçon sous string ficelle",
+  "matched": "9/9",
+  "first": 32.29,
+  "last": 35.76,
+  "max_shift_vs_old": 1.86,
+  "words": [
+   [
+    "J'veux",
+    32.29,
+    "transcript.json"
+   ],
+   [
+    "pas",
+    32.69,
+    "transcript.json"
+   ],
+   [
+    "d'câlin,",
+    32.92,
+    "transcript.json"
+   ],
+   [
+    "j'suis",
+    33.59,
+    "transcript.json"
+   ],
+   [
+    "qu'un",
+    34.04,
+    "transcript.json"
+   ],
+   [
+    "glaçon",
+    34.41,
+    "transcript.json"
+   ],
+   [
+    "sous",
+    34.87,
+    "transcript.json"
+   ],
+   [
+    "string",
+    35.17,
+    "transcript.json"
+   ],
+   [
+    "ficelle",
+    35.76,
+    "transcript.json"
+   ]
+  ]
+ },
+ {
+  "line": "Oh, non mais oh",
+  "matched": "4/4",
+  "first": 36.45,
+  "last": 38.06,
+  "max_shift_vs_old": -0.63,
+  "words": [
+   [
+    "Oh,",
+    36.45,
+    "transcript.json"
+   ],
+   [
+    "non",
+    36.77,
+    "transcript.json"
+   ],
+   [
+    "mais",
+    37.32,
+    "transcript.json"
+   ],
+   [
+    "oh",
+    38.06,
+    "transcript.json"
+   ]
+  ]
+ },
+ {
+  "line": "Elle m'a pris pour qui, pour Romeo?",
+  "matched": "7/7",
+  "first": 38.51,
+  "last": 40.37,
+  "max_shift_vs_old": 0.95,
+  "words": [
+   [
+    "Elle",
+    38.51,
+    "transcript.json"
+   ],
+   [
+    "m'a",
+    38.66,
+    "transcript.json"
+   ],
+   [
+    "pris",
+    38.76,
+    "transcript.json"
+   ],
+   [
+    "pour",
+    38.91,
+    "transcript.json"
+   ],
+   [
+    "qui,",
+    39.06,
+    "transcript.json"
+   ],
+   [
+    "pour",
+    39.36,
+    "transcript.json"
+   ],
+   [
+    "Romeo?",
+    40.37,
+    "transcript.json"
+   ]
+  ]
+ },
+ {
+  "line": "Non mais allô? Non mais allô?",
+  "matched": "6/6",
+  "first": 41.7,
+  "last": 45.79,
+  "max_shift_vs_old": 1.29,
+  "words": [
+   [
+    "Non",
+    41.7,
+    "transcript.json"
+   ],
+   [
+    "mais",
+    42.27,
+    "transcript.json"
+   ],
+   [
+    "allô?",
+    43.11,
+    "transcript.json"
+   ],
+   [
+    "Non",
+    44.37,
+    "transcript.json"
+   ],
+   [
+    "mais",
+    44.98,
+    "transcript.json"
+   ],
+   [
+    "allô?",
+    45.79,
+    "transcript.json"
+   ]
+  ]
+ },
+ {
+  "line": "J'laisse trace pour transe au WC",
+  "matched": "6/6",
+  "first": 46.69,
+  "last": 48.86,
+  "max_shift_vs_old": 1.02,
+  "words": [
+   [
+    "J'laisse",
+    46.69,
+    "transcript.json"
+   ],
+   [
+    "trace",
+    47.21,
+    "transcript.json"
+   ],
+   [
+    "pour",
+    47.79,
+    "transcript.json"
+   ],
+   [
+    "transe",
+    48.18,
+    "transcript.json"
+   ],
+   [
+    "au",
+    48.66,
+    "transcript.json"
+   ],
+   [
+    "WC",
+    48.86,
+    "transcript.json"
+   ]
+  ]
+ },
+ {
+  "line": "En LV totalement pété",
+  "matched": "4/4",
+  "first": 49.35,
+  "last": 51.01,
+  "max_shift_vs_old": -0.02,
+  "words": [
+   [
+    "En",
+    49.35,
+    "transcript.json"
+   ],
+   [
+    "LV",
+    49.59,
+    "transcript.json"
+   ],
+   [
+    "totalement",
+    49.82,
+    "transcript.json"
+   ],
+   [
+    "pété",
+    51.01,
+    "transcript.json"
+   ]
+  ]
+ },
+ {
+  "line": "J'rentre coke dans les poches",
+  "matched": "5/5",
+  "first": 51.57,
+  "last": 53.21,
+  "max_shift_vs_old": 1.08,
+  "words": [
+   [
+    "J'rentre",
+    51.57,
+    "transcript.json"
+   ],
+   [
+    "coke",
+    52.32,
+    "transcript.json"
+   ],
+   [
+    "dans",
+    52.64,
+    "transcript.json"
+   ],
+   [
+    "les",
+    52.97,
+    "transcript.json"
+   ],
+   [
+    "poches",
+    53.21,
+    "transcript.json"
+   ]
+  ]
+ },
+ {
+  "line": "Quand p'tit frère part à l'école",
+  "matched": "6/6",
+  "first": 53.72,
+  "last": 54.86,
+  "max_shift_vs_old": 0.26,
+  "words": [
+   [
+    "Quand",
+    53.72,
+    "words_end_medium.json"
+   ],
+   [
+    "p'tit",
+    54.06,
+    "transcript.json"
+   ],
+   [
+    "frère",
+    54.26,
+    "transcript.json"
+   ],
+   [
+    "part",
+    54.52,
+    "transcript.json"
+   ],
+   [
+    "à",
+    54.78,
+    "transcript.json"
+   ],
+   [
+    "l'école",
+    54.86,
+    "transcript.json"
+   ]
+  ]
+ },
+ {
+  "line": "J'suis dans ma bulle, bulle, bulle",
+  "matched": "6/6",
+  "first": 55.58,
+  "last": 57.6,
+  "max_shift_vs_old": 0.36,
+  "words": [
+   [
+    "J'suis",
+    55.58,
+    "words_end_medium.json"
+   ],
+   [
+    "dans",
+    55.9,
+    "words_end_medium.json"
+   ],
+   [
+    "ma",
+    56.14,
+    "words_end_medium.json"
+   ],
+   [
+    "bulle,",
+    56.4,
+    "words_end_medium.json"
+   ],
+   [
+    "bulle,",
+    56.96,
+    "words_end_medium.json"
+   ],
+   [
+    "bulle",
+    57.6,
+    "words_end_medium.json"
+   ]
+  ]
+ },
+ {
+  "line": "Oh shit, le shit, le shit, bulle",
+  "matched": "2/7",
+  "first": 60.349,
+  "last": 60.649,
+  "max_shift_vs_old": null,
+  "words": [
+   [
+    "Oh",
+    60.35,
+    "interpolé"
+   ],
+   [
+    "shit,",
+    60.4,
+    "interpolé"
+   ],
+   [
+    "le",
+    60.45,
+    "transcript.json"
+   ],
+   [
+    "shit,",
+    60.5,
+    "interpolé"
+   ],
+   [
+    "le",
+    60.55,
+    "transcript.json"
+   ],
+   [
+    "shit,",
+    60.6,
+    "interpolé"
+   ],
+   [
+    "bulle",
+    60.65,
+    "interpolé"
+   ]
+  ]
+ }
+]
