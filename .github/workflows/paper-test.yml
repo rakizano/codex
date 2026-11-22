@@ -78,6 +78,10 @@ jobs:
             echo '```json'
             python3 scripts/run_bot.py report || true
             echo '```'
+            echo "## Smart Money (meilleurs wallets et leurs achats)"
+            echo '```json'
+            python3 scripts/run_bot.py smart | head -120 || true
+            echo '```'
             echo "## Optimiseur (validation hors échantillon)"
             echo '```json'
             python3 scripts/run_bot.py optimize | tail -40 || true
