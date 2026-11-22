@@ -64,6 +64,7 @@ class Settings:
     # Boucle
     scan_interval_s: float = 60.0
     monitor_interval_s: float = 15.0
+    fast_check_interval_s: float = 5.0   # surveillance rapide (1 requête DexScreener pour toutes les positions)
 
     # Exécution réelle (désactivée par défaut, double confirmation obligatoire)
     live_confirm: str | None = None
@@ -130,6 +131,7 @@ class Settings:
             min_trades_for_sizing=int(_float("MIN_TRADES_FOR_SIZING", cls.min_trades_for_sizing)),
             reentry_cooldown_h=_float("REENTRY_COOLDOWN_H", cls.reentry_cooldown_h),
             track_interval_s=_float("TRACK_INTERVAL_S", cls.track_interval_s),
+            fast_check_interval_s=max(2.0, _float("FAST_CHECK_INTERVAL_S", cls.fast_check_interval_s)),
             track_window_h=_float("TRACK_WINDOW_H", cls.track_window_h),
             execution_mode=mode,
             helius_rpc_url=os.environ.get("HELIUS_RPC_URL") or None,

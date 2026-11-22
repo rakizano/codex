@@ -57,7 +57,7 @@ python3 scripts/run_bot.py run             # boucle continue (scan + suivi + col
 python3 scripts/run_bot.py report          # bilan : PnL net, taux de réussite, données collectées
 python3 scripts/run_bot.py backtest        # rejoue vos réglages sur les prix collectés
 python3 scripts/run_bot.py optimize        # meilleurs réglages, validés hors échantillon
-python3 -m pytest -q                       # 117 tests, tous hors-ligne (APIs simulées)
+python3 -m pytest -q                       # 119 tests, tous hors-ligne (APIs simulées)
 ```
 
 Dans Claude Code : `/memecoin-scanner <MINT>`. Avec un autre agent (OpenCode, Cline, Aider…),
@@ -107,7 +107,10 @@ Un take-profit fixe à +60 % coupait justement ces rares gros gagnants. Désorma
 4. **Stop suiveur** : on sort si la valeur recule de 25 % depuis son plus haut.
 5. **Take-profit final** à +300 %, **sortie temporelle** à 4 h.
 
-Le suivi passe à 15 s pour limiter les glissements sous le stop. En LIVE, la vente partielle
+Un essai réel a montré un stop à −25 % exécuté à −29 % : sur ces jetons le prix saute.
+D'où une **surveillance rapide** : toutes les 5 s, une seule requête DexScreener couvre toutes
+les positions ; celles qui approchent d'un seuil (stop, TP1, stop suiveur, TP final, à 5 points
+près) sont aussitôt réévaluées par devis Jupiter, les autres toutes les 15 s. En LIVE, la vente partielle
 porte sur la fraction correspondante du solde réel lu on-chain.
 
 ### Entrées (après la sécurité)

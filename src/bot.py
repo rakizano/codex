@@ -162,9 +162,11 @@ class Bot:
             if ok:
                 size_info = {"size_sol": round(sizing.size_sol, 4), "sizing": sizing.reason}
                 if self.live:
-                    opened, final = await self._live_entry(mint, sizing.size_sol, audit.buy_quote)
+                    opened, final = await self._live_entry(mint, sizing.size_sol, audit.buy_quote,
+                                                           audit.observations.get("price_usd"))
                 else:
-                    pos = self.trader.open(mint, sizing.size_sol, audit.buy_quote, self.s.audit_size_sol)
+                    pos = self.trader.open(mint, sizing.size_sol, audit.buy_quote, self.s.audit_size_sol,
+                                           audit.observations.get("price_usd"))
                     opened = pos.id if pos else None
             else:
                 final = f"PAPER_ENTRY_BLOCKED:{why}"
@@ -173,7 +175,8 @@ class Bot:
         return {"mint": mint, "deterministic": audit.verdict, "final": final,
                 "flags": flags, "position_id": opened, "size": size_info}
 
-    async def _live_entry(self, mint: str, size: float, audit_quote: dict | None) -> tuple[int | None, str]:
+    async def _live_entry(self, mint: str, size: float, audit_quote: dict | None,
+                          entry_price_usd: float | None = None) -> tuple[int | None, str]:
         try:
             res = await self.executor.buy(mint, size)
         except Exception as e:
@@ -181,7 +184,8 @@ class Bot:
             return None, f"LIVE_ENTRY_FAILED:{type(e).__name__}"
         impact = (audit_quote or {}).get("priceImpactPct")
         real_size = res.in_amount / LAMPORTS
-        pos = self.trader.open(mint, real_size, {"outAmount": str(res.expected_out), "priceImpactPct": impact})
+        pos = self.trader.open(mint, real_size, {"outAmount": str(res.expected_out), "priceImpactPct": impact},
+                               entry_price_usd=entry_price_usd)
         return (pos.id if pos else None), ("LIVE_ENTRY" if res.confirmed else "LIVE_ENTRY_UNCONFIRMED")
 
     # --- cycles -----------------------------------------------------------------
@@ -197,9 +201,21 @@ class Bot:
                 log.exception("audit de %s en échec (ignoré)", mint)
         return results
 
-    async def monitor_once(self) -> list[dict]:
+    async def fast_watch_once(self) -> list[dict]:
+        """Toutes les quelques secondes : un seul appel DexScreener pour toutes les positions ;
+        seules celles proches d'un seuil sont réévaluées immédiatement par devis Jupiter."""
+        positions = self.trader.open_positions()
+        if not positions:
+            return []
+        prices = await self.dex.prices([p.mint for p in positions])
+        urgent = {p.mint for p in positions if self.trader.near_exit(p, (prices.get(p.mint) or (None,))[0])}
+        return await self.monitor_once(urgent) if urgent else []
+
+    async def monitor_once(self, only_mints: set[str] | None = None) -> list[dict]:
         events = []
         for pos in self.trader.open_positions():
+            if only_mints is not None and pos.mint not in only_mints:
+                continue
             value = await self.jup.sell_value_sol(pos.mint, pos.token_amount, self.s.max_slippage_bps)
             decision = self.trader.evaluate(pos, value)
             if decision is None:
@@ -236,14 +252,21 @@ class Bot:
     async def run(self, max_cycles: int | None = None) -> None:
         log.info("démarrage en mode %s : %s", "LIVE" if self.live else "PAPER",
                  json.dumps(self.s.redacted(), default=str))
-        next_scan = next_track = 0.0
+        next_scan = next_track = next_monitor = 0.0
         cycles = 0
         while max_cycles is None or cycles < max_cycles:
             now = time.monotonic()
             if now >= next_scan:
                 await self.scan_once()
                 next_scan = now + self.s.scan_interval_s
-            await self.monitor_once()
+            if now >= next_monitor:
+                await self.monitor_once()
+                next_monitor = time.monotonic() + self.s.monitor_interval_s
+            else:
+                try:
+                    await self.fast_watch_once()
+                except Exception:
+                    log.exception("surveillance rapide en échec (ignorée)")
             if now >= next_track:
                 try:
                     await self.track_once()
@@ -251,7 +274,7 @@ class Bot:
                     log.exception("collecte de prix en échec (ignorée)")
                 next_track = now + self.s.track_interval_s
             cycles += 1
-            await asyncio.sleep(self.s.monitor_interval_s)
+            await asyncio.sleep(self.s.fast_check_interval_s)
 
     def report(self) -> dict:
         out = self.trader.summary()

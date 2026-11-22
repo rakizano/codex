@@ -44,9 +44,10 @@ MIGRATIONS = {
     "peak_pnl_pct": "REAL NOT NULL DEFAULT 0.0",
     "realized_sol": "REAL NOT NULL DEFAULT 0.0",
     "tp1_done": "INTEGER NOT NULL DEFAULT 0",
+    "entry_price_usd": "REAL",
 }
 _COLS = ("id, mint, opened_at, size_sol, token_amount, entry_price_impact_pct, "
-         "remaining_frac, peak_pnl_pct, realized_sol, tp1_done")
+         "remaining_frac, peak_pnl_pct, realized_sol, tp1_done, entry_price_usd")
 
 
 @dataclass
@@ -61,6 +62,7 @@ class Position:
     peak_pnl_pct: float = 0.0
     realized_sol: float = 0.0
     tp1_done: bool = False
+    entry_price_usd: float | None = None  # prix DexScreener à l'entrée (surveillance rapide)
 
 
 class PaperTrader:
@@ -96,7 +98,7 @@ class PaperTrader:
     # --- état -----------------------------------------------------------------
     def open_positions(self) -> list[Position]:
         rows = self.db.execute(f"SELECT {_COLS} FROM positions WHERE status='OPEN'").fetchall()
-        return [Position(*r[:9], bool(r[9])) for r in rows]
+        return [Position(*r[:9], bool(r[9]), r[10]) for r in rows]
 
     def has_position(self, mint: str) -> bool:
         return self.db.execute("SELECT 1 FROM positions WHERE mint=? AND status='OPEN'", (mint,)).fetchone() is not None
@@ -150,7 +152,7 @@ class PaperTrader:
 
     # --- actions ----------------------------------------------------------------
     def open(self, mint: str, size_sol: float, buy_quote: dict,
-             quote_size_sol: float | None = None) -> Position | None:
+             quote_size_sol: float | None = None, entry_price_usd: float | None = None) -> Position | None:
         """`quote_size_sol` : taille pour laquelle le devis a été demandé (si différente de la
         position, mise à l'échelle linéaire — prudent : une petite taille obtient un meilleur prix)."""
         ok, _ = self.can_open(mint)
@@ -163,10 +165,32 @@ class PaperTrader:
             impact = float(buy_quote.get("priceImpactPct")) * 100
         except (TypeError, ValueError):
             impact = None
-        cur = self.db.execute("INSERT INTO positions (mint, opened_at, size_sol, token_amount, entry_price_impact_pct) "
-                              "VALUES (?,?,?,?,?)", (mint, self.clock(), size_sol, tokens, impact))
+        cur = self.db.execute("INSERT INTO positions (mint, opened_at, size_sol, token_amount, entry_price_impact_pct, "
+                              "entry_price_usd) VALUES (?,?,?,?,?,?)",
+                              (mint, self.clock(), size_sol, tokens, impact, entry_price_usd))
         self.db.commit()
-        return Position(cur.lastrowid, mint, self.clock(), size_sol, tokens, impact)
+        return Position(cur.lastrowid, mint, self.clock(), size_sol, tokens, impact, entry_price_usd=entry_price_usd)
+
+    def near_exit(self, pos: Position, price_usd: float | None, margin_pct: float = 5.0) -> bool:
+        """Estimation rapide (prix DexScreener) : la position approche-t-elle d'un seuil de sortie ?
+        Sert uniquement à déclencher plus tôt un devis Jupiter ; la décision reste fondée sur le devis."""
+        if not pos.entry_price_usd or not price_usd:
+            return True  # inconnu : on vérifie
+        cost = self.roundtrip_cost_pct(pos.size_sol)
+        est = (price_usd / pos.entry_price_usd * (1 - cost / 100) - 1) * 100
+        r = self.rules
+        stop = max(r.stop_loss_pct, 0.0) if (pos.tp1_done and r.breakeven_after_tp1) else r.stop_loss_pct
+        if est <= stop + margin_pct:
+            return True
+        if not pos.tp1_done and r.tp1_pct is not None and est >= r.tp1_pct - margin_pct:
+            return True
+        if est >= r.take_profit_pct - margin_pct:
+            return True
+        if r.trailing_stop_pct and r.trail_activation_pct is not None and pos.peak_pnl_pct >= r.trail_activation_pct:
+            dd = ((1 + est / 100) / (1 + pos.peak_pnl_pct / 100) - 1) * 100
+            if dd <= -(r.trailing_stop_pct - margin_pct):
+                return True
+        return False
 
     def pnl_pct(self, pos: Position, quote_value_sol: float | None) -> float | None:
         """PnL net de la part restante (valeur de sortie nette / coût de la part restante)."""

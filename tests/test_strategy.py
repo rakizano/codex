@@ -221,3 +221,39 @@ def test_bot_records_observations_and_tracks():
     assert n == 1  # seul le jeton sain est suivi (le honeypot et le jeton piégé ne le sont pas)
     assert rep["data_collected"] == {"tokens_observed": 1, "snapshots": 1}
     assert bt["trades"] == 1
+
+
+# --- surveillance rapide ---------------------------------------------------------------------
+
+def test_near_exit_estimates():
+    tr = PaperTrader(exit_rules=R, clock=lambda: 0.0)
+    pos = tr.open(CLEAN, 0.05, {"outAmount": "1000"}, entry_price_usd=1.0)
+    assert not tr.near_exit(pos, 1.05)      # +5 % : loin de tout seuil
+    assert tr.near_exit(pos, 0.78)          # ~-24 % : proche du stop à -25 %
+    assert tr.near_exit(pos, 1.40)          # ~+37 % : proche du TP1 à +40 %
+    assert tr.near_exit(pos, None)          # prix inconnu : on vérifie
+    assert tr.open_positions()[0].entry_price_usd == 1.0
+
+
+def test_fast_watch_only_quotes_positions_near_a_threshold():
+    from bot import Bot
+    from config import Settings
+    api = FakeApis()
+
+    async def go():
+        bot = Bot(replace(Settings(), db_path=":memory:"), client=api.client())
+        for cli in (bot.dex.profiles, bot.dex.pairs, bot.gecko.api, bot.rug.api, bot.jup.api, bot.social.reddit.api):
+            cli._sleep = no_sleep
+            cli.bucket = TokenBucket(1e6, 1)
+        await bot.process(CLEAN)
+        quotes_before = sum("/quote" in c for c in api.calls)
+        calm = await bot.fast_watch_once()                       # prix inchangé : aucun devis
+        quotes_calm = sum("/quote" in c for c in api.calls)
+        api.price_multiplier = api.exit_multiplier = 0.5         # chute brutale de 50 %
+        crash = await bot.fast_watch_once()
+        await bot.aclose()
+        return quotes_before, quotes_calm, calm, crash
+
+    before, calm_quotes, calm, crash = asyncio.run(go())
+    assert calm == [] and calm_quotes == before
+    assert crash and crash[0]["reason"] == "STOP_LOSS"
