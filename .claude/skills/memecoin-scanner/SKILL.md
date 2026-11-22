@@ -44,5 +44,9 @@ Arguments reçus : `$ARGUMENTS`
    liste des drapeaux. Tu peux commenter, jamais transformer un `REJECT` en autre chose.
    En mode `paper`, le script ajoute la simulation à `data/paper_trades.jsonl`.
 
+Pour la boucle complète (découverte, suivi des positions simulées, bilan), l'utilisateur
+lance lui-même `python3 scripts/run_bot.py run|scan|monitor|report` ; propose-le, ne le
+lance pas en tâche de fond sans accord.
+
 Rappel à afficher en fin de rapport : analyse informative, pas un conseil financier ;
 la majorité des meme coins perdent l'essentiel de leur valeur.
