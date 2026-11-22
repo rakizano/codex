@@ -45,6 +45,7 @@ MIGRATIONS = {
     "realized_sol": "REAL NOT NULL DEFAULT 0.0",
     "tp1_done": "INTEGER NOT NULL DEFAULT 0",
     "entry_price_usd": "REAL",
+    "source": "TEXT NOT NULL DEFAULT 'scan'",   # moteur d'origine : scan | smart | both
 }
 _COLS = ("id, mint, opened_at, size_sol, token_amount, entry_price_impact_pct, "
          "remaining_frac, peak_pnl_pct, realized_sol, tp1_done, entry_price_usd")
@@ -152,7 +153,8 @@ class PaperTrader:
 
     # --- actions ----------------------------------------------------------------
     def open(self, mint: str, size_sol: float, buy_quote: dict,
-             quote_size_sol: float | None = None, entry_price_usd: float | None = None) -> Position | None:
+             quote_size_sol: float | None = None, entry_price_usd: float | None = None,
+             source: str = "scan") -> Position | None:
         """`quote_size_sol` : taille pour laquelle le devis a été demandé (si différente de la
         position, mise à l'échelle linéaire — prudent : une petite taille obtient un meilleur prix)."""
         ok, _ = self.can_open(mint)
@@ -166,8 +168,8 @@ class PaperTrader:
         except (TypeError, ValueError):
             impact = None
         cur = self.db.execute("INSERT INTO positions (mint, opened_at, size_sol, token_amount, entry_price_impact_pct, "
-                              "entry_price_usd) VALUES (?,?,?,?,?,?)",
-                              (mint, self.clock(), size_sol, tokens, impact, entry_price_usd))
+                              "entry_price_usd, source) VALUES (?,?,?,?,?,?,?)",
+                              (mint, self.clock(), size_sol, tokens, impact, entry_price_usd, source))
         self.db.commit()
         return Position(cur.lastrowid, mint, self.clock(), size_sol, tokens, impact, entry_price_usd=entry_price_usd)
 
@@ -276,7 +278,21 @@ class PaperTrader:
             "realized_pnl_24h_sol": round(self.realized_pnl_today(), 6),
             "circuit_breaker": self.circuit_breaker_tripped(),
             "audits_by_verdict": audits,
+            "by_source": self.by_source(),
         }
+
+    def by_source(self) -> dict:
+        """Comparaison des moteurs (scan classique / smart money / les deux) sur les trades clôturés."""
+        out = {}
+        for src, n, pnl, wins, invested in self.db.execute(
+                "SELECT source, COUNT(*), SUM(pnl_sol), SUM(pnl_sol>0), SUM(size_sol) FROM positions "
+                "WHERE status='CLOSED' GROUP BY source"):
+            out[src] = {"closed_trades": n, "realized_pnl_sol": round(pnl, 6),
+                        "win_rate_pct": round(100 * wins / n, 1),
+                        "return_on_invested_pct": round(100 * pnl / invested, 2) if invested else None}
+        for src, n in self.db.execute("SELECT source, COUNT(*) FROM positions WHERE status='OPEN' GROUP BY source"):
+            out.setdefault(src, {"closed_trades": 0})["open_trades"] = n
+        return out
 
     def close_db(self) -> None:
         self.db.close()

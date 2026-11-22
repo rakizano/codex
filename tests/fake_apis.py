@@ -65,6 +65,7 @@ class FakeApis:
         self.x_auth_seen: list[str] = []
         self.top_boosts: list[str] = []   # sources de découverte supplémentaires
         self.trending: list[str] = []
+        self.pool_trades: dict[str, list[dict]] = {}   # moteur smart money : trades publics par pool
 
     def handler(self, req: httpx.Request) -> httpx.Response:
         url, host, path = str(req.url), req.url.host, req.url.path
@@ -92,7 +93,12 @@ class FakeApis:
         if host == "api.geckoterminal.com":
             if path.endswith("/trending_pools"):
                 return httpx.Response(200, json={"data": [
-                    {"relationships": {"base_token": {"data": {"id": f"solana_{m}"}}}} for m in self.trending]})
+                    {"attributes": {"address": f"pool{i}"},
+                     "relationships": {"base_token": {"data": {"id": f"solana_{m}"}}}}
+                    for i, m in enumerate(self.trending)]})
+            if path.endswith("/trades"):
+                pool = path.split("/")[-2]
+                return httpx.Response(200, json={"data": [{"attributes": t} for t in self.pool_trades.get(pool, [])]})
             return httpx.Response(200, json={"data": {"attributes": {"price_usd": "0.00101",
                                                                       "total_reserve_in_usd": "79000"}}})
 

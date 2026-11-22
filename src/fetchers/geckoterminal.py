@@ -26,18 +26,28 @@ class GeckoTerminal:
             self.cache.set(key, data, self.ttl_s)
         return data
 
-    async def trending_mints(self) -> list[str]:
-        """Jetons des pools Solana en tendance (pools établis avec du volume, pas seulement les nouveautés)."""
-        data = await self.api.get("/networks/solana/trending_pools", params={"page": 1})
-        mints: list[str] = []
+    async def trending_pools(self) -> list[tuple[str, str]]:
+        """(adresse du pool, mint) des pools Solana en tendance (établis, avec du volume)."""
+        data = await self.api.get("/networks/solana/trending_pools", page=1)
+        out: list[tuple[str, str]] = []
         for pool in (data or {}).get("data", []) if isinstance(data, dict) else []:
             try:
                 tid = pool["relationships"]["base_token"]["data"]["id"]
-            except (KeyError, TypeError):
+                addr = pool.get("attributes", {}).get("address") or pool.get("id", "").removeprefix("solana_")
+            except (KeyError, TypeError, AttributeError):
                 continue
             if isinstance(tid, str) and tid.startswith("solana_"):
-                mints.append(tid[len("solana_"):])
-        return mints
+                out.append((addr if isinstance(addr, str) else "", tid[len("solana_"):]))
+        return out
+
+    async def trending_mints(self) -> list[str]:
+        return [mint for _, mint in await self.trending_pools()]
+
+    async def pool_trades(self, pool: str) -> list[dict]:
+        """300 derniers trades d'un pool : wallet, sens, montants, prix (données publiques on-chain)."""
+        data = await self.api.get(f"/networks/solana/pools/{pool}/trades")
+        rows = (data or {}).get("data") if isinstance(data, dict) else None
+        return [r.get("attributes") for r in rows or [] if isinstance(r, dict) and isinstance(r.get("attributes"), dict)]
 
     async def aclose(self) -> None:
         await self.api.aclose()

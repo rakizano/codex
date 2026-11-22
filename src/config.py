@@ -5,6 +5,7 @@ import os
 from dataclasses import dataclass, field
 
 from memecoin.filters import Thresholds
+from smart.tracker import SmartRules
 from strategy.entry import EntryRules
 from strategy.exit import ExitRules
 
@@ -84,6 +85,12 @@ class Settings:
     min_x_unique_authors_ratio: float = 0.4  # < 0,4 auteur unique par post = suspicion de shill
     max_boosts_active: int = 500         # boosts DexScreener payés au-delà : hype achetée
 
+    # Moteur 2 : Smart Money (wallets rentables observés via les trades publics des pools)
+    smart_enabled: bool = True
+    smart_interval_s: float = 60.0
+    smart_pools_per_cycle: int = 3       # requêtes GeckoTerminal par cycle (quota 10/min partagé)
+    smart_rules: SmartRules = field(default_factory=SmartRules)
+
     thresholds: Thresholds = field(default_factory=Thresholds)
     exit_rules: ExitRules = field(default_factory=ExitRules)
     entry_rules: EntryRules = field(default_factory=EntryRules)
@@ -120,10 +127,25 @@ class Settings:
             min_txns_h1=int(_float("MIN_TXNS_H1", EntryRules.min_txns_h1)),
             min_volume_liquidity_ratio_h1=_float("MIN_VOLUME_LIQUIDITY_H1", EntryRules.min_volume_liquidity_ratio_h1),
         )
+        sm = SmartRules(
+            min_closed_tokens=int(_float("SMART_MIN_CLOSED_TOKENS", SmartRules.min_closed_tokens)),
+            min_win_rate=_float("SMART_MIN_WIN_RATE", SmartRules.min_win_rate),
+            min_realized_pnl_usd=_float("SMART_MIN_PNL_USD", SmartRules.min_realized_pnl_usd),
+            max_trades_per_token=int(_float("SMART_MAX_TRADES_PER_TOKEN", SmartRules.max_trades_per_token)),
+            min_buy_usd=_float("SMART_MIN_BUY_USD", SmartRules.min_buy_usd),
+            window_min=_float("SMART_WINDOW_MIN", SmartRules.window_min),
+            min_wallets=max(1, int(_float("SMART_MIN_WALLETS", SmartRules.min_wallets))),
+            max_chase_pct=_float("SMART_MAX_CHASE_PCT", SmartRules.max_chase_pct),
+            manual_wallets=tuple(w.strip() for w in os.environ.get("SMART_WALLETS", "").split(",") if w.strip()),
+        )
         sizing = os.environ.get("SIZING_MODE", cls.sizing_mode).strip().lower()
         return cls(
             exit_rules=ex,
             entry_rules=en,
+            smart_rules=sm,
+            smart_enabled=os.environ.get("SMART_ENABLED", "true").lower() not in ("0", "false", "no"),
+            smart_interval_s=max(20.0, _float("SMART_INTERVAL_S", cls.smart_interval_s)),
+            smart_pools_per_cycle=max(1, min(6, int(_float("SMART_POOLS_PER_CYCLE", cls.smart_pools_per_cycle)))),
             sizing_mode=sizing if sizing in ("fixed", "kelly") else "fixed",
             kelly_multiplier=min(1.0, max(0.05, _float("KELLY_MULTIPLIER", cls.kelly_multiplier))),
             max_position_sol=_float("MAX_POSITION_SOL", cls.max_position_sol),

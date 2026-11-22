@@ -4,6 +4,7 @@ puis suivi des positions (partielles, stop suiveur) et collecte de données pour
 Usage :
   python3 scripts/run_bot.py run            # boucle continue (scan + suivi + collecte)
   python3 scripts/run_bot.py scan           # un seul cycle de découverte
+  python3 scripts/run_bot.py smart          # moteur smart money : meilleurs wallets et leurs achats
   python3 scripts/run_bot.py audit <MINT>   # audit d'un jeton
   python3 scripts/run_bot.py monitor        # réévalue les positions ouvertes
   python3 scripts/run_bot.py track          # enregistre un instantané de prix des jetons suivis
@@ -19,6 +20,7 @@ import json
 import logging
 import os
 import time
+from collections import deque
 
 import httpx
 
@@ -28,6 +30,7 @@ from config import PAPER, Settings
 from fetchers import DexScreener, GeckoTerminal, Jupiter, RugCheck, SolanaRpc
 from filters.rug_detector import RugDetector
 from paper_trader import PaperTrader
+from smart import SmartMoneyBook
 from social import SocialChecker, evaluate_social
 from strategy.backtest import DataStore, backtest, optimize
 from strategy.entry import FEATURES, evaluate_entry
@@ -62,6 +65,11 @@ class Bot:
         self.social = SocialChecker(settings, self.cache, self.client) if settings.social_enabled else None
         self.analyzer = analyzer
         self.require_llm = require_llm
+        # Moteur 2 : Smart Money
+        self.smart = SmartMoneyBook(settings.db_path, settings.smart_rules) if settings.smart_enabled else None
+        self._pools: deque[tuple[str, str]] = deque()   # (pool, mint) interrogés à tour de rôle
+        self._smart_buys: dict[str, dict] = {}          # dernier état des achats smart, par jeton
+        self._smart_cycles = 0
 
         # Exécution réelle : uniquement si toutes les conditions de live.executor sont réunies.
         self.executor = executor
@@ -86,8 +94,11 @@ class Bot:
         """Sources gratuites : profils et boosts DexScreener récents, top boosts, pools en tendance
         GeckoTerminal. Une source en panne est ignorée ; le mint est validé ensuite par l'audit."""
         results = await asyncio.gather(self.dex.latest_profiles(), self.dex.latest_boosts(),
-                                       self.dex.top_boosts(), self.gecko.trending_mints(),
+                                       self.dex.top_boosts(), self.gecko.trending_pools(),
                                        return_exceptions=True)
+        if not isinstance(results[3], BaseException):
+            self._remember_pools(results[3])
+            results[3] = [mint for _, mint in results[3]]
         candidates: list[str] = []
         for res in results:
             if isinstance(res, BaseException):
@@ -101,7 +112,53 @@ class Bot:
         for mint in candidates:
             if mint not in mints and self.cache.get(f"seen:{mint}") is None:
                 mints.append(mint)
-        return mints
+        # Analyse croisée : les jetons déjà achetés par des wallets smart passent en premier.
+        return sorted(mints, key=lambda m: -len(self._smart_buys.get(m, {}).get("wallets", ())))
+
+    def _remember_pools(self, pools: list[tuple[str, str]]) -> None:
+        known = {p for p, _ in self._pools}
+        for pool, mint in pools:
+            if pool and pool not in known:
+                self._pools.append((pool, mint))
+                known.add(pool)
+        while len(self._pools) > 60:
+            self._pools.popleft()
+
+    # --- moteur 2 : smart money --------------------------------------------------
+    async def smart_once(self) -> list[dict]:
+        """Lit les trades de quelques pools, met à jour le classement des wallets et audite
+        les jetons achetés par plusieurs wallets smart. Retourne les décisions prises."""
+        if self.smart is None:
+            return []
+        if not self._pools:
+            try:
+                self._remember_pools(await self.gecko.trending_pools())
+            except Exception:
+                log.exception("pools en tendance indisponibles")
+        for _ in range(min(self.s.smart_pools_per_cycle, len(self._pools))):
+            pool, mint = self._pools.popleft()
+            self._pools.append((pool, mint))
+            try:
+                self.smart.ingest(mint, await self.gecko.pool_trades(pool))
+            except Exception:
+                log.exception("trades du pool %s indisponibles (ignoré)", pool)
+        self._smart_cycles += 1
+        if self._smart_cycles % 1000 == 0:
+            self.smart.prune()
+        self._smart_buys = self.smart.smart_buys()
+        results = []
+        if self.trader.circuit_breaker_tripped():
+            return results
+        for mint, buys in self.smart.candidates():
+            if self.cache.get(f"smart_seen:{mint}") is not None:
+                continue
+            self.cache.set(f"smart_seen:{mint}", 1, 2 * 3600)
+            log.info("%s : %d wallets smart ont acheté (%.0f USD)", mint, len(buys["wallets"]), buys["usd"])
+            try:
+                results.append(await self.process(mint, smart=buys))
+            except Exception:
+                log.exception("audit de %s en échec (ignoré)", mint)
+        return results
 
     # --- taille -------------------------------------------------------------------
     async def bankroll(self) -> float:
@@ -127,11 +184,13 @@ class Bot:
         return self.trader.roundtrip_cost_pct(self.s.position_size_sol) + 2 * scaled
 
     # --- un jeton ---------------------------------------------------------------
-    async def process(self, mint: str) -> dict:
+    async def process(self, mint: str, smart: dict | None = None) -> dict:
+        """`smart` : achats smart détectés (moteur 2). Sans lui, c'est le scan classique (moteur 1)."""
         self.cache.set(f"seen:{mint}", 1, SEEN_TTL_S)
         audit = await self.detector.audit(mint)
         flags = list(audit.flags)
         final = "REJECT"
+        source = "smart" if smart else "scan"
 
         if audit.verdict == "WATCHLIST_PAPER":
             # 1. Données pour l'optimiseur : tout jeton SAIN est suivi, qu'on y entre ou non.
@@ -142,8 +201,17 @@ class Bot:
                                          self._estimated_cost_pct(audit), feats)
             # 2. Momentum (rentabilité)
             entry_ok, entry_flags = evaluate_entry(audit.observations, self.s.entry_rules)
-            flags += entry_flags
-            final = "PAPER_ENTRY" if entry_ok else "MOMENTUM_REJECT"
+            if smart is None:
+                flags += entry_flags
+                final = "PAPER_ENTRY" if entry_ok else "MOMENTUM_REJECT"
+                if entry_ok and self._smart_buys.get(mint):
+                    source = "both"  # le scan classique ET des wallets smart désignent ce jeton
+            else:
+                ok, smart_flags = self._smart_entry(audit.observations.get("price_usd"), smart)
+                flags += smart_flags
+                final = "PAPER_ENTRY" if ok else "SMART_REJECT"
+                if ok and entry_ok:
+                    source = "both"
 
         # 3. Social (ne peut qu'empêcher ; seulement si le reste est bon, pour ménager les quotas)
         if final == "PAPER_ENTRY" and self.social is not None:
@@ -175,20 +243,33 @@ class Bot:
                 size_info = {"size_sol": round(sizing.size_sol, 4), "sizing": sizing.reason}
                 if self.live:
                     opened, final = await self._live_entry(mint, sizing.size_sol, audit.buy_quote,
-                                                           audit.observations.get("price_usd"))
+                                                           audit.observations.get("price_usd"), source)
                 else:
                     pos = self.trader.open(mint, sizing.size_sol, audit.buy_quote, self.s.audit_size_sol,
-                                           audit.observations.get("price_usd"))
+                                           audit.observations.get("price_usd"), source=source)
                     opened = pos.id if pos else None
             else:
                 final = f"PAPER_ENTRY_BLOCKED:{why}"
         log.info("%s -> %s (%s)%s", mint, final, ",".join(flags) or "aucun drapeau",
                  f" position #{opened} {size_info}" if opened else "")
-        return {"mint": mint, "deterministic": audit.verdict, "final": final,
+        return {"mint": mint, "deterministic": audit.verdict, "final": final, "source": source,
                 "flags": flags, "position_id": opened, "size": size_info}
 
+    def _smart_entry(self, price_usd, buys: dict) -> tuple[bool, list[str]]:
+        """Entrée smart : assez de wallets distincts, et pas de course après un prix déjà envolé."""
+        r = self.s.smart_rules
+        flags = [f"SMART_WALLETS({len(buys['wallets'])})"]
+        if len(buys["wallets"]) < r.min_wallets:
+            return False, flags + ["SMART_TOO_FEW_WALLETS"]
+        if not price_usd:
+            return False, flags + ["UNKNOWN_PRICE"]
+        chase = 100 * (price_usd / buys["entry_price_usd"] - 1)
+        if chase > r.max_chase_pct:
+            return False, flags + [f"SMART_CHASE(+{chase:.0f}%)"]
+        return True, flags
+
     async def _live_entry(self, mint: str, size: float, audit_quote: dict | None,
-                          entry_price_usd: float | None = None) -> tuple[int | None, str]:
+                          entry_price_usd: float | None = None, source: str = "scan") -> tuple[int | None, str]:
         try:
             res = await self.executor.buy(mint, size)
         except Exception as e:
@@ -197,7 +278,7 @@ class Bot:
         impact = (audit_quote or {}).get("priceImpactPct")
         real_size = res.in_amount / LAMPORTS
         pos = self.trader.open(mint, real_size, {"outAmount": str(res.expected_out), "priceImpactPct": impact},
-                               entry_price_usd=entry_price_usd)
+                               entry_price_usd=entry_price_usd, source=source)
         return (pos.id if pos else None), ("LIVE_ENTRY" if res.confirmed else "LIVE_ENTRY_UNCONFIRMED")
 
     # --- cycles -----------------------------------------------------------------
@@ -264,13 +345,19 @@ class Bot:
     async def run(self, max_cycles: int | None = None) -> None:
         log.info("démarrage en mode %s : %s", "LIVE" if self.live else "PAPER",
                  json.dumps(self.s.redacted(), default=str))
-        next_scan = next_track = next_monitor = 0.0
+        next_scan = next_track = next_monitor = next_smart = 0.0
         cycles = 0
         while max_cycles is None or cycles < max_cycles:
             now = time.monotonic()
             if now >= next_scan:
                 await self.scan_once()
                 next_scan = now + self.s.scan_interval_s
+            if self.smart is not None and now >= next_smart:
+                try:
+                    await self.smart_once()
+                except Exception:
+                    log.exception("moteur smart money en échec (ignoré)")
+                next_smart = now + self.s.smart_interval_s
             if now >= next_monitor:
                 await self.monitor_once()
                 next_monitor = time.monotonic() + self.s.monitor_interval_s
@@ -291,7 +378,18 @@ class Bot:
     def report(self) -> dict:
         out = self.trader.summary()
         out["data_collected"] = self.data.stats()
+        if self.smart is not None:
+            out["smart_money"] = self.smart.stats()
         return out
+
+    async def smart_report(self) -> dict:
+        """Vue « Top Trader & Callout Tracker » : meilleurs wallets et jetons qu'ils achètent."""
+        if self.smart is None:
+            return {"smart_money": "désactivé (SMART_ENABLED=false)"}
+        buys = self.smart.smart_buys(window_min=24 * 60)
+        prices = await self.dex.prices(list(buys)) if buys else {}
+        return {"stats": self.smart.stats(), "top_wallets": self.smart.top_wallets(),
+                "token_tracker": self.smart.tracker({m: p for m, (p, _) in prices.items()})}
 
     async def report_with_open_positions(self) -> dict:
         """Bilan + valeur latente des positions ouvertes (devis de sortie Jupiter actuels)."""
@@ -348,7 +446,7 @@ async def _main(argv: list[str] | None = None) -> int:
     ap.add_argument("--require-llm", action="store_true",
                     default=os.environ.get("REQUIRE_LLM", "").lower() in ("1", "true"))
     sub = ap.add_subparsers(dest="cmd", required=True)
-    for name in ("run", "scan", "monitor", "track", "report", "backtest"):
+    for name in ("run", "scan", "smart", "monitor", "track", "report", "backtest"):
         sub.add_parser(name)
     op = sub.add_parser("optimize")
     op.add_argument("--min-train-trades", type=int, default=15)
@@ -368,6 +466,9 @@ async def _main(argv: list[str] | None = None) -> int:
             print(json.dumps(await bot.scan_once(), indent=2, ensure_ascii=False))
         elif a.cmd == "audit":
             print(json.dumps(await bot.process(a.mint), indent=2, ensure_ascii=False))
+        elif a.cmd == "smart":
+            await bot.smart_once()
+            print(json.dumps(await bot.smart_report(), indent=2, ensure_ascii=False))
         elif a.cmd == "monitor":
             print(json.dumps(await bot.monitor_once(), indent=2))
         elif a.cmd == "track":

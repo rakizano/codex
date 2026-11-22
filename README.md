@@ -150,6 +150,34 @@ modélisé, coûts estimés (frais + pourboires + 2 × impact prix mesuré). Une
 3. Seulement alors : LIVE à 0,05 SOL. Après 30 trades réels positifs, `SIZING_MODE=kelly`.
 4. Ré-optimisez chaque semaine ; si `report` passe en perte, retour en PAPER.
 
+## Moteur 2 : Smart Money (Top Trader Tracker)
+
+Le bot a deux moteurs indépendants, comparés en simulation :
+
+| Moteur | Ce qu'il cherche | Étiquette des positions |
+|---|---|---|
+| 1 — Scan | nouveaux jetons + momentum (règles d'entrée) | `scan` |
+| 2 — Smart Money | jetons achetés par plusieurs wallets rentables | `smart` |
+| Analyse croisée | jetons désignés par les deux moteurs (traités en priorité) | `both` |
+
+**Comment il repère les meilleurs traders (gratuit, sans clé)** : il lit en boucle les 300 derniers
+trades des pools en tendance (GeckoTerminal : wallet, achat/vente, montant USD, prix). Pour chaque
+wallet il calcule le PnL réalisé par jeton (ventes − coût moyen de la part vendue). Est « smart » un wallet
+avec ≥ 3 jetons revendus, ≥ 60 % de gagnants et ≥ 500 USD de gain ; les robots de volume/MEV (> 15 trades sur
+un jeton) sont exclus. Vous pouvez ajouter des wallets à la main (`SMART_WALLETS`, ex. classement Pump.fun).
+
+**Entrée** : au moins 2 wallets smart achètent (≥ 100 USD) le même jeton en 30 min, le prix n'a pas déjà pris
+plus de +50 % depuis leur achat, puis **les mêmes filtres de sécurité** (fail-closed), le contrôle social et la
+gestion des positions s'appliquent. Un achat smart ne force jamais une entrée.
+
+**Suivi** : `python3 scripts/run_bot.py smart` affiche les meilleurs wallets et le « token tracker »
+(wallets investis, multiple actuel et maximal depuis leur entrée, dernier achat — `null` si le prix est
+indisponible, rien n'est inventé). `report` contient `by_source` : PnL et taux de réussite **par moteur**,
+pour savoir lequel est réellement rentable.
+
+Limites : l'historique se construit avec le temps (aucun wallet n'est « smart » au premier lancement) ;
+seuls les pools interrogés sont visibles, donc un achat d'un wallet smart sur un jeton hors tendance est manqué.
+
 ## Signaux sociaux (X, Reddit, liens)
 
 Appliqués seulement aux jetons qui ont passé les filtres on-chain, ils peuvent **empêcher**
