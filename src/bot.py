@@ -258,6 +258,23 @@ class Bot:
         out["data_collected"] = self.data.stats()
         return out
 
+    async def report_with_open_positions(self) -> dict:
+        """Bilan + valeur latente des positions ouvertes (devis de sortie Jupiter actuels)."""
+        out = self.report()
+        rows, unrealized = [], 0.0
+        for pos in self.trader.open_positions():
+            value = await self.jup.sell_value_sol(pos.mint, pos.token_amount, self.s.max_slippage_bps)
+            pnl = self.trader.pnl_pct(pos, value)
+            net_now = pos.realized_sol + (self.trader.net_exit_value(value) if value is not None else 0.0)
+            unrealized += net_now - pos.size_sol
+            rows.append({"id": pos.id, "mint": pos.mint, "size_sol": pos.size_sol,
+                         "held_min": round((time.time() - pos.opened_at) / 60),
+                         "pnl_remaining_pct": round(pnl, 1) if pnl is not None else None,
+                         "peak_pct": round(pos.peak_pnl_pct, 1), "tp1_done": pos.tp1_done})
+        out["open_positions"] = rows
+        out["unrealized_pnl_sol"] = round(unrealized, 6)
+        return out
+
     def run_backtest(self) -> dict:
         res, trades = backtest(self.data.load_paths(), self.s.entry_rules, self.s.exit_rules)
         res["exit_reasons"] = {}
@@ -314,7 +331,7 @@ async def _main(argv: list[str] | None = None) -> int:
         elif a.cmd == "track":
             print(json.dumps({"snapshots_recorded": await bot.track_once()}))
         elif a.cmd == "report":
-            print(json.dumps(bot.report(), indent=2, ensure_ascii=False))
+            print(json.dumps(await bot.report_with_open_positions(), indent=2, ensure_ascii=False))
         elif a.cmd == "backtest":
             print(json.dumps(bot.run_backtest(), indent=2, ensure_ascii=False))
         elif a.cmd == "optimize":

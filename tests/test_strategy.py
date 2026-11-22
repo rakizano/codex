@@ -210,6 +210,8 @@ def test_bot_records_observations_and_tracks():
             cli.bucket = TokenBucket(1e6, 1)
         await bot.scan_once()
         n = await bot.track_once()
+        live_rep = await bot.report_with_open_positions()
+        assert len(live_rep["open_positions"]) == 1 and live_rep["unrealized_pnl_sol"] < 0  # frais payés
         rep = bot.report()
         bt = bot.run_backtest()
         await bot.aclose()

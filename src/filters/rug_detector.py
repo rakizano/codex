@@ -62,13 +62,14 @@ class RugDetector:
         if not is_valid_mint(mint):
             return AuditResult(mint, "REJECT", ["INVALID_MINT"], Metrics())
 
-        pairs, report, gk, (buy, sell) = await asyncio.gather(
+        # GeckoTerminal (10 req/min) n'est interrogé qu'en dernier, pour les seuls jetons
+        # qui passent tout le reste : la grande majorité est rejetée sans lui.
+        pairs, report, (buy, sell) = await asyncio.gather(
             self.dex.token_pairs(mint),
             self.rugcheck.report(mint),
-            self.gecko.token(mint),
             self.jupiter.roundtrip(mint, self.size_sol, self.slippage_bps),
         )
-        raw = {"dexscreener": pairs, "rugcheck": report, "geckoterminal": gk,
+        raw = {"dexscreener": pairs, "rugcheck": report, "geckoterminal": None,
                "jupiter_buy": buy, "jupiter_sell": sell,
                "size_lamports": int(self.size_sol * 1_000_000_000)}
         try:
@@ -89,11 +90,6 @@ class RugDetector:
         if isinstance(created_ms, (int, float)) and created_ms > 0:
             obs["pair_age_min"] = max(0.0, (time.time() * 1000 - created_ms) / 60_000)
 
-        # Validation croisée DexScreener / GeckoTerminal : écart de prix > 20 % = suspect
-        p1, p2 = obs.get("price_usd"), obs.get("gecko_price_usd")
-        if p1 and p2 and abs(p1 - p2) / max(p1, p2) > 0.20:
-            metrics.extra_flags.append("PRICE_SOURCES_DIVERGE")
-
         signals: list[str] = []
         for v in untrusted.values():
             if v:
@@ -102,5 +98,17 @@ class RugDetector:
             metrics.extra_flags.append("PROMPT_INJECTION_IN_METADATA")
 
         verdict, flags = evaluate(metrics, self.thresholds)
+        if verdict == "WATCHLIST_PAPER":
+            # Validation croisée DexScreener / GeckoTerminal : écart de prix > 20 % = suspect
+            attrs = ((await self.gecko.token(mint) or {}).get("data") or {}).get("attributes") or {}
+            try:
+                p2 = float(attrs.get("price_usd"))
+            except (TypeError, ValueError):
+                p2 = None
+            obs["gecko_price_usd"] = p2
+            p1 = obs.get("price_usd")
+            if p1 and p2 and abs(p1 - p2) / max(p1, p2) > 0.20:
+                metrics.extra_flags.append("PRICE_SOURCES_DIVERGE")
+                verdict, flags = evaluate(metrics, self.thresholds)
         return AuditResult(mint, verdict, flags, metrics, obs, wrap_untrusted(untrusted),
                            sorted(set(signals)), buy, AuditResult.safe_symbol(untrusted.get("symbol")))
