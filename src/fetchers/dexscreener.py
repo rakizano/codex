@@ -21,6 +21,10 @@ class DexScreener:
         data = await self.profiles.get("/token-boosts/latest/v1")
         return [d for d in (data or []) if isinstance(d, dict) and d.get("chainId") == "solana"]
 
+    async def top_boosts(self) -> list[dict]:
+        data = await self.profiles.get("/token-boosts/top/v1")
+        return [d for d in (data or []) if isinstance(d, dict) and d.get("chainId") == "solana"]
+
     async def token_pairs(self, mint: str) -> list[dict]:
         data = await self.pairs.get(f"/tokens/v1/solana/{mint}")
         if isinstance(data, dict):

@@ -295,6 +295,26 @@ def test_bot_scan_and_monitor_end_to_end():
     assert not any("/swap/v1/swap" in c or "sendTransaction" in c for c in api.calls)
 
 
+def test_discover_merges_sources_and_survives_outage():
+    api = FakeApis()
+    extra = "Ez2zVjw85tZan1ycnJ5PywNNxR6Gm4jbXQtZKyQNu3Lv"
+    api.top_boosts = [CLEAN, extra]   # doublon de CLEAN ignoré
+    api.trending = [extra, "pas-un-mint"]
+
+    async def go():
+        bot = _bot(api)
+        first = await bot.discover()
+        await bot.process(extra)
+        api.trending = None  # réponse invalide de GeckoTerminal : la découverte continue
+        second = await bot.discover()
+        await bot.aclose()
+        return first, second
+
+    first, second = run(go())
+    assert first.count(CLEAN) == 1 and extra in first and "pas-un-mint" in first  # validé par l'audit
+    assert extra not in second and CLEAN in second
+
+
 def test_bot_refuses_live_mode():
     from bot import Bot
     with pytest.raises(SystemExit):

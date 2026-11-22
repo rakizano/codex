@@ -26,5 +26,18 @@ class GeckoTerminal:
             self.cache.set(key, data, self.ttl_s)
         return data
 
+    async def trending_mints(self) -> list[str]:
+        """Jetons des pools Solana en tendance (pools établis avec du volume, pas seulement les nouveautés)."""
+        data = await self.api.get("/networks/solana/trending_pools", params={"page": 1})
+        mints: list[str] = []
+        for pool in (data or {}).get("data", []) if isinstance(data, dict) else []:
+            try:
+                tid = pool["relationships"]["base_token"]["data"]["id"]
+            except (KeyError, TypeError):
+                continue
+            if isinstance(tid, str) and tid.startswith("solana_"):
+                mints.append(tid[len("solana_"):])
+        return mints
+
     async def aclose(self) -> None:
         await self.api.aclose()

@@ -83,11 +83,23 @@ class Bot:
 
     # --- découverte -------------------------------------------------------------
     async def discover(self) -> list[str]:
-        profiles, boosts = await asyncio.gather(self.dex.latest_profiles(), self.dex.latest_boosts())
+        """Sources gratuites : profils et boosts DexScreener récents, top boosts, pools en tendance
+        GeckoTerminal. Une source en panne est ignorée ; le mint est validé ensuite par l'audit."""
+        results = await asyncio.gather(self.dex.latest_profiles(), self.dex.latest_boosts(),
+                                       self.dex.top_boosts(), self.gecko.trending_mints(),
+                                       return_exceptions=True)
+        candidates: list[str] = []
+        for res in results:
+            if isinstance(res, BaseException):
+                log.warning("source de découverte indisponible : %s", res)
+                continue
+            for item in res:
+                mint = item.get("tokenAddress") if isinstance(item, dict) else item
+                if isinstance(mint, str):
+                    candidates.append(mint)
         mints: list[str] = []
-        for item in [*profiles, *boosts]:
-            mint = item.get("tokenAddress")
-            if mint and mint not in mints and self.cache.get(f"seen:{mint}") is None:
+        for mint in candidates:
+            if mint not in mints and self.cache.get(f"seen:{mint}") is None:
                 mints.append(mint)
         return mints
 

@@ -63,6 +63,8 @@ class FakeApis:
         self.reddit_posts = (3, 3)
         self.x_posts = (20, 15)
         self.x_auth_seen: list[str] = []
+        self.top_boosts: list[str] = []   # sources de découverte supplémentaires
+        self.trending: list[str] = []
 
     def handler(self, req: httpx.Request) -> httpx.Response:
         url, host, path = str(req.url), req.url.host, req.url.path
@@ -75,6 +77,8 @@ class FakeApis:
             if path.startswith("/token-profiles/latest"):
                 return httpx.Response(200, json=[{"chainId": "solana", "tokenAddress": m} for m in self.profiles]
                                       + [{"chainId": "ethereum", "tokenAddress": "0xabc"}])
+            if path.startswith("/token-boosts/top"):
+                return httpx.Response(200, json=[{"chainId": "solana", "tokenAddress": m} for m in self.top_boosts])
             if path.startswith("/token-boosts/latest"):
                 return httpx.Response(200, json=[{"chainId": "solana", "tokenAddress": CLEAN}])
             mints = path.rsplit("/", 1)[-1].split(",")  # requêtes par lots : a,b,c
@@ -86,6 +90,9 @@ class FakeApis:
             return httpx.Response(200, json=_report())
 
         if host == "api.geckoterminal.com":
+            if path.endswith("/trending_pools"):
+                return httpx.Response(200, json={"data": [
+                    {"relationships": {"base_token": {"data": {"id": f"solana_{m}"}}}} for m in self.trending]})
             return httpx.Response(200, json={"data": {"attributes": {"price_usd": "0.00101",
                                                                       "total_reserve_in_usd": "79000"}}})
 
