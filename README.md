@@ -209,6 +209,27 @@ Essai de 25 min de la stratégie v0.3 (`run`) : 47 jetons audités, 40 rejets de
 ouverte à −6 %. 7 jetons sains suivis (146 instantanés) : `backtest` et `optimize`
 fonctionnent mais répondent `PAS_ASSEZ_DE_DONNEES` — il faut plusieurs jours de collecte.
 
+## Phase de test sans serveur (gratuit)
+
+Pas besoin de louer un VPS pour la phase de test : le bot reste en PAPER (aucun wallet, aucune clé).
+
+**Option 1 — votre ordinateur (recommandé, 0 €, continu)**
+- Windows : double-cliquez `scripts\start_paper.bat` (installe tout au premier lancement, redémarre seul).
+  Désactivez la mise en veille pendant le test.
+- macOS / Linux : `bash scripts/start_paper.sh` (empêche la veille, redémarre seul ; Ctrl+C pour arrêter).
+- Bilan à tout moment : `python3 scripts/run_bot.py report` puis `optimize` après 2–3 jours.
+
+**Option 2 — GitHub Actions (0 €, rien à garder allumé)**
+Le workflow `.github/workflows/paper-test.yml` lance le bot toutes les 6 h sur les machines de GitHub,
+conserve la base de données entre les exécutions et affiche le bilan + l'optimiseur dans
+*Actions → paper-test → (exécution) → Summary*. Premier lancement : *Actions → paper-test → Run workflow*.
+- Dépôt **privé** : 2 000 min/mois offertes → 4 × 15 min par jour (échantillonnage, données plus lentes à venir).
+- Dépôt **public** : minutes illimitées → 4 × 5 h 50 par jour, quasi continu. Le code ne contient aucun secret,
+  mais il devient visible de tous.
+- Durée forçable via la variable de dépôt `PAPER_RUN_MINUTES` (Settings → Secrets and variables → Actions → Variables).
+
+Le VPS ne devient utile qu'en mode LIVE, quand le bot doit tourner 24 h/24 avec votre wallet.
+
 ## Mode LIVE (fonds réels)
 
 À n'activer qu'après plusieurs jours de paper trading dont le bilan (`report`) vous convient.

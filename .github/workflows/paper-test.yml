@@ -1,0 +1,85 @@
+# Phase de test gratuite, sans serveur : le bot tourne en PAPER (aucun wallet, aucun fonds)
+# sur les machines de GitHub. La base de données est conservée d'une exécution à l'autre
+# (cache GitHub) et le bilan s'affiche dans l'onglet Actions -> exécution -> Summary.
+#
+# Budget : dépôt PUBLIC = minutes illimitées -> 4 x 5 h 50 par jour (quasi continu).
+#          dépôt PRIVÉ  = 2 000 min/mois gratuites -> 4 x 15 min par jour (~1 800 min/mois).
+# La durée est choisie automatiquement ; forçable via la variable de dépôt PAPER_RUN_MINUTES.
+name: paper-test
+
+on:
+  schedule:
+    - cron: "23 */6 * * *"
+  workflow_dispatch:
+    inputs:
+      minutes:
+        description: "Durée de l'exécution en minutes (max 350)"
+        required: false
+        default: ""
+
+concurrency:
+  group: paper-test
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  paper:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    env:
+      EXECUTION_MODE: PAPER          # jamais LIVE ici : aucun secret, aucun wallet
+      BOT_DB_PATH: data/bot.sqlite3
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Restaurer les données collectées
+        uses: actions/cache/restore@v4
+        with:
+          path: data/
+          key: paper-db-${{ github.run_id }}
+          restore-keys: paper-db-
+
+      - name: Lancer le bot (PAPER)
+        env:
+          INPUT_MINUTES: ${{ github.event.inputs.minutes }}
+          VAR_MINUTES: ${{ vars.PAPER_RUN_MINUTES }}
+          IS_PRIVATE: ${{ github.event.repository.private }}
+        run: |
+          MIN="${INPUT_MINUTES:-$VAR_MINUTES}"
+          if [ -z "$MIN" ]; then
+            if [ "$IS_PRIVATE" = "true" ]; then MIN=15; else MIN=350; fi
+          fi
+          MIN=$(( MIN > 350 ? 350 : MIN ))
+          echo "Exécution de $MIN minutes"
+          mkdir -p data
+          timeout --signal=INT "${MIN}m" python3 scripts/run_bot.py run || true
+
+      - name: Sauvegarder les données collectées
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: data/
+          key: paper-db-${{ github.run_id }}
+
+      - name: Bilan
+        if: always()
+        run: |
+          {
+            echo "## Bilan paper trading"
+            echo '```json'
+            python3 scripts/run_bot.py report || true
+            echo '```'
+            echo "## Optimiseur (validation hors échantillon)"
+            echo '```json'
+            python3 scripts/run_bot.py optimize | tail -40 || true
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
