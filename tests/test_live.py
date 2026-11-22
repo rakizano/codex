@@ -189,7 +189,8 @@ def test_bot_live_end_to_end(keyfile):
 
     async def go():
         bot = Bot(live_settings(path), client=api.client())
-        for cli in (bot.dex.profiles, bot.dex.pairs, bot.gecko.api, bot.rug.api, bot.jup.api, *bot.rpc.endpoints):
+        for cli in (bot.dex.profiles, bot.dex.pairs, bot.gecko.api, bot.rug.api, bot.jup.api, *bot.rpc.endpoints,
+                    bot.social.reddit.api):
             cli._sleep = no_sleep
             cli.bucket = TokenBucket(1e6, 1)
         bot.executor._sleep = no_sleep

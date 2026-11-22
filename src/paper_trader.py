@@ -2,7 +2,9 @@
 PnL net (frais ~1 % par côté) et coupe-circuit de perte journalière.
 
 Les devis Jupiter intègrent déjà l'impact prix et les frais AMM ; on retire en plus
-FEE_PCT à l'entrée et à la sortie pour couvrir frais de courbe, priorité et pourboire.
+FEE_PCT à l'entrée et à la sortie (frais de courbe/priorité) et le pourboire Jito fixe
+de chaque transaction (`tip_sol`), pour que la simulation coûte autant que le réel.
+Les seuils SL/TP s'appliquent au PnL NET de tous les frais.
 """
 from __future__ import annotations
 
@@ -48,7 +50,8 @@ class Position:
 class PaperTrader:
     def __init__(self, db_path: str | Path = ":memory:", stop_loss_pct: float = -25.0,
                  take_profit_pct: float = 60.0, max_hold_minutes: float = 240.0,
-                 daily_max_loss_sol: float = 1.0, max_open_positions: int = 5, clock=time.time):
+                 daily_max_loss_sol: float = 1.0, max_open_positions: int = 5, clock=time.time,
+                 tip_sol: float = 0.0, ref_size_sol: float = 0.05, min_trades_for_verdict: int = 30):
         if str(db_path) != ":memory:":
             Path(db_path).parent.mkdir(parents=True, exist_ok=True)
         self.db = sqlite3.connect(str(db_path))
@@ -58,6 +61,9 @@ class PaperTrader:
         self.daily_max_loss_sol = daily_max_loss_sol
         self.max_open = max_open_positions
         self.clock = clock
+        self.tip_sol = tip_sol
+        self.ref_size_sol = ref_size_sol
+        self.min_trades = min_trades_for_verdict
 
     # --- état -----------------------------------------------------------------
     def open_positions(self) -> list[Position]:
@@ -92,11 +98,17 @@ class PaperTrader:
         self.db.commit()
 
     # --- actions simulées -------------------------------------------------------
-    def open(self, mint: str, size_sol: float, buy_quote: dict) -> Position | None:
+    def open(self, mint: str, size_sol: float, buy_quote: dict,
+             quote_size_sol: float | None = None) -> Position | None:
+        """`quote_size_sol` : taille pour laquelle le devis a été demandé (si différente de la
+        position, on met à l'échelle linéairement — prudent : une petite taille obtient en
+        réalité un meilleur prix)."""
         ok, _ = self.can_open(mint)
-        if not ok or not buy_quote or not buy_quote.get("outAmount"):
+        if not ok or not buy_quote or not buy_quote.get("outAmount") or size_sol <= self.tip_sol:
             return None
-        tokens = int(int(buy_quote["outAmount"]) * (1 - FEE_PCT / 100))
+        scale = size_sol / quote_size_sol if quote_size_sol else 1.0
+        invested_share = 1 - self.tip_sol / size_sol  # le pourboire n'achète pas de jetons
+        tokens = int(int(buy_quote["outAmount"]) * scale * invested_share * (1 - FEE_PCT / 100))
         try:
             impact = float(buy_quote.get("priceImpactPct")) * 100
         except (TypeError, ValueError):
@@ -106,9 +118,14 @@ class PaperTrader:
         self.db.commit()
         return Position(cur.lastrowid, mint, self.clock(), size_sol, tokens, impact)
 
-    @staticmethod
-    def net_exit_value(quote_value_sol: float) -> float:
-        return quote_value_sol * (1 - FEE_PCT / 100)
+    def net_exit_value(self, quote_value_sol: float) -> float:
+        return max(0.0, quote_value_sol * (1 - FEE_PCT / 100) - self.tip_sol)
+
+    def roundtrip_cost_pct(self, size_sol: float | None = None) -> float:
+        """Coût d'un aller-retour à prix constant, en % de la position."""
+        size = size_sol or self.ref_size_sol
+        keep = (1 - self.tip_sol / size) * (1 - FEE_PCT / 100) ** 2 - self.tip_sol / size
+        return (1 - keep) * 100
 
     def evaluate_exit(self, pos: Position, quote_value_sol: float | None) -> str | None:
         """Renvoie le motif de sortie, ou None pour conserver la position."""
@@ -137,13 +154,36 @@ class PaperTrader:
         r = self.db.execute("SELECT COUNT(*), COALESCE(SUM(pnl_sol),0), COALESCE(SUM(pnl_sol>0),0), "
                             "COALESCE(SUM(size_sol),0) FROM positions WHERE status='CLOSED'").fetchone()
         n, pnl, wins, invested = r
+        avg_win = self.db.execute("SELECT AVG(pnl_pct) FROM positions WHERE status='CLOSED' AND pnl_sol>0").fetchone()[0]
+        avg_loss = self.db.execute("SELECT AVG(pnl_pct) FROM positions WHERE status='CLOSED' AND pnl_sol<=0").fetchone()[0]
+        exits = dict(self.db.execute("SELECT exit_reason, COUNT(*) FROM positions WHERE status='CLOSED' "
+                                     "GROUP BY exit_reason").fetchall())
         audits = dict(self.db.execute("SELECT verdict, COUNT(*) FROM audits GROUP BY verdict").fetchall())
+
+        win_rate = 100 * wins / n if n else None
+        # Seuil de rentabilité : taux de réussite p tel que p*gain_moyen = (1-p)*perte_moyenne.
+        theo = 100 * abs(self.sl) / (self.tp + abs(self.sl)) if self.tp + abs(self.sl) else None
+        observed = (100 * abs(avg_loss) / (avg_win + abs(avg_loss))
+                    if avg_win is not None and avg_loss is not None and avg_win + abs(avg_loss) > 0 else None)
+        if n < self.min_trades:
+            verdict = f"PAS_ASSEZ_DE_DONNEES ({n}/{self.min_trades} trades clôturés)"
+        elif pnl > 0:
+            verdict = "RENTABLE_EN_SIMULATION"
+        else:
+            verdict = "PERDANT_EN_SIMULATION"
         return {
+            "verdict": verdict,
             "closed_trades": n,
             "open_trades": len(self.open_positions()),
             "realized_pnl_sol": round(pnl, 6),
-            "win_rate_pct": round(100 * wins / n, 1) if n else None,
             "return_on_invested_pct": round(100 * pnl / invested, 2) if invested else None,
+            "win_rate_pct": round(win_rate, 1) if win_rate is not None else None,
+            "breakeven_win_rate_theoretical_pct": round(theo, 1) if theo is not None else None,
+            "breakeven_win_rate_observed_pct": round(observed, 1) if observed is not None else None,
+            "avg_win_pct": round(avg_win, 1) if avg_win is not None else None,
+            "avg_loss_pct": round(avg_loss, 1) if avg_loss is not None else None,
+            "roundtrip_cost_pct": round(self.roundtrip_cost_pct(), 2),
+            "exit_reasons": exits,
             "realized_pnl_24h_sol": round(self.realized_pnl_today(), 6),
             "circuit_breaker": self.circuit_breaker_tripped(),
             "audits_by_verdict": audits,

@@ -7,6 +7,7 @@ lecture la plus pessimiste l'emporte.
 from __future__ import annotations
 
 import asyncio
+import re
 from dataclasses import dataclass, field
 
 from memecoin.filters import Metrics, Thresholds, detect_injection, evaluate, is_valid_mint, wrap_untrusted
@@ -23,6 +24,12 @@ class AuditResult:
     untrusted_block: str = ""
     injection_signals: list[str] = field(default_factory=list)
     buy_quote: dict | None = None
+    symbol: str | None = None  # symbole assaini (alphanumérique court) ou None
+
+    @staticmethod
+    def safe_symbol(raw) -> str | None:
+        s = str(raw or "")
+        return s if re.fullmatch(r"[A-Za-z0-9]{2,10}", s) else None
 
     def to_llm_payload(self) -> dict:
         """Uniquement des données numériques/structurelles + le bloc confiné."""
@@ -91,4 +98,4 @@ class RugDetector:
 
         verdict, flags = evaluate(metrics, self.thresholds)
         return AuditResult(mint, verdict, flags, metrics, obs, wrap_untrusted(untrusted),
-                           sorted(set(signals)), buy)
+                           sorted(set(signals)), buy, AuditResult.safe_symbol(untrusted.get("symbol")))

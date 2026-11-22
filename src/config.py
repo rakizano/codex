@@ -25,7 +25,8 @@ class Settings:
     db_path: str = "data/bot.sqlite3"
 
     # Taille et gestion des positions simulées
-    position_size_sol: float = 0.5
+    position_size_sol: float = 0.05   # taille des positions (simulées ET réelles : même coût relatif)
+    audit_size_sol: float = 0.5       # taille du devis de test d'impact/honeypot
     max_open_positions: int = 5
     stop_loss_pct: float = -25.0
     take_profit_pct: float = 60.0
@@ -34,7 +35,7 @@ class Settings:
 
     # Garde-fous d'exécution (module tx_builder, inactif en PAPER)
     max_slippage_bps: int = 300
-    jito_tip_lamports: int = 1_000_000  # 0,001 SOL
+    jito_tip_lamports: int = 100_000  # 0,0001 SOL par transaction (borné 1 000 – 5 000 000)
 
     # Boucle
     scan_interval_s: float = 60.0
@@ -49,6 +50,14 @@ class Settings:
     # Analyseur LLM optionnel (Ollama local)
     ollama_url: str | None = None
     ollama_model: str = "qwen2.5:7b"
+
+    # Signaux sociaux (X optionnel, Reddit et liens DexScreener gratuits)
+    social_enabled: bool = True
+    x_bearer_token: str | None = None
+    require_social_link: bool = True     # au moins un lien X/Telegram/site déclaré
+    min_x_mentions_6h: int = 5           # appliqué seulement si X est configuré
+    min_x_unique_authors_ratio: float = 0.4  # < 0,4 auteur unique par post = suspicion de shill
+    max_boosts_active: int = 500         # boosts DexScreener payés au-delà : hype achetée
 
     thresholds: Thresholds = field(default_factory=Thresholds)
 
@@ -70,6 +79,14 @@ class Settings:
             chainstack_rpc_url=os.environ.get("CHAINSTACK_RPC_URL") or None,
             db_path=os.environ.get("BOT_DB_PATH", cls.db_path),
             position_size_sol=_float("POSITION_SIZE_SOL", cls.position_size_sol),
+            audit_size_sol=_float("AUDIT_SIZE_SOL", cls.audit_size_sol),
+            jito_tip_lamports=int(min(5_000_000, max(1_000, _float("JITO_TIP_LAMPORTS", cls.jito_tip_lamports)))),
+            social_enabled=os.environ.get("SOCIAL_ENABLED", "true").lower() not in ("0", "false", "no"),
+            x_bearer_token=os.environ.get("X_BEARER_TOKEN") or None,
+            require_social_link=os.environ.get("REQUIRE_SOCIAL_LINK", "true").lower() not in ("0", "false", "no"),
+            min_x_mentions_6h=int(_float("MIN_X_MENTIONS_6H", cls.min_x_mentions_6h)),
+            min_x_unique_authors_ratio=_float("MIN_X_UNIQUE_AUTHORS_RATIO", cls.min_x_unique_authors_ratio),
+            max_boosts_active=int(_float("MAX_BOOSTS_ACTIVE", cls.max_boosts_active)),
             max_open_positions=int(_float("MAX_OPEN_POSITIONS", cls.max_open_positions)),
             stop_loss_pct=_float("STOP_LOSS_PCT", cls.stop_loss_pct),
             take_profit_pct=_float("TAKE_PROFIT_PCT", cls.take_profit_pct),
@@ -90,7 +107,7 @@ class Settings:
     def redacted(self) -> dict:
         """Vue journalisable : les URLs RPC (qui contiennent souvent une clé API) sont masquées."""
         d = {k: v for k, v in self.__dict__.items() if k != "thresholds"}
-        for k in ("helius_rpc_url", "chainstack_rpc_url", "keypair_path", "live_confirm"):
+        for k in ("helius_rpc_url", "chainstack_rpc_url", "keypair_path", "live_confirm", "x_bearer_token"):
             d[k] = "***" if d[k] else None
         d["thresholds"] = vars(self.thresholds)
         return d

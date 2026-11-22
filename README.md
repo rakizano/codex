@@ -21,6 +21,7 @@ découverte DexScreener (profils + boosts Solana)
          ├─ Jupiter       devis aller-retour SOL->jeton->SOL       /quote uniquement
          └─ RPC Solana    autorités mint/freeze on-chain           Helius 10 RPS -> Chainstack 25 RPS
    └─> filtres déterministes fail-closed (memecoin/filters.py) ── REJECT
+   └─> signaux sociaux : liens déclarés, boosts payés, Reddit, X (optionnel) ── SOCIAL_REJECT
    └─> [optionnel] LLM local Ollama + Prompt 2 : ne peut qu'abaisser le verdict
    └─> PaperTrader SQLite : entrée simulée, suivi via devis de sortie, SL/TP/temps, coupe-circuit
 ```
@@ -35,6 +36,7 @@ découverte DexScreener (profils + boosts Solana)
 | `src/paper_trader.py` | Positions SQLite, ~1 % de frais par côté en plus des devis Jupiter, SL/TP/time-stop, coupe-circuit 24 h |
 | `src/tx_builder.py` | **Inactif en PAPER.** Garde-fous communs : coupe-circuit, slippage ≤ 300 bps, mints valides, contrôle du résultat de simulation |
 | `src/live/executor.py` | **Mode LIVE uniquement.** Devis → instructions Jupiter → pourboire Jito + `jitodontfront…` → signature → `simulateTransaction` → envoi Jito → confirmation |
+| `src/social/` | Signaux sociaux : liens X/Telegram/site déclarés, boosts DexScreener, mentions Reddit (gratuit) et X (clé API optionnelle). Compteurs uniquement, jamais le texte des posts |
 | `src/analyzer.py` | Analyseur Ollama (Prompt 2) ; JSON invalide ou injection détectée = pas d'entrée |
 | `src/bot.py`, `scripts/run_bot.py` | Boucle principale et CLI |
 | `scripts/fetch_token_audit.py` | Audit ponctuel sans dépendance (stdlib), utilisé par la Skill |
@@ -53,7 +55,7 @@ python3 scripts/run_bot.py scan            # un cycle de découverte sur les der
 python3 scripts/run_bot.py monitor         # réévalue les positions ouvertes
 python3 scripts/run_bot.py run             # boucle continue (scan + monitor)
 python3 scripts/run_bot.py report          # bilan : PnL net, taux de réussite, verdicts
-python3 -m pytest -q                       # 71 tests, tous hors-ligne (APIs simulées)
+python3 -m pytest -q                       # 89 tests, tous hors-ligne (APIs simulées)
 ```
 
 Dans Claude Code : `/memecoin-scanner <MINT>`. Avec un autre agent (OpenCode, Cline, Aider…),
@@ -73,14 +75,56 @@ valeurs dans votre environnement local, jamais dans le dépôt.
 | `JITO_URL` | block engine mainnet | Point d'envoi des transactions |
 | `HELIUS_RPC_URL`, `CHAINSTACK_RPC_URL` | — | Active la vérification on-chain des autorités (sinon RugCheck seul) |
 | `BOT_DB_PATH` | `data/bot.sqlite3` | Journal SQLite (+ `_cache.sqlite3`) |
-| `POSITION_SIZE_SOL` | `0.5` | Taille simulée et taille du devis d'impact |
+| `POSITION_SIZE_SOL` | `0.05` | Taille des positions simulées (identique au réel pour des frais réalistes) |
+| `AUDIT_SIZE_SOL` | `0.5` | Taille du devis de test d'impact prix / honeypot |
+| `JITO_TIP_LAMPORTS` | `100000` | Pourboire Jito par transaction (0,0001 SOL), borné 1 000 – 5 000 000 |
 | `STOP_LOSS_PCT` / `TAKE_PROFIT_PCT` | `-25` / `60` | Sorties simulées (PnL net de frais) |
 | `MAX_HOLD_MINUTES` | `240` | Sortie temporelle |
 | `DAILY_MAX_LOSS_SOL` | `1.0` | Coupe-circuit sur 24 h glissantes |
 | `MAX_OPEN_POSITIONS` | `5` | Positions simultanées |
 | `MIN_LIQUIDITY_USD`, `MIN_LP_LOCKED_PCT`, `MAX_TOP10_PCT`, `MAX_PRICE_IMPACT_PCT`, `MAX_ROUNDTRIP_LOSS_PCT` | 15000, 90, 25, 5, 10 | Seuils éliminatoires |
+| `SOCIAL_ENABLED`, `REQUIRE_SOCIAL_LINK` | `true`, `true` | Active les signaux sociaux ; exige au moins un lien déclaré |
+| `MAX_BOOSTS_ACTIVE` | `500` | Au-delà : hype achetée → rejet |
+| `X_BEARER_TOKEN` | — | Active X (API officielle v2 ; la recherche exige en pratique un accès payant) |
+| `MIN_X_MENTIONS_6H`, `MIN_X_UNIQUE_AUTHORS_RATIO` | `5`, `0.4` | Mentions minimales ; ratio comptes uniques / posts sous lequel on suspecte du shill |
 | `OLLAMA_URL`, `OLLAMA_MODEL` | —, `qwen2.5:7b` | Active l'analyseur LLM local |
 | `REQUIRE_LLM` | `false` | Si `true`, pas d'entrée sans avis LLM valide |
+
+## Signaux sociaux (X, Reddit, liens)
+
+Appliqués seulement aux jetons qui ont passé les filtres on-chain, ils peuvent **empêcher**
+une entrée, jamais la déclencher — la hype sociale est l'outil n°1 des pump-and-dump.
+
+| Signal | Source | Coût | Effet |
+|---|---|---|---|
+| Aucun lien X/Telegram/Discord/site déclaré | DexScreener | gratuit | `NO_SOCIAL_LINKS` → rejet |
+| Boosts payés > `MAX_BOOSTS_ACTIVE` | DexScreener | gratuit | `PAID_HYPE` → rejet |
+| Lien X vers un post et non un compte | DexScreener | gratuit | `INFO_X_LINK_IS_POST` (information) |
+| Beaucoup de posts Reddit par peu d'auteurs (24 h) | Reddit | gratuit | `REDDIT_SHILL_PATTERN` → rejet |
+| Moins de `MIN_X_MENTIONS_6H` mentions (6 h) | X | clé API | `LOW_X_MENTIONS` → rejet |
+| Ratio auteurs uniques / posts < 0,4 | X | clé API | `X_SHILL_PATTERN` → rejet |
+
+Le texte des posts n'est jamais conservé ni envoyé au LLM : seuls des compteurs le sont
+(un post est le vecteur idéal d'injection de prompt). Une source indisponible (quota, réseau,
+pas de clé) n'est pas un motif de rejet. Résultats mis en cache 15 min par jeton.
+
+**Activer X** : créez une app sur developer.x.com, copiez son « Bearer Token » dans
+`X_BEARER_TOKEN`. Vérifiez le plan : la recherche de posts n'est en pratique pas incluse
+dans l'accès gratuit. Le bot se limite à 4 requêtes/min pour ménager le quota.
+
+## Lire le bilan (`report`)
+
+| Champ | Sens |
+|---|---|
+| `verdict` | `PAS_ASSEZ_DE_DONNEES` sous 30 trades clôturés, puis `RENTABLE_EN_SIMULATION` / `PERDANT_EN_SIMULATION` |
+| `win_rate_pct` | Part de trades gagnants |
+| `breakeven_win_rate_theoretical_pct` | Taux de réussite minimal avec vos SL/TP (29,4 % pour −25/+60) |
+| `breakeven_win_rate_observed_pct` | Même calcul avec vos gains/pertes moyens réels (stops glissés compris) : **le chiffre à battre** |
+| `roundtrip_cost_pct` | Coût d'un achat + revente à prix constant (frais + 2 pourboires) : 2,39 % à 0,05 SOL |
+| `exit_reasons` | Répartition TAKE_PROFIT / STOP_LOSS / TIME_STOP / NO_EXIT_ROUTE |
+
+Règle simple : passez en réel seulement si `win_rate_pct` dépasse nettement
+`breakeven_win_rate_observed_pct` sur au moins 50 trades.
 
 ## Filtres éliminatoires
 

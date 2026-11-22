@@ -254,7 +254,7 @@ def _bot(api, **kw):
     from bot import Bot
     s = replace(Settings(), db_path=":memory:", **kw)
     bot = Bot(s, client=api.client())
-    for cli in (bot.dex.profiles, bot.dex.pairs, bot.gecko.api, bot.rug.api, bot.jup.api):
+    for cli in (bot.dex.profiles, bot.dex.pairs, bot.gecko.api, bot.rug.api, bot.jup.api, bot.social.reddit.api):
         cli._sleep = no_sleep
         cli.bucket = TokenBucket(1e6, 1)  # pas d'attente réelle dans les tests
     return bot

@@ -47,6 +47,7 @@ le premier trade LIVE est exécuté par l'utilisateur lui-même sur sa machine (
 | `memecoin/sources.py` | Normalisation des réponses réelles (validée contre les APIs le 22/11/2026) | réponses brutes → `Metrics`, observations, métadonnées non fiables | `test_normalize_*`, `test_transfer_fee_*` |
 | `memecoin/filters.py` | Seuils éliminatoires, détection d'injection, confinement | `Metrics` → verdict + drapeaux | `test_filters.py` |
 | `filters/rug_detector.py` | Orchestration asynchrone, recoupement on-chain pessimiste, divergence de prix | mint → `AuditResult` | `test_rug_detector`, `test_onchain_*` |
+| `social/` | Liens déclarés, boosts, Reddit (gratuit), X (clé optionnelle) ; compteurs uniquement, cache 15 min ; ne peut qu'empêcher une entrée | audit → `SocialSignals` → autorisé ? + drapeaux | `test_social_and_costs.py` |
 | `analyzer.py` | Ollama + Prompt 2, JSON strict, combinaison « abaisser seulement » | audit → verdict final | `test_llm_*`, `test_ollama_*` |
 | `paper_trader.py` | Positions SQLite, frais, SL/TP/temps, coupe-circuit 24 h, bilan | devis → positions, PnL | `test_paper_trade_*`, `test_circuit_breaker_*` |
 | `tx_builder.py` | Garde-fous communs : mode, coupe-circuit, slippage, mints, `jitodontfront`, contrôle de simulation | paramètres → `ExecutionPlan` | `test_tx_builder_*` |
@@ -65,6 +66,7 @@ normalize() ──exception──> REJECT(PARSE_ERROR)
           ▼
 evaluate() ──drapeau──> REJECT (journalisé)
           ▼ WATCHLIST_PAPER
+signaux sociaux (liens, boosts, Reddit, X) ──shill / pas de lien / hype payée──> SOCIAL_REJECT
 [Ollama + Prompt 2] ──HIGH_RISK_WATCH / REJECT / injection──> pas d'entrée
           ▼ PAPER_ENTRY
 coupe-circuit / doublon / plafond de positions ──> PAPER_ENTRY_BLOCKED

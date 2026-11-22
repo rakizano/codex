@@ -98,6 +98,14 @@ def normalize(raw: dict) -> tuple[Metrics, dict, dict]:
         base = best.get("baseToken") or {}
         untrusted.update({"name": base.get("name"), "symbol": base.get("symbol")})
         info = best.get("info") or {}
+        # Métadonnées structurelles (types de liens, compteur de boosts) : utilisables comme signaux.
+        link_types = {str(s.get("type", "")).lower() for s in info.get("socials") or [] if isinstance(s, dict)}
+        if info.get("websites"):
+            link_types.add("website")
+        obs["social_link_types"] = sorted(t for t in link_types if t)
+        obs["x_link_is_post"] = any("/status/" in str(s.get("url", "")) for s in info.get("socials") or []
+                                    if isinstance(s, dict) and str(s.get("type", "")).lower() == "twitter")
+        obs["dexscreener_boosts_active"] = int(_f((best.get("boosts") or {}).get("active")) or 0)
         untrusted["websites"] = " ".join(str(w.get("url")) for w in info.get("websites") or [])
         untrusted["socials"] = " ".join(str(s.get("url")) for s in info.get("socials") or [])
 

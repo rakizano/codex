@@ -23,6 +23,7 @@ from config import PAPER, Settings
 from fetchers import DexScreener, GeckoTerminal, Jupiter, RugCheck, SolanaRpc
 from filters.rug_detector import RugDetector
 from paper_trader import PaperTrader
+from social import SocialChecker, evaluate_social
 
 log = logging.getLogger("bot")
 SEEN_TTL_S = 6 * 3600
@@ -41,10 +42,13 @@ class Bot:
         self.jup = Jupiter(self.client)
         self.rpc = SolanaRpc(settings.helius_rpc_url, settings.chainstack_rpc_url, self.client)
         self.detector = RugDetector(self.dex, self.rug, self.gecko, self.jup, self.rpc,
-                                    settings.thresholds, settings.position_size_sol, settings.max_slippage_bps)
+                                    settings.thresholds, settings.audit_size_sol, settings.max_slippage_bps)
         self.trader = PaperTrader(settings.db_path, settings.stop_loss_pct, settings.take_profit_pct,
                                   settings.max_hold_minutes, settings.daily_max_loss_sol,
-                                  settings.max_open_positions)
+                                  settings.max_open_positions,
+                                  tip_sol=settings.jito_tip_lamports / 1_000_000_000,
+                                  ref_size_sol=settings.position_size_sol)
+        self.social = SocialChecker(settings, self.cache, self.client) if settings.social_enabled else None
         self.analyzer = analyzer
         self.require_llm = require_llm
 
@@ -80,11 +84,22 @@ class Bot:
     async def process(self, mint: str) -> dict:
         self.cache.set(f"seen:{mint}", 1, SEEN_TTL_S)
         audit = await self.detector.audit(mint)
+        flags = list(audit.flags)
+
+        # Signaux sociaux : seulement pour les jetons sains (économise les quotas), ne peuvent qu'empêcher.
+        social_ok = True
+        if audit.verdict == "WATCHLIST_PAPER" and self.social is not None:
+            sig = await self.social.check(mint, audit.symbol, audit.observations)
+            social_ok, social_flags = evaluate_social(sig, self.s)
+            flags += social_flags
+            audit.observations.update(sig.to_metrics())  # nombres uniquement -> payload LLM
+
         llm = None
-        if audit.verdict == "WATCHLIST_PAPER" and self.analyzer is not None:
+        if audit.verdict == "WATCHLIST_PAPER" and social_ok and self.analyzer is not None:
             llm = await self.analyzer.analyze(audit.to_llm_payload(), audit.untrusted_block)
-        final = combine(audit.verdict, llm, self.require_llm)
-        self.trader.record_audit(mint, audit.verdict, audit.flags, llm.get("verdict") if llm else None)
+        final = combine(audit.verdict, llm, self.require_llm) if social_ok else "SOCIAL_REJECT"
+        self.trader.record_audit(mint, audit.verdict if social_ok else "SOCIAL_REJECT", flags,
+                                 llm.get("verdict") if llm else None)
 
         opened = None
         if final == "PAPER_ENTRY":
@@ -92,14 +107,14 @@ class Bot:
             if ok and self.live:
                 opened, final = await self._live_entry(mint, audit.buy_quote)
             elif ok:
-                pos = self.trader.open(mint, self.s.position_size_sol, audit.buy_quote)
+                pos = self.trader.open(mint, self.s.position_size_sol, audit.buy_quote, self.s.audit_size_sol)
                 opened = pos.id if pos else None
             else:
                 final = f"PAPER_ENTRY_BLOCKED:{why}"
-        log.info("%s -> %s (%s)%s", mint, final, ",".join(audit.flags) or "aucun drapeau",
+        log.info("%s -> %s (%s)%s", mint, final, ",".join(flags) or "aucun drapeau",
                  f" position #{opened}" if opened else "")
         return {"mint": mint, "deterministic": audit.verdict, "final": final,
-                "flags": audit.flags, "position_id": opened}
+                "flags": flags, "position_id": opened}
 
     async def _live_entry(self, mint: str, audit_quote: dict | None) -> tuple[int | None, str]:
         size = min(self.s.position_size_sol, self.s.live_max_position_sol)
@@ -163,6 +178,8 @@ class Bot:
     async def aclose(self) -> None:
         if self.analyzer:
             await self.analyzer.aclose()
+        if self.social:
+            await self.social.aclose()
         await self.client.aclose()
         self.cache.close()
         self.trader.close_db()
