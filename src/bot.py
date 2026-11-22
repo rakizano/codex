@@ -305,8 +305,13 @@ class Bot:
             res["exit_reasons"][t.reason] = res["exit_reasons"].get(t.reason, 0) + 1
         return res
 
-    def run_optimize(self) -> dict:
-        return optimize(self.data.load_paths(), self.s.entry_rules, self.s.exit_rules)
+    def run_optimize(self, min_train_trades: int = 15) -> dict:
+        res = optimize(self.data.load_paths(), self.s.entry_rules, self.s.exit_rules,
+                       min_train_trades=min_train_trades)
+        if min_train_trades < 15:
+            res["warning"] = (f"Exploration sur petit échantillon (min {min_train_trades} trades en train) : "
+                              "résultats très incertains, ne PAS s'en servir pour passer en réel.")
+        return res
 
     async def aclose(self) -> None:
         if self.analyzer:
@@ -331,8 +336,10 @@ async def _main(argv: list[str] | None = None) -> int:
     ap.add_argument("--require-llm", action="store_true",
                     default=os.environ.get("REQUIRE_LLM", "").lower() in ("1", "true"))
     sub = ap.add_subparsers(dest="cmd", required=True)
-    for name in ("run", "scan", "monitor", "track", "report", "backtest", "optimize"):
+    for name in ("run", "scan", "monitor", "track", "report", "backtest"):
         sub.add_parser(name)
+    op = sub.add_parser("optimize")
+    op.add_argument("--min-train-trades", type=int, default=15)
     au = sub.add_parser("audit")
     au.add_argument("mint")
     a = ap.parse_args(argv)
@@ -358,7 +365,7 @@ async def _main(argv: list[str] | None = None) -> int:
         elif a.cmd == "backtest":
             print(json.dumps(bot.run_backtest(), indent=2, ensure_ascii=False))
         elif a.cmd == "optimize":
-            print(json.dumps(bot.run_optimize(), indent=2, ensure_ascii=False))
+            print(json.dumps(bot.run_optimize(a.min_train_trades), indent=2, ensure_ascii=False))
     finally:
         await bot.aclose()
     return 0
