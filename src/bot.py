@@ -30,11 +30,8 @@ SEEN_TTL_S = 6 * 3600
 
 class Bot:
     def __init__(self, settings: Settings, client: httpx.AsyncClient | None = None,
-                 analyzer: OllamaAnalyzer | None = None, require_llm: bool = False):
+                 analyzer: OllamaAnalyzer | None = None, require_llm: bool = False, executor=None):
         self.s = settings
-        if settings.execution_mode != PAPER:
-            # La signature n'existe pas dans ce dépôt : on refuse explicitement de démarrer.
-            raise SystemExit("EXECUTION_MODE=LIVE non supporté : ce bot ne fonctionne qu'en PAPER.")
         self.client = client or httpx.AsyncClient(timeout=15)
         self.cache = TTLCache(settings.db_path.replace(".sqlite3", "_cache.sqlite3")
                               if settings.db_path != ":memory:" else ":memory:")
@@ -50,6 +47,24 @@ class Bot:
                                   settings.max_open_positions)
         self.analyzer = analyzer
         self.require_llm = require_llm
+
+        # Exécution réelle : uniquement si toutes les conditions de live.executor sont réunies.
+        self.executor = executor
+        if settings.execution_mode != PAPER and executor is None:
+            from live.executor import build_live_executor
+            from tx_builder import ExecutionDisabled
+            try:
+                self.executor = build_live_executor(settings, self.rpc, self.jup, self.client,
+                                                    self.trader.circuit_breaker_tripped)
+            except (ExecutionDisabled, OSError, ValueError) as e:
+                raise SystemExit(f"Mode LIVE refusé : {e}") from None
+        if self.executor is not None:
+            log.warning("MODE LIVE ACTIF — wallet %s, %.3f SOL max par position, fonds réels en jeu",
+                         self.executor.pubkey, settings.live_max_position_sol)
+
+    @property
+    def live(self) -> bool:
+        return self.executor is not None
 
     # --- découverte -------------------------------------------------------------
     async def discover(self) -> list[str]:
@@ -74,7 +89,9 @@ class Bot:
         opened = None
         if final == "PAPER_ENTRY":
             ok, why = self.trader.can_open(mint)
-            if ok:
+            if ok and self.live:
+                opened, final = await self._live_entry(mint, audit.buy_quote)
+            elif ok:
                 pos = self.trader.open(mint, self.s.position_size_sol, audit.buy_quote)
                 opened = pos.id if pos else None
             else:
@@ -83,6 +100,17 @@ class Bot:
                  f" position #{opened}" if opened else "")
         return {"mint": mint, "deterministic": audit.verdict, "final": final,
                 "flags": audit.flags, "position_id": opened}
+
+    async def _live_entry(self, mint: str, audit_quote: dict | None) -> tuple[int | None, str]:
+        size = min(self.s.position_size_sol, self.s.live_max_position_sol)
+        try:
+            res = await self.executor.buy(mint, size)
+        except Exception as e:
+            log.error("achat LIVE %s annulé : %s", mint, e)
+            return None, f"LIVE_ENTRY_FAILED:{type(e).__name__}"
+        impact = (audit_quote or {}).get("priceImpactPct")
+        pos = self.trader.open(mint, size, {"outAmount": str(res.expected_out), "priceImpactPct": impact})
+        return (pos.id if pos else None), ("LIVE_ENTRY" if res.confirmed else "LIVE_ENTRY_UNCONFIRMED")
 
     # --- cycles -----------------------------------------------------------------
     async def scan_once(self) -> list[dict]:
@@ -102,14 +130,25 @@ class Bot:
         for pos in self.trader.open_positions():
             value = await self.jup.sell_value_sol(pos.mint, pos.token_amount, self.s.max_slippage_bps)
             reason = self.trader.evaluate_exit(pos, value)
-            if reason:
-                pnl = self.trader.close(pos, value, reason)
-                log.info("clôture #%d %s : %s, PnL %.4f SOL", pos.id, pos.mint, reason, pnl)
-                closed.append({"id": pos.id, "reason": reason, "pnl_sol": pnl})
+            if not reason:
+                continue
+            entry = {"id": pos.id, "reason": reason}
+            if self.live:
+                try:
+                    res = await self.executor.sell_all(pos.mint)
+                    entry["signature"] = res.signature if res else None
+                except Exception as e:  # vente échouée : la position reste ouverte, retentée au cycle suivant
+                    log.error("vente LIVE %s échouée (%s), nouvel essai au prochain cycle", pos.mint, e)
+                    continue
+            pnl = self.trader.close(pos, value, reason)
+            log.info("clôture #%d %s : %s, PnL %.4f SOL", pos.id, pos.mint, reason, pnl)
+            entry["pnl_sol"] = pnl
+            closed.append(entry)
         return closed
 
     async def run(self, max_cycles: int | None = None) -> None:
-        log.info("démarrage en mode PAPER : %s", json.dumps(self.s.redacted(), default=str))
+        log.info("démarrage en mode %s : %s", "LIVE" if self.live else "PAPER",
+                 json.dumps(self.s.redacted(), default=str))
         next_scan = 0.0
         cycles = 0
         while max_cycles is None or cycles < max_cycles:

@@ -23,6 +23,7 @@ def run(tool, tool_input):
     ("Bash", {"command": "curl -X POST $RPC -d '{\"method\":\"sendTransaction\"}'"}),
     ("Bash", {"command": "curl https://lite-api.jup.ag/swap/v1/swap -d @tx.json"}),
     ("Bash", {"command": "EXECUTION_MODE=LIVE python3 bot.py"}),
+    ("Bash", {"command": "export LIVE_TRADING_CONFIRM=I_UNDERSTAND_REAL_FUNDS_AT_RISK"}),
     ("Grep", {"pattern": "mnemonic", "path": "."}),
     ("Write", {"file_path": ".env", "content": "x"}),
 ])

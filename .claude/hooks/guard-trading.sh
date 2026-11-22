@@ -31,7 +31,7 @@ fi
 
 # 2. Signature / envoi de transactions (seulement pour les commandes shell et le web)
 if [ "$tool" = "Bash" ] || [ "$tool" = "WebFetch" ]; then
-  tx_re='solana[[:space:]]+transfer|spl-token[[:space:]]+transfer|solana-keygen|sendtransaction|sendrawtransaction|sendbundle|/swap/v1/swap([^-]|$)|/swap-instructions|execution_mode=live|--live([^-a-z]|$)'
+  tx_re='solana[[:space:]]+transfer|spl-token[[:space:]]+transfer|solana-keygen|sendtransaction|sendrawtransaction|sendbundle|/swap/v1/swap([^-]|$)|/swap-instructions|execution_mode=live|live_trading_confirm|i_understand_real_funds_at_risk|--live([^-a-z]|$)'
   if printf '%s' "$lower" | grep -Eq "$tx_re"; then
     block "signature/envoi de transaction interdit (mode PAPER uniquement)"
   fi

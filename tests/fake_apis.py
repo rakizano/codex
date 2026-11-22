@@ -45,6 +45,13 @@ class FakeApis:
         self.rpc_mint_authority = None  # None = révoquée on-chain
         self.rate_limit_once: set[str] = set()
         self.profiles = [CLEAN, HONEYPOT, INJECTED]
+        # Mode LIVE simulé
+        self.live_allowed = False
+        self.swap_requests: list[dict] = []
+        self.sent: list[str] = []
+        self.rpc_methods: list[str] = []
+        self.simulation_error = None
+        self.token_balance = 123_456
 
     def handler(self, req: httpx.Request) -> httpx.Response:
         url, host, path = str(req.url), req.url.host, req.url.path
@@ -71,6 +78,17 @@ class FakeApis:
                                                                       "total_reserve_in_usd": "79000"}}})
 
         if host == "lite-api.jup.ag":
+            if path.endswith("/swap-instructions"):
+                assert self.live_allowed, "instructions de swap demandées hors mode LIVE"
+                body = json.loads(req.content)
+                self.swap_requests.append(body)
+                user = body["userPublicKey"]
+                ix = {"programId": "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4",
+                      "accounts": [{"pubkey": user, "isSigner": True, "isWritable": True}],
+                      "data": "AQID"}
+                return httpx.Response(200, json={
+                    "computeBudgetInstructions": [], "setupInstructions": [], "swapInstruction": ix,
+                    "cleanupInstruction": None, "otherInstructions": [], "addressLookupTableAddresses": []})
             assert path.endswith("/quote"), f"endpoint Jupiter interdit : {path}"
             q = req.url.params
             inp, out, amount = q["inputMint"], q["outputMint"], int(q["amount"])
@@ -81,10 +99,27 @@ class FakeApis:
             back = int(amount / 1000 * 0.985 * self.exit_multiplier)
             return httpx.Response(200, json={"outAmount": str(back), "priceImpactPct": "0.008"})
 
+        if host == "mainnet.block-engine.jito.wtf":
+            body = json.loads(req.content)
+            self.sent.append(body["params"][0])
+            return httpx.Response(200, json={"jsonrpc": "2.0", "id": 1, "result": f"SIG{len(self.sent)}"})
+
         if host.endswith("rpc.test"):
             body = json.loads(req.content)
             if "primary" in host:
                 return httpx.Response(503)
+            method = body["method"]
+            self.rpc_methods.append(method)
+            live_results = {
+                "getLatestBlockhash": {"value": {"blockhash": "11111111111111111111111111111111",
+                                                 "lastValidBlockHeight": 1}},
+                "simulateTransaction": {"value": {"err": self.simulation_error, "logs": []}},
+                "getSignatureStatuses": {"value": [{"confirmationStatus": "confirmed", "err": None}]},
+                "getTokenAccountsByOwner": {"value": [{"account": {"data": {"parsed": {"info": {
+                    "tokenAmount": {"amount": str(self.token_balance)}}}}}}]},
+            }
+            if method in live_results:
+                return httpx.Response(200, json={"jsonrpc": "2.0", "id": body["id"], "result": live_results[method]})
             return httpx.Response(200, json={"jsonrpc": "2.0", "id": body["id"], "result": {"value": {"data": {
                 "parsed": {"info": {"mintAuthority": self.rpc_mint_authority, "freezeAuthority": None}}}}}})
 

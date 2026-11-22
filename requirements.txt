@@ -1,2 +1,3 @@
 httpx>=0.27
+solders>=0.21  # signature des transactions (mode LIVE uniquement)
 pytest>=8

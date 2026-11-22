@@ -1,7 +1,8 @@
 """RPC Solana JSON-RPC en lecture seule : Helius (10 RPS) puis bascule Chainstack (25 RPS).
 
 Seules des méthodes de lecture sont autorisées (liste blanche) : aucune méthode
-d'envoi n'est appelable depuis ce client.
+d'envoi n'est appelable depuis ce client. L'envoi, réservé au mode LIVE confirmé,
+passe exclusivement par `live.executor` (block engine Jito).
 """
 from __future__ import annotations
 
@@ -18,6 +19,7 @@ READ_ONLY_METHODS = frozenset({
     "getAccountInfo", "getBalance", "getTokenSupply", "getTokenLargestAccounts",
     "getSignaturesForAddress", "getSlot", "getHealth", "getLatestBlockhash",
     "getMultipleAccounts", "getTokenAccountBalance", "simulateTransaction",
+    "getTokenAccountsByOwner", "getSignatureStatuses",
 })
 
 

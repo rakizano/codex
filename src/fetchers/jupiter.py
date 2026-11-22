@@ -1,4 +1,5 @@
-"""Jupiter : UNIQUEMENT l'endpoint de cotation. Aucun appel de construction/envoi de swap."""
+"""Jupiter : cotation (/quote) pour l'audit et le paper trading. Les instructions de
+swap ne sont demandées que par `live.executor` en mode LIVE confirmé. Rien n'est signé ici."""
 from __future__ import annotations
 
 import httpx
@@ -32,6 +33,15 @@ class Jupiter:
         """Valeur de sortie actuelle d'une position simulée (mark-to-market réaliste)."""
         q = await self.quote(mint, SOL_MINT, token_amount, slippage_bps)
         return int(q["outAmount"]) / LAMPORTS_PER_SOL if q else None
+
+    async def swap_instructions(self, quote: dict, user_pubkey: str) -> dict | None:
+        """Instructions brutes du swap, pour composer soi-même la transaction
+        (ajout du pourboire Jito et du compte jitodontfront)."""
+        data = await self.api.request("POST", "/swap-instructions", json={
+            "quoteResponse": quote, "userPublicKey": user_pubkey,
+            "wrapAndUnwrapSol": True, "dynamicComputeUnitLimit": True,
+        })
+        return data if isinstance(data, dict) and data.get("swapInstruction") else None
 
     async def aclose(self) -> None:
         await self.api.aclose()

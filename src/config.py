@@ -40,6 +40,12 @@ class Settings:
     scan_interval_s: float = 60.0
     monitor_interval_s: float = 30.0
 
+    # Exécution réelle (désactivée par défaut, double confirmation obligatoire)
+    live_confirm: str | None = None
+    live_max_position_sol: float = 0.05
+    keypair_path: str | None = None
+    jito_url: str = "https://mainnet.block-engine.jito.wtf/api/v1/transactions"
+
     # Analyseur LLM optionnel (Ollama local)
     ollama_url: str | None = None
     ollama_model: str = "qwen2.5:7b"
@@ -72,6 +78,10 @@ class Settings:
             max_slippage_bps=min(300, int(_float("MAX_SLIPPAGE_BPS", cls.max_slippage_bps))),
             scan_interval_s=_float("SCAN_INTERVAL_S", cls.scan_interval_s),
             monitor_interval_s=_float("MONITOR_INTERVAL_S", cls.monitor_interval_s),
+            live_confirm=os.environ.get("LIVE_TRADING_CONFIRM") or None,
+            live_max_position_sol=_float("LIVE_MAX_POSITION_SOL", cls.live_max_position_sol),
+            keypair_path=os.environ.get("SOLANA_KEYPAIR_PATH") or None,
+            jito_url=os.environ.get("JITO_URL", cls.jito_url),
             ollama_url=os.environ.get("OLLAMA_URL") or None,
             ollama_model=os.environ.get("OLLAMA_MODEL", cls.ollama_model),
             thresholds=th,
@@ -80,7 +90,7 @@ class Settings:
     def redacted(self) -> dict:
         """Vue journalisable : les URLs RPC (qui contiennent souvent une clé API) sont masquées."""
         d = {k: v for k, v in self.__dict__.items() if k != "thresholds"}
-        for k in ("helius_rpc_url", "chainstack_rpc_url"):
+        for k in ("helius_rpc_url", "chainstack_rpc_url", "keypair_path", "live_confirm"):
             d[k] = "***" if d[k] else None
         d["thresholds"] = vars(self.thresholds)
         return d
