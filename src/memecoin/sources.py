@@ -95,6 +95,17 @@ def normalize(raw: dict) -> tuple[Metrics, dict, dict]:
             "price_usd": _f(best.get("priceUsd")),
             "fdv_usd": _f(best.get("fdv")),
         })
+        # Caractéristiques de momentum (règles d'entrée + backtest)
+        tx_h1 = (best.get("txns") or {}).get("h1") or {}
+        changes = best.get("priceChange") or {}
+        obs.update({
+            "liquidity_usd": m.liquidity_usd,
+            "price_change_m5": _f(changes.get("m5")),
+            "price_change_h1": _f(changes.get("h1")),
+            "price_change_h6": _f(changes.get("h6")),
+            "buys_h1": tx_h1.get("buys"), "sells_h1": tx_h1.get("sells"),
+            "volume_h1_usd": _f((best.get("volume") or {}).get("h1")),
+        })
         base = best.get("baseToken") or {}
         untrusted.update({"name": base.get("name"), "symbol": base.get("symbol")})
         info = best.get("info") or {}

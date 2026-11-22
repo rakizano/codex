@@ -191,11 +191,18 @@ class LiveExecutor:
                 continue
         return total
 
-    async def sell_all(self, mint: str) -> SwapResult | None:
-        amount = await self.token_balance(mint)
+    async def sell_fraction(self, mint: str, fraction: float) -> SwapResult | None:
+        """Vend `fraction` (0-1] du solde réel lu on-chain (prise de profit partielle)."""
+        if not 0 < fraction <= 1:
+            raise GuardrailViolation(f"fraction de vente invalide : {fraction}")
+        balance = await self.token_balance(mint)
+        amount = balance if fraction >= 1 else int(balance * fraction)
         if amount <= 0:
             return None
         return await self.swap(mint, SOL_MINT, amount)
+
+    async def sell_all(self, mint: str) -> SwapResult | None:
+        return await self.sell_fraction(mint, 1.0)
 
 
 def build_live_executor(settings: Settings, rpc, jupiter, client: httpx.AsyncClient,

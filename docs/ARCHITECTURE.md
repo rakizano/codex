@@ -48,6 +48,10 @@ le premier trade LIVE est exécuté par l'utilisateur lui-même sur sa machine (
 | `memecoin/filters.py` | Seuils éliminatoires, détection d'injection, confinement | `Metrics` → verdict + drapeaux | `test_filters.py` |
 | `filters/rug_detector.py` | Orchestration asynchrone, recoupement on-chain pessimiste, divergence de prix | mint → `AuditResult` | `test_rug_detector`, `test_onchain_*` |
 | `social/` | Liens déclarés, boosts, Reddit (gratuit), X (clé optionnelle) ; compteurs uniquement, cache 15 min ; ne peut qu'empêcher une entrée | audit → `SocialSignals` → autorisé ? + drapeaux | `test_social_and_costs.py` |
+| `strategy/entry.py` | Règles de momentum (âge, variation 1 h, ratio achats/ventes, activité) ; inconnu = refus | caractéristiques → autorisé ? | `test_entry_rules` |
+| `strategy/exit.py` | Stop, TP1 partiel, stop au prix d'entrée, stop suiveur, TP final, durée — partagé bot/backtest | PnL, plus haut, durée → décision | `test_exit_decisions` |
+| `strategy/sizing.py` | Kelly fractionné ; pause si avantage négatif | statistiques → taille | `test_kelly_*` |
+| `strategy/backtest.py` | Collecte (observations + instantanés), backtest, optimisation walk-forward 70/30 | base SQLite → réglages + résultats hors échantillon | `test_optimizer_*`, `test_simulate_*` |
 | `analyzer.py` | Ollama + Prompt 2, JSON strict, combinaison « abaisser seulement » | audit → verdict final | `test_llm_*`, `test_ollama_*` |
 | `paper_trader.py` | Positions SQLite, frais, SL/TP/temps, coupe-circuit 24 h, bilan | devis → positions, PnL | `test_paper_trade_*`, `test_circuit_breaker_*` |
 | `tx_builder.py` | Garde-fous communs : mode, coupe-circuit, slippage, mints, `jitodontfront`, contrôle de simulation | paramètres → `ExecutionPlan` | `test_tx_builder_*` |
@@ -67,13 +71,18 @@ normalize() ──exception──> REJECT(PARSE_ERROR)
 evaluate() ──drapeau──> REJECT (journalisé)
           ▼ WATCHLIST_PAPER
 signaux sociaux (liens, boosts, Reddit, X) ──shill / pas de lien / hype payée──> SOCIAL_REJECT
+(observation enregistrée pour l'optimiseur : prix suivi 24 h)
+règles de momentum ──hors critères──> MOMENTUM_REJECT
 [Ollama + Prompt 2] ──HIGH_RISK_WATCH / REJECT / injection──> pas d'entrée
           ▼ PAPER_ENTRY
-coupe-circuit / doublon / plafond de positions ──> PAPER_ENTRY_BLOCKED
+coupe-circuit / doublon / délai de rachat / plafond / avantage négatif ──> PAPER_ENTRY_BLOCKED
+          ▼
+taille : fixe, ou Kelly fractionné après 30 trades
           ▼
 PAPER : position simulée            LIVE : LiveExecutor.buy() puis position miroir
           ▼
-monitor : devis de sortie Jupiter → SL / TP / durée / route disparue → clôture (+ vente réelle en LIVE)
+monitor (15 s) : devis Jupiter → stop / TP1 partiel / stop au prix d'entrée / stop suiveur / TP final /
+durée / route disparue → vente partielle ou clôture (+ vente réelle en LIVE)
 ```
 
 ## 4. Mode LIVE : séquence d'un swap

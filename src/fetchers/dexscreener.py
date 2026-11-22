@@ -27,6 +27,28 @@ class DexScreener:
             data = data.get("pairs")
         return [p for p in (data or []) if isinstance(p, dict)]
 
+    async def prices(self, mints: list[str]) -> dict[str, tuple[float | None, float | None]]:
+        """Prix USD et liquidité de la paire la plus liquide, par lots de 30 jetons (1 requête/lot)."""
+        out: dict[str, tuple[float | None, float | None]] = {}
+        for i in range(0, len(mints), 30):
+            chunk = mints[i:i + 30]
+            data = await self.pairs.get(f"/tokens/v1/solana/{','.join(chunk)}")
+            best: dict[str, dict] = {}
+            for p in data or []:
+                if not isinstance(p, dict):
+                    continue
+                mint = (p.get("baseToken") or {}).get("address")
+                liq = float((p.get("liquidity") or {}).get("usd") or 0)
+                if mint in chunk and liq >= float(((best.get(mint) or {}).get("liquidity") or {}).get("usd") or -1):
+                    best[mint] = p
+            for mint, p in best.items():
+                try:
+                    price = float(p.get("priceUsd"))
+                except (TypeError, ValueError):
+                    price = None
+                out[mint] = (price, float((p.get("liquidity") or {}).get("usd") or 0))
+        return out
+
     async def aclose(self) -> None:
         await self.profiles.aclose()
         await self.pairs.aclose()

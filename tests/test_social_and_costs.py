@@ -10,6 +10,7 @@ from config import Settings
 from fake_apis import CLEAN, FakeApis, no_sleep
 from fetchers import TokenBucket
 from paper_trader import PaperTrader
+from strategy.exit import ExitRules
 from social import SocialChecker, SocialSignals, evaluate_social
 from social.reddit_client import RedditStats
 from social.x_client import XStats, build_query
@@ -142,7 +143,9 @@ def test_paper_trade_pays_tip_on_both_sides():
 
 def test_report_shows_breakeven_and_verdict():
     t = [0.0]
-    tr = PaperTrader(clock=lambda: t[0], min_trades_for_verdict=3, daily_max_loss_sol=100)
+    rules = ExitRules(take_profit_pct=60.0, tp1_pct=None, trail_activation_pct=None, trailing_stop_pct=None)
+    tr = PaperTrader(exit_rules=rules, clock=lambda: t[0], min_trades_for_verdict=3, daily_max_loss_sol=100,
+                     reentry_cooldown_h=0)
     for value in (0.08, 0.035, 0.036):  # 1 gain, 2 pertes sur 0,05 SOL
         p = tr.open(CLEAN, 0.05, {"outAmount": "1"})
         tr.close(p, value, "X")

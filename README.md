@@ -53,9 +53,11 @@ pip install -r requirements.txt            # httpx, solders (LIVE), pytest
 python3 scripts/run_bot.py audit <MINT>    # audit + entrée simulée si tout passe
 python3 scripts/run_bot.py scan            # un cycle de découverte sur les derniers profils/boosts
 python3 scripts/run_bot.py monitor         # réévalue les positions ouvertes
-python3 scripts/run_bot.py run             # boucle continue (scan + monitor)
-python3 scripts/run_bot.py report          # bilan : PnL net, taux de réussite, verdicts
-python3 -m pytest -q                       # 89 tests, tous hors-ligne (APIs simulées)
+python3 scripts/run_bot.py run             # boucle continue (scan + suivi + collecte de prix)
+python3 scripts/run_bot.py report          # bilan : PnL net, taux de réussite, données collectées
+python3 scripts/run_bot.py backtest        # rejoue vos réglages sur les prix collectés
+python3 scripts/run_bot.py optimize        # meilleurs réglages, validés hors échantillon
+python3 -m pytest -q                       # 117 tests, tous hors-ligne (APIs simulées)
 ```
 
 Dans Claude Code : `/memecoin-scanner <MINT>`. Avec un autre agent (OpenCode, Cline, Aider…),
@@ -78,8 +80,11 @@ valeurs dans votre environnement local, jamais dans le dépôt.
 | `POSITION_SIZE_SOL` | `0.05` | Taille des positions simulées (identique au réel pour des frais réalistes) |
 | `AUDIT_SIZE_SOL` | `0.5` | Taille du devis de test d'impact prix / honeypot |
 | `JITO_TIP_LAMPORTS` | `100000` | Pourboire Jito par transaction (0,0001 SOL), borné 1 000 – 5 000 000 |
-| `STOP_LOSS_PCT` / `TAKE_PROFIT_PCT` | `-25` / `60` | Sorties simulées (PnL net de frais) |
-| `MAX_HOLD_MINUTES` | `240` | Sortie temporelle |
+| Sorties : `STOP_LOSS_PCT`, `TP1_PCT`, `TP1_FRACTION`, `BREAKEVEN_AFTER_TP1`, `TRAIL_ACTIVATION_PCT`, `TRAILING_STOP_PCT`, `TAKE_PROFIT_PCT`, `MAX_HOLD_MINUTES` | −25, 40, 0,5, true, 40, 25, 300, 240 | Voir « Stratégie » ; `off` désactive TP1 ou le stop suiveur |
+| Entrées : `MIN_PAIR_AGE_MIN`, `MAX_PAIR_AGE_MIN`, `MIN_PRICE_CHANGE_H1`, `MAX_PRICE_CHANGE_H1`, `MIN_BUY_SELL_RATIO_H1`, `MIN_TXNS_H1`, `MIN_VOLUME_LIQUIDITY_H1` | 30, 10080, −20, 300, 1,0, 30, 0 | Filtres de momentum après la sécurité |
+| `SIZING_MODE`, `KELLY_MULTIPLIER`, `MAX_POSITION_SOL`, `PAPER_BANKROLL_SOL`, `MIN_TRADES_FOR_SIZING` | fixed, 0,25, 0,2, 1,0, 30 | Taille de position ; pause automatique si l'avantage mesuré est négatif |
+| `REENTRY_COOLDOWN_H` | `24` | Délai avant de racheter un jeton clôturé en perte |
+| `MONITOR_INTERVAL_S`, `TRACK_INTERVAL_S`, `TRACK_WINDOW_H` | 15, 60, 24 | Fréquence de suivi des positions et de collecte des prix |
 | `DAILY_MAX_LOSS_SOL` | `1.0` | Coupe-circuit sur 24 h glissantes |
 | `MAX_OPEN_POSITIONS` | `5` | Positions simultanées |
 | `MIN_LIQUIDITY_USD`, `MIN_LP_LOCKED_PCT`, `MAX_TOP10_PCT`, `MAX_PRICE_IMPACT_PCT`, `MAX_ROUNDTRIP_LOSS_PCT` | 15000, 90, 25, 5, 10 | Seuils éliminatoires |
@@ -89,6 +94,58 @@ valeurs dans votre environnement local, jamais dans le dépôt.
 | `MIN_X_MENTIONS_6H`, `MIN_X_UNIQUE_AUTHORS_RATIO` | `5`, `0.4` | Mentions minimales ; ratio comptes uniques / posts sous lequel on suspecte du shill |
 | `OLLAMA_URL`, `OLLAMA_MODEL` | —, `qwen2.5:7b` | Active l'analyseur LLM local |
 | `REQUIRE_LLM` | `false` | Si `true`, pas d'entrée sans avis LLM valide |
+
+## Stratégie : maximiser le gain, mesurer au lieu de deviner
+
+### Sorties (laisser courir les gagnants, couper vite les perdants)
+Les rendements des meme coins sont extrêmes : la plupart chutent, quelques-uns font ×3, ×10.
+Un take-profit fixe à +60 % coupait justement ces rares gros gagnants. Désormais :
+
+1. **Stop-loss** à −25 % (net de frais).
+2. **TP1** : à +40 %, on vend 50 % — le trade est quasi remboursé.
+3. **Stop au prix d'entrée** sur le reste : un gagnant ne peut plus redevenir perdant.
+4. **Stop suiveur** : on sort si la valeur recule de 25 % depuis son plus haut.
+5. **Take-profit final** à +300 %, **sortie temporelle** à 4 h.
+
+Le suivi passe à 15 s pour limiter les glissements sous le stop. En LIVE, la vente partielle
+porte sur la fraction correspondante du solde réel lu on-chain.
+
+### Entrées (après la sécurité)
+Paire d'au moins 30 min (les premières minutes appartiennent aux snipers et bundlers),
+pas de jeton déjà parabolique (> +300 %/h) ni en chute (< −20 %/h), plus d'achats que de
+ventes sur 1 h, au moins 30 transactions/h. Pas de rachat d'un perdant pendant 24 h.
+
+### Taille de position et arrêt automatique
+`SIZING_MODE=kelly` ajuste la mise selon l'avantage mesuré (¼ de Kelly, plafonné). Quel que
+soit le mode, après 30 trades, **un avantage négatif met les entrées en pause**
+(`PAPER_ENTRY_BLOCKED:NEGATIVE_EDGE`) : le bot arrête de perdre de l'argent tout seul.
+
+### Collecte, backtest, optimisation (le vrai levier)
+Pendant `run`, le bot enregistre toutes les minutes le prix et la liquidité de **chaque jeton
+sain** observé — y compris ceux qu'il n'a pas achetés. Ensuite :
+
+```bash
+python3 scripts/run_bot.py backtest   # vos réglages actuels rejoués sur ces trajectoires réelles
+python3 scripts/run_bot.py optimize   # 6 561 combinaisons testées
+```
+
+`optimize` choisit les réglages sur les 70 % de jetons les plus anciens puis les **évalue
+sur les 30 % les plus récents, jamais vus** — le seul chiffre honnête. Il affiche les lignes
+à copier dans votre configuration (`env`) et un statut :
+`RENTABLE_HORS_ECHANTILLON` ou `NON_RENTABLE_HORS_ECHANTILLON — ne passez pas en réel`.
+Comptez au moins 2 à 3 jours de collecte (`PAS_ASSEZ_DE_DONNEES` avant) ; relancez
+l'optimisation chaque semaine, le marché change.
+
+Limites du backtest : prix DexScreener à la minute (pas un devis exécutable), MEV non
+modélisé, coûts estimés (frais + pourboires + 2 × impact prix mesuré). Une liquidité sous
+1 000 $ est comptée comme une perte totale.
+
+### Méthode recommandée pour gagner le plus (ou perdre le moins)
+1. `run` en PAPER 2 à 3 jours → `optimize`.
+2. Statut rentable hors échantillon ? Appliquez les réglages proposés, continuez en PAPER
+   1 semaine et vérifiez que `report` confirme (≥ 50 trades, PnL > 0).
+3. Seulement alors : LIVE à 0,05 SOL. Après 30 trades réels positifs, `SIZING_MODE=kelly`.
+4. Ré-optimisez chaque semaine ; si `report` passe en perte, retour en PAPER.
 
 ## Signaux sociaux (X, Reddit, liens)
 

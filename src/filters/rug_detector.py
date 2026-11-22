@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import asyncio
 import re
+import time
 from dataclasses import dataclass, field
 
 from memecoin.filters import Metrics, Thresholds, detect_injection, evaluate, is_valid_mint, wrap_untrusted
@@ -83,6 +84,10 @@ class RugDetector:
                 obs["onchain_authorities_checked"] = True
             except Exception:  # RPC indisponible : on garde RugCheck seul
                 obs["onchain_authorities_checked"] = False
+
+        created_ms = obs.get("pair_created_at_ms")
+        if isinstance(created_ms, (int, float)) and created_ms > 0:
+            obs["pair_age_min"] = max(0.0, (time.time() * 1000 - created_ms) / 60_000)
 
         # Validation croisée DexScreener / GeckoTerminal : écart de prix > 20 % = suspect
         p1, p2 = obs.get("price_usd"), obs.get("gecko_price_usd")

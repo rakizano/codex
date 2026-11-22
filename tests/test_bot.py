@@ -12,6 +12,7 @@ from fetchers import ApiClient, DexScreener, GeckoTerminal, Jupiter, RugCheck, S
 from fetchers.rpc import RpcError
 from filters.rug_detector import RugDetector
 from paper_trader import PaperTrader
+from strategy.exit import ExitRules
 from tx_builder import JITO_DONT_FRONT, ExecutionDisabled, GuardrailViolation, TransactionBuilder, is_pubkey
 
 
@@ -159,8 +160,13 @@ def test_untrusted_block_is_confined():
 
 # --- paper trader ------------------------------------------------------------
 
+# Règles « tout ou rien » d'origine (sans TP1 ni stop suiveur) pour ces tests historiques
+ALL_OR_NOTHING = ExitRules(take_profit_pct=60.0, tp1_pct=None, trail_activation_pct=None, trailing_stop_pct=None)
+
+
 def _trader(**kw):
     t = [1_000_000.0]
+    kw.setdefault("exit_rules", ALL_OR_NOTHING)
     tr = PaperTrader(":memory:", clock=lambda: t[0], **kw)
     return tr, t
 
@@ -267,8 +273,11 @@ def test_bot_scan_and_monitor_end_to_end():
         bot = _bot(api)
         results = await bot.scan_once()
         assert await bot.scan_once() == []  # jetons déjà vus : pas de ré-audit
-        api.exit_multiplier = 2.0           # le jeton double
-        closed = await bot.monitor_once()
+        api.exit_multiplier = 2.0           # le jeton double -> vente partielle TP1
+        first = await bot.monitor_once()
+        api.exit_multiplier = 1.0           # retour au prix d'entrée -> stop au prix d'entrée
+        second = await bot.monitor_once()
+        closed = first + second
         summary = bot.trader.summary()
         await bot.aclose()
         return results, closed, summary
@@ -279,7 +288,9 @@ def test_bot_scan_and_monitor_end_to_end():
     assert by_mint[CLEAN]["final"] == "PAPER_ENTRY" and by_mint[CLEAN]["position_id"]
     assert by_mint[HONEYPOT]["final"] == "REJECT"
     assert by_mint[INJECTED]["final"] == "REJECT"
-    assert closed and closed[0]["reason"] == "TAKE_PROFIT" and closed[0]["pnl_sol"] > 0
+    assert [(e["action"], e["reason"]) for e in closed] == [("SELL_PARTIAL", "TP1"),
+                                                            ("SELL_ALL", "BREAKEVEN_STOP")]
+    assert closed[0]["proceeds_sol"] > 0 and closed[1]["pnl_sol"] > 0  # moitié vendue avec gain
     assert summary["closed_trades"] == 1 and summary["audits_by_verdict"]["REJECT"] == 2
     assert not any("/swap/v1/swap" in c or "sendTransaction" in c for c in api.calls)
 

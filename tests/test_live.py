@@ -196,7 +196,9 @@ def test_bot_live_end_to_end(keyfile):
         bot.executor._sleep = no_sleep
         results = await bot.scan_once()
         api.exit_multiplier = 2.0
-        closed = await bot.monitor_once()
+        closed = await bot.monitor_once()     # vente partielle TP1
+        api.exit_multiplier = 1.0
+        closed += await bot.monitor_once()    # stop au prix d'entrée sur le reste
         await bot.aclose()
         return results, closed
 
@@ -204,7 +206,8 @@ def test_bot_live_end_to_end(keyfile):
     by_mint = {r["mint"]: r for r in results}
     assert by_mint[CLEAN]["final"] == "LIVE_ENTRY"
     assert by_mint[HONEYPOT]["final"] == "REJECT"
-    assert closed and closed[0]["reason"] == "TAKE_PROFIT" and closed[0]["signature"] == "SIG2"
-    assert len(api.sent) == 2  # un achat, une vente — rien pour les jetons rejetés
+    assert [e["reason"] for e in closed] == ["TP1", "BREAKEVEN_STOP"]
+    assert [e["signature"] for e in closed] == ["SIG2", "SIG3"]
+    assert len(api.sent) == 3  # achat, vente partielle, vente du reste — rien pour les jetons rejetés
     buy_keys = [str(k) for k in decode(api.sent[0]).message.account_keys]
     assert JITO_DONT_FRONT in buy_keys and Pubkey.from_string(buy_keys[0]) == kp.pubkey()
