@@ -3,6 +3,23 @@
 Le Prompt 1 demande de « proposer d'abord le plan détaillé des modules ». Ce document est
 ce plan, tel qu'il a été implémenté. Chaque module est couvert par des tests hors-ligne.
 
+**Statut : plan validé tel quel par l'utilisateur le 22/11/2026.** Décisions associées :
+le premier trade LIVE est exécuté par l'utilisateur lui-même sur sa machine (wallet dédié,
+0,05 SOL) ; le gabarit de configuration reste `env.example`.
+
+## 0. Validation sur données réelles (22/11/2026)
+
+- Skill : `scripts/fetch_token_audit.py` exécuté contre DexScreener, RugCheck, GeckoTerminal
+  et Jupiter (BONK : `REJECT`, LP verrouillée 22 %, top 10 à 36 %).
+- Bot PAPER : `scan` réel sur 40 jetons (34 rejets, 5 positions simulées), `monitor` et
+  `report` fonctionnels ; deux défauts découverts et corrigés (format RugCheck, faux
+  positifs d'injection sur les URIs IPFS/Arweave).
+- Hook : actif pendant tout le développement, il a bloqué en conditions réelles plusieurs
+  commandes de l'agent qui mentionnaient des fichiers d'environnement ou des endpoints
+  d'envoi de transaction — le comportement attendu.
+- LIVE : testé de bout en bout contre des APIs simulées avec une transaction réellement
+  signée ; l'essai mainnet revient à l'utilisateur.
+
 ## 1. Principes
 
 1. **Une seule autorité de rejet, déterministe** : `memecoin/filters.evaluate`. Un LLM ne
