@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "copytop": {
+      "type": "http",
+      "url": "https://copy.top/mcp"
+    }
+  }
+}
