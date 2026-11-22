@@ -200,6 +200,12 @@ RugCheck, concentration, honeypot/taxe cachée jusqu'à 92 % de perte aller-reto
 BONK est rejeté (LP verrouillée à 22 % pondérée par la liquidité, top 10 à 36 %) :
 les seuils visent les jeunes meme coins, pas les jetons établis.
 
+Essai de 25 min de la stratégie v0.3 (`run`) : 47 jetons audités, 40 rejets de sécurité,
+5 rejets de momentum (paires de 22 à 89 jours, pression vendeuse), 2 entrées simulées ;
+1 stop-loss à −29 % (stop à −25 % glissé de 4 points malgré un suivi à 15 s), 1 position
+ouverte à −6 %. 7 jetons sains suivis (146 instantanés) : `backtest` et `optimize`
+fonctionnent mais répondent `PAS_ASSEZ_DE_DONNEES` — il faut plusieurs jours de collecte.
+
 ## Mode LIVE (fonds réels)
 
 À n'activer qu'après plusieurs jours de paper trading dont le bilan (`report`) vous convient.
