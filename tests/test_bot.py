@@ -127,7 +127,9 @@ def test_rug_detector(mint, verdict, flag):
     if flag:
         assert flag in res.flags
     else:
-        assert res.metrics.top10_holders_pct == pytest.approx(15.0)  # réserve AMM exclue
+        assert res.metrics.top10_holders_pct == pytest.approx(15.0)  # réserves AMM et locker exclus
+        assert res.metrics.lp_locked_pct == pytest.approx(95.0)      # pondéré par la liquidité
+        assert res.observations["insider_holders_in_top10"] == 1
 
 
 def test_onchain_authority_overrides_rugcheck():
@@ -311,3 +313,28 @@ def test_ollama_analyzer_downgrades_and_survives_garbage():
     assert combine("WATCHLIST_PAPER", first) == "HIGH_RISK_WATCH"
     assert second is None
     assert seen["system"].startswith("RÔLE")
+
+
+def test_unexpected_api_shape_fails_closed():
+    def handler(req):
+        if req.url.host == "api.rugcheck.xyz":
+            return httpx.Response(200, json={"mintAuthority": None, "markets": [{"lp": "pas un objet"}],
+                                             "topHolders": "nope"})
+        return FakeApis().handler(req)
+
+    async def go():
+        async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as c:
+            return await _detector(c).audit(CLEAN)
+
+    res = run(go())
+    assert res.verdict == "REJECT"
+
+
+def test_transfer_fee_and_rugged_flags():
+    from memecoin.sources import normalize
+    from fake_apis import _report
+    rc = _report()
+    rc["transferFee"]["pct"] = 5
+    rc["rugged"] = True
+    m, _, _ = normalize({"rugcheck": rc})
+    assert "RUGCHECK_RUGGED" in m.extra_flags and any(f.startswith("TRANSFER_FEE") for f in m.extra_flags)

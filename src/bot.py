@@ -78,7 +78,7 @@ class Bot:
                 pos = self.trader.open(mint, self.s.position_size_sol, audit.buy_quote)
                 opened = pos.id if pos else None
             else:
-                log.info("entrée %s refusée : %s", mint, why)
+                final = f"PAPER_ENTRY_BLOCKED:{why}"
         log.info("%s -> %s (%s)%s", mint, final, ",".join(audit.flags) or "aucun drapeau",
                  f" position #{opened}" if opened else "")
         return {"mint": mint, "deterministic": audit.verdict, "final": final,
@@ -150,6 +150,8 @@ async def _main(argv: list[str] | None = None) -> int:
     a = ap.parse_args(argv)
     logging.basicConfig(level=logging.DEBUG if a.verbose else logging.INFO,
                         format="%(asctime)s %(levelname)s %(name)s: %(message)s")
+    if not a.verbose:
+        logging.getLogger("httpx").setLevel(logging.WARNING)
 
     bot = build_bot(a.require_llm)
     try:

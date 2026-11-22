@@ -63,7 +63,10 @@ class RugDetector:
         raw = {"dexscreener": pairs, "rugcheck": report, "geckoterminal": gk,
                "jupiter_buy": buy, "jupiter_sell": sell,
                "size_lamports": int(self.size_sol * 1_000_000_000)}
-        metrics, obs, untrusted = normalize(raw)
+        try:
+            metrics, obs, untrusted = normalize(raw)
+        except Exception as e:  # format d'API inattendu : on rejette plutôt que planter
+            return AuditResult(mint, "REJECT", [f"PARSE_ERROR({type(e).__name__})"], Metrics())
 
         if self.rpc is not None and getattr(self.rpc, "configured", False):
             try:

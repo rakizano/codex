@@ -107,24 +107,56 @@ def normalize(raw: dict) -> tuple[Metrics, dict, dict]:
             m.mint_authority_revoked = rc.get("mintAuthority") in (None, "")
         if "freezeAuthority" in rc:
             m.freeze_authority_revoked = rc.get("freezeAuthority") in (None, "")
-        markets = rc.get("markets") or []
-        # Exclut les comptes de réserve des pools AMM du calcul de concentration.
-        amm_accounts = set()
+        markets = [mk for mk in rc.get("markets") or [] if isinstance(mk, dict)]
+        # Comptes à exclure du calcul de concentration : pools AMM (adresse du pool,
+        # comptes de réserve et leur propriétaire) et lockers connus de RugCheck.
+        excluded: set[str] = set()
         for mk in markets:
-            for key in ("pubkey", "liquidityAAccount", "liquidityBAccount"):
-                if mk.get(key):
-                    amm_accounts.add(mk[key])
-        holders = [h for h in rc.get("topHolders") or []
-                   if h.get("owner") not in amm_accounts and h.get("address") not in amm_accounts]
+            for key in ("pubkey", "liquidityA", "liquidityB"):
+                if isinstance(mk.get(key), str):
+                    excluded.add(mk[key])
+            for key in ("liquidityAAccount", "liquidityBAccount"):
+                acc = mk.get(key)
+                if isinstance(acc, dict) and isinstance(acc.get("owner"), str):
+                    excluded.add(acc["owner"])
+                elif isinstance(acc, str):
+                    excluded.add(acc)
+        for addr, info in (rc.get("knownAccounts") or {}).items():
+            if isinstance(info, dict) and info.get("type") in ("AMM", "LOCKER"):
+                excluded.add(addr)
+        holders = [h for h in rc.get("topHolders") or [] if isinstance(h, dict)
+                   and h.get("owner") not in excluded and h.get("address") not in excluded]
         if rc.get("topHolders") is not None:
             m.top10_holders_pct = sum(_f(h.get("pct")) or 0 for h in holders[:10])
-        locks = [_f((mk.get("lp") or {}).get("lpLockedPct")) for mk in markets]
-        locks = [x for x in locks if x is not None]
-        if locks:
-            m.lp_locked_pct = max(locks)
-        risks = rc.get("risks") or []
+            obs["insider_holders_in_top10"] = sum(1 for h in holders[:10] if h.get("insider"))
+
+        # Verrouillage LP pondéré par la liquidité USD de chaque pool (les pools à
+        # liquidité concentrée — Orca, DLMM — comptent comme non verrouillés).
+        total_usd = locked_usd = 0.0
+        for mk in markets:
+            lp = mk.get("lp") or {}
+            usd = (_f(lp.get("baseUSD")) or 0) + (_f(lp.get("quoteUSD")) or 0)
+            pct = _f(lp.get("lpLockedPct"))
+            if usd <= 0 or pct is None:
+                continue
+            total_usd += usd
+            locked_usd += usd * min(max(pct, 0), 100) / 100
+        if total_usd > 0:
+            m.lp_locked_pct = 100 * locked_usd / total_usd
+        obs["rugcheck_total_liquidity_usd"] = _f(rc.get("totalMarketLiquidity"))
+        obs["rugcheck_markets"] = len(markets)
+
+        if rc.get("rugged") is True:
+            m.extra_flags.append("RUGCHECK_RUGGED")
+        fee = rc.get("transferFee")
+        if isinstance(fee, dict) and (_f(fee.get("pct")) or 0) > 0:
+            m.extra_flags.append(f"TRANSFER_FEE({_f(fee.get('pct'))}%)")
+        if (_f(rc.get("graphInsidersDetected")) or 0) > 0:
+            obs["insider_network_size"] = rc.get("graphInsidersDetected")
+
+        risks = [r for r in rc.get("risks") or [] if isinstance(r, dict)]
         obs["rugcheck_score_normalised"] = rc.get("score_normalised")
-        obs["rugcheck_risk_count"] = len(risks)
+        obs["rugcheck_risks"] = [f"{r.get('level')}:{r.get('name')}" for r in risks][:10]
         for r in risks:
             if str(r.get("level", "")).lower() == "danger":
                 m.extra_flags.append("RUGCHECK_DANGER")

@@ -49,7 +49,7 @@ python3 scripts/run_bot.py scan            # un cycle de découverte sur les der
 python3 scripts/run_bot.py monitor         # réévalue les positions ouvertes
 python3 scripts/run_bot.py run             # boucle continue (scan + monitor)
 python3 scripts/run_bot.py report          # bilan : PnL net, taux de réussite, verdicts
-python3 -m pytest -q                       # 53 tests, tous hors-ligne (APIs simulées)
+python3 -m pytest -q                       # 59 tests, tous hors-ligne (APIs simulées)
 ```
 
 Dans Claude Code : `/memecoin-scanner <MINT>`. Avec un autre agent (OpenCode, Cline, Aider…),
@@ -80,6 +80,15 @@ insuffisante · concentration du top 10 hors réserves AMM · aucune route de re
 (honeypot) · impact prix excessif · perte aller-retour > seuil (taxe cachée) · risque « danger »
 RugCheck · divergence de prix DexScreener/GeckoTerminal > 20 % · injection détectée dans les
 métadonnées · toute donnée manquante.
+
+## Essai réel (22/11/2026)
+
+`scan` sur les 40 derniers profils/boosts Solana de DexScreener : 34 `REJECT`
+(liquidité faible ou inconnue — jetons encore sur la courbe pump.fun —, risque « danger »
+RugCheck, concentration, honeypot/taxe cachée jusqu'à 92 % de perte aller-retour),
+6 passent les filtres, 5 positions simulées ouvertes (plafond `MAX_OPEN_POSITIONS`).
+BONK est rejeté (LP verrouillée à 22 % pondérée par la liquidité, top 10 à 36 %) :
+les seuils visent les jeunes meme coins, pas les jetons établis.
 
 ## Limites connues
 

@@ -36,7 +36,11 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     raw = fetch_all(a.mint, a.size_sol)
-    metrics, obs, untrusted = normalize(raw)
+    try:
+        metrics, obs, untrusted = normalize(raw)
+    except Exception as e:  # format d'API inattendu : rejet fail-closed
+        print(json.dumps({"token_mint": a.mint, "verdict": "REJECT", "flags": [f"PARSE_ERROR({type(e).__name__})"]}))
+        return 1
 
     injection = []
     for v in untrusted.values():

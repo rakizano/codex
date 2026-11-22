@@ -2,6 +2,8 @@ import base64
 import sys
 from pathlib import Path
 
+import pytest
+
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
 from memecoin.filters import (Metrics, detect_injection, evaluate, is_valid_mint,  # noqa: E402
@@ -58,6 +60,17 @@ def test_injection_in_token_name_detected():
     assert "BASE64_PAYLOAD" in detect_injection(f"MOON {payload}")
     assert "MORSE_LIKE" in detect_injection("... . -. -.. / ... --- .-..")
     assert detect_injection("Bonk") == []
+    assert "WALLET_ADDRESS_IN_TEXT" in detect_injection("airdrop: claim at 7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr")
+
+
+@pytest.mark.parametrize("uri", [  # URIs réelles de métadonnées (BONK et jetons pump.fun)
+    "https://arweave.net/QPC6FYdUn-3V8ytFNuoCS85S2tHAuiDblh6u3CIZLsw",
+    "https://ipfs.io/ipfs/QmUNcP72YAvVMXKN9N3e82bxwx2odaSL7VRCiwDqQ9fo4W",
+    "https://ipfs.io/ipfs/bafkreicqfqh67y4s7mpcs7egqzi2jtu2znketo7cl5xyg3decvxf4rqil4",
+    "https://dexscreener.com/solana/DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263 https://x.com/bonk_inu",
+])
+def test_legit_metadata_urls_are_not_injection(uri):
+    assert detect_injection(uri) == []
 
 
 def test_wrap_cannot_close_tag():

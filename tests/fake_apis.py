@@ -19,11 +19,23 @@ def _pair(mint, name, liq=80_000, price="0.0010"):
 
 
 def _report():
-    return {"mintAuthority": None, "freezeAuthority": None, "risks": [], "score_normalised": 3,
-            "markets": [{"pubkey": "POOL", "liquidityAAccount": "RESA", "liquidityBAccount": "RESB",
-                         "lp": {"lpLockedPct": 100}}],
-            "topHolders": [{"address": "RESA", "pct": 40}] +
-                          [{"address": f"H{i}", "owner": f"O{i}", "pct": 1.5} for i in range(12)]}
+    """Calqué sur la structure réelle de /v1/tokens/{mint}/report (nov. 2026)."""
+    vault = {"amount": 1, "owner": "POOLAUTH", "mint": "x", "state": "initialized"}
+    return {"mintAuthority": None, "freezeAuthority": None, "rugged": False, "score_normalised": 3,
+            "risks": [{"name": "Mutable metadata", "level": "warn"}],
+            "transferFee": {"pct": 0, "maxAmount": 0, "authority": "11111111111111111111111111111111"},
+            "totalMarketLiquidity": 80_000,
+            "knownAccounts": {"LOCKER1": {"name": "Locker", "type": "LOCKER"}},
+            "markets": [{"pubkey": "POOL", "marketType": "raydium_cpmm",
+                         "liquidityA": "RESA", "liquidityB": "RESB",
+                         "liquidityAAccount": vault, "liquidityBAccount": vault,
+                         "lp": {"lpLockedPct": 100, "lpLockedUSD": 76_000, "baseUSD": 40_000, "quoteUSD": 36_000}},
+                        {"pubkey": "POOL2", "marketType": "orca", "liquidityA": "RESC", "liquidityB": "RESD",
+                         "liquidityAAccount": vault, "liquidityBAccount": vault,
+                         "lp": {"lpLockedPct": 0, "lpLockedUSD": 0, "baseUSD": 2_000, "quoteUSD": 2_000}}],
+            "topHolders": [{"address": "RESA", "owner": "POOLAUTH", "pct": 30, "insider": False},
+                           {"address": "LCK", "owner": "LOCKER1", "pct": 10, "insider": False}] +
+                          [{"address": f"H{i}", "owner": f"O{i}", "pct": 1.5, "insider": i == 0} for i in range(12)]}
 
 
 class FakeApis:

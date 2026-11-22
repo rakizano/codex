@@ -97,8 +97,11 @@ _INJECTION_PATTERNS = [
     r"ignore (toutes? )?(les )?(instructions|consignes)",
     r"\b(envoie|transf[eè]re|ach[eè]te)\b",
     r"\bverdict\b|\bpaper_entry\b|\bwatchlist_paper\b",
-    r"[1-9A-HJ-NP-Za-km-z]{32,44}",  # adresse de portefeuille glissée dans un texte
 ]
+# Adresse de portefeuille glissée dans un texte libre (testée hors URLs : les CID IPFS
+# et identifiants Arweave des métadonnées légitimes ressemblent à du Base58/Base64).
+_ADDRESS_RE = re.compile(r"(?<![A-Za-z0-9])[1-9A-HJ-NP-Za-km-z]{32,44}(?![A-Za-z0-9])")
+_URL_RE = re.compile(r"(?:https?|ipfs|ar)://\S+", re.IGNORECASE)
 _INVISIBLE_CATEGORIES = {"Cf", "Co", "Cn"}
 _MORSE_RE = re.compile(r"^[\s.\-/]{12,}$")
 _B64_RE = re.compile(r"[A-Za-z0-9+/]{24,}={0,2}")
@@ -116,7 +119,10 @@ def detect_injection(text: str) -> list[str]:
             break
     if _MORSE_RE.match(text.strip() or "x"):
         hits.append("MORSE_LIKE")
-    for blob in _B64_RE.findall(text):
+    free_text = _URL_RE.sub(" ", text)
+    if _ADDRESS_RE.search(free_text):
+        hits.append("WALLET_ADDRESS_IN_TEXT")
+    for blob in _B64_RE.findall(free_text):
         try:
             decoded = base64.b64decode(blob + "=" * (-len(blob) % 4), validate=True)
             if decoded.isascii() and decoded.decode().isprintable():
