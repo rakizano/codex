@@ -1,0 +1,8 @@
+.env
+.env.*
+!.env.example
+*id.json
+*keypair*.json
+data/*.jsonl
+__pycache__/
+.pytest_cache/
