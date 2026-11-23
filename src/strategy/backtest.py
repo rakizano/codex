@@ -193,7 +193,7 @@ def optimize(paths: list[TokenPath], base_entry: EntryRules, base_exit: ExitRule
     # Purge : aucune trajectoire train ne doit pouvoir rester ouverte après le début du test.
     purge_seconds = max(EXIT_GRID["max_hold_minutes"]) * 60
     test_start = test[0].t0 if test else float("inf")
-    train = [p for p in raw_train if p.t0 + purge_seconds <= test_start]
+    train = [p for p in raw_train if p.t0 + purge_seconds < test_start]
     purged = len(raw_train) - len(train)
 
     exits = list(_exit_combos(base_exit))
