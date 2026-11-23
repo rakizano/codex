@@ -49,7 +49,9 @@ def main(argv: list[str] | None = None) -> int:
     if injection:
         metrics.extra_flags.append("PROMPT_INJECTION_IN_METADATA")
 
-    t = Thresholds(min_liquidity_usd=a.min_liquidity, max_top10_pct=a.max_top10)
+    # Les seuils ne peuvent qu'être durcis : une valeur plus permissive que le défaut est ignorée.
+    t = Thresholds(min_liquidity_usd=max(a.min_liquidity, Thresholds.min_liquidity_usd),
+                   max_top10_pct=min(a.max_top10, Thresholds.max_top10_pct))
     verdict, flags = evaluate(metrics, t)
 
     out = {

@@ -19,7 +19,7 @@ READ_ONLY_METHODS = frozenset({
     "getAccountInfo", "getBalance", "getTokenSupply", "getTokenLargestAccounts",
     "getSignaturesForAddress", "getSlot", "getHealth", "getLatestBlockhash",
     "getMultipleAccounts", "getTokenAccountBalance", "simulateTransaction",
-    "getTokenAccountsByOwner", "getSignatureStatuses",
+    "getTokenAccountsByOwner", "getSignatureStatuses", "getTransaction",
 })
 
 

@@ -289,8 +289,8 @@ def test_bot_scan_and_monitor_end_to_end():
     assert by_mint[HONEYPOT]["final"] == "REJECT"
     assert by_mint[INJECTED]["final"] == "REJECT"
     assert [(e["action"], e["reason"]) for e in closed] == [("SELL_PARTIAL", "TP1"),
-                                                            ("SELL_ALL", "BREAKEVEN_STOP")]
-    assert closed[0]["proceeds_sol"] > 0 and closed[1]["pnl_sol"] > 0  # moitié vendue avec gain
+                                                            ("SELL_ALL", "POST_TP1_FLOOR")]
+    assert closed[0]["proceeds_sol"] > 0 and closed[1]["pnl_sol"] > 0  # 30 % vendus avec gain
     assert summary["closed_trades"] == 1 and summary["audits_by_verdict"]["REJECT"] == 2
     assert not any("/swap/v1/swap" in c or "sendTransaction" in c for c in api.calls)
 

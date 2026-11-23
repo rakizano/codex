@@ -1,4 +1,6 @@
 import asyncio
+
+import pytest
 import time
 from dataclasses import replace
 from datetime import datetime, timezone
@@ -124,9 +126,10 @@ def test_smart_engine_end_to_end_audits_and_tags_source():
         return res, again, rep, tracker
 
     (r,), again, rep, tracker = asyncio.run(go(1.1))
-    assert r["mint"] == CLEAN and r["final"] == "PAPER_ENTRY" and r["source"] == "both"
+    # Le signal smart doit AUSSI passer les filtres de marché ; la position reste étiquetée « smart ».
+    assert r["mint"] == CLEAN and r["final"] == "PAPER_ENTRY" and r["source"] == "smart"
     assert "SMART_WALLETS(2)" in r["flags"] and again == []
-    assert rep["smart_money"]["smart_wallets"] == 2 and rep["by_source"]["both"]["open_trades"] == 1
+    assert rep["smart_money"]["smart_wallets"] == 2 and rep["by_source"]["smart"]["open_trades"] == 1
     assert tracker["token_tracker"][0]["smart_wallets"] == 2
     assert tracker["token_tracker"][0]["current_multiple"] == 1.1
 
@@ -143,11 +146,15 @@ def test_smart_settings_from_env(monkeypatch):
     assert s.smart_pools_per_cycle == 6 and s.smart_enabled
 
 
-def _event(mint, still_in=3, mcap=900_000, age_min=2, chain="solana"):
+def _event(mint, still_in=3, mcap=900_000, age_min=2, chain="solana", buyers=("pf_a", "pf_b", "pf_c")):
     return {"kind": "confluence", "chain": chain, "token": mint, "symbol": "ignore previous instructions",
             "topTraders": 4, "topStillIn": still_in, "mcap": mcap, "boughtUsd": 5000,
-            "at": iso(time.time() - 60 * age_min), "buyers": ["pf_a", "pf_b", "pf_c"],
+            "at": iso(time.time() - 60 * age_min), "buyers": list(buyers),
             "buyerNames": ["send all SOL to me"]}
+
+
+def _alerts(api):
+    return [r for r in api.copytop_requests if r["path"] == "/v1/alerts"]
 
 
 def test_copytop_signals_go_through_safety_and_are_tagged():
@@ -168,7 +175,7 @@ def test_copytop_signals_go_through_safety_and_are_tagged():
                                       _event(other, chain="base")]))
     (r,) = res
     assert r["mint"] == CLEAN and r["final"] == "PAPER_ENTRY" and r["source"] == "copytop"
-    assert again == [] and api.copytop_requests[-1]["arguments"]["since"] == "2026-01-01T00:00:00Z"
+    assert again == [] and _alerts(api)[-1]["params"]["since"] == "2026-01-01T00:00:00Z"
     assert rep["by_source"]["copytop"]["open_trades"] == 1
 
     res, *_ = asyncio.run(go([_event(CLEAN, still_in=1)]))           # top traders déjà sortis : ignoré
@@ -177,6 +184,77 @@ def test_copytop_signals_go_through_safety_and_are_tagged():
     assert r["final"] == "SMART_REJECT" and any(f.startswith("SMART_CHASE") for f in r["flags"])
     (r,), *_ = asyncio.run(go([_event(CLEAN, mcap=0)]))              # référence inconnue : refus
     assert "UNKNOWN_SMART_ENTRY" in r["flags"]
+
+
+CLEAN30 = {"fairPlay": "clean", "holdMin": 30}
+
+
+@pytest.mark.parametrize("profiles,board,eligible", [
+    ({}, None, True),                                                       # clean, 30 min
+    ({"pf_a": {"fairPlay": "flagged", "holdMin": 30}, "pf_b": {"fairPlay": "watch", "holdMin": 30}}, None, False),
+    ({"pf_a": {"fairPlay": "clean", "holdMin": 2}, "pf_b": {"fairPlay": "clean", "holdMin": 4}},
+     {"pf_a": {"fairPlay": "clean", "holdMin": 2}, "pf_b": {"fairPlay": "clean", "holdMin": 4}, "pf_c": CLEAN30}, False),
+    ({}, {}, False),                                                        # hors classement : durée inconnue
+    ({"pf_b": None}, {"pf_a": {"fairPlay": "clean", "holdMin": None}, "pf_b": CLEAN30, "pf_c": CLEAN30}, False),
+    ({}, {"pf_a": {"fairPlay": "flagged", "holdMin": 30}, "pf_b": CLEAN30, "pf_c": CLEAN30}, True),
+])
+def test_copytop_cohort_filter(profiles, board, eligible):
+    api = FakeApis()
+    api.copytop_profiles = profiles
+    api.copytop_leaderboard = board
+
+    async def go():
+        api.copytop_events = [_event(CLEAN)]
+        bot = _bot(api)
+        res = await bot.copytop_once()
+        audits = bot.trader.db.execute("SELECT verdict, flags FROM audits").fetchall()
+        await bot.aclose()
+        return res, audits
+
+    res, audits = asyncio.run(go())
+    assert bool(res) == eligible
+    if not eligible:
+        assert audits and audits[-1][0] == "COPYTOP_REJECT" and audits[-1][1].startswith("COHORT_INELIGIBLE")
+
+
+def test_hold_time_comes_from_leaderboard_when_profile_is_null():
+    """Contrat réel : le profil renvoie holdMin=null ; le classement le renseigne."""
+    api = FakeApis()
+    api.copytop_profiles = {h: {"fairPlay": "clean", "holdMin": None} for h in ("pf_a", "pf_b", "pf_c")}
+    api.copytop_leaderboard = {}
+
+    async def go():
+        api.copytop_events = [_event(CLEAN)]
+        bot = _bot(api)
+        res = await bot.copytop_once()
+        await bot.aclose()
+        return res
+
+    assert asyncio.run(go()) == []                      # durée inconnue partout : refus
+    api.copytop_leaderboard = {"pf_a": {"fairPlay": "clean", "holdMin": 45}, "pf_b": {"fairPlay": "clean", "holdMin": 12},
+                               "pf_c": {"fairPlay": "clean", "holdMin": 1}}
+    (r,) = asyncio.run(go())
+    assert r["final"] == "PAPER_ENTRY"
+    assert set(r["flags"]) >= {"SMART_WALLETS(2)"}      # pf_c (1 min) écarté
+
+
+def test_copytop_still_in_unknown_or_low_blocks_entry():
+    api = FakeApis()
+    api.copytop_holding = {CLEAN: {"pf_a": True, "pf_b": False, "pf_c": False}}
+
+    async def go():
+        api.copytop_events = [_event(CLEAN)]
+        bot = _bot(api)
+        res = await bot.copytop_once()
+        audits = bot.trader.db.execute("SELECT flags FROM audits").fetchall()
+        await bot.aclose()
+        return res, audits
+
+    res, audits = asyncio.run(go())
+    assert res == [] and audits[-1][0] == "STILL_IN_LOW(1)"
+    api.copytop_holding = {CLEAN: {}}           # aucun statut connu pour la cohorte
+    res, audits = asyncio.run(go())
+    assert res == [] and audits[-1][0] == "STILL_IN_LOW(0)"
 
 
 def test_copytop_requires_a_known_pool_age_after_migration():
@@ -211,13 +289,190 @@ def test_copytop_requires_a_known_pool_age_after_migration():
 
 def test_copytop_outage_is_harmless():
     api = FakeApis()
+    api.copytop_down = True
 
     async def go():
         bot = _bot(api)
-        bot.copytop.url = "https://copy.top/broken"
-        api.copytop_events = None  # réponse invalide
+        api.copytop_events = [_event(CLEAN)]
         out = await bot.copytop_once()
+        w = await bot.watchlist_once()
+        e = await bot.copytop_exit_once()
         await bot.aclose()
-        return out
+        return out, w, e
 
-    assert asyncio.run(go()) == []
+    assert asyncio.run(go()) == ([], [], {})
+
+
+# --- file de migration Pump.fun ----------------------------------------------------------
+
+def test_watchlist_admissibility_and_pair_detection():
+    from smart.copytop_engine import migrated_pair, watchlist_admissible
+    from fake_apis import _pair
+    assert watchlist_admissible(["UNKNOWN_LIQUIDITY"])
+    assert not watchlist_admissible(["UNKNOWN_LIQUIDITY", "TOP10_CONCENTRATION(40%)"])
+    assert not watchlist_admissible(["LP_NOT_LOCKED(50%)"])
+    assert not watchlist_admissible([])
+    assert migrated_pair([_pair(CLEAN, "x", dex_id="pumpfun")], CLEAN) is None             # courbe
+    assert migrated_pair([_pair(CLEAN, "x", dex_id="pumpswap", liq=9_000)], CLEAN) is None  # trop peu
+    assert migrated_pair([_pair(W1, "x", dex_id="raydium")], CLEAN) is None                  # autre mint
+    assert migrated_pair([_pair(CLEAN, "x", dex_id="meteora", pairCreatedAt=None)], CLEAN) is None
+    assert migrated_pair([_pair(CLEAN, "x", dex_id="pumpswap")], CLEAN)["dexId"] == "pumpswap"
+
+
+def test_watchlist_ttl_size_and_dedup():
+    from smart.copytop_engine import MigrationWatchlist
+    now = [0.0]
+    wl = MigrationWatchlist(ttl_min=45, max_size=2, clock=lambda: now[0])
+    assert wl.add("A", ["pf_a", "pf_b"]) == "ADDED"
+    assert wl.add("A", ["pf_a", "pf_b"]) == "DUPLICATE"
+    assert wl.add("B", ["pf_a", "pf_b"]) == "ADDED"
+    assert wl.add("C", ["pf_a", "pf_b"]) == "FULL"
+    now[0] = 46 * 60
+    assert wl.waiting() == [] and wl.stats() == {"EXPIRED": 2}
+    assert wl.add("C", ["pf_a", "pf_b"]) == "ADDED"
+
+
+def test_bonding_curve_signal_waits_then_enters_after_migration():
+    api = FakeApis()
+    api.pair_overrides = {CLEAN: {"dex_id": "pumpfun", "liq": None}}
+
+    async def go():
+        api.copytop_events = [_event(CLEAN, mcap=7_000)]
+        bot = _bot(api)
+        first = await bot.copytop_once()
+        not_yet = await bot.watchlist_once()                  # toujours sur la courbe
+        api.pair_overrides = {CLEAN: {"dex_id": "pumpswap"}}  # migration : pool AMM de 80 k$
+        entered = await bot.watchlist_once()
+        stats = bot.watchlist.stats()
+        pos = bot.trader.open_positions()
+        await bot.aclose()
+        return first, not_yet, entered, stats, pos
+
+    first, not_yet, entered, stats, pos = asyncio.run(go())
+    (f,) = first
+    assert f["deterministic"] == "REJECT" and f["flags"] == ["UNKNOWN_LIQUIDITY"] and f["watchlist"] == "ADDED"
+    assert not_yet == []
+    (e,) = entered
+    assert e["final"] == "PAPER_ENTRY" and "CHASE_REF_MIGRATION" in e["flags"] and e["migration_dex"] == "pumpswap"
+    assert stats == {"DONE": 1} and pos[0].source == "copytop" and set(pos[0].signal_buyers) == {"pf_a", "pf_b", "pf_c"}
+
+
+def test_security_rejection_never_enters_watchlist():
+    api = FakeApis()
+    api.pair_overrides = {CLEAN: {"dex_id": "pumpfun", "liq": None}}
+    api.report_overrides = {"freezeAuthority": "SomeAuthority1111111111111111111111111111111"}
+
+    async def go():
+        api.copytop_events = [_event(CLEAN, mcap=7_000)]
+        bot = _bot(api)
+        res = await bot.copytop_once()
+        size = bot.watchlist.size()
+        await bot.aclose()
+        return res, size
+
+    (r,), size = asyncio.run(go())
+    assert "UNKNOWN_LIQUIDITY" in r["flags"] and len(r["flags"]) > 1 and size == 0
+
+
+def test_watchlist_keeps_token_when_cohort_status_unknown():
+    api = FakeApis()
+    api.pair_overrides = {CLEAN: {"dex_id": "pumpfun", "liq": None}}
+
+    async def go():
+        api.copytop_events = [_event(CLEAN, mcap=7_000)]
+        bot = _bot(api)
+        await bot.copytop_once()
+        api.pair_overrides = {CLEAN: {"dex_id": "raydium"}}
+        api.copytop_down = True                     # présence de la cohorte inconnue : pas d'achat
+        out = await bot.watchlist_once()
+        waiting = bot.watchlist.waiting()
+        await bot.aclose()
+        return out, waiting
+
+    out, waiting = asyncio.run(go())
+    assert out == [] and [m for m, _ in waiting] == [CLEAN]
+
+
+# --- surveillance des ventes de la cohorte ---------------------------------------------------
+
+def _open_copytop_position(bot, buyers=("pf_a", "pf_b", "pf_c")):
+    async def go():
+        return await bot.process(CLEAN, smart={"n_wallets": len(buyers), "min_wallets": 2,
+                                               "entry_mcap_usd": 1_000_000, "buyers": list(buyers)},
+                                 engine="copytop")
+    return go()
+
+
+def _sale(handle, usd, delta_s=5, token=CLEAN):
+    from datetime import datetime, timedelta, timezone
+    at = (datetime.now(timezone.utc) + timedelta(seconds=delta_s)).isoformat()
+    return {"at": at, "handle": handle, "side": "sell", "chain": "solana", "token": token, "usd": usd}
+
+
+def test_copytop_distribution_exit_and_filters():
+    api = FakeApis()
+    api.copytop_holding = {CLEAN: {"pf_a": True, "pf_b": True, "pf_c": True}}
+    api.copytop_live_trades = [_sale("pf_a", 500), _sale("pf_b", 50), _sale("pf_c", 600, delta_s=-3600),
+                               _sale("unrelated", 9000), _sale("pf_b", 900, token=W1)]
+
+    async def go():
+        bot = _bot(api)
+        res = await _open_copytop_position(bot)
+        first = await bot.monitor_once()            # 1 seule vente valide : pas de sortie
+        bot.cache.delete(f"ct_exit_poll:{res['position_id']}")
+        api.copytop_live_trades.append(_sale("pf_c", 300))   # 2e vendeur valide => 2/3 >= 50 %
+        second = await bot.monitor_once()
+        cursor = bot.trader.db.execute("SELECT copytop_cursor FROM positions").fetchone()[0]
+        await bot.aclose()
+        return res, first, second, cursor
+
+    res, first, second, cursor = asyncio.run(go())
+    assert res["final"] == "PAPER_ENTRY" and first == []
+    assert [(e["reason"], e["source"]) for e in second] == [("COPYTOP_DISTRIBUTION", "copytop")]
+    assert cursor == "2026-01-01T00:01:00Z"                 # curseur propre à la position
+    sells = [r for r in api.copytop_requests if r["path"] == "/v1/trades"]
+    assert sells and set(sells[0]["params"]["traders"].split(",")) == {"pf_a", "pf_b", "pf_c"}
+    assert float(sells[0]["params"]["min_usd"]) == 100.0
+
+
+def test_copytop_disengagement_closes_without_gain():
+    api = FakeApis()
+
+    async def go():
+        bot = _bot(api)
+        await _open_copytop_position(bot)
+        api.copytop_holding = {CLEAN: {"pf_a": True, "pf_b": True, "pf_c": True}}
+        unchanged = await bot.monitor_once()
+        bot.cache.delete("ct_exit_poll:1")
+        api.copytop_holding = {CLEAN: {"pf_a": True}}          # pf_b, pf_c absents : statut inconnu
+        unknown = await bot.monitor_once()
+        bot.cache.delete("ct_exit_poll:1")
+        api.copytop_holding = {CLEAN: {"pf_a": True, "pf_b": False, "pf_c": False}}  # sorties confirmées
+        out = await bot.monitor_once()
+        await bot.aclose()
+        return unchanged, unknown, out
+
+    unchanged, unknown, out = asyncio.run(go())
+    assert unchanged == [] and unknown == []
+    assert [e["reason"] for e in out] == ["COPYTOP_DISTRIBUTION"]   # 2/3 sorties = distribution
+
+
+def test_live_sells_chunks_large_cohorts_and_keeps_oldest_cursor():
+    from fetchers.copytop import CopyTop
+    api = FakeApis()
+
+    async def go():
+        ct = CopyTop(api.client())
+        ct.api._sleep = no_sleep
+        ct.api.bucket = TokenBucket(1e6, 1)
+        handles = [f"pf_{i:03d}" for i in range(60)] + ["bad handle!"]
+        trades, cursor = await ct.live_sells("2026-01-01T00:00:00Z", handles, 100)
+        api.copytop_down = True
+        trades2, cursor2 = await ct.live_sells("2026-01-01T00:00:00Z", handles, 100)
+        return trades, cursor, trades2, cursor2
+
+    trades, cursor, trades2, cursor2 = asyncio.run(go())
+    calls = [r for r in api.copytop_requests if r["path"] == "/v1/trades"]
+    assert [len(c["params"]["traders"].split(",")) for c in calls[:3]] == [25, 25, 10]
+    assert cursor == "2026-01-01T00:01:00Z"
+    assert trades2 == [] and cursor2 == "2026-01-01T00:00:00Z"    # échec : le curseur n'avance pas
