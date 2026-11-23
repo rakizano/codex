@@ -179,6 +179,36 @@ def test_copytop_signals_go_through_safety_and_are_tagged():
     assert "UNKNOWN_SMART_ENTRY" in r["flags"]
 
 
+def test_copytop_requires_a_known_pool_age_after_migration():
+    api = FakeApis()
+    api.pair_age_min = 2  # pool créé il y a seulement deux minutes
+
+    async def go():
+        bot = _bot(api)
+        api.copytop_events = [_event(CLEAN)]
+        out = await bot.copytop_once()
+        await bot.aclose()
+        return out
+
+    (result,) = asyncio.run(go())
+    assert result["final"] == "SMART_REJECT"
+    assert any(flag.startswith("COPYTOP_POOL_TOO_YOUNG") for flag in result["flags"])
+
+    api = FakeApis()
+    api.pair_age_min = None  # âge absent de DexScreener : fail-closed
+
+    async def unknown():
+        bot = _bot(api)
+        api.copytop_events = [_event(CLEAN)]
+        out = await bot.copytop_once()
+        await bot.aclose()
+        return out
+
+    (result,) = asyncio.run(unknown())
+    assert result["final"] == "SMART_REJECT"
+    assert "UNKNOWN_COPYTOP_POOL_AGE" in result["flags"]
+
+
 def test_copytop_outage_is_harmless():
     api = FakeApis()
 

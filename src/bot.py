@@ -301,7 +301,19 @@ class Bot:
                 if entry_ok and self._smart_buys.get(mint):
                     source = "both"  # le scan classique ET des wallets smart désignent ce jeton
             else:
-                ok, smart_flags = self._smart_entry(audit.observations, smart)
+                if engine == "copytop":
+                    try:
+                        pool_age = float(audit.observations.get("pair_age_min"))
+                    except (TypeError, ValueError):
+                        pool_age = float("nan")
+                    if not math.isfinite(pool_age):
+                        ok, smart_flags = False, ["UNKNOWN_COPYTOP_POOL_AGE"]
+                    elif pool_age < self.s.copytop_min_pool_age_min:
+                        ok, smart_flags = False, [f"COPYTOP_POOL_TOO_YOUNG({pool_age:.1f}min)"]
+                    else:
+                        ok, smart_flags = self._smart_entry(audit.observations, smart)
+                else:
+                    ok, smart_flags = self._smart_entry(audit.observations, smart)
                 flags += smart_flags
                 final = "PAPER_ENTRY" if ok else "SMART_REJECT"
                 if ok and entry_ok and engine != "copytop":
