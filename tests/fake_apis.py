@@ -67,7 +67,8 @@ class FakeApis:
         self.trending: list[str] = []
         self.pool_trades: dict[str, list[dict]] = {}
         self.copytop_events: list[dict] = []          # alertes copy.top simulées
-        self.copytop_requests: list[dict] = []   # moteur smart money : trades publics par pool
+        self.copytop_live_trades: list[dict] = []      # ventes récentes copy.top simulées
+        self.copytop_requests: list[dict] = []
 
     def handler(self, req: httpx.Request) -> httpx.Response:
         url, host, path = str(req.url), req.url.host, req.url.path
@@ -94,9 +95,16 @@ class FakeApis:
 
         if host == "copy.top":
             body = json.loads(req.content)
-            assert body["method"] == "tools/call" and body["params"]["name"] == "get_alerts"
-            self.copytop_requests.append(body["params"]["arguments"])
-            payload = {"cursor": "2026-01-01T00:00:00Z", "events": self.copytop_events}
+            assert body["method"] == "tools/call"
+            tool = body["params"]["name"]
+            args = body["params"]["arguments"]
+            self.copytop_requests.append({"tool": tool, "arguments": args})
+            if tool == "get_alerts":
+                payload = {"cursor": "2026-01-01T00:00:00Z", "events": self.copytop_events}
+            elif tool == "get_live_trades":
+                payload = {"cursor": "2026-01-01T00:01:00Z", "trades": self.copytop_live_trades}
+            else:
+                return httpx.Response(400)
             return httpx.Response(200, json={"jsonrpc": "2.0", "id": body["id"],
                                              "result": {"content": [{"type": "text", "text": json.dumps(payload)}]}})
 

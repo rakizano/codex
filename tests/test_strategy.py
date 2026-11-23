@@ -64,6 +64,23 @@ def test_old_database_is_migrated(tmp_path):
     assert pos.remaining_frac == 1.0 and pos.tp1_done is False
 
 
+def test_copytop_sales_require_a_multi_wallet_quorum():
+    tr = PaperTrader(clock=lambda: 0.0)
+    pos = tr.open(CLEAN, 0.05, {"outAmount": "1000"}, source="copytop",
+                  signal_buyers=("pf_a", "pf_b", "pf_c", "pf_d"))
+    assert not tr.copytop_exit_ready(pos)
+    assert tr.add_copytop_sales(pos, ["pf_a", "unrelated"]) == 1
+    assert not tr.copytop_exit_ready(pos)  # 1/4 : une vente isolée ne suffit pas
+    assert tr.add_copytop_sales(pos, ["pf_b"]) == 2
+    assert tr.copytop_exit_ready(pos)      # 2/4 : quorum atteint
+    restored = tr.open_positions()[0]
+    assert restored.signal_buyers == ("pf_a", "pf_b", "pf_c", "pf_d")
+    assert restored.sold_signal_buyers == ("pf_a", "pf_b")
+    scan = tr.open(HONEYPOT, 0.05, {"outAmount": "1000"}, source="scan",
+                   signal_buyers=("pf_a", "pf_b"))
+    assert not tr.copytop_exit_ready(scan)
+
+
 def test_cooldown_blocks_rebuying_a_loser():
     t = [0.0]
     tr = PaperTrader(clock=lambda: t[0], reentry_cooldown_h=24, daily_max_loss_sol=100)
@@ -221,6 +238,45 @@ def test_bot_records_observations_and_tracks():
     assert n == 1  # seul le jeton sain est suivi (le honeypot et le jeton piégé ne le sont pas)
     assert rep["data_collected"] == {"tokens_observed": 1, "snapshots": 1}
     assert bt["trades"] == 1
+
+
+def test_copytop_sell_tape_closes_only_the_originating_smart_position():
+    from bot import Bot
+    from config import Settings
+    from datetime import datetime, timezone
+    api = FakeApis()
+    api.copytop_live_trades = [
+        {"at": datetime.now(timezone.utc).isoformat(), "handle": "pf_a", "side": "sell",
+         "chain": "solana", "token": CLEAN, "usd": 500},
+        {"at": datetime.now(timezone.utc).isoformat(), "handle": "pf_b", "side": "sell",
+         "chain": "solana", "token": CLEAN, "usd": 600},
+        {"at": datetime.now(timezone.utc).isoformat(), "handle": "unrelated", "side": "sell",
+         "chain": "solana", "token": CLEAN, "usd": 9000},
+    ]
+
+    async def go():
+        bot = Bot(replace(Settings(), db_path=":memory:"), client=api.client())
+        for cli in (bot.dex.profiles, bot.dex.pairs, bot.gecko.api, bot.rug.api, bot.jup.api,
+                    bot.social.reddit.api, bot.copytop.api):
+            cli._sleep = no_sleep
+            cli.bucket = TokenBucket(1e6, 1)
+        result = await bot.process(
+            CLEAN,
+            smart={"n_wallets": 3, "min_wallets": 2, "entry_mcap_usd": 1_000_000,
+                   "buyers": ["pf_a", "pf_b", "pf_c"]},
+            engine="copytop",
+        )
+        assert result["final"] == "PAPER_ENTRY"
+        assert bot.trader.open_positions()[0].source == "copytop"
+        closed = await bot.monitor_once()
+        requests = list(api.copytop_requests)
+        await bot.aclose()
+        return closed, requests
+
+    closed, requests = asyncio.run(go())
+    assert [(x["reason"], x["action"]) for x in closed] == [("COPYTOP_DISTRIBUTION", "SELL_ALL")]
+    sells = [x for x in requests if x["tool"] == "get_live_trades"]
+    assert len(sells) == 1 and set(sells[0]["arguments"]["traders"]) == {"pf_a", "pf_b", "pf_c"}
 
 
 # --- surveillance rapide ---------------------------------------------------------------------

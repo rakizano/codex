@@ -17,7 +17,7 @@ from .base import ApiClient, TokenBucket
 
 log = logging.getLogger(__name__)
 URL = "https://copy.top/mcp"
-ALLOWED_TOOLS = frozenset({"get_alerts", "get_hot_coins", "get_leaderboard", "get_token"})
+ALLOWED_TOOLS = frozenset({"get_alerts", "get_hot_coins", "get_leaderboard", "get_token", "get_live_trades"})
 
 
 class CopyTop:
@@ -62,6 +62,25 @@ class CopyTop:
                   and e.get("kind") == "confluence" and e.get("chain") == "solana"]
         cursor = data.get("cursor")
         return events, cursor if isinstance(cursor, str) else since
+
+    async def live_sells(self, since: str | None, traders: list[str]) -> tuple[list[dict], str | None]:
+        """Ventes récentes des seuls traders suivis (max. 25 handles), en lecture seule."""
+        handles = list(dict.fromkeys(x for x in traders if isinstance(x, str) and 0 < len(x) <= 80))[:25]
+        if not handles:
+            return [], since
+        args: dict = {"side": "sell", "limit": 30, "traders": handles}
+        if since:
+            args["since"] = since
+        data = await self.call("get_live_trades", args)
+        if not data:
+            return [], since
+        rows = data.get("trades")
+        if not isinstance(rows, list):
+            return [], since
+        trades = [x for x in rows if isinstance(x, dict)
+                  and x.get("side") == "sell" and x.get("chain") == "solana"]
+        cursor = data.get("cursor")
+        return trades, cursor if isinstance(cursor, str) else since
 
     async def aclose(self) -> None:
         await self.api.aclose()

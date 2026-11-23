@@ -37,6 +37,7 @@ from social import SocialChecker, evaluate_social
 from strategy.backtest import DataStore, backtest, optimize
 from strategy.entry import FEATURES, evaluate_entry
 from strategy.sizing import position_size
+from strategy.exit import Decision
 
 log = logging.getLogger("bot")
 SEEN_TTL_S = 6 * 3600
@@ -140,15 +141,66 @@ class Bot:
                 continue  # signal trop ancien (ex. après une coupure) : on ne court pas après
             if self.cache.get(f"ct_seen:{mint}") is not None or still_in < self.s.copytop_min_still_in:
                 continue  # déjà traité, ou les top traders sont déjà ressortis : pas d'audit inutile
+            raw_buyers = e.get("buyers")
+            buyers = list(dict.fromkeys(x for x in raw_buyers
+                                        if isinstance(x, str) and 0 < len(x) <= 80))[:25] \
+                     if isinstance(raw_buyers, list) else []
+            if len(buyers) < self.s.copytop_exit_min_sellers:
+                continue  # pas d'identifiants suivables : pas d'entrée copy.top sans sortie smart observable
             self.cache.set(f"ct_seen:{mint}", 1, 2 * 3600)
             buys = {"n_wallets": still_in, "min_wallets": self.s.copytop_min_still_in,
-                    "usd": float(e.get("boughtUsd") or 0), "entry_mcap_usd": mcap or None}
+                    "usd": float(e.get("boughtUsd") or 0), "entry_mcap_usd": mcap or None,
+                    "buyers": buyers}
             log.info("%s : signal copy.top, %d top traders encore en position", mint, still_in)
             try:
                 results.append(await self.process(mint, smart=buys, engine="copytop"))
             except Exception:
                 log.exception("audit de %s en échec (ignoré)", mint)
         return results
+
+    async def copytop_exit_once(self) -> list[dict]:
+        """Suit les ventes des acheteurs du signal copy.top ; aucune action sur un autre moteur."""
+        if self.copytop is None:
+            return []
+        positions = [p for p in self.trader.open_positions()
+                     if p.source == "copytop" and len(p.signal_buyers) >= self.s.copytop_exit_min_sellers]
+        if not positions:
+            return []
+        traders = sorted({w for p in positions for w in p.signal_buyers})
+        if not traders or len(traders) > 25:
+            log.warning("surveillance copy.top ignorée : %d handles (limite 25)", len(traders))
+            return []
+        now = time.time()
+        last = self.cache.get("copytop:sell_poll_at")
+        if isinstance(last, (int, float)) and now - last < 55:
+            return []
+        # Throttle même en cas d'erreur : ne pas marteler le service à chaque cycle de monitor.
+        self.cache.set("copytop:sell_poll_at", now, 7 * 86400)
+        cursor = self.cache.get("copytop:sell_cursor")
+        trades, next_cursor = await self.copytop.live_sells(cursor, traders)
+        if next_cursor and next_cursor != cursor:
+            self.cache.set("copytop:sell_cursor", next_cursor, 7 * 86400)
+
+        events = []
+        for pos in positions:
+            matched = set()
+            cohort = set(pos.signal_buyers)
+            for trade in trades:
+                if trade.get("token") != pos.mint or trade.get("handle") not in cohort:
+                    continue
+                try:
+                    at = datetime.fromisoformat(str(trade["at"]).replace("Z", "+00:00")).timestamp()
+                except (KeyError, TypeError, ValueError):
+                    continue
+                if at >= pos.opened_at:
+                    matched.add(trade["handle"])
+            if matched:
+                count = self.trader.add_copytop_sales(pos, list(matched))
+                events.append({"id": pos.id, "mint": pos.mint, "new_sellers": sorted(matched),
+                               "seller_count": count, "cohort_size": len(cohort)})
+                log.info("%s : %d/%d acheteurs copy.top ont revendu",
+                         pos.mint, count, len(cohort))
+        return events
 
     def _remember_pools(self, pools: list[tuple[str, str]]) -> None:
         known = {p for p, _ in self._pools}
@@ -246,7 +298,7 @@ class Bot:
                 ok, smart_flags = self._smart_entry(audit.observations, smart)
                 flags += smart_flags
                 final = "PAPER_ENTRY" if ok else "SMART_REJECT"
-                if ok and entry_ok:
+                if ok and entry_ok and engine != "copytop":
                     source = "both"
 
         # 3. Social (ne peut qu'empêcher ; seulement si le reste est bon, pour ménager les quotas)
@@ -269,6 +321,10 @@ class Bot:
         self.trader.record_audit(mint, audit.verdict if final in ("PAPER_ENTRY", "REJECT") else final,
                                  flags, llm.get("verdict") if llm else None)
 
+        raw_signal_buyers = smart.get("buyers", []) if engine == "copytop" and isinstance(smart, dict) else []
+        signal_buyers = tuple(x for x in raw_signal_buyers
+                              if isinstance(x, str) and 0 < len(x) <= 80)[:25] \
+                         if isinstance(raw_signal_buyers, list) else ()
         opened, size_info = None, None
         if final == "PAPER_ENTRY":
             ok, why = self.trader.can_open(mint)
@@ -279,10 +335,12 @@ class Bot:
                 size_info = {"size_sol": round(sizing.size_sol, 4), "sizing": sizing.reason}
                 if self.live:
                     opened, final = await self._live_entry(mint, sizing.size_sol, audit.buy_quote,
-                                                           audit.observations.get("price_usd"), source)
+                                                           audit.observations.get("price_usd"), source,
+                                                           signal_buyers)
                 else:
                     pos = self.trader.open(mint, sizing.size_sol, audit.buy_quote, self.s.audit_size_sol,
-                                           audit.observations.get("price_usd"), source=source)
+                                           audit.observations.get("price_usd"), source=source,
+                                           signal_buyers=signal_buyers)
                     opened = pos.id if pos else None
             else:
                 final = f"PAPER_ENTRY_BLOCKED:{why}"
@@ -313,7 +371,8 @@ class Bot:
         return True, flags
 
     async def _live_entry(self, mint: str, size: float, audit_quote: dict | None,
-                          entry_price_usd: float | None = None, source: str = "scan") -> tuple[int | None, str]:
+                          entry_price_usd: float | None = None, source: str = "scan",
+                          signal_buyers: tuple[str, ...] = ()) -> tuple[int | None, str]:
         try:
             res = await self.executor.buy(mint, size)
         except Exception as e:
@@ -322,7 +381,7 @@ class Bot:
         impact = (audit_quote or {}).get("priceImpactPct")
         real_size = res.in_amount / LAMPORTS
         pos = self.trader.open(mint, real_size, {"outAmount": str(res.expected_out), "priceImpactPct": impact},
-                               entry_price_usd=entry_price_usd, source=source)
+                               entry_price_usd=entry_price_usd, source=source, signal_buyers=signal_buyers)
         return (pos.id if pos else None), ("LIVE_ENTRY" if res.confirmed else "LIVE_ENTRY_UNCONFIRMED")
 
     # --- cycles -----------------------------------------------------------------
@@ -349,12 +408,17 @@ class Bot:
         return await self.monitor_once(urgent) if urgent else []
 
     async def monitor_once(self, only_mints: set[str] | None = None) -> list[dict]:
+        await self.copytop_exit_once()
         events = []
         for pos in self.trader.open_positions():
             if only_mints is not None and pos.mint not in only_mints:
                 continue
             value = await self.jup.sell_value_sol(pos.mint, pos.token_amount, self.s.max_slippage_bps)
-            decision = self.trader.evaluate(pos, value)
+            regular_decision = self.trader.evaluate(pos, value)
+            decision = (Decision("SELL_ALL", "COPYTOP_DISTRIBUTION")
+                        if self.trader.copytop_exit_ready(
+                            pos, self.s.copytop_exit_min_sellers, self.s.copytop_exit_ratio)
+                        else regular_decision)
             if decision is None:
                 continue
             event = {"id": pos.id, "mint": pos.mint, "action": decision.action, "reason": decision.reason}
