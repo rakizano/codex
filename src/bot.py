@@ -18,6 +18,7 @@ import argparse
 import asyncio
 import json
 import logging
+import math
 import os
 import time
 from collections import deque
@@ -177,7 +178,8 @@ class Bot:
         # Throttle même en cas d'erreur : ne pas marteler le service à chaque cycle de monitor.
         self.cache.set("copytop:sell_poll_at", now, 7 * 86400)
         cursor = self.cache.get("copytop:sell_cursor")
-        trades, next_cursor = await self.copytop.live_sells(cursor, traders)
+        trades, next_cursor = await self.copytop.live_sells(
+            cursor, traders, min_usd=self.s.copytop_exit_min_usd)
         if next_cursor and next_cursor != cursor:
             self.cache.set("copytop:sell_cursor", next_cursor, 7 * 86400)
 
@@ -192,7 +194,11 @@ class Bot:
                     at = datetime.fromisoformat(str(trade["at"]).replace("Z", "+00:00")).timestamp()
                 except (KeyError, TypeError, ValueError):
                     continue
-                if at >= pos.opened_at:
+                try:
+                    sell_usd = float(trade["usd"])
+                except (KeyError, TypeError, ValueError):
+                    continue
+                if at >= pos.opened_at and math.isfinite(sell_usd) and sell_usd >= self.s.copytop_exit_min_usd:
                     matched.add(trade["handle"])
             if matched:
                 count = self.trader.add_copytop_sales(pos, list(matched))

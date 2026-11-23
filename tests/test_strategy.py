@@ -260,6 +260,8 @@ def test_copytop_sell_tape_closes_only_the_originating_smart_position():
          "chain": "solana", "token": CLEAN, "usd": 500},
         {"at": sale_at, "handle": "pf_b", "side": "sell",
          "chain": "solana", "token": CLEAN, "usd": 600},
+        {"at": sale_at, "handle": "pf_c", "side": "sell",
+         "chain": "solana", "token": CLEAN, "usd": 10},
         {"at": sale_at, "handle": "unrelated", "side": "sell",
          "chain": "solana", "token": CLEAN, "usd": 9000},
     ]
@@ -287,6 +289,7 @@ def test_copytop_sell_tape_closes_only_the_originating_smart_position():
     assert [(x["reason"], x["action"]) for x in closed] == [("COPYTOP_DISTRIBUTION", "SELL_ALL")]
     sells = [x for x in requests if x["tool"] == "get_live_trades"]
     assert len(sells) == 1 and set(sells[0]["arguments"]["traders"]) == {"pf_a", "pf_b", "pf_c"}
+    assert sells[0]["arguments"]["min_usd"] == 100.0
 
 
 # --- surveillance rapide ---------------------------------------------------------------------

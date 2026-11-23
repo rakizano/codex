@@ -63,12 +63,13 @@ class CopyTop:
         cursor = data.get("cursor")
         return events, cursor if isinstance(cursor, str) else since
 
-    async def live_sells(self, since: str | None, traders: list[str]) -> tuple[list[dict], str | None]:
-        """Ventes récentes des seuls traders suivis (max. 25 handles), en lecture seule."""
+    async def live_sells(self, since: str | None, traders: list[str],
+                         min_usd: float = 100.0) -> tuple[list[dict], str | None]:
+        """Ventes significatives des seuls traders suivis (max. 25 handles), en lecture seule."""
         handles = list(dict.fromkeys(x for x in traders if isinstance(x, str) and 0 < len(x) <= 80))[:25]
         if not handles:
             return [], since
-        args: dict = {"side": "sell", "limit": 30, "traders": handles}
+        args: dict = {"side": "sell", "limit": 30, "traders": handles, "min_usd": min_usd}
         if since:
             args["since"] = since
         data = await self.call("get_live_trades", args)
