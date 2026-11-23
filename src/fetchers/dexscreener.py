@@ -31,6 +31,22 @@ class DexScreener:
             data = data.get("pairs")
         return [p for p in (data or []) if isinstance(p, dict)]
 
+    async def pairs_batch(self, mints: list[str]) -> dict[str, list[dict]] | None:
+        """Paires par jeton via l'endpoint batch (30 adresses max par requête, contrat vérifié).
+        None si une requête échoue (pas de résultat partiel présenté comme complet)."""
+        out: dict[str, list[dict]] = {m: [] for m in mints}
+        for i in range(0, len(mints), 30):
+            chunk = mints[i:i + 30]
+            data = await self.pairs.get(f"/tokens/v1/solana/{','.join(chunk)}")
+            if not isinstance(data, list):
+                return None
+            for p in data:
+                if isinstance(p, dict):
+                    mint = (p.get("baseToken") or {}).get("address")
+                    if mint in out:
+                        out[mint].append(p)
+        return out
+
     async def prices(self, mints: list[str]) -> dict[str, tuple[float | None, float | None]]:
         """Prix USD et liquidité de la paire la plus liquide, par lots de 30 jetons (1 requête/lot)."""
         out: dict[str, tuple[float | None, float | None]] = {}

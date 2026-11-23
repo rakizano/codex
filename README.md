@@ -95,6 +95,15 @@ valeurs dans votre environnement local, jamais dans le dépôt.
 | `OLLAMA_URL`, `OLLAMA_MODEL` | —, `qwen2.5:7b` | Active l'analyseur LLM local |
 | `REQUIRE_LLM` | `false` | Si `true`, pas d'entrée sans avis LLM valide |
 
+## Refonte quantitative (23/11/2026)
+
+Entrées par vélocité (M5, accélération du volume, liquidité/capitalisation), sorties adaptatives ATR
+(TP1 30 %, plancher +3 % net, stagnation, 120 min), moteur copy.top avec file de migration Pump.fun,
+anti-rug renforcé (Top 10 réel, réseaux d'insiders), Shadow Ledger, coupe-circuits par moteur, filtre
+macro SOL, backtest pessimiste et Walk-Forward ancré à 4 plis. Détails, état réel de chaque fonction et
+limites : **[docs/REFONTE.md](docs/REFONTE.md)**. Les paramètres décrits plus bas sont ceux de la version
+précédente (conservés en mode LIVE via `decide_legacy`).
+
 ## Stratégie : maximiser le gain, mesurer au lieu de deviner
 
 ### Sorties (laisser courir les gagnants, couper vite les perdants)

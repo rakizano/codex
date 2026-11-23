@@ -14,6 +14,8 @@ from dataclasses import dataclass, field
 from memecoin.filters import Metrics, Thresholds, detect_injection, evaluate, is_valid_mint, wrap_untrusted
 from memecoin.sources import normalize
 
+from .holders import CreatorHistory, InsiderRules, insider_flags
+
 
 @dataclass
 class AuditResult:
@@ -54,9 +56,13 @@ def _pessimistic(a: bool | None, b: bool | None) -> bool | None:
 
 class RugDetector:
     def __init__(self, dex, rugcheck, gecko, jupiter, rpc=None,
-                 thresholds: Thresholds = Thresholds(), size_sol: float = 0.5, slippage_bps: int = 300):
+                 thresholds: Thresholds = Thresholds(), size_sol: float = 0.5, slippage_bps: int = 300,
+                 insider_rules: InsiderRules = InsiderRules(), creator_history: CreatorHistory | None = None,
+                 creator_max_tokens_7d: int = 3, creator_check_required: bool = False):
         self.dex, self.rugcheck, self.gecko, self.jupiter, self.rpc = dex, rugcheck, gecko, jupiter, rpc
         self.thresholds, self.size_sol, self.slippage_bps = thresholds, size_sol, slippage_bps
+        self.insider_rules, self.creator_history = insider_rules, creator_history
+        self.creator_max_tokens_7d, self.creator_check_required = creator_max_tokens_7d, creator_check_required
 
     async def audit(self, mint: str) -> AuditResult:
         if not is_valid_mint(mint):
@@ -86,6 +92,12 @@ class RugDetector:
             except Exception:  # RPC indisponible : on garde RugCheck seul
                 obs["onchain_authorities_checked"] = False
 
+        # Réseaux d'insiders (rapport RugCheck) : fail-closed si activé et illisible.
+        if isinstance(report, dict) and report:
+            metrics.extra_flags += insider_flags(report, self.insider_rules)
+        elif self.insider_rules.enabled:
+            metrics.extra_flags.append("UNKNOWN_INSIDER_NETWORKS")
+
         created_ms = obs.get("pair_created_at_ms")
         if isinstance(created_ms, (int, float)) and created_ms > 0:
             obs["pair_age_min"] = max(0.0, (time.time() * 1000 - created_ms) / 60_000)
@@ -98,6 +110,17 @@ class RugDetector:
             metrics.extra_flags.append("PROMPT_INJECTION_IN_METADATA")
 
         verdict, flags = evaluate(metrics, self.thresholds)
+        if verdict == "WATCHLIST_PAPER":
+            # Créateur sériel (RPC lecture seule, seulement pour les jetons sinon sains)
+            launches = None
+            if self.creator_history is not None and obs.get("creator"):
+                launches = await self.creator_history.launches_7d(obs["creator"])
+            obs["creator_launches_7d"] = launches
+            if launches is not None and launches > self.creator_max_tokens_7d:
+                metrics.extra_flags.append(f"SERIAL_CREATOR({launches}/7j)")
+            elif launches is None and self.creator_check_required:
+                metrics.extra_flags.append("UNKNOWN_CREATOR_HISTORY")
+            verdict, flags = evaluate(metrics, self.thresholds)
         if verdict == "WATCHLIST_PAPER":
             # Validation croisée DexScreener / GeckoTerminal : écart de prix > 20 % = suspect
             attrs = ((await self.gecko.token(mint) or {}).get("data") or {}).get("attributes") or {}

@@ -28,5 +28,9 @@ class TTLCache:
                          (key, json.dumps(value), now + ttl_s))
         self._db.commit()
 
+    def delete(self, key: str) -> None:
+        self._db.execute("DELETE FROM cache WHERE k=?", (key,))
+        self._db.commit()
+
     def close(self) -> None:
         self._db.close()

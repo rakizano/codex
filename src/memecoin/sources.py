@@ -97,8 +97,17 @@ def normalize(raw: dict) -> tuple[Metrics, dict, dict]:
         })
         # Caractéristiques de momentum (règles d'entrée + backtest)
         tx_h1 = (best.get("txns") or {}).get("h1") or {}
+        tx_m5 = (best.get("txns") or {}).get("m5") or {}
         changes = best.get("priceChange") or {}
+        mcap = _f(best.get("marketCap"))
         obs.update({
+            "dex_id": best.get("dexId") if isinstance(best.get("dexId"), str) else None,
+            "pair_address": best.get("pairAddress") if isinstance(best.get("pairAddress"), str) else None,
+            # marketCap peut être null (contrat vérifié) : repli explicite sur la FDV, tracé.
+            "mcap_usd": mcap if mcap is not None else _f(best.get("fdv")),
+            "mcap_source": "marketCap" if mcap is not None else ("fdv" if _f(best.get("fdv")) is not None else None),
+            "buys_m5": tx_m5.get("buys"), "sells_m5": tx_m5.get("sells"),
+            "volume_m5_usd": _f((best.get("volume") or {}).get("m5")),
             "liquidity_usd": m.liquidity_usd,
             "price_change_m5": _f(changes.get("m5")),
             "price_change_h1": _f(changes.get("h1")),
@@ -127,27 +136,15 @@ def normalize(raw: dict) -> tuple[Metrics, dict, dict]:
         if "freezeAuthority" in rc:
             m.freeze_authority_revoked = rc.get("freezeAuthority") in (None, "")
         markets = [mk for mk in rc.get("markets") or [] if isinstance(mk, dict)]
-        # Comptes à exclure du calcul de concentration : pools AMM (adresse du pool,
-        # comptes de réserve et leur propriétaire) et lockers connus de RugCheck.
-        excluded: set[str] = set()
-        for mk in markets:
-            for key in ("pubkey", "liquidityA", "liquidityB"):
-                if isinstance(mk.get(key), str):
-                    excluded.add(mk[key])
-            for key in ("liquidityAAccount", "liquidityBAccount"):
-                acc = mk.get(key)
-                if isinstance(acc, dict) and isinstance(acc.get("owner"), str):
-                    excluded.add(acc["owner"])
-                elif isinstance(acc, str):
-                    excluded.add(acc)
-        for addr, info in (rc.get("knownAccounts") or {}).items():
-            if isinstance(info, dict) and info.get("type") in ("AMM", "LOCKER"):
-                excluded.add(addr)
-        holders = [h for h in rc.get("topHolders") or [] if isinstance(h, dict)
-                   and h.get("owner") not in excluded and h.get("address") not in excluded]
-        if rc.get("topHolders") is not None:
-            m.top10_holders_pct = sum(_f(h.get("pct")) or 0 for h in holders[:10])
-            obs["insider_holders_in_top10"] = sum(1 for h in holders[:10] if h.get("insider"))
+        # Concentration réelle : seuls les comptes techniques CONFIRMÉS sont exclus ; ambiguïté => None.
+        from filters.holders import compute_real_top10_pct
+        top10, details = compute_real_top10_pct(rc)
+        m.top10_holders_pct = top10
+        obs["top10_details"] = details
+        if isinstance(rc.get("topHolders"), list):
+            obs["insider_holders_in_top10"] = sum(1 for h in rc["topHolders"][:10]
+                                                  if isinstance(h, dict) and h.get("insider"))
+        obs["creator"] = rc.get("creator") if isinstance(rc.get("creator"), str) else None
 
         # Verrouillage LP pondéré par la liquidité USD de chaque pool (les pools à
         # liquidité concentrée — Orca, DLMM — comptent comme non verrouillés).
