@@ -9,6 +9,8 @@
 """
 from __future__ import annotations
 
+import json
+import math
 import sqlite3
 import time
 from dataclasses import dataclass, replace
@@ -46,9 +48,12 @@ MIGRATIONS = {
     "tp1_done": "INTEGER NOT NULL DEFAULT 0",
     "entry_price_usd": "REAL",
     "source": "TEXT NOT NULL DEFAULT 'scan'",   # moteur d'origine : scan | smart | both
+    "signal_buyers": "TEXT NOT NULL DEFAULT '[]'",
+    "sold_signal_buyers": "TEXT NOT NULL DEFAULT '[]'",
 }
 _COLS = ("id, mint, opened_at, size_sol, token_amount, entry_price_impact_pct, "
-         "remaining_frac, peak_pnl_pct, realized_sol, tp1_done, entry_price_usd")
+         "remaining_frac, peak_pnl_pct, realized_sol, tp1_done, entry_price_usd, "
+         "source, signal_buyers, sold_signal_buyers")
 
 
 @dataclass
@@ -64,6 +69,9 @@ class Position:
     realized_sol: float = 0.0
     tp1_done: bool = False
     entry_price_usd: float | None = None  # prix DexScreener à l'entrée (surveillance rapide)
+    source: str = "scan"
+    signal_buyers: tuple[str, ...] = ()
+    sold_signal_buyers: tuple[str, ...] = ()
 
 
 class PaperTrader:
@@ -99,7 +107,15 @@ class PaperTrader:
     # --- état -----------------------------------------------------------------
     def open_positions(self) -> list[Position]:
         rows = self.db.execute(f"SELECT {_COLS} FROM positions WHERE status='OPEN'").fetchall()
-        return [Position(*r[:9], bool(r[9]), r[10]) for r in rows]
+        out = []
+        for r in rows:
+            try:
+                buyers = tuple(x for x in json.loads(r[12] or "[]") if isinstance(x, str))
+                sold = tuple(x for x in json.loads(r[13] or "[]") if isinstance(x, str))
+            except (TypeError, ValueError):
+                buyers, sold = (), ()
+            out.append(Position(*r[:9], bool(r[9]), r[10], r[11] or "scan", buyers, sold))
+        return out
 
     def has_position(self, mint: str) -> bool:
         return self.db.execute("SELECT 1 FROM positions WHERE mint=? AND status='OPEN'", (mint,)).fetchone() is not None
@@ -154,7 +170,7 @@ class PaperTrader:
     # --- actions ----------------------------------------------------------------
     def open(self, mint: str, size_sol: float, buy_quote: dict,
              quote_size_sol: float | None = None, entry_price_usd: float | None = None,
-             source: str = "scan") -> Position | None:
+             source: str = "scan", signal_buyers: tuple[str, ...] | list[str] = ()) -> Position | None:
         """`quote_size_sol` : taille pour laquelle le devis a été demandé (si différente de la
         position, mise à l'échelle linéaire — prudent : une petite taille obtient un meilleur prix)."""
         ok, _ = self.can_open(mint)
@@ -167,11 +183,15 @@ class PaperTrader:
             impact = float(buy_quote.get("priceImpactPct")) * 100
         except (TypeError, ValueError):
             impact = None
+        buyers = tuple(dict.fromkeys(x for x in signal_buyers
+                                     if isinstance(x, str) and 0 < len(x) <= 80))[:25]
         cur = self.db.execute("INSERT INTO positions (mint, opened_at, size_sol, token_amount, entry_price_impact_pct, "
-                              "entry_price_usd, source) VALUES (?,?,?,?,?,?,?)",
-                              (mint, self.clock(), size_sol, tokens, impact, entry_price_usd, source))
+                              "entry_price_usd, source, signal_buyers) VALUES (?,?,?,?,?,?,?,?)",
+                              (mint, self.clock(), size_sol, tokens, impact, entry_price_usd, source,
+                               json.dumps(buyers)))
         self.db.commit()
-        return Position(cur.lastrowid, mint, self.clock(), size_sol, tokens, impact, entry_price_usd=entry_price_usd)
+        return Position(cur.lastrowid, mint, self.clock(), size_sol, tokens, impact,
+                        entry_price_usd=entry_price_usd, source=source, signal_buyers=buyers)
 
     def near_exit(self, pos: Position, price_usd: float | None, margin_pct: float = 5.0) -> bool:
         """Estimation rapide (prix DexScreener) : la position approche-t-elle d'un seuil de sortie ?
@@ -236,6 +256,29 @@ class PaperTrader:
                         (self.clock(), exit_value, pnl, pnl / pos.size_sol * 100, reason, pos.id))
         self.db.commit()
         return pnl
+
+    def add_copytop_sales(self, pos: Position, sellers: list[str] | tuple[str, ...]) -> int:
+        """Mémorise uniquement les ventes des handles présents dans le signal d'entrée."""
+        allowed = set(pos.signal_buyers)
+        merged = set(pos.sold_signal_buyers)
+        merged.update(x for x in sellers if isinstance(x, str) and x in allowed)
+        if merged == set(pos.sold_signal_buyers):
+            return len(merged)
+        pos.sold_signal_buyers = tuple(sorted(merged))
+        self.db.execute("UPDATE positions SET sold_signal_buyers=? WHERE id=?",
+                        (json.dumps(pos.sold_signal_buyers), pos.id))
+        self.db.commit()
+        return len(pos.sold_signal_buyers)
+
+    @staticmethod
+    def copytop_exit_ready(pos: Position, min_sellers: int = 2, sell_ratio: float = 0.5) -> bool:
+        """Sortie seulement après distribution par plusieurs acheteurs du signal initial."""
+        cohort = set(pos.signal_buyers)
+        if pos.source != "copytop" or len(cohort) < min_sellers:
+            return False
+        ratio = min(1.0, max(0.5, sell_ratio))
+        required = max(min_sellers, math.ceil(len(cohort) * ratio))
+        return len(cohort.intersection(pos.sold_signal_buyers)) >= required
 
     # --- reporting --------------------------------------------------------------
     def summary(self) -> dict:

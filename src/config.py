@@ -96,6 +96,10 @@ class Settings:
     copytop_min_top_traders: int = 3     # top traders ayant acheté
     copytop_min_still_in: int = 2        # ... et toujours en position (pas déjà revendu)
     copytop_max_signal_age_min: float = 30.0
+    copytop_exit_min_sellers: int = 2
+    copytop_exit_ratio: float = 0.5
+    copytop_exit_min_usd: float = 100.0
+    copytop_min_pool_age_min: float = 5.0
 
     thresholds: Thresholds = field(default_factory=Thresholds)
     exit_rules: ExitRules = field(default_factory=ExitRules)
@@ -154,6 +158,10 @@ class Settings:
             copytop_min_top_traders=max(1, int(_float("COPYTOP_MIN_TOP_TRADERS", cls.copytop_min_top_traders))),
             copytop_min_still_in=max(1, int(_float("COPYTOP_MIN_STILL_IN", cls.copytop_min_still_in))),
             copytop_max_signal_age_min=_float("COPYTOP_MAX_SIGNAL_AGE_MIN", cls.copytop_max_signal_age_min),
+            copytop_exit_min_sellers=max(2, int(_float("COPYTOP_EXIT_MIN_SELLERS", cls.copytop_exit_min_sellers))),
+            copytop_exit_ratio=min(1.0, max(0.5, _float("COPYTOP_EXIT_RATIO", cls.copytop_exit_ratio))),
+            copytop_exit_min_usd=max(1.0, _float("COPYTOP_EXIT_MIN_USD", cls.copytop_exit_min_usd)),
+            copytop_min_pool_age_min=max(1.0, _float("COPYTOP_MIN_POOL_AGE_MIN", cls.copytop_min_pool_age_min)),
             smart_enabled=os.environ.get("SMART_ENABLED", "true").lower() not in ("0", "false", "no"),
             smart_interval_s=max(20.0, _float("SMART_INTERVAL_S", cls.smart_interval_s)),
             smart_pools_per_cycle=max(1, min(6, int(_float("SMART_POOLS_PER_CYCLE", cls.smart_pools_per_cycle)))),

@@ -62,6 +62,24 @@ def test_old_database_is_migrated(tmp_path):
     con.close()
     pos = PaperTrader(db).open_positions()[0]
     assert pos.remaining_frac == 1.0 and pos.tp1_done is False
+    assert pos.source == "scan" and pos.signal_buyers == () and pos.sold_signal_buyers == ()
+
+
+def test_copytop_sales_require_a_multi_wallet_quorum():
+    tr = PaperTrader(clock=lambda: 0.0)
+    pos = tr.open(CLEAN, 0.05, {"outAmount": "1000"}, source="copytop",
+                  signal_buyers=("pf_a", "pf_b", "pf_c", "pf_d"))
+    assert not tr.copytop_exit_ready(pos)
+    assert tr.add_copytop_sales(pos, ["pf_a", "unrelated"]) == 1
+    assert not tr.copytop_exit_ready(pos)  # 1/4 : une vente isolée ne suffit pas
+    assert tr.add_copytop_sales(pos, ["pf_b"]) == 2
+    assert tr.copytop_exit_ready(pos)      # 2/4 : quorum atteint
+    restored = tr.open_positions()[0]
+    assert restored.signal_buyers == ("pf_a", "pf_b", "pf_c", "pf_d")
+    assert restored.sold_signal_buyers == ("pf_a", "pf_b")
+    scan = tr.open(HONEYPOT, 0.05, {"outAmount": "1000"}, source="scan",
+                   signal_buyers=("pf_a", "pf_b"))
+    assert not tr.copytop_exit_ready(scan)
 
 
 def test_cooldown_blocks_rebuying_a_loser():
@@ -135,27 +153,35 @@ def _synthetic_market(n=120, seed=7):
             prices = [1 + (peak - 1) * k / 10 for k in range(1, 11)] + [peak * 0.6, peak * 0.4]
         else:
             prices = [1 - 0.05 * k for k in range(1, 12)]
-        paths.append(_path(f"t{i}", i * 600, prices, feats))
+        paths.append(_path(f"t{i}", i * 7200, prices, feats))
     return paths
 
 
 def test_optimizer_finds_the_edge_out_of_sample():
     paths = _synthetic_market()
     base_entry = replace(EntryRules(), min_buy_sell_ratio_h1=0.8)  # réglage de départ médiocre
-    res = optimize(paths, base_entry, ExitRules(), min_train_trades=10)
+    res = optimize(paths, base_entry, ExitRules(), min_train_trades=10, min_test_trades=10)
     best = res["best"]
     assert best["entry"]["min_buy_sell_ratio_h1"] == 1.3            # ne garde que les jetons forts
     assert best["test"]["total_return_pct"] > 0 and best["test"]["win_rate_pct"] == 100
     assert res["status"] == "RENTABLE_HORS_ECHANTILLON"
+    assert res["purged_train_tokens"] == 6 and res["train_tokens"] == 78
     assert res["current_settings"]["test"]["total_return_pct"] < best["test"]["total_return_pct"]
     assert res["env"]["MIN_BUY_SELL_RATIO_H1"] == "1.3"
 
 
 def test_optimizer_refuses_when_no_edge():
     rnd = random.Random(1)
-    noise = [_path(f"n{i}", i * 600, [1 - 0.04 * k * rnd.random() for k in range(1, 12)]) for i in range(60)]
-    res = optimize(noise, EntryRules(), ExitRules(), min_train_trades=10)
+    noise = [_path(f"n{i}", i * 7200, [1 - 0.04 * k * rnd.random() for k in range(1, 12)]) for i in range(60)]
+    res = optimize(noise, EntryRules(), ExitRules(), min_train_trades=10, min_test_trades=10)
     assert res["status"].startswith("NON_RENTABLE")
+
+
+def test_optimizer_requires_a_real_oos_sample():
+    paths = _synthetic_market()
+    res = optimize(paths, EntryRules(), ExitRules(), min_train_trades=10, min_test_trades=30)
+    assert res["status"].startswith("PAS_ASSEZ_DE_DONNEES_TEST")
+    assert res["best"]["test"]["trades"] < 30
 
 
 def test_optimizer_needs_data():
@@ -221,6 +247,49 @@ def test_bot_records_observations_and_tracks():
     assert n == 1  # seul le jeton sain est suivi (le honeypot et le jeton piégé ne le sont pas)
     assert rep["data_collected"] == {"tokens_observed": 1, "snapshots": 1}
     assert bt["trades"] == 1
+
+
+def test_copytop_sell_tape_closes_only_the_originating_smart_position():
+    from bot import Bot
+    from config import Settings
+    from datetime import datetime, timezone, timedelta
+    api = FakeApis()
+    sale_at = (datetime.now(timezone.utc) + timedelta(seconds=5)).isoformat()
+    api.copytop_live_trades = [
+        {"at": sale_at, "handle": "pf_a", "side": "sell",
+         "chain": "solana", "token": CLEAN, "usd": 500},
+        {"at": sale_at, "handle": "pf_b", "side": "sell",
+         "chain": "solana", "token": CLEAN, "usd": 600},
+        {"at": sale_at, "handle": "pf_c", "side": "sell",
+         "chain": "solana", "token": CLEAN, "usd": 10},
+        {"at": sale_at, "handle": "unrelated", "side": "sell",
+         "chain": "solana", "token": CLEAN, "usd": 9000},
+    ]
+
+    async def go():
+        bot = Bot(replace(Settings(), db_path=":memory:"), client=api.client())
+        for cli in (bot.dex.profiles, bot.dex.pairs, bot.gecko.api, bot.rug.api, bot.jup.api,
+                    bot.social.reddit.api, bot.copytop.api):
+            cli._sleep = no_sleep
+            cli.bucket = TokenBucket(1e6, 1)
+        result = await bot.process(
+            CLEAN,
+            smart={"n_wallets": 3, "min_wallets": 2, "entry_mcap_usd": 1_000_000,
+                   "buyers": ["pf_a", "pf_b", "pf_c"]},
+            engine="copytop",
+        )
+        assert result["final"] == "PAPER_ENTRY"
+        assert bot.trader.open_positions()[0].source == "copytop"
+        closed = await bot.monitor_once()
+        requests = list(api.copytop_requests)
+        await bot.aclose()
+        return closed, requests
+
+    closed, requests = asyncio.run(go())
+    assert [(x["reason"], x["action"]) for x in closed] == [("COPYTOP_DISTRIBUTION", "SELL_ALL")]
+    sells = [x for x in requests if x["tool"] == "get_live_trades"]
+    assert len(sells) == 1 and set(sells[0]["arguments"]["traders"]) == {"pf_a", "pf_b", "pf_c"}
+    assert sells[0]["arguments"]["min_usd"] == 100.0
 
 
 # --- surveillance rapide ---------------------------------------------------------------------
