@@ -529,7 +529,7 @@ class Bot:
             res["exit_reasons"][t.reason] = res["exit_reasons"].get(t.reason, 0) + 1
         return res
 
-    def run_optimize(self, min_train_trades: int = 15) -> dict:
+    def run_optimize(self, min_train_trades: int = 30) -> dict:
         res = optimize(self.data.load_paths(), self.s.entry_rules, self.s.exit_rules,
                        min_train_trades=min_train_trades)
         if min_train_trades < 15:
@@ -563,7 +563,7 @@ async def _main(argv: list[str] | None = None) -> int:
     for name in ("run", "scan", "smart", "monitor", "track", "report", "backtest"):
         sub.add_parser(name)
     op = sub.add_parser("optimize")
-    op.add_argument("--min-train-trades", type=int, default=15)
+    op.add_argument("--min-train-trades", type=int, default=30)
     au = sub.add_parser("audit")
     au.add_argument("mint")
     a = ap.parse_args(argv)

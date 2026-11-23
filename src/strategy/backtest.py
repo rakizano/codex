@@ -6,9 +6,11 @@ Le bot enregistre :
   - `snapshots` : le prix et la liquidité de ces jetons toutes les minutes pendant 24 h.
 
 Le backtest rejoue les règles d'entrée/sortie sur ces trajectoires réelles. L'optimiseur
-essaie des centaines de combinaisons sur les 70 % les plus anciens des jetons (train), puis
-mesure la meilleure sur les 30 % les plus récents (test), qu'il n'a jamais vus : c'est le
-seul chiffre qui compte. Un résultat de test négatif signifie : ne PAS passer en réel.
+essaie des combinaisons sur les 70 % les plus anciens (train), puis mesure le meilleur
+sur les 30 % les plus récents (test). Une zone de purge égale à la durée maximale de détention
+retire du train les observations trop proches de la frontière temporelle. Il faut au moins
+30 trades OOS et un profit factor >= 1,2 pour afficher un verdict positif ; ce n'est toujours
+pas une preuve de rentabilité ni un feu vert LIVE.
 
 Limites : prix DexScreener (pas un devis exécutable), pas de MEV ; coûts modélisés par
 frais + pourboires + impact prix mesuré. Les stops sont exécutés au prix du snapshot
@@ -182,45 +184,73 @@ def _entry_combos(base: EntryRules):
 
 
 def optimize(paths: list[TokenPath], base_entry: EntryRules, base_exit: ExitRules,
-             train_frac: float = 0.7, min_train_trades: int = 15) -> dict:
+             train_frac: float = 0.7, min_train_trades: int = 30,
+             min_test_trades: int = 30) -> dict:
     paths = sorted(paths, key=lambda p: p.t0)
     cut = int(len(paths) * train_frac)
-    train, test = paths[:cut], paths[cut:]
+    raw_train, test = paths[:cut], paths[cut:]
+
+    # Purge : aucune trajectoire train ne doit pouvoir rester ouverte après le début du test.
+    purge_seconds = max(EXIT_GRID["max_hold_minutes"]) * 60
+    test_start = test[0].t0 if test else float("inf")
+    train = [p for p in raw_train if p.t0 + purge_seconds <= test_start]
+    purged = len(raw_train) - len(train)
+
     exits = list(_exit_combos(base_exit))
     entries = list(_entry_combos(base_entry))
 
-    # Pré-calcul : résultat de chaque jeton pour chaque règle de sortie, masque d'entrée par règle.
-    pnl = [[simulate(p, e).pnl_pct for p in paths] for e in exits]
-    mask = [[evaluate_entry(p.features, en)[0] for p in paths] for en in entries]
+    # Pré-calcul sur le train uniquement. Le test n'intervient jamais dans la sélection.
+    train_results = [[simulate(p, rule) for p in train] for rule in exits]
+    train_masks = [[evaluate_entry(p.features, rule)[0] for p in train] for rule in entries]
 
     best = None
-    for ei, en_mask in enumerate(mask):
-        idx_train = [i for i in range(cut) if en_mask[i]]
-        if len(idx_train) < min_train_trades:
-            continue
-        for xi, row in enumerate(pnl):
-            score = sum(row[i] for i in idx_train)
+    for ei, entry_mask in enumerate(train_masks):
+        for xi, row in enumerate(train_results):
+            selected = [result for result, accepted in zip(row, entry_mask) if accepted]
+            if len(selected) < min_train_trades:
+                continue
+            m = metrics(selected)
+            if m["avg_pnl_pct"] is None:
+                continue
+            # Espérance moyenne pénalisée par le drawdown, pour ne pas optimiser le seul PnL cumulé.
+            score = m["avg_pnl_pct"] - abs(min(0.0, m["max_drawdown_pct"])) / (len(selected) ** 0.5)
             if best is None or score > best[0]:
                 best = (score, ei, xi)
 
     baseline_train, _ = backtest(train, base_entry, base_exit)
     baseline_test, _ = backtest(test, base_entry, base_exit)
     out = {
-        "tokens": len(paths), "train_tokens": len(train), "test_tokens": len(test),
+        "tokens": len(paths),
+        "raw_train_tokens": len(raw_train),
+        "train_tokens": len(train),
+        "purged_train_tokens": purged,
+        "test_tokens": len(test),
+        "purge_minutes": purge_seconds / 60,
+        "min_train_trades": min_train_trades,
+        "min_test_trades": min_test_trades,
         "combinations_tested": len(exits) * len(entries),
         "current_settings": {"train": baseline_train, "test": baseline_test},
     }
     if best is None:
-        out["status"] = f"PAS_ASSEZ_DE_DONNEES (il faut au moins {min_train_trades} entrées en train)"
+        out["status"] = f"PAS_ASSEZ_DE_DONNEES_TRAIN ({min_train_trades} trades requis)"
         return out
+
     _, ei, xi = best
     b_entry, b_exit = entries[ei], exits[xi]
     tr, _ = backtest(train, b_entry, b_exit)
     te, _ = backtest(test, b_entry, b_exit)
+    if te["trades"] < min_test_trades:
+        status = f"PAS_ASSEZ_DE_DONNEES_TEST ({te['trades']}/{min_test_trades} trades)"
+    else:
+        pf = te["profit_factor"]
+        pf_ok = pf is None or pf >= 1.2
+        train_positive = (tr["avg_pnl_pct"] is not None and tr["avg_pnl_pct"] > 0)
+        test_positive = (te["avg_pnl_pct"] is not None and te["avg_pnl_pct"] > 0)
+        status = ("RENTABLE_HORS_ECHANTILLON" if train_positive and test_positive and pf_ok
+                  else "NON_RENTABLE_HORS_ECHANTILLON — ne passez pas en réel avec ces réglages")
     out.update({
         "best": {"entry": asdict(b_entry), "exit": asdict(b_exit), "train": tr, "test": te},
-        "status": ("RENTABLE_HORS_ECHANTILLON" if te["trades"] >= 5 and te["total_return_pct"] > 0
-                   else "NON_RENTABLE_HORS_ECHANTILLON — ne passez pas en réel avec ces réglages"),
+        "status": status,
         "env": to_env(b_entry, b_exit),
     })
     return out

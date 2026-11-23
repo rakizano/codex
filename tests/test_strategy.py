@@ -62,6 +62,7 @@ def test_old_database_is_migrated(tmp_path):
     con.close()
     pos = PaperTrader(db).open_positions()[0]
     assert pos.remaining_frac == 1.0 and pos.tp1_done is False
+    assert pos.source == "scan" and pos.signal_buyers == () and pos.sold_signal_buyers == ()
 
 
 def test_copytop_sales_require_a_multi_wallet_quorum():
@@ -152,27 +153,35 @@ def _synthetic_market(n=120, seed=7):
             prices = [1 + (peak - 1) * k / 10 for k in range(1, 11)] + [peak * 0.6, peak * 0.4]
         else:
             prices = [1 - 0.05 * k for k in range(1, 12)]
-        paths.append(_path(f"t{i}", i * 600, prices, feats))
+        paths.append(_path(f"t{i}", i * 7200, prices, feats))
     return paths
 
 
 def test_optimizer_finds_the_edge_out_of_sample():
     paths = _synthetic_market()
     base_entry = replace(EntryRules(), min_buy_sell_ratio_h1=0.8)  # réglage de départ médiocre
-    res = optimize(paths, base_entry, ExitRules(), min_train_trades=10)
+    res = optimize(paths, base_entry, ExitRules(), min_train_trades=10, min_test_trades=10)
     best = res["best"]
     assert best["entry"]["min_buy_sell_ratio_h1"] == 1.3            # ne garde que les jetons forts
     assert best["test"]["total_return_pct"] > 0 and best["test"]["win_rate_pct"] == 100
     assert res["status"] == "RENTABLE_HORS_ECHANTILLON"
+    assert res["purged_train_tokens"] == 6 and res["train_tokens"] == 78
     assert res["current_settings"]["test"]["total_return_pct"] < best["test"]["total_return_pct"]
     assert res["env"]["MIN_BUY_SELL_RATIO_H1"] == "1.3"
 
 
 def test_optimizer_refuses_when_no_edge():
     rnd = random.Random(1)
-    noise = [_path(f"n{i}", i * 600, [1 - 0.04 * k * rnd.random() for k in range(1, 12)]) for i in range(60)]
-    res = optimize(noise, EntryRules(), ExitRules(), min_train_trades=10)
+    noise = [_path(f"n{i}", i * 7200, [1 - 0.04 * k * rnd.random() for k in range(1, 12)]) for i in range(60)]
+    res = optimize(noise, EntryRules(), ExitRules(), min_train_trades=10, min_test_trades=10)
     assert res["status"].startswith("NON_RENTABLE")
+
+
+def test_optimizer_requires_a_real_oos_sample():
+    paths = _synthetic_market()
+    res = optimize(paths, EntryRules(), ExitRules(), min_train_trades=10, min_test_trades=30)
+    assert res["status"].startswith("PAS_ASSEZ_DE_DONNEES_TEST")
+    assert res["best"]["test"]["trades"] < 30
 
 
 def test_optimizer_needs_data():
@@ -243,14 +252,15 @@ def test_bot_records_observations_and_tracks():
 def test_copytop_sell_tape_closes_only_the_originating_smart_position():
     from bot import Bot
     from config import Settings
-    from datetime import datetime, timezone
+    from datetime import datetime, timezone, timedelta
     api = FakeApis()
+    sale_at = (datetime.now(timezone.utc) + timedelta(seconds=5)).isoformat()
     api.copytop_live_trades = [
-        {"at": datetime.now(timezone.utc).isoformat(), "handle": "pf_a", "side": "sell",
+        {"at": sale_at, "handle": "pf_a", "side": "sell",
          "chain": "solana", "token": CLEAN, "usd": 500},
-        {"at": datetime.now(timezone.utc).isoformat(), "handle": "pf_b", "side": "sell",
+        {"at": sale_at, "handle": "pf_b", "side": "sell",
          "chain": "solana", "token": CLEAN, "usd": 600},
-        {"at": datetime.now(timezone.utc).isoformat(), "handle": "unrelated", "side": "sell",
+        {"at": sale_at, "handle": "unrelated", "side": "sell",
          "chain": "solana", "token": CLEAN, "usd": 9000},
     ]
 
