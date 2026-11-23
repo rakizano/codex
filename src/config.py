@@ -90,6 +90,12 @@ class Settings:
     smart_interval_s: float = 60.0
     smart_pools_per_cycle: int = 3       # requêtes GeckoTerminal par cycle (quota 10/min partagé)
     smart_rules: SmartRules = field(default_factory=SmartRules)
+    # Signaux copy.top (classement PnL Pump.fun) : confluence de top traders sur un jeton
+    copytop_enabled: bool = True
+    copytop_interval_s: float = 60.0
+    copytop_min_top_traders: int = 3     # top traders ayant acheté
+    copytop_min_still_in: int = 2        # ... et toujours en position (pas déjà revendu)
+    copytop_max_signal_age_min: float = 30.0
 
     thresholds: Thresholds = field(default_factory=Thresholds)
     exit_rules: ExitRules = field(default_factory=ExitRules)
@@ -143,6 +149,11 @@ class Settings:
             exit_rules=ex,
             entry_rules=en,
             smart_rules=sm,
+            copytop_enabled=os.environ.get("COPYTOP_ENABLED", "true").lower() not in ("0", "false", "no"),
+            copytop_interval_s=max(30.0, _float("COPYTOP_INTERVAL_S", cls.copytop_interval_s)),
+            copytop_min_top_traders=max(1, int(_float("COPYTOP_MIN_TOP_TRADERS", cls.copytop_min_top_traders))),
+            copytop_min_still_in=max(1, int(_float("COPYTOP_MIN_STILL_IN", cls.copytop_min_still_in))),
+            copytop_max_signal_age_min=_float("COPYTOP_MAX_SIGNAL_AGE_MIN", cls.copytop_max_signal_age_min),
             smart_enabled=os.environ.get("SMART_ENABLED", "true").lower() not in ("0", "false", "no"),
             smart_interval_s=max(20.0, _float("SMART_INTERVAL_S", cls.smart_interval_s)),
             smart_pools_per_cycle=max(1, min(6, int(_float("SMART_POOLS_PER_CYCLE", cls.smart_pools_per_cycle)))),

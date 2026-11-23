@@ -158,7 +158,8 @@ Le bot a deux moteurs indépendants, comparés en simulation :
 |---|---|---|
 | 1 — Scan | nouveaux jetons + momentum (règles d'entrée) | `scan` |
 | 2 — Smart Money | jetons achetés par plusieurs wallets rentables | `smart` |
-| Analyse croisée | jetons désignés par les deux moteurs (traités en priorité) | `both` |
+| 2 bis — copy.top | confluence de top traders du classement PnL Pump.fun | `copytop` |
+| Analyse croisée | jetons désignés par le scan ET un moteur smart (traités en priorité) | `both` |
 
 **Comment il repère les meilleurs traders (gratuit, sans clé)** : il lit en boucle les 300 derniers
 trades des pools en tendance (GeckoTerminal : wallet, achat/vente, montant USD, prix). Pour chaque
@@ -174,6 +175,14 @@ gestion des positions s'appliquent. Un achat smart ne force jamais une entrée.
 (wallets investis, multiple actuel et maximal depuis leur entrée, dernier achat — `null` si le prix est
 indisponible, rien n'est inventé). `report` contient `by_source` : PnL et taux de réussite **par moteur**,
 pour savoir lequel est réellement rentable.
+
+**Signaux copy.top** (étiquette `copytop`) : toutes les minutes, le bot lit les alertes de confluence de
+copy.top (serveur MCP public, gratuit, lecture seule — il ne passe aucun ordre) : au moins 3 top traders du
+classement PnL Pump.fun ont acheté le même jeton, dont au moins 2 sont encore en position, depuis moins de
+30 min. Seuls le mint et des nombres sont gardés (noms et textes = données de tiers). Le jeton passe ensuite
+par les mêmes filtres de sécurité ; il est refusé s'il a déjà pris plus de +50 % de capitalisation depuis le
+signal. Constat sur données réelles : la plupart de ces jetons sont encore sur la courbe de lancement
+Pump.fun (pas de pool de liquidité) et sont donc rejetés par les filtres de sécurité.
 
 Limites : l'historique se construit avec le temps (aucun wallet n'est « smart » au premier lancement) ;
 seuls les pools interrogés sont visibles, donc un achat d'un wallet smart sur un jeton hors tendance est manqué.

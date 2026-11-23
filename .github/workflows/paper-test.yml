@@ -23,6 +23,7 @@ concurrency:
 
 permissions:
   contents: read
+  actions: write   # uniquement pour relancer ce workflow à la fin (enchaînement continu)
 
 jobs:
   paper:
@@ -87,3 +88,12 @@ jobs:
             python3 scripts/run_bot.py optimize | tail -40 || true
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
+
+      # Enchaînement : le déclenchement programmé de GitHub n'est pas garanti, donc chaque
+      # exécution relance la suivante (dépôt public uniquement). Pour arrêter : variable de
+      # dépôt PAPER_CHAIN=false, ou désactiver le workflow dans l'onglet Actions.
+      - name: Relancer l'exécution suivante
+        if: ${{ always() && !github.event.repository.private && vars.PAPER_CHAIN != 'false' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run paper-test.yml --ref "${{ github.ref_name }}"

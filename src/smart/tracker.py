@@ -41,7 +41,7 @@ CREATE INDEX IF NOT EXISTS sm_trades_mint_ts ON sm_trades(mint, ts);
 @dataclass(frozen=True)
 class SmartRules:
     min_closed_tokens: int = 3        # jetons revendus (≥ 50 %) pour juger un wallet
-    min_win_rate: float = 0.6
+    min_win_rate: float = 0.35         # les meilleurs traders Pump.fun gagnent avec 23–56 % de réussite
     min_realized_pnl_usd: float = 500.0
     max_trades_per_token: int = 15    # au-delà : robot de volume / MEV
     min_buy_usd: float = 100.0        # achat significatif

@@ -65,7 +65,9 @@ class FakeApis:
         self.x_auth_seen: list[str] = []
         self.top_boosts: list[str] = []   # sources de découverte supplémentaires
         self.trending: list[str] = []
-        self.pool_trades: dict[str, list[dict]] = {}   # moteur smart money : trades publics par pool
+        self.pool_trades: dict[str, list[dict]] = {}
+        self.copytop_events: list[dict] = []          # alertes copy.top simulées
+        self.copytop_requests: list[dict] = []   # moteur smart money : trades publics par pool
 
     def handler(self, req: httpx.Request) -> httpx.Response:
         url, host, path = str(req.url), req.url.host, req.url.path
@@ -89,6 +91,14 @@ class FakeApis:
 
         if host == "api.rugcheck.xyz":
             return httpx.Response(200, json=_report())
+
+        if host == "copy.top":
+            body = json.loads(req.content)
+            assert body["method"] == "tools/call" and body["params"]["name"] == "get_alerts"
+            self.copytop_requests.append(body["params"]["arguments"])
+            payload = {"cursor": "2026-01-01T00:00:00Z", "events": self.copytop_events}
+            return httpx.Response(200, json={"jsonrpc": "2.0", "id": body["id"],
+                                             "result": {"content": [{"type": "text", "text": json.dumps(payload)}]}})
 
         if host == "api.geckoterminal.com":
             if path.endswith("/trending_pools"):

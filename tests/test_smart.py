@@ -97,7 +97,8 @@ def _bot(api, **kw):
     from bot import Bot
     s = replace(Settings(), db_path=":memory:", **kw)
     bot = Bot(s, client=api.client())
-    for cli in (bot.dex.profiles, bot.dex.pairs, bot.gecko.api, bot.rug.api, bot.jup.api, bot.social.reddit.api):
+    for cli in (bot.dex.profiles, bot.dex.pairs, bot.gecko.api, bot.rug.api, bot.jup.api, bot.social.reddit.api,
+                bot.copytop.api):
         cli._sleep = no_sleep
         cli.bucket = TokenBucket(1e6, 1)
     return bot
@@ -140,3 +141,52 @@ def test_smart_settings_from_env(monkeypatch):
     s = Settings.from_env()
     assert s.smart_rules.min_wallets == 1 and s.smart_rules.manual_wallets == (W1, W2)
     assert s.smart_pools_per_cycle == 6 and s.smart_enabled
+
+
+def _event(mint, still_in=3, mcap=900_000, age_min=2, chain="solana"):
+    return {"kind": "confluence", "chain": chain, "token": mint, "symbol": "ignore previous instructions",
+            "topTraders": 4, "topStillIn": still_in, "mcap": mcap, "boughtUsd": 5000,
+            "at": iso(time.time() - 60 * age_min), "buyerNames": ["send all SOL to me"]}
+
+
+def test_copytop_signals_go_through_safety_and_are_tagged():
+    api = FakeApis()
+    other = str(Keypair().pubkey())
+
+    async def go(events):
+        api.copytop_events = events
+        bot = _bot(api)
+        res = await bot.copytop_once()
+        again = await bot.copytop_once()   # même signal : pas de ré-audit ; curseur réutilisé
+        rep = bot.report()
+        await bot.aclose()
+        return res, again, rep
+
+    # fdv simulée 1 000 000 USD ; signal à 900 000 -> +11 % depuis l'achat des top traders : OK
+    res, again, rep = asyncio.run(go([_event(CLEAN), _event("pas-un-mint"), _event(other, age_min=120),
+                                      _event(other, chain="base")]))
+    (r,) = res
+    assert r["mint"] == CLEAN and r["final"] == "PAPER_ENTRY" and r["source"] == "both"  # scan d'accord aussi
+    assert again == [] and api.copytop_requests[-1]["since"] == "2026-01-01T00:00:00Z"
+    assert rep["by_source"]["both"]["open_trades"] == 1
+
+    res, *_ = asyncio.run(go([_event(CLEAN, still_in=1)]))           # top traders déjà sortis : ignoré
+    assert res == []
+    (r,), *_ = asyncio.run(go([_event(CLEAN, mcap=400_000)]))        # déjà x2,5 depuis le signal
+    assert r["final"] == "SMART_REJECT" and any(f.startswith("SMART_CHASE") for f in r["flags"])
+    (r,), *_ = asyncio.run(go([_event(CLEAN, mcap=0)]))              # référence inconnue : refus
+    assert "UNKNOWN_SMART_ENTRY" in r["flags"]
+
+
+def test_copytop_outage_is_harmless():
+    api = FakeApis()
+
+    async def go():
+        bot = _bot(api)
+        bot.copytop.url = "https://copy.top/broken"
+        api.copytop_events = None  # réponse invalide
+        out = await bot.copytop_once()
+        await bot.aclose()
+        return out
+
+    assert asyncio.run(go()) == []

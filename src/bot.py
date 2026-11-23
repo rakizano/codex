@@ -21,13 +21,15 @@ import logging
 import os
 import time
 from collections import deque
+from datetime import datetime
 
 import httpx
 
 from analyzer import OllamaAnalyzer, combine
 from cache import TTLCache
 from config import PAPER, Settings
-from fetchers import DexScreener, GeckoTerminal, Jupiter, RugCheck, SolanaRpc
+from memecoin.filters import is_valid_mint
+from fetchers import CopyTop, DexScreener, GeckoTerminal, Jupiter, RugCheck, SolanaRpc
 from filters.rug_detector import RugDetector
 from paper_trader import PaperTrader
 from smart import SmartMoneyBook
@@ -70,6 +72,7 @@ class Bot:
         self._pools: deque[tuple[str, str]] = deque()   # (pool, mint) interrogés à tour de rôle
         self._smart_buys: dict[str, dict] = {}          # dernier état des achats smart, par jeton
         self._smart_cycles = 0
+        self.copytop = CopyTop(self.client) if settings.copytop_enabled else None
 
         # Exécution réelle : uniquement si toutes les conditions de live.executor sont réunies.
         self.executor = executor
@@ -114,6 +117,38 @@ class Bot:
                 mints.append(mint)
         # Analyse croisée : les jetons déjà achetés par des wallets smart passent en premier.
         return sorted(mints, key=lambda m: -len(self._smart_buys.get(m, {}).get("wallets", ())))
+
+    async def copytop_once(self) -> list[dict]:
+        """Alertes copy.top : plusieurs top traders du classement Pump.fun achètent le même jeton.
+        Seuls le mint (validé) et des nombres sont utilisés ; le jeton passe ensuite par les
+        mêmes filtres de sécurité que tous les autres."""
+        if self.copytop is None or self.trader.circuit_breaker_tripped():
+            return []
+        cursor = self.cache.get("copytop:cursor")
+        events, cursor = await self.copytop.confluence_alerts(cursor, self.s.copytop_min_top_traders)
+        if cursor:
+            self.cache.set("copytop:cursor", cursor, 7 * 86400)
+        results, now = [], time.time()
+        for e in events:
+            mint = e.get("token")
+            try:
+                age_min = (now - datetime.fromisoformat(str(e["at"]).replace("Z", "+00:00")).timestamp()) / 60
+                still_in, mcap = int(e.get("topStillIn") or 0), float(e.get("mcap") or 0)
+            except (KeyError, TypeError, ValueError):
+                continue
+            if not is_valid_mint(mint) or age_min > self.s.copytop_max_signal_age_min:
+                continue  # signal trop ancien (ex. après une coupure) : on ne court pas après
+            if self.cache.get(f"ct_seen:{mint}") is not None or still_in < self.s.copytop_min_still_in:
+                continue  # déjà traité, ou les top traders sont déjà ressortis : pas d'audit inutile
+            self.cache.set(f"ct_seen:{mint}", 1, 2 * 3600)
+            buys = {"n_wallets": still_in, "min_wallets": self.s.copytop_min_still_in,
+                    "usd": float(e.get("boughtUsd") or 0), "entry_mcap_usd": mcap or None}
+            log.info("%s : signal copy.top, %d top traders encore en position", mint, still_in)
+            try:
+                results.append(await self.process(mint, smart=buys, engine="copytop"))
+            except Exception:
+                log.exception("audit de %s en échec (ignoré)", mint)
+        return results
 
     def _remember_pools(self, pools: list[tuple[str, str]]) -> None:
         known = {p for p, _ in self._pools}
@@ -184,13 +219,14 @@ class Bot:
         return self.trader.roundtrip_cost_pct(self.s.position_size_sol) + 2 * scaled
 
     # --- un jeton ---------------------------------------------------------------
-    async def process(self, mint: str, smart: dict | None = None) -> dict:
-        """`smart` : achats smart détectés (moteur 2). Sans lui, c'est le scan classique (moteur 1)."""
+    async def process(self, mint: str, smart: dict | None = None, engine: str = "smart") -> dict:
+        """`smart` : achats smart détectés (moteur 2, `engine` = smart ou copytop).
+        Sans lui, c'est le scan classique (moteur 1)."""
         self.cache.set(f"seen:{mint}", 1, SEEN_TTL_S)
         audit = await self.detector.audit(mint)
         flags = list(audit.flags)
         final = "REJECT"
-        source = "smart" if smart else "scan"
+        source = engine if smart else "scan"
 
         if audit.verdict == "WATCHLIST_PAPER":
             # 1. Données pour l'optimiseur : tout jeton SAIN est suivi, qu'on y entre ou non.
@@ -207,7 +243,7 @@ class Bot:
                 if entry_ok and self._smart_buys.get(mint):
                     source = "both"  # le scan classique ET des wallets smart désignent ce jeton
             else:
-                ok, smart_flags = self._smart_entry(audit.observations.get("price_usd"), smart)
+                ok, smart_flags = self._smart_entry(audit.observations, smart)
                 flags += smart_flags
                 final = "PAPER_ENTRY" if ok else "SMART_REJECT"
                 if ok and entry_ok:
@@ -255,15 +291,23 @@ class Bot:
         return {"mint": mint, "deterministic": audit.verdict, "final": final, "source": source,
                 "flags": flags, "position_id": opened, "size": size_info}
 
-    def _smart_entry(self, price_usd, buys: dict) -> tuple[bool, list[str]]:
-        """Entrée smart : assez de wallets distincts, et pas de course après un prix déjà envolé."""
+    def _smart_entry(self, obs: dict, buys: dict) -> tuple[bool, list[str]]:
+        """Entrée smart : assez de wallets distincts, et pas de course après un prix déjà envolé.
+        Le prix d'entrée des wallets est connu (moteur 2) ou déduit de la capitalisation au moment
+        du signal (copy.top). Sans référence fiable : refus (fail-closed)."""
         r = self.s.smart_rules
-        flags = [f"SMART_WALLETS({len(buys['wallets'])})"]
-        if len(buys["wallets"]) < r.min_wallets:
+        n = buys.get("n_wallets", len(buys.get("wallets", ())))
+        flags = [f"SMART_WALLETS({n})"]
+        if n < buys.get("min_wallets", r.min_wallets):
             return False, flags + ["SMART_TOO_FEW_WALLETS"]
-        if not price_usd:
-            return False, flags + ["UNKNOWN_PRICE"]
-        chase = 100 * (price_usd / buys["entry_price_usd"] - 1)
+        price, fdv = obs.get("price_usd"), obs.get("fdv_usd")
+        if buys.get("entry_price_usd") and price:
+            ratio = price / buys["entry_price_usd"]
+        elif buys.get("entry_mcap_usd") and fdv:
+            ratio = fdv / buys["entry_mcap_usd"]
+        else:
+            return False, flags + ["UNKNOWN_SMART_ENTRY"]
+        chase = 100 * (ratio - 1)
         if chase > r.max_chase_pct:
             return False, flags + [f"SMART_CHASE(+{chase:.0f}%)"]
         return True, flags
@@ -345,7 +389,7 @@ class Bot:
     async def run(self, max_cycles: int | None = None) -> None:
         log.info("démarrage en mode %s : %s", "LIVE" if self.live else "PAPER",
                  json.dumps(self.s.redacted(), default=str))
-        next_scan = next_track = next_monitor = next_smart = 0.0
+        next_scan = next_track = next_monitor = next_smart = next_copytop = 0.0
         cycles = 0
         while max_cycles is None or cycles < max_cycles:
             now = time.monotonic()
@@ -358,6 +402,12 @@ class Bot:
                 except Exception:
                     log.exception("moteur smart money en échec (ignoré)")
                 next_smart = now + self.s.smart_interval_s
+            if self.copytop is not None and now >= next_copytop:
+                try:
+                    await self.copytop_once()
+                except Exception:
+                    log.exception("signaux copy.top en échec (ignorés)")
+                next_copytop = now + self.s.copytop_interval_s
             if now >= next_monitor:
                 await self.monitor_once()
                 next_monitor = time.monotonic() + self.s.monitor_interval_s
@@ -468,6 +518,7 @@ async def _main(argv: list[str] | None = None) -> int:
             print(json.dumps(await bot.process(a.mint), indent=2, ensure_ascii=False))
         elif a.cmd == "smart":
             await bot.smart_once()
+            await bot.copytop_once()
             print(json.dumps(await bot.smart_report(), indent=2, ensure_ascii=False))
         elif a.cmd == "monitor":
             print(json.dumps(await bot.monitor_once(), indent=2))
