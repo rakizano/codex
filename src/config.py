@@ -107,8 +107,8 @@ class Settings:
 
     # Moteur 2 : Smart Money (wallets rentables observés via les trades publics des pools)
     smart_enabled: bool = True
-    smart_interval_s: float = 60.0
-    smart_pools_per_cycle: int = 3       # requêtes GeckoTerminal par cycle (quota 10/min partagé)
+    smart_interval_s: float = 120.0
+    smart_pools_per_cycle: int = 2       # requêtes GeckoTerminal par cycle (quota réel ~6/min partagé)
     smart_rules: SmartRules = field(default_factory=SmartRules)
     # Signaux copy.top (classement PnL Pump.fun) : confluence de top traders sur un jeton
     copytop_enabled: bool = True
