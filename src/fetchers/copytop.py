@@ -118,8 +118,10 @@ class CopyTop:
                     hold = _num(t.get("holdMin"))
                     fp = t.get("fairPlay") if t.get("fairPlay") in ("clean", "watch", "flagged") else None
                     out[t["handle"]] = {"fair_play": fp, "hold_min": hold if hold is not None and hold >= 0 else None}
-        if self.cache is not None and complete:
-            self.cache.set(key, out, ttl_s)
+        if self.cache is not None:
+            # Classement partiel (délais, 400/429 observés en production) : conservé 10 min au lieu
+            # d'être redemandé à chaque signal. Un trader absent reste inéligible (fail-closed).
+            self.cache.set(key, out, ttl_s if complete else 600)
         return out
 
     async def trader_profile(self, handle: str, ttl_s: float = 6 * 3600) -> TraderProfile | None:

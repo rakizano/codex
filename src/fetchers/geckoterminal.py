@@ -1,4 +1,6 @@
-"""GeckoTerminal (sans clé) : 10 req/min, cache SQLite 60 s."""
+"""GeckoTerminal (sans clé). En production (GitHub Actions, 23/11/2026), plus de 300 réponses 429
+ont été observées à 10 requêtes/min : débit ramené à 6/min, pools en tendance mis en cache 5 min,
+bougies 3 min."""
 from __future__ import annotations
 
 import asyncio
@@ -14,7 +16,7 @@ BASE = "https://api.geckoterminal.com/api/v2"
 
 class GeckoTerminal:
     def __init__(self, cache: TTLCache, client: httpx.AsyncClient | None = None, ttl_s: float = 60.0, **kw):
-        self.api = ApiClient(BASE, TokenBucket(10, 60, burst=2), client,
+        self.api = ApiClient(BASE, TokenBucket(6, 60, burst=2), client,
                              headers={"Accept": "application/json;version=20230302"}, **kw)
         self.cache, self.ttl_s = cache, ttl_s
         self._locks: dict[str, asyncio.Lock] = {}
@@ -30,7 +32,7 @@ class GeckoTerminal:
         return data
 
     async def ohlcv(self, pool: str, aggregate_min: int = 5, limit: int = 40,
-                    ttl_s: float = 90.0) -> list | None:
+                    ttl_s: float = 180.0) -> list | None:
         """Bougies [ts, o, h, l, c, v] d'un pool (contrat vérifié). Cache 90 s par pool et
         verrou par clé : des appels simultanés ne déclenchent qu'une seule requête (quota 10/min)."""
         if not isinstance(pool, str) or not pool:
@@ -57,6 +59,10 @@ class GeckoTerminal:
 
     async def trending_pools(self) -> list[tuple[str, str]]:
         """(adresse du pool, mint) des pools Solana en tendance (établis, avec du volume)."""
+        key = "gt:trending"
+        hit = self.cache.get(key)
+        if isinstance(hit, list):
+            return [tuple(x) for x in hit]
         data = await self.api.get("/networks/solana/trending_pools", page=1)
         out: list[tuple[str, str]] = []
         for pool in (data or {}).get("data", []) if isinstance(data, dict) else []:
@@ -67,6 +73,8 @@ class GeckoTerminal:
                 continue
             if isinstance(tid, str) and tid.startswith("solana_"):
                 out.append((addr if isinstance(addr, str) else "", tid[len("solana_"):]))
+        if out:
+            self.cache.set(key, out, 300)
         return out
 
     async def trending_mints(self) -> list[str]:

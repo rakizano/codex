@@ -476,3 +476,43 @@ def test_live_sells_chunks_large_cohorts_and_keeps_oldest_cursor():
     assert [len(c["params"]["traders"].split(",")) for c in calls[:3]] == [25, 25, 10]
     assert cursor == "2026-01-01T00:01:00Z"
     assert trades2 == [] and cursor2 == "2026-01-01T00:00:00Z"    # échec : le curseur n'avance pas
+
+
+# --- quotas (constats de production du 23/11/2026) -------------------------------------------
+
+def test_trending_pools_are_cached():
+    from cache import TTLCache
+    from fetchers import GeckoTerminal
+    api = FakeApis()
+    api.trending = [CLEAN]
+
+    async def go():
+        g = GeckoTerminal(TTLCache(":memory:"), api.client())
+        g.api._sleep = no_sleep
+        g.api.bucket = TokenBucket(1e6, 1)
+        a = await g.trending_pools()
+        b = await g.trending_pools()
+        return a, b
+
+    a, b = asyncio.run(go())
+    assert a == b == [("pool0", CLEAN)]
+    assert sum("trending_pools" in c for c in api.calls) == 1
+
+
+def test_partial_leaderboard_is_cached_not_refetched_per_signal():
+    from cache import TTLCache
+    from fetchers.copytop import CopyTop
+    api = FakeApis()
+    api.copytop_down = True     # classement indisponible (délais / 400 / 429 observés)
+
+    async def go():
+        ct = CopyTop(api.client(), TTLCache(":memory:"))
+        ct.api._sleep = no_sleep
+        ct.api.bucket = TokenBucket(1e6, 1)
+        first = await ct.leaderboard()
+        n = len(api.copytop_requests)
+        second = await ct.leaderboard()
+        return first, second, n, len(api.copytop_requests)
+
+    first, second, n1, n2 = asyncio.run(go())
+    assert first == second == {} and n1 == n2      # aucune nouvelle requête : pas d'acharnement
