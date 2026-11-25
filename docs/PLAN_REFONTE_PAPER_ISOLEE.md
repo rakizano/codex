@@ -25,7 +25,7 @@ Le rapport `docs/REFONTE.md` signale notamment :
 - la migration Pump.fun / PumpSwap et le classement de liquidite ;
 - des filtres de velocite M5 et une politique d'age STRICT / PAPER_FAST ;
 - une admissibilite copy.top restrictive (8 traders admissibles sur 55 dans l'observation documentee) ;
-- le controle des createurs serie ls en attente d'un RPC configure ;
+- le controle des createurs seriels en attente d'un RPC configure ;
 - un Walk-Forward avec verdict `INSUFFICIENT_EVIDENCE` faute de donnees suffisantes ;
 - une rentabilite non demontree.
 
