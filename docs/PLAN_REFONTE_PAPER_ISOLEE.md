@@ -102,10 +102,10 @@ Les changements seront presentes dans une Pull Request vers `main`, sans fusion 
 
 - [x] Branche isolee creee depuis `main`.
 - [x] Plan de travail ajoute a cette branche.
-- [ ] Audit detaille du code.
-- [ ] Reproduction des faux rejets et des timeouts.
+- [x] Audit statique du code, comparaison des branches et vérification des documentations API/protocole — voir `docs/AUDIT_TECHNIQUE_PAPER.md`.
+- [ ] Reproduction empirique des faux rejets et des timeouts sur des fixtures/journaux bruts (preuve on-chain encore nécessaire).
 - [ ] Corrections confirmees.
 - [ ] Tests et campagne PAPER.
 - [ ] Pull Request soumise pour revue.
 
-**A ce stade, seul ce document de plan a ete ajoute. Aucun fichier source, configuration, secret, workflow ou parametre de trading n'a ete modifie.**
+**État après audit : deux documents de diagnostic/plan sont présents dans cette branche. Aucun fichier source, configuration, secret, workflow ou paramètre de trading n'a été modifié. L'audit statique est terminé ; les reproductions empiriques et les corrections restent à faire.**
